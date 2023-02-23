@@ -22,6 +22,7 @@
     }else{
         $_SESSION['is_flag'] = 2;
         $_SESSION['user'] = $username;
+        $_SESSION['usertype'] = $usertype;
         echo "<script>alert('登录成功！');location.href='../administrator/index.php';</script>";
     }
 ?>

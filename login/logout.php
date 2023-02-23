@@ -1,6 +1,6 @@
 <?php
     //注销session
-    //1开启session
+    //1、开启session
     session_start();
     
     //2、清空session信息
