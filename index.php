@@ -2,11 +2,16 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
     <title>数字图书馆中心</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <script src="./js/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/css/layui.css" />
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="https://ymck.me/wp-content/uploads/2022/12/head-removebg-preview-1-1.png" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="./css/layui.css" />
     <link rel="stylesheet" type="text/css" href="./css/index.css" />
     <link rel="stylesheet" href="./css/swiper-bundle.min.css">
     <style>
@@ -62,12 +67,12 @@
     </header> -->
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="index.html"> <img alt="logo" class="logo" src="images/logo.png" />
+            <a class="hc-logo" href="index.html"> <img alt="logo" class="logo" src="./images/logo.png" />
             </a>
             <ul class="layui-nav">
-                <li class="layui-nav-item hc-hide-sm layui-this"> <a href="index.html">首页</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=1">冒险类</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=2">文学类</a> </li>
+                <li class="layui-nav-item hc-hide-sm layui-this"> <a href="./index.php">首页</a> </li>
+                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=1">文学类</a> </li>
+                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=2">冒险类</a> </li>
                 <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=3">励志类</a> </li>
                 <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=4">历史类</a> </li>
                 <li class="layui-nav-item hc-show-sm"> <a href="javascript:;">更多</a>
@@ -88,13 +93,13 @@
     <div class="swiper-banner">
         <div class="swiper-wrapper">
             <div class="swiper-slide" style="border: none;height: 550px;margin-top: 0;box-shadow: 0 0 0;">
-                <img class="banner" src="images/banner-1.png" />
+                <img class="banner" src="./images/banner-1.png" />
             </div>
             <div class="swiper-slide" style="border: none;height: 550px;margin-top: 0;box-shadow: 0 0 0;">
-                <img class="banner" src="images/banner-2.png" />
+                <img class="banner" src="./images/banner-2.png" />
             </div>
             <div class="swiper-slide" style="border: none;height: 550px;margin-top: 0;box-shadow: 0 0 0;">
-                <img class="banner" src="images/banner-3.png" />
+                <img class="banner" src="./images/banner-3.png" />
             </div>
         </div>
         <div class="swiper-pagination"></div>
@@ -159,15 +164,16 @@
 
     <div class="menu">
         <div class="btn">
-            <a href='login/login.php'>登录 </a>
+            <a href='./login/login.php'>登录 </a>
         </div>
         <div class="btn">
-            <a href='register/register.php'> 注册</a>
+            <a href='./register/register.php'> 注册</a>
         </div>
-        <img id="gotoTop" title="返回顶部" class="back" src="images/gotop1.png" />
+        <img id="gotoTop" title="返回顶部" class="back" src="./images/gotop1.png" />
     </div>
 
-    <script type="text/javascript" src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script type="text/javascript" src="./js/layui.simple.js"></script>
+    <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="js/swiper-bundle.min.js"></script>
     <script type="text/javascript">
         layui.extend({

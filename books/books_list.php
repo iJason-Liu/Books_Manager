@@ -1,18 +1,18 @@
 <?php
-    session_save_path('../session/');
-    session_start();
-    include '../config/conn.php';
-    if ($_SESSION['is_flag'] != 2) {
-        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
-    }
-    // 设置文档类型：，utf-8支持中文文档
-    header("Content-Type:text/html;charset=utf-8");
+session_save_path('../session/');
+session_start();
+include '../config/conn.php';
+if ($_SESSION['is_flag'] != 2) {
+    echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+}
+// 设置文档类型：，utf-8支持中文文档
+header("Content-Type:text/html;charset=utf-8");
 
-    //执行sql语句的查询语句
-    $sql1 = "select * from books";
-    $result = mysqli_query($db_connect, $sql1);
+//执行sql语句的查询语句
+$sql1 = "select * from books";
+$result = mysqli_query($db_connect, $sql1);
 
-    mysqli_close($db_connect); //关闭数据库资源
+mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +29,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../css/layui.css">
-    <link rel="stylesheet" href="../css/modules/code.css?v=3">
-    <link rel="stylesheet" href="../css/modules/layer/layer.css?v=3.5.1">
-    <link rel="stylesheet" href="../css/modules/laydate/laydate.css?v=5.3.1">
+    <link rel="stylesheet" href="../css/modules/layer/layer.css">
     <style>
         * {
             margin: 0;
@@ -103,7 +101,7 @@
                 <li class="layui-nav-item layui-this">
                     <a href="../books/books_list.php">图书中心</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">人气图书</a></dd> <!--点击量界面展示 -->
+                        <dd><a href="../books/books_test.php">人气图书</a></dd> <!--点击量界面展示 -->
                         <dd><a href="">图书类别</a></dd>
                     </dl>
                 </li>
@@ -288,30 +286,6 @@
                             <a href='javascript:;' class="delbtn">
                                 <input type="button" data-type="tip" id="del" value="删 除" class="btn1" />
                             </a>
-                            <script type="text/javascript" src="../js/layui.js"></script>
-                            <script type="text/javascript">
-                                layui.use(['layer'], function() {
-                                    var $ = layui.jquery, layer = layui.layer;
-
-                                    $('.delbtn #del').click(function() {
-                                        // layer.msg("hello!");  //测试
-                                        layer.confirm('您是否确认删除此书？', {
-                                            title: '温馨提示',
-                                            id: 'conDel', //解决重复弹窗
-                                            btn: ['确认', '取消'] //按钮
-                                        }, function() {
-                                            layer.msg('已删除', {
-                                                icon: 1
-                                            });
-                                            location.href = "../books/books_delete.php?id=<?php echo $row["book_id"]; ?>";
-                                        }, function() {
-                                            layer.msg('取消操作', {
-                                                time: 1500, //1.5s后自动关闭
-                                            });
-                                        });
-                                    });
-                                })
-                            </script>
                         </td>
                     </tr>
                 <?php
@@ -323,32 +297,7 @@
             <div style="padding-bottom: 50px;">
 
             </div>
-            <script type='text/javascript' src='../js/jquery-3.3.1.min.js'></script>
-            <script type="text/javascript">
-                function gotoTop(minHeight) {
-                    // 定义点击返回顶部图标后向上滚动的动画
-                    $("#gotoTop").click(
-                        function() {
-                            $('html,body').animate({
-                                scrollTop: '0px'
-                            }, 'slow');
-                        })
-                    // 获取页面的最小高度
-                    minHeight ? minHeight = minHeight : minHeight = 100;
-                    // 为窗口的scroll事件绑定处理函数
-                    $(window).scroll(function() {
-                        // 获取窗口的滚动条的垂直滚动距离
-                        var s = $(window).scrollTop();
-                        // 当窗口的滚动条的垂直距离大于页面的最小高度时，让返回顶部图标渐现，否则渐隐
-                        if (s > minHeight) {
-                            $("#gotoTop").fadeIn(500);
-                        } else {
-                            $("#gotoTop").fadeOut(500);
-                        };
-                    });
-                };
-                gotoTop();
-            </script>
+
         </div>
 
         <div class="layui-footer">
@@ -358,22 +307,58 @@
             </p>
         </div>
     </div>
+    <script type='text/javascript' src='../js/jquery-3.3.1.min.js'></script>
+    <script type="text/javascript">
+        function gotoTop(minHeight) {
+            // 定义点击返回顶部图标后向上滚动的动画
+            $("#gotoTop").click(
+                function() {
+                    $('html,body').animate({
+                        scrollTop: '0px'
+                    }, 'slow');
+                })
+            // 获取页面的最小高度
+            minHeight ? minHeight = minHeight : minHeight = 100;
+            // 为窗口的scroll事件绑定处理函数
+            $(window).scroll(function() {
+                // 获取窗口的滚动条的垂直滚动距离
+                var s = $(window).scrollTop();
+                // 当窗口的滚动条的垂直距离大于页面的最小高度时，让返回顶部图标渐现，否则渐隐
+                if (s > minHeight) {
+                    $("#gotoTop").fadeIn(500);
+                } else {
+                    $("#gotoTop").fadeOut(500);
+                };
+            });
+        };
+        gotoTop();
+    </script>
+    <script type="text/javascript" src="../js/layui.simple.js"></script>
     <script>
         //JS 
         layui.use(['element', 'layer', 'util'], function() {
             var element = layui.element,
                 layer = layui.layer,
                 util = layui.util,
-                $ = layui.$;
+                $ = layui.jquery;
 
-            //头部事件
-            util.event('lay-header-event', {
-                //左侧菜单事件
-                menuLeft: function(othis) {
-                    layer.msg('展开左侧菜单的操作', {
-                        icon: 0
+                // 删除操作
+                $('.delbtn #del').click(function() {
+                // layer.msg("hello!");  //测试
+                layer.confirm('您是否确认删除此书？', {
+                    title: '温馨提示',
+                    id: 'conDel', //解决重复弹窗
+                    btn: ['确认', '取消'] //按钮
+                }, function() {
+                    layer.msg('已删除', {
+                        icon: 1
                     });
-                },
+                    location.href = "../books/books_delete.php?id=<?php echo $row["book_id"]; ?>";
+                }, function() {
+                    layer.msg('取消操作', {
+                        time: 1500, //1.5s后自动关闭
+                    });
+                });
             });
 
         });

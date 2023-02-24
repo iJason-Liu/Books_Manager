@@ -18,6 +18,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../css/layui.css">
+    <script type="text/javascript" src="../js/layui.simple.js"></script>
 </head>
 
 <body>
@@ -158,27 +159,6 @@
             </p>
         </div>
     </div>
-    <script src="../js/layui.js"></script>
-    <script>
-        //JS 
-        layui.use(['element', 'layer', 'util'], function() {
-            var element = layui.element,
-                layer = layui.layer,
-                util = layui.util,
-                $ = layui.$;
-
-            //头部事件
-            util.event('lay-header-event', {
-                //左侧菜单事件
-                menuLeft: function(othis) {
-                    layer.msg('展开左侧菜单的操作', {
-                        icon: 0
-                    });
-                },
-            });
-
-        });
-    </script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-/** 2.7.6 | MIT Licensed */ ;
+/** v2.8.0-rc.9 | MIT Licensed */ ;
 ! function(d) {
 	"use strict";
 	var t, h = d.document,
@@ -8,16 +8,16 @@
 			timeout: 10,
 			event: {}
 		},
-		r = function() {
-			this.v = "2.7.6"
+		n = function() {
+			this.v = "2.8.0-rc.9"
 		},
 		e = d.LAYUI_GLOBAL || {},
 		v = (t = h.currentScript ? h.currentScript.src : function() {
-			for (var t, e = h.scripts, o = e.length - 1, r = o; 0 < r; r--)
-				if ("interactive" === e[r].readyState) {
-					t = e[r].src;
+			for (var t, e = h.scripts, r = e.length - 1, n = r; 0 < n; n--)
+				if ("interactive" === e[n].readyState) {
+					t = e[n].src;
 					break
-				} return t || e[o].src
+				} return t || e[r].src
 		}(), m.dir = e.dir || t.substring(0, t.lastIndexOf("/") + 1)),
 		g = function(t, e) {
 			e = e || "log", d.console && console[e] && console[e]("layui error hint: " + t)
@@ -29,7 +29,6 @@
 			laydate: "laydate",
 			laypage: "laypage",
 			laytpl: "laytpl",
-			layedit: "layedit",
 			form: "form",
 			upload: "upload",
 			dropdown: "dropdown",
@@ -48,46 +47,46 @@
 			all: "all",
 			"layui.all": "layui.all"
 		},
-		s = (r.prototype.cache = m, r.prototype.define = function(t, r) {
-			return "function" == typeof t && (r = t, t = []), this.use(t, function() {
-				var o = function(t, e) {
+		s = (n.prototype.cache = m, n.prototype.define = function(t, n) {
+			return "function" == typeof t && (n = t, t = []), this.use(t, function() {
+				var r = function(t, e) {
 					layui[t] = e, m.status[t] = !0
 				};
-				return "function" == typeof r && r(function(t, e) {
-					o(t, e), m.callback[t] = function() {
-						r(o)
+				return "function" == typeof n && n(function(t, e) {
+					r(t, e), m.callback[t] = function() {
+						n(r)
 					}
 				}), this
 			}, null, "define"), this
-		}, r.prototype.use = function(o, t, e, r) {
-			var n = this,
+		}, n.prototype.use = function(r, t, e, n) {
+			var o = this,
 				i = m.dir = m.dir || v,
 				a = h.getElementsByTagName("head")[0],
-				u = (o = "string" == typeof o ? [o] : "function" == typeof o ? (t = o, ["all"]) : o, d.jQuery &&
-					jQuery.fn.on && (n.each(o, function(t, e) {
-						"jquery" === e && o.splice(t, 1)
-					}), layui.jquery = layui.$ = jQuery), o[0]),
+				u = (r = "string" == typeof r ? [r] : "function" == typeof r ? (t = r, ["all"]) : r, d.jQuery &&
+					jQuery.fn.on && (o.each(r, function(t, e) {
+						"jquery" === e && r.splice(t, 1)
+					}), layui.jquery = layui.$ = jQuery), r[0]),
 				l = 0;
 
 			function s(t, e) {
-				var o = "PLaySTATION 3" === navigator.platform ? /^complete$/ : /^(complete|loaded)$/;
-				"load" !== t.type && !o.test((t.currentTarget || t.srcElement).readyState) || (m.modules[u] = e, a
+				var r = "PLaySTATION 3" === navigator.platform ? /^complete$/ : /^(complete|loaded)$/;
+				"load" !== t.type && !r.test((t.currentTarget || t.srcElement).readyState) || (m.modules[u] = e, a
 					.removeChild(p),
-					function r() {
+					function n() {
 						return ++l > 1e3 * m.timeout / 4 ? g(u + " is not a valid module", "error") : void(m
-							.status[u] ? c() : setTimeout(r, 4))
+							.status[u] ? c() : setTimeout(n, 4))
 					}())
 			}
 
 			function c() {
-				e.push(layui[u]), 1 < o.length ? n.use(o.slice(1), t, e, r) : "function" == typeof t && (layui
-					.jquery && "function" == typeof layui.jquery && "define" !== r ? layui.jquery(function() {
+				e.push(layui[u]), 1 < r.length ? o.use(r.slice(1), t, e, n) : "function" == typeof t && (layui
+					.jquery && "function" == typeof layui.jquery && "define" !== n ? layui.jquery(function() {
 						t.apply(layui, e)
 					}) : t.apply(layui, e))
 			}
 			if (e = e || [], m.host = m.host || (i.match(/\/\/([\s\S]+?)\//) || ["//" + location.host + "/"])[0],
-				0 === o.length || layui["layui.all"] && N[u]) return c(), n;
-			var p, y = (y = (N[u] ? i + "modules/" : !/^\{\/\}/.test(n.modules[u]) && m.base || "") + (n.modules[
+				0 === r.length || layui["layui.all"] && N[u]) return c(), o;
+			var p, y = (y = (N[u] ? i + "modules/" : !/^\{\/\}/.test(o.modules[u]) && m.base || "") + (o.modules[
 				u] || u) + ".js").replace(/^\{\/\}/, "");
 			return !m.modules[u] && layui[u] && (m.modules[u] = y), m.modules[u] ? function f() {
 				return ++l > 1e3 * m.timeout / 4 ? g(u + " is not a valid module", "error") : void("string" ==
@@ -99,153 +98,153 @@
 				s(t, y)
 			}, !1) : p.attachEvent("onreadystatechange", function(t) {
 				s(t, y)
-			}), m.modules[u] = y), n
-		}, r.prototype.disuse = function(t) {
-			var o = this;
-			return t = o.isArray(t) ? t : [t], o.each(t, function(t, e) {
-				m.status[e], delete o[e], delete N[e], delete o.modules[e], delete m.status[e], delete m
+			}), m.modules[u] = y), o
+		}, n.prototype.disuse = function(t) {
+			var r = this;
+			return t = r.isArray(t) ? t : [t], r.each(t, function(t, e) {
+				m.status[e], delete r[e], delete N[e], delete r.modules[e], delete m.status[e], delete m
 					.modules[e]
-			}), o
-		}, r.prototype.getStyle = function(t, e) {
+			}), r
+		}, n.prototype.getStyle = function(t, e) {
 			t = t.currentStyle || d.getComputedStyle(t, null);
 			return t[t.getPropertyValue ? "getPropertyValue" : "getAttribute"](e)
-		}, r.prototype.link = function(o, r, t) {
-			var n = this,
+		}, n.prototype.link = function(r, n, t) {
+			var o = this,
 				e = h.getElementsByTagName("head")[0],
 				i = h.createElement("link"),
-				t = ((t = "string" == typeof r ? r : t) || o).replace(/\.|\//g, ""),
+				t = ((t = "string" == typeof n ? n : t) || r).replace(/\.|\//g, ""),
 				a = i.id = "layuicss-" + t,
 				u = "creating",
 				l = 0;
-			return i.rel = "stylesheet", i.href = o + (m.debug ? "?v=" + (new Date).getTime() : ""), i.media =
-				"all", h.getElementById(a) || e.appendChild(i), "function" != typeof r || function s(t) {
+			return i.rel = "stylesheet", i.href = r + (m.debug ? "?v=" + (new Date).getTime() : ""), i.media =
+				"all", h.getElementById(a) || e.appendChild(i), "function" != typeof n || function s(t) {
 					var e = h.getElementById(a);
-					return ++l > 1e3 * m.timeout / 100 ? g(o + " timeout") : void(1989 === parseInt(n.getStyle(e,
+					return ++l > 1e3 * m.timeout / 100 ? g(r + " timeout") : void(1989 === parseInt(o.getStyle(e,
 						"width")) ? (t === u && e.removeAttribute("lay-status"), e.getAttribute(
-						"lay-status") === u ? setTimeout(s, 100) : r()) : (e.setAttribute("lay-status", u),
+						"lay-status") === u ? setTimeout(s, 100) : n()) : (e.setAttribute("lay-status", u),
 						setTimeout(function() {
 							s(u)
 						}, 100)))
-				}(), n
-		}, r.prototype.addcss = function(t, e, o) {
-			return layui.link(m.dir + "css/" + t, e, o)
-		}, m.callback = {}, r.prototype.factory = function(t) {
+				}(), o
+		}, n.prototype.addcss = function(t, e, r) {
+			return layui.link(m.dir + "css/" + t, e, r)
+		}, m.callback = {}, n.prototype.factory = function(t) {
 			if (layui[t]) return "function" == typeof m.callback[t] ? m.callback[t] : null
-		}, r.prototype.img = function(t, e, o) {
-			var r = new Image;
-			if (r.src = t, r.complete) return e(r);
-			r.onload = function() {
-				r.onload = null, "function" == typeof e && e(r)
-			}, r.onerror = function(t) {
-				r.onerror = null, "function" == typeof o && o(t)
+		}, n.prototype.img = function(t, e, r) {
+			var n = new Image;
+			if (n.src = t, n.complete) return e(n);
+			n.onload = function() {
+				n.onload = null, "function" == typeof e && e(n)
+			}, n.onerror = function(t) {
+				n.onerror = null, "function" == typeof r && r(t)
 			}
-		}, r.prototype.config = function(t) {
+		}, n.prototype.config = function(t) {
 			for (var e in t = t || {}) m[e] = t[e];
 			return this
-		}, r.prototype.modules = function() {
+		}, n.prototype.modules = function() {
 			var t, e = {};
 			for (t in N) e[t] = N[t];
 			return e
-		}(), r.prototype.extend = function(t) {
+		}(), n.prototype.extend = function(t) {
 			for (var e in t = t || {}) this[e] || this.modules[e] ? g(e + " Module already exists", "error") : this
 				.modules[e] = t[e];
 			return this
-		}, r.prototype.router = r.prototype.hash = function(t) {
-			var o = {
+		}, n.prototype.router = n.prototype.hash = function(t) {
+			var r = {
 				path: [],
 				search: {},
 				hash: ((t = t || location.hash).match(/[^#](#.*$)/) || [])[1] || ""
 			};
-			return /^#\//.test(t) && (t = t.replace(/^#\//, ""), o.href = "/" + t, t = t.replace(/([^#])(#.*$)/,
+			return /^#\//.test(t) && (t = t.replace(/^#\//, ""), r.href = "/" + t, t = t.replace(/([^#])(#.*$)/,
 				"$1").split("/") || [], this.each(t, function(t, e) {
-				/^\w+=/.test(e) ? (e = e.split("="), o.search[e[0]] = e[1]) : o.path.push(e)
-			})), o
-		}, r.prototype.url = function(t) {
-			var n, e, o = this;
+				/^\w+=/.test(e) ? (e = e.split("="), r.search[e[0]] = e[1]) : r.path.push(e)
+			})), r
+		}, n.prototype.url = function(t) {
+			var o, e, r = this;
 			return {
 				pathname: (t ? ((t.match(/\.[^.]+?\/.+/) || [])[0] || "").replace(/^[^\/]+/, "").replace(/\?.+/,
 					"") : location.pathname).replace(/^\//, "").split("/"),
-				search: (n = {}, e = (t ? ((t.match(/\?.+/) || [])[0] || "").replace(/\#.+/, "") : location.search)
-					.replace(/^\?+/, "").split("&"), o.each(e, function(t, e) {
-						var o = e.indexOf("="),
-							r = o < 0 ? e.substr(0, e.length) : 0 !== o && e.substr(0, o);
-						r && (n[r] = 0 < o ? e.substr(o + 1) : null)
-					}), n),
-				hash: o.router(t ? (t.match(/#.+/) || [])[0] || "/" : location.hash)
+				search: (o = {}, e = (t ? ((t.match(/\?.+/) || [])[0] || "").replace(/\#.+/, "") : location.search)
+					.replace(/^\?+/, "").split("&"), r.each(e, function(t, e) {
+						var r = e.indexOf("="),
+							n = r < 0 ? e.substr(0, e.length) : 0 !== r && e.substr(0, r);
+						n && (o[n] = 0 < r ? e.substr(r + 1) : null)
+					}), o),
+				hash: r.router(t ? (t.match(/#.+/) || [])[0] || "/" : location.hash)
 			}
-		}, r.prototype.data = function(t, e, o) {
-			if (t = t || "layui", o = o || localStorage, d.JSON && d.JSON.parse) {
-				if (null === e) return delete o[t];
+		}, n.prototype.data = function(t, e, r) {
+			if (t = t || "layui", r = r || localStorage, d.JSON && d.JSON.parse) {
+				if (null === e) return delete r[t];
 				e = "object" == typeof e ? e : {
 					key: e
 				};
 				try {
-					var r = JSON.parse(o[t])
-				} catch (n) {
-					r = {}
+					var n = JSON.parse(r[t])
+				} catch (o) {
+					n = {}
 				}
-				return "value" in e && (r[e.key] = e.value), e.remove && delete r[e.key], o[t] = JSON.stringify(r),
-					e.key ? r[e.key] : r
+				return "value" in e && (n[e.key] = e.value), e.remove && delete n[e.key], r[t] = JSON.stringify(n),
+					e.key ? n[e.key] : n
 			}
-		}, r.prototype.sessionData = function(t, e) {
+		}, n.prototype.sessionData = function(t, e) {
 			return this.data(t, e, sessionStorage)
-		}, r.prototype.device = function(t) {
-			var o = navigator.userAgent.toLowerCase(),
+		}, n.prototype.device = function(t) {
+			var r = navigator.userAgent.toLowerCase(),
 				e = function(t) {
 					var e = new RegExp(t + "/([^\\s\\_\\-]+)");
-					return (t = (o.match(e) || [])[1]) || !1
+					return (t = (r.match(e) || [])[1]) || !1
 				},
-				r = {
-					os: /windows/.test(o) ? "windows" : /linux/.test(o) ? "linux" : /iphone|ipod|ipad|ios/.test(o) ?
-						"ios" : /mac/.test(o) ? "mac" : void 0,
-					ie: !!(d.ActiveXObject || "ActiveXObject" in d) && ((o.match(/msie\s(\d+)/) || [])[1] || "11"),
+				n = {
+					os: /windows/.test(r) ? "windows" : /linux/.test(r) ? "linux" : /iphone|ipod|ipad|ios/.test(r) ?
+						"ios" : /mac/.test(r) ? "mac" : void 0,
+					ie: !!(d.ActiveXObject || "ActiveXObject" in d) && ((r.match(/msie\s(\d+)/) || [])[1] || "11"),
 					weixin: e("micromessenger")
 				};
-			return t && !r[t] && (r[t] = e(t)), r.android = /android/.test(o), r.ios = "ios" === r.os, r.mobile = !(
-				!r.android && !r.ios), r
-		}, r.prototype.hint = function() {
+			return t && !n[t] && (n[t] = e(t)), n.android = /android/.test(r), n.ios = "ios" === n.os, n.mobile = !(
+				!n.android && !n.ios), n
+		}, n.prototype.hint = function() {
 			return {
 				error: g
 			}
-		}, r.prototype._typeof = r.prototype.type = function(t) {
+		}, n.prototype._typeof = n.prototype.type = function(t) {
 			return null === t ? String(t) : "object" == typeof t || "function" == typeof t ? (e = (e = Object
 					.prototype.toString.call(t).match(/\s(.+)\]$/) || [])[1] || "Object", new RegExp(
 					"\\b(Function|Array|Date|RegExp|Object|Error|Symbol)\\b").test(e) ? e.toLowerCase() :
 				"object") : typeof t;
 			var e
-		}, r.prototype._isArray = r.prototype.isArray = function(t) {
-			var e, o = this.type(t);
-			return !(!t || "object" != typeof t || t === d) && (e = "length" in t && t.length, "array" === o ||
+		}, n.prototype._isArray = n.prototype.isArray = function(t) {
+			var e, r = this.type(t);
+			return !(!t || "object" != typeof t || t === d) && (e = "length" in t && t.length, "array" === r ||
 				0 === e || "number" == typeof e && 0 < e && e - 1 in t)
-		}, r.prototype.each = function(t, o) {
-			var e, r = function(t, e) {
-				return o.call(e[t], t, e[t])
+		}, n.prototype.each = function(t, r) {
+			var e, n = function(t, e) {
+				return r.call(e[t], t, e[t])
 			};
-			if ("function" != typeof o) return this;
+			if ("function" != typeof r) return this;
 			if (this.isArray(t = t || []))
-				for (e = 0; e < t.length && !r(e, t); e++);
+				for (e = 0; e < t.length && !n(e, t); e++);
 			else
 				for (e in t)
-					if (r(e, t)) break;
+					if (n(e, t)) break;
 			return this
-		}, r.prototype.sort = function(t, n, e) {
-			var o = JSON.parse(JSON.stringify(t || []));
-			return "object" !== this.type(t) || n ? "object" != typeof t ? [o] : (o.sort(function(t, e) {
-				var o = t[n],
-					r = e[n];
+		}, n.prototype.sort = function(t, o, e) {
+			var r = JSON.parse(JSON.stringify(t || []));
+			return "object" !== this.type(t) || o ? "object" != typeof t ? [r] : (r.sort(function(t, e) {
+				var r = t[o],
+					n = e[o];
 				if (!isNaN(t) && !isNaN(e)) return t - e;
 				if (!isNaN(t) && isNaN(e)) {
-					if (!n || "object" != typeof e) return -1;
-					o = t
+					if (!o || "object" != typeof e) return -1;
+					r = t
 				} else if (isNaN(t) && !isNaN(e)) {
-					if (!n || "object" != typeof t) return 1;
-					r = e
+					if (!o || "object" != typeof t) return 1;
+					n = e
 				}
-				t = [!isNaN(o), !isNaN(r)];
-				return t[0] && t[1] ? o && !r && 0 !== r ? 1 : !o && 0 !== o && r ? -1 : o - r : t[0] ||
-					t[1] ? t[0] || !t[1] ? -1 : !t[0] || t[1] ? 1 : void 0 : r < o ? 1 : o < r ? -1 : 0
-			}), e && o.reverse(), o) : o
-		}, r.prototype.stope = function(t) {
+				t = [!isNaN(r), !isNaN(n)];
+				return t[0] && t[1] ? r && !n && 0 !== n ? 1 : !r && 0 !== r && n ? -1 : r - n : t[0] ||
+					t[1] ? t[0] || !t[1] ? -1 : !t[0] || t[1] ? 1 : void 0 : n < r ? 1 : r < n ? -1 : 0
+			}), e && r.reverse(), r) : r
+		}, n.prototype.stope = function(t) {
 			t = t || d.event;
 			try {
 				t.stopPropagation()
@@ -253,27 +252,29 @@
 				t.cancelBubble = !0
 			}
 		}, "LAYUI-EVENT-REMOVE");
-	r.prototype.onevent = function(t, e, o) {
-		return "string" != typeof t || "function" != typeof o ? this : r.event(t, e, null, o)
-	}, r.prototype.event = r.event = function(t, e, o, r) {
-		var n = this,
+	n.prototype.onevent = function(t, e, r) {
+		return "string" != typeof t || "function" != typeof r ? this : n.event(t, e, null, r)
+	}, n.prototype.event = n.event = function(t, e, r, n) {
+		var o = this,
 			i = null,
 			a = (e || "").match(/\((.*)\)$/) || [],
 			t = (t + "." + e).replace(a[0], ""),
 			u = a[1] || "",
 			l = function(t, e) {
-				!1 === (e && e.call(n, o)) && null === i && (i = !1)
+				!1 === (e && e.call(o, r)) && null === i && (i = !1)
 			};
-		return o === s ? (delete(n.cache.event[t] || {})[u], n) : r ? (m.event[t] = m.event[t] || {}, m.event[t][
-			u] = [r], this) : (layui.each(m.event[t], function(t, e) {
-			"{*}" === u ? layui.each(e, l) : ("" === t && layui.each(e, l), u && t === u && layui.each(
-				e, l))
-		}), i)
-	}, r.prototype.on = function(t, e, o) {
-		return this.onevent.call(this, e, t, o)
-	}, r.prototype.off = function(t, e) {
+		return r === s ? (delete(o.cache.event[t] || {})[u], o) : n ? (m.event[t] = m.event[t] || {}, u ? m.event[t]
+			[u] = [n] : (m.event[t][u] = m.event[t][u] || [], m.event[t][u].push(n)), this) : (layui.each(m
+			.event[t],
+			function(t, e) {
+				"{*}" === u ? layui.each(e, l) : ("" === t && layui.each(e, l), u && t === u && layui.each(
+					e, l))
+			}), i)
+	}, n.prototype.on = function(t, e, r) {
+		return this.onevent.call(this, e, t, r)
+	}, n.prototype.off = function(t, e) {
 		return this.event.call(this, e, t, s)
-	}, d.layui = new r
+	}, d.layui = new n
 }(window);
 layui.define(function(a) {
 	var i = layui.cache;
@@ -285,13 +286,13 @@ layui.define(function(a) {
 	"use strict";
 	var t, f = l.document,
 		h = function(t) {
-			return new i(t)
+			return new r(t)
 		},
-		i = function(t) {
+		r = function(t) {
 			for (var e = 0, n = "object" == typeof t ? [t] : (this.selector = t, f.querySelectorAll(t || null)); e < n
 				.length; e++) this.push(n[e])
 		};
-	(i.prototype = []).constructor = i, h.extend = function() {
+	(r.prototype = []).constructor = r, h.extend = function() {
 			var t, e = 1,
 				n = arguments,
 				o = function(t, e) {
@@ -320,7 +321,7 @@ layui.define(function(a) {
 		}, h.hasScrollbar = function() {
 			return f.body.scrollHeight > (l.innerHeight || f.documentElement.clientHeight)
 		}, h.position = function(t, e, n) {
-			var o, i, r, c, u, a, s;
+			var o, r, i, c, u, a, s;
 			e && (n = n || {}, t !== f && t !== h("body")[0] || (n.clickType = "right"), u = "right" === n.clickType ? {
 					left: (u = n.e || l.event || {}).clientX,
 					top: u.clientY,
@@ -328,23 +329,29 @@ layui.define(function(a) {
 					bottom: u.clientY
 				} : t.getBoundingClientRect(), a = e.offsetWidth, s = e.offsetHeight, o = function(t) {
 					return f.body[t = t ? "scrollLeft" : "scrollTop"] | f.documentElement[t]
-				}, r = u.left, c = u.bottom, "center" === n.align ? r -= (a - t.offsetWidth) / 2 : "right" === n
-				.align && (r = r - a + t.offsetWidth), (r = r + a + 5 > (i = function(t) {
+				}, i = u.left, c = u.bottom, "center" === n.align ? i -= (a - t.offsetWidth) / 2 : "right" === n
+				.align && (i = i - a + t.offsetWidth), (i = i + a + 5 > (r = function(t) {
 					return f.documentElement[t ? "clientWidth" : "clientHeight"]
-				})("width") ? i("width") - a - 5 : r) < 5 && (r = 5), c + s + 5 > i() && (u.top > s + 5 ? c = u
-					.top - s - 10 : "right" === n.clickType ? (c = i() - s - 10) < 0 && (c = 0) : c = 5), (a = n
-					.position) && (e.style.position = a), e.style.left = r + ("fixed" === a ? 0 : o(1)) + "px", e
+				})("width") ? r("width") - a - 5 : i) < 5 && (i = 5), c + s + 5 > r() && (u.top > s + 5 ? c = u
+					.top - s - 10 : "right" === n.clickType ? (c = r() - s - 10) < 0 && (c = 0) : c = 5), (a = n
+					.position) && (e.style.position = a), e.style.left = i + ("fixed" === a ? 0 : o(1)) + "px", e
 				.style.top = c + ("fixed" === a ? 0 : o()) + "px", h.hasScrollbar() || (s = e
-				.getBoundingClientRect(), !n.SYSTEM_RELOAD && s.bottom + 5 > i() && (n.SYSTEM_RELOAD = !0,
+				.getBoundingClientRect(), !n.SYSTEM_RELOAD && s.bottom + 5 > r() && (n.SYSTEM_RELOAD = !0,
 					setTimeout(function() {
 						h.position(t, e, n)
 					}, 50))))
 		}, h.options = function(t, e) {
-			t = h(t), e = e || "lay-options";
+			e = "object" == typeof e ? e : {
+				attr: e
+			};
+			var t = h(t),
+				n = e.attr || "lay-options",
+				t = t.attr(n);
 			try {
-				return new Function("return " + (t.attr(e) || "{}"))()
-			} catch (n) {
-				return hint.error("parseerror\uff1a" + n, "error"), {}
+				return new Function("return " + (t || "{}"))()
+			} catch (o) {
+				return layui.hint().error(e.errorText || [n + '="' + t + '"', "\n parseerror: " + o].join("\n"),
+					"error"), {}
 			}
 		}, h.isTopElem = function(n) {
 			var t = [f, h("body")[0]],
@@ -352,93 +359,93 @@ layui.define(function(a) {
 			return h.each(t, function(t, e) {
 				if (e === n) return o = !0
 			}), o
-		}, i.addStr = function(n, t) {
+		}, r.addStr = function(n, t) {
 			return n = n.replace(/\s+/, " "), t = t.replace(/\s+/, " ").split(" "), h.each(t, function(t, e) {
 				new RegExp("\\b" + e + "\\b").test(n) || (n = n + " " + e)
 			}), n.replace(/^\s|\s$/, "")
-		}, i.removeStr = function(n, t) {
+		}, r.removeStr = function(n, t) {
 			return n = n.replace(/\s+/, " "), t = t.replace(/\s+/, " ").split(" "), h.each(t, function(t, e) {
 				e = new RegExp("\\b" + e + "\\b");
 				e.test(n) && (n = n.replace(e, ""))
 			}), n.replace(/\s+/, " ").replace(/^\s|\s$/, "")
-		}, i.prototype.find = function(o) {
-			var i = this,
-				r = 0,
+		}, r.prototype.find = function(o) {
+			var r = this,
+				i = 0,
 				c = [],
 				u = "object" == typeof o;
 			return this.each(function(t, e) {
-				for (var n = u ? e.contains(o) : e.querySelectorAll(o || null); r < n.length; r++) c.push(n[r]);
-				i.shift()
-			}), u || (i.selector = (i.selector ? i.selector + " " : "") + o), h.each(c, function(t, e) {
-				i.push(e)
-			}), i
-		}, i.prototype.each = function(t) {
+				for (var n = u ? e.contains(o) : e.querySelectorAll(o || null); i < n.length; i++) c.push(n[i]);
+				r.shift()
+			}), u || (r.selector = (r.selector ? r.selector + " " : "") + o), h.each(c, function(t, e) {
+				r.push(e)
+			}), r
+		}, r.prototype.each = function(t) {
 			return h.each.call(this, this, t)
-		}, i.prototype.addClass = function(n, o) {
+		}, r.prototype.addClass = function(n, o) {
 			return this.each(function(t, e) {
-				e.className = i[o ? "removeStr" : "addStr"](e.className, n)
+				e.className = r[o ? "removeStr" : "addStr"](e.className, n)
 			})
-		}, i.prototype.removeClass = function(t) {
+		}, r.prototype.removeClass = function(t) {
 			return this.addClass(t, !0)
-		}, i.prototype.hasClass = function(n) {
+		}, r.prototype.hasClass = function(n) {
 			var o = !1;
 			return this.each(function(t, e) {
 				new RegExp("\\b" + n + "\\b").test(e.className) && (o = !0)
 			}), o
-		}, i.prototype.css = function(e, o) {
+		}, r.prototype.css = function(e, o) {
 			var t = this,
-				i = function(t) {
+				r = function(t) {
 					return isNaN(t) ? t : t + "px"
 				};
 			return "string" != typeof e || o !== undefined ? t.each(function(t, n) {
 				"object" == typeof e ? h.each(e, function(t, e) {
-					n.style[t] = i(e)
-				}) : n.style[e] = i(o)
+					n.style[t] = r(e)
+				}) : n.style[e] = r(o)
 			}) : 0 < t.length ? t[0].style[e] : void 0
-		}, i.prototype.width = function(n) {
+		}, r.prototype.width = function(n) {
 			var o = this;
 			return n !== undefined ? o.each(function(t, e) {
 				o.css("width", n)
 			}) : 0 < o.length ? o[0].offsetWidth : void 0
-		}, i.prototype.height = function(n) {
+		}, r.prototype.height = function(n) {
 			var o = this;
 			return n !== undefined ? o.each(function(t, e) {
 				o.css("height", n)
 			}) : 0 < o.length ? o[0].offsetHeight : void 0
-		}, i.prototype.attr = function(n, o) {
+		}, r.prototype.attr = function(n, o) {
 			var t = this;
 			return o !== undefined ? t.each(function(t, e) {
 				e.setAttribute(n, o)
 			}) : 0 < t.length ? t[0].getAttribute(n) : void 0
-		}, i.prototype.removeAttr = function(n) {
+		}, r.prototype.removeAttr = function(n) {
 			return this.each(function(t, e) {
 				e.removeAttribute(n)
 			})
-		}, i.prototype.html = function(n) {
+		}, r.prototype.html = function(n) {
 			var t = this;
 			return n !== undefined ? this.each(function(t, e) {
 				e.innerHTML = n
 			}) : 0 < t.length ? t[0].innerHTML : void 0
-		}, i.prototype.val = function(n) {
+		}, r.prototype.val = function(n) {
 			var t = this;
 			return n !== undefined ? this.each(function(t, e) {
 				e.value = n
 			}) : 0 < t.length ? t[0].value : void 0
-		}, i.prototype.append = function(n) {
+		}, r.prototype.append = function(n) {
 			return this.each(function(t, e) {
 				"object" == typeof n ? e.appendChild(n) : e.innerHTML = e.innerHTML + n
 			})
-		}, i.prototype.remove = function(n) {
+		}, r.prototype.remove = function(n) {
 			return this.each(function(t, e) {
 				n ? e.removeChild(n) : e.parentNode.removeChild(e)
 			})
-		}, i.prototype.on = function(n, o) {
+		}, r.prototype.on = function(n, o) {
 			return this.each(function(t, e) {
 				e.attachEvent ? e.attachEvent("on" + n, function(t) {
 					t.target = t.srcElement, o.call(e, t)
 				}) : e.addEventListener(n, o, !1)
 			})
-		}, i.prototype.off = function(n, o) {
+		}, r.prototype.off = function(n, o) {
 			return this.each(function(t, e) {
 				e.detachEvent ? e.detachEvent("on" + n, o) : e.removeEventListener(n, o, !1)
 			})
@@ -639,18 +646,18 @@ layui.define(function(e) {
 		});
 	e("laypage", o)
 });
-! function(i, r) {
+! function(i, g) {
 	"use strict";
 	var n = i.layui && layui.define,
 		l = {
 			getPath: i.lay && lay.getPath ? lay.getPath : "",
 			link: function(e, t, a) {
-				u.path && i.lay && lay.layui && lay.layui.link(u.path + e, t, a)
+				v.path && i.lay && lay.layui && lay.layui.link(v.path + e, t, a)
 			}
 		},
 		e = i.LAYUI_GLOBAL || {},
-		u = {
-			v: "5.3.1",
+		v = {
+			v: "5.5.0",
 			config: {
 				weekStart: 0
 			},
@@ -662,50 +669,56 @@ layui.define(function(e) {
 			},
 			ready: function(e) {
 				var t = "laydate",
-					a = (n ? "modules/laydate/" : "theme/") + "laydate.css?v=" + u.v;
-				return n ? layui.addcss(a, e, t) : l.link(a, e, t), this
+					a = (n ? "modules/" : "") + "laydate.css?v=" + v.v;
+				return n ? layui["layui.all"] ? "function" == typeof e && e() : layui.addcss(a, e, t) : l.link(a, e,
+					t), this
 			}
 		},
-		s = function() {
+		d = function() {
 			var t = this,
 				e = t.config.id;
-			return {
+			return (d.that[e] = t).inst = {
 				hint: function(e) {
 					t.hint.call(t, e)
 				},
-				config: (s.that[e] = t).config
+				config: t.config
 			}
 		},
 		a = "laydate",
-		w = "layui-this",
-		x = "laydate-disabled",
+		x = "layui-this",
+		k = "laydate-disabled",
 		h = [100, 2e5],
-		p = "layui-laydate-static",
-		M = "layui-laydate-list",
-		o = "layui-laydate-hint",
-		E = ".laydate-btns-confirm",
-		C = "laydate-time-text",
-		k = "laydate-btns-time",
-		f = "layui-laydate-preview",
-		g = function(e) {
+		D = "layui-laydate-static",
+		w = "layui-laydate-list",
+		o = "laydate-selected",
+		r = "layui-laydate-hint",
+		s = "laydate-day-prev",
+		y = "laydate-day-next",
+		C = ".laydate-btns-confirm",
+		M = "laydate-time-text",
+		E = "laydate-btns-time",
+		T = "layui-laydate-preview",
+		L = "layui-laydate-main",
+		S = "layui-laydate-shade",
+		I = function(e) {
 			var t = this,
-				a = (t.index = ++u.index, t.config = lay.extend({}, t.config, u.config, e), lay(e.elem || t.config
+				a = (t.index = ++v.index, t.config = lay.extend({}, t.config, v.config, e), lay(e.elem || t.config
 					.elem));
-			if (1 < a.length) return layui.each(a, function() {
-				u.render(lay.extend({}, t.config, {
+			if (1 < a.length) return lay.each(a, function() {
+				v.render(lay.extend({}, t.config, {
 					elem: this
 				}))
 			}), t;
-			(e = t.config).id = "id" in e ? e.id : t.index, u.ready(function() {
+			(e = lay.extend(t.config, lay.options(a[0]))).id = "id" in e ? e.id : t.index, v.ready(function() {
 				t.init()
 			})
 		},
-		y = "yyyy|y|MM|M|dd|d|HH|H|mm|m|ss|s";
-	s.formatArr = function(e) {
-		return (e || "").match(new RegExp(y + "|.", "g")) || []
-	}, g.isLeapYear = function(e) {
+		m = "yyyy|y|MM|M|dd|d|HH|H|mm|m|ss|s";
+	d.formatArr = function(e) {
+		return (e || "").match(new RegExp(m + "|.", "g")) || []
+	}, I.isLeapYear = function(e) {
 		return e % 4 == 0 && e % 100 != 0 || e % 400 == 0
-	}, g.prototype.config = {
+	}, I.prototype.config = {
 		type: "date",
 		range: !1,
 		format: "yyyy-MM-dd",
@@ -726,8 +739,10 @@ layui.define(function(e) {
 		holidays: null,
 		zIndex: null,
 		done: null,
-		change: null
-	}, g.prototype.lang = function() {
+		change: null,
+		autoConfirm: !0,
+		shade: 0
+	}, I.prototype.lang = function() {
 		var e = {
 			cn: {
 				weeks: ["\u65e5", "\u4e00", "\u4e8c", "\u4e09", "\u56db", "\u4e94", "\u516d"],
@@ -772,34 +787,43 @@ layui.define(function(e) {
 			}
 		};
 		return e[this.config.lang] || e.cn
-	}, g.prototype.init = function() {
-		var r = this,
+	}, I.prototype.init = function() {
+		var e, r = this,
 			o = r.config,
-			e = "static" === o.position,
-			t = {
+			t = "static" === o.position,
+			a = {
 				year: "yyyy",
 				month: "yyyy-MM",
 				date: "yyyy-MM-dd",
 				time: "HH:mm:ss",
 				datetime: "yyyy-MM-dd HH:mm:ss"
 			};
-		o.elem = lay(o.elem), o.eventElem = lay(o.eventElem), o.elem[0] && (r.rangeStr = o.range ? "string" ==
-			typeof o.range ? o.range : "-" : "", "array" === layui.type(o.range) && (r.rangeElem = [lay(o.range[
-				0]), lay(o.range[1])]), t[o.type] || (i.console && console.error && console.error(
-				"laydate type error:'" + o.type + "' is not supported"), o.type = "date"), o.format === t
-			.date && (o.format = t[o.type] || t.date), r.format = s.formatArr(o.format), o.weekStart && !
-			/^[0-6]$/.test(o.weekStart) && (t = r.lang(), o.weekStart = t.weeks.indexOf(o.weekStart), -1 === o
-				.weekStart && (o.weekStart = 0)), r.EXP_IF = "", r.EXP_SPLIT = "", lay.each(r.format, function(
-				e, t) {
-				e = new RegExp(y).test(t) ? "\\d{" + (new RegExp(y).test(r.format[0 === e ? e + 1 : e -
+		o.elem = lay(o.elem), o.eventElem = lay(o.eventElem), o.elem[0] && ((e = d.that[o.elem.attr("lay-key")]) &&
+			e.destroy && e.destroy(), "array" !== layui.type(o.theme) && (o.theme = [o.theme]), o.fullPanel && (
+				"datetime" !== o.type || o.range) && delete o.fullPanel, r.rangeStr = o.range ? "string" ==
+			typeof o.range ? o.range : "-" : "", r.rangeLinked = !(!o.range || !o.rangeLinked || "date" !== o
+				.type && "datetime" !== o.type), r.autoCalendarModel = function() {
+				var e = r.rangeLinked;
+				return r.rangeLinked = o.range && ("date" === o.type || "datetime" === o.type) && (!r
+					.startDate || !r.endDate || r.startDate && r.endDate && r.startDate.year === r.endDate
+					.year && r.startDate.month === r.endDate.month), lay(r.elem)[r.rangeLinked ?
+					"addClass" : "removeClass"]("layui-laydate-linkage"), r.rangeLinked != e
+			}, r.autoCalendarModel.auto = r.rangeLinked && "auto" === o.rangeLinked, "array" === layui.type(o
+				.range) && (r.rangeElem = [lay(o.range[0]), lay(o.range[1])]), a[o.type] || (i.console &&
+				console.error && console.error("laydate type error:'" + o.type + "' is not supported"), o.type =
+				"date"), o.format === a.date && (o.format = a[o.type] || a.date), r.format = d.formatArr(o
+				.format), o.weekStart && !/^[0-6]$/.test(o.weekStart) && (e = r.lang(), o.weekStart = e.weeks
+				.indexOf(o.weekStart), -1 === o.weekStart && (o.weekStart = 0)), r.EXP_IF = "", r.EXP_SPLIT =
+			"", lay.each(r.format, function(e, t) {
+				e = new RegExp(m).test(t) ? "\\d{" + (new RegExp(m).test(r.format[0 === e ? e + 1 : e -
 						1] || "") ? /^yyyy|y$/.test(t) ? 4 : t.length : /^yyyy$/.test(t) ? "1,4" : /^y$/
 					.test(t) ? "1,308" : "1,2") + "}" : "\\" + t;
 				r.EXP_IF = r.EXP_IF + e, r.EXP_SPLIT = r.EXP_SPLIT + "(" + e + ")"
 			}), r.EXP_IF_ONE = new RegExp("^" + r.EXP_IF + "$"), r.EXP_IF = new RegExp("^" + (o.range ? r
 				.EXP_IF + "\\s\\" + r.rangeStr + "\\s" + r.EXP_IF : r.EXP_IF) + "$"), r.EXP_SPLIT = new RegExp(
 				"^" + r.EXP_SPLIT + "$", ""), r.isInput(o.elem[0]) || "focus" === o.trigger && (o.trigger =
-				"click"), o.elem.attr("lay-key") || (o.elem.attr("lay-key", r.index), o.eventElem.attr(
-				"lay-key", r.index)), o.mark = lay.extend({}, o.calendar && "cn" === o.lang ? {
+				"click"), o.elem.attr("lay-key", r.index), o.eventElem.attr("lay-key", r.index), o.mark = lay
+			.extend({}, o.calendar && "cn" === o.lang ? {
 				"0-1-1": "\u5143\u65e6",
 				"0-2-14": "\u60c5\u4eba",
 				"0-3-8": "\u5987\u5973",
@@ -814,16 +838,16 @@ layui.define(function(e) {
 			} : {}, o.mark), lay.each(["min", "max"], function(e, t) {
 				var a, n, i = [],
 					l = [];
-				l = "number" == typeof o[t] ? (n = o[t], a = new Date, a = r.newDate({
-					year: a.getFullYear(),
-					month: a.getMonth(),
-					date: a.getDate(),
-					hours: "23",
-					minutes: "59",
-					seconds: "59"
-				}).getTime(), i = [(n = new Date(n ? n < 864e5 ? a + 864e5 * n : n : a))
-					.getFullYear(), n.getMonth() + 1, n.getDate()
-				], [n.getHours(), n.getMinutes(), n.getSeconds()]) : (i = (o[t].match(/\d+-\d+-\d+/) ||
+				l = "number" == typeof o[t] ? (a = o[t], n = new Date, n = r.newDate({
+					year: n.getFullYear(),
+					month: n.getMonth(),
+					date: n.getDate(),
+					hours: e ? 23 : 0,
+					minutes: e ? 59 : 0,
+					seconds: e ? 59 : 0
+				}).getTime(), i = [(e = new Date(a ? a < 864e5 ? n + 864e5 * a : a : n))
+					.getFullYear(), e.getMonth() + 1, e.getDate()
+				], [e.getHours(), e.getMinutes(), e.getSeconds()]) : (i = (o[t].match(/\d+-\d+-\d+/) ||
 					[""])[0].split("-"), (o[t].match(/\d+:\d+:\d+/) || [""])[0].split(":")), o[t] = {
 					year: 0 | i[0] || (new Date).getFullYear(),
 					month: i[1] ? (0 | i[1]) - 1 : (new Date).getMonth(),
@@ -832,108 +856,155 @@ layui.define(function(e) {
 					minutes: 0 | l[1],
 					seconds: 0 | l[2]
 				}
-			}), r.elemID = "layui-laydate" + o.elem.attr("lay-key"), (o.show || e) && r.render(), e || r
+			}), r.elemID = "layui-laydate" + o.elem.attr("lay-key"), (o.show || t) && r.render(), t || r
 			.events(), o.value && o.isInitValue && ("date" === layui.type(o.value) ? r.setValue(r.parse(0, r
 				.systemDate(o.value))) : r.setValue(o.value)))
-	}, g.prototype.render = function() {
-		var n, e, t = this,
-			o = t.config,
-			s = t.lang(),
-			i = "static" === o.position,
-			a = t.elem = lay.elem("div", {
-				id: t.elemID,
-				"class": ["layui-laydate", o.range ? " layui-laydate-range" : "", i ? " " + p : "", o.theme &&
-					"default" !== o.theme && !/^#/.test(o.theme) ? " laydate-theme-" + o.theme : ""
+	}, I.prototype.render = function() {
+		var a, n, i, l, r = this,
+			o = r.config,
+			d = r.lang(),
+			s = "static" === o.position,
+			y = r.elem = lay.elem("div", {
+				id: r.elemID,
+				"class": ["layui-laydate", o.range ? " layui-laydate-range" : "", r.rangeLinked ?
+					" layui-laydate-linkage" : "", s ? " " + D : "", o.fullPanel ?
+					" laydate-theme-fullpanel" : "", (a = "", lay.each(o.theme, function(e, t) {
+						"default" === t || /^#/.test(t) || (a += " laydate-theme-" + t)
+					}), a)
 				].join("")
 			}),
-			y = t.elemMain = [],
-			d = t.elemHeader = [],
-			m = t.elemCont = [],
-			c = t.table = [],
-			l = t.footer = lay.elem("div", {
+			m = r.elemMain = [],
+			u = r.elemHeader = [],
+			c = r.elemCont = [],
+			h = r.table = [],
+			e = r.footer = lay.elem("div", {
 				"class": "layui-laydate-footer"
-			});
-		o.zIndex && (a.style.zIndex = o.zIndex), lay.each(new Array(2), function(e) {
-				if (!o.range && 0 < e) return !0;
-				var a = lay.elem("div", {
-						"class": "layui-laydate-header"
-					}),
-					t = [((t = lay.elem("i", {
-						"class": "layui-icon laydate-icon laydate-prev-y"
-					})).innerHTML = "&#xe65a;", t), ((t = lay.elem("i", {
-						"class": "layui-icon laydate-icon laydate-prev-m"
-					})).innerHTML = "&#xe603;", t), (t = lay.elem("div", {
+			}),
+			t = r.shortcut = lay.elem("ul", {
+				"class": "layui-laydate-shortcut"
+			}),
+			f = (o.zIndex && (y.style.zIndex = o.zIndex), lay.each(new Array(2), function(e) {
+					if (!o.range && 0 < e) return !0;
+					var a = lay.elem("div", {
+							"class": "layui-laydate-header"
+						}),
+						t = [((t = lay.elem("i", {
+							"class": "layui-icon laydate-icon laydate-prev-y"
+						})).innerHTML = "&#xe65a;", t), ((t = lay.elem("i", {
+							"class": "layui-icon laydate-icon laydate-prev-m"
+						})).innerHTML = "&#xe603;", t), (t = lay.elem("div", {
 							"class": "laydate-set-ym"
-						}), n = lay.elem("span"), l = lay.elem("span"), t.appendChild(n), t.appendChild(l),
-						t), ((n = lay.elem("i", {
-						"class": "layui-icon laydate-icon laydate-next-m"
-					})).innerHTML = "&#xe602;", n), ((l = lay.elem("i", {
-						"class": "layui-icon laydate-icon laydate-next-y"
-					})).innerHTML = "&#xe65b;", l)],
-					n = lay.elem("div", {
-						"class": "layui-laydate-content"
-					}),
-					i = lay.elem("table"),
-					l = lay.elem("thead"),
-					r = lay.elem("tr");
-				lay.each(t, function(e, t) {
-					a.appendChild(t)
-				}), l.appendChild(r), lay.each(new Array(6), function(a) {
-					var n = i.insertRow(0);
-					lay.each(new Array(7), function(e) {
-						var t;
-						0 === a && ((t = lay.elem("th")).innerHTML = s.weeks[(e + o.weekStart) %
-							7], r.appendChild(t)), n.insertCell(e)
-					})
-				}), i.insertBefore(l, i.children[0]), n.appendChild(i), y[e] = lay.elem("div", {
-					"class": "layui-laydate-main laydate-main-list-" + e
-				}), y[e].appendChild(a), y[e].appendChild(n), d.push(t), m.push(n), c.push(i)
-			}), lay(l).html((e = [], n = [], "datetime" === o.type && e.push('<span lay-type="datetime" class="' +
-				k + '">' + s.timeTips + "</span>"), !o.range && "datetime" === o.type || e.push(
-				'<span class="' + f + '" title="' + s.preview + '"></span>'), lay.each(o.btns, function(e,
-				t) {
-				var a = s.tools[t] || "btn";
-				o.range && "now" === t || (i && "clear" === t && (a = "cn" === o.lang ? "\u91cd\u7f6e" :
-					"Reset"), n.push('<span lay-type="' + t + '" class="laydate-btns-' + t +
-					'">' + a + "</span>"))
-			}), e.push('<div class="laydate-footer-btns">' + n.join("") + "</div>"), e.join(""))), lay.each(y,
-				function(e, t) {
-					a.appendChild(t)
-				}), o.showBottom && a.appendChild(l), /^#/.test(o.theme) && (e = lay.elem("style"), l = [
-				"#{{id}} .layui-laydate-header{background-color:{{theme}};}",
-				"#{{id}} .layui-this{background-color:{{theme}} !important;}"
-			].join("").replace(/{{id}}/g, t.elemID).replace(/{{theme}}/g, o.theme), "styleSheet" in e ? (e
-				.setAttribute("type", "text/css"), e.styleSheet.cssText = l) : e.innerHTML = l, lay(a).addClass(
-				"laydate-theme-molv"), a.appendChild(e)), t.remove(g.thisElemDate), u.thisId = o.id, i ? o.elem
-			.append(a) : (r.body.appendChild(a), t.position()), t.checkDate().calendar(null, 0, "init"), t
-			.changeEvent(), g.thisElemDate = t.elemID, "function" == typeof o.ready && o.ready(lay.extend({}, o
+						}), n = lay.elem("span"), l = lay.elem("span"), t.appendChild(n), t.appendChild(
+							l), t), ((n = lay.elem("i", {
+							"class": "layui-icon laydate-icon laydate-next-m"
+						})).innerHTML = "&#xe602;", n), ((l = lay.elem("i", {
+							"class": "layui-icon laydate-icon laydate-next-y"
+						})).innerHTML = "&#xe65b;", l)],
+						n = lay.elem("div", {
+							"class": "layui-laydate-content"
+						}),
+						i = lay.elem("table"),
+						l = lay.elem("thead"),
+						r = lay.elem("tr");
+					lay.each(t, function(e, t) {
+						a.appendChild(t)
+					}), l.appendChild(r), lay.each(new Array(6), function(a) {
+						var n = i.insertRow(0);
+						lay.each(new Array(7), function(e) {
+							var t;
+							0 === a && ((t = lay.elem("th")).innerHTML = d.weeks[(e + o
+								.weekStart) % 7], r.appendChild(t)), n.insertCell(e)
+						})
+					}), i.insertBefore(l, i.children[0]), n.appendChild(i), m[e] = lay.elem("div", {
+						"class": L + " laydate-main-list-" + e
+					}), m[e].appendChild(a), m[e].appendChild(n), u.push(t), c.push(n), h.push(i)
+				}), lay(e).html((f = [], n = [], "datetime" === o.type && f.push(
+					'<span lay-type="datetime" class="' + E + '">' + d.timeTips + "</span>"), (o.range ||
+					"datetime" !== o.type || o.fullPanel) && f.push('<span class="' + T + '" title="' + d
+					.preview + '"></span>'), lay.each(o.btns, function(e, t) {
+					var a = d.tools[t] || "btn";
+					o.range && "now" === t || (s && "clear" === t && (a = "cn" === o.lang ?
+						"\u91cd\u7f6e" : "Reset"), n.push('<span lay-type="' + t +
+						'" class="laydate-btns-' + t + '">' + a + "</span>"))
+				}), f.push('<div class="laydate-footer-btns">' + n.join("") + "</div>"), f.join(""))), o
+				.shortcuts && (y.appendChild(t), lay(t).html((i = [], lay.each(o.shortcuts, function(e, t) {
+					i.push('<li data-index="' + e + '">' + t.text + "</li>")
+				}), i.join(""))).find("li").on("click", function(e) {
+					var t = (o.shortcuts[this.dataset.index] || {}).value || [],
+						n = (layui.isArray(t) || (t = [t]), o.type),
+						t = (lay.each(t, function(e, t) {
+							var a = [o.dateTime, r.endDate][e];
+							"time" === n && "date" !== layui.type(t) ? r.EXP_IF.test(t) && (t = (t
+									.match(r.EXP_SPLIT) || []).slice(1), lay.extend(a, {
+									hours: 0 | t[0],
+									minutes: 0 | t[2],
+									seconds: 0 | t[4]
+								})) : lay.extend(a, r.systemDate("date" === layui.type(t) ? t :
+									new Date(t))), "time" !== n && "datetime" !== n || (r[[
+									"startTime", "endTime"
+								][e]] = {
+									hours: a.hours,
+									minutes: a.minutes,
+									seconds: a.seconds
+								}), 0 === e ? r.startDate = lay.extend({}, a) : r.endState = !0,
+								"year" === n || "month" === n || "time" === n ? r.listYM[e] = [a
+									.year, a.month + 1
+								] : e && r.autoCalendarModel.auto && r.autoCalendarModel()
+						}), r.checkDate("limit").calendar(null, null, "init"), lay(r.footer).find("." +
+							E).removeClass(k));
+					t && "date" === t.attr("lay-type") && t[0].click(), r.done(null, "change"), lay(this)
+						.addClass(x), "static" !== o.position && !o.range && o.autoConfirm && ("date" ===
+							n ? r.choose(lay(y).find("td.layui-this")) : "year" !== n && "month" !== n ||
+							lay(m[0]).find("." + L + " li." + x + ":not(.laydate-disabled)")[0] && r
+							.setValue(r.parse()).done().remove())
+				})), lay.each(m, function(e, t) {
+					y.appendChild(t)
+				}), o.showBottom && y.appendChild(e), lay.elem("style")),
+			p = [],
+			t = (lay.each(o.theme, function(e, t) {
+					/^#/.test(t) && (l = !0, p.push([
+						"#{{id}} .layui-laydate-header{background-color:{{theme}};}",
+						"#{{id}} li.layui-this,#{{id}} td.layui-this>div{background-color:{{theme}} !important;}",
+						-1 !== o.theme.indexOf("circle") ? "" :
+						"#{{id}} .layui-this{background-color:{{theme}} !important;}"
+					].join("").replace(/{{id}}/g, r.elemID).replace(/{{theme}}/g, t)))
+				}), o.shortcuts && o.range && p.push("#{{id}}.layui-laydate-range{width: 628px;}".replace(/{{id}}/g,
+					r.elemID)), p.length && (p = p.join(""), "styleSheet" in f ? (f.setAttribute("type",
+					"text/css"), f.styleSheet.cssText = p) : f.innerHTML = p, l && lay(y).addClass(
+					"laydate-theme-molv"), y.appendChild(f)), r.remove(I.thisElemDate), v.thisId = o.id, s ? o.elem
+				.append(y) : (g.body.appendChild(y), r.position()), o.shade ? '<div class="' + S +
+				'" style="z-index:' + (y.style.zIndex - 1) + "; background-color: " + (o.shade[1] || "#000") +
+				"; opacity: " + (o.shade[0] || o.shade) + '"></div>' : "");
+		y.insertAdjacentHTML("beforebegin", t), r.checkDate().calendar(null, 0, "init"), r.changeEvent(), I
+			.thisElemDate = r.elemID, r.renderAdditional(), "function" == typeof o.ready && o.ready(lay.extend({}, o
 				.dateTime, {
 					month: o.dateTime.month + 1
-				})), t.preview()
-	}, g.prototype.remove = function(e) {
+				})), r.preview()
+	}, I.prototype.remove = function(e) {
 		var t = this,
 			a = t.config,
 			n = lay("#" + (e || t.elemID));
-		return n[0] && (n.hasClass(p) || t.checkDate(function() {
-			n.remove(), delete u.thisId, "function" == typeof a.close && a.close(t)
-		})), t
-	}, g.prototype.position = function() {
+		return n[0] && (n.hasClass(D) || t.checkDate(function() {
+			n.remove(), delete t.startDate, delete t.endDate, delete t.endState, delete t.startTime,
+				delete t.endTime, delete v.thisId, "function" == typeof a.close && a.close(t)
+		}), lay("." + S).remove()), t
+	}, I.prototype.position = function() {
 		var e = this.config;
 		return lay.position(this.bindElem || e.elem[0], this.elem, {
 			position: e.position
 		}), this
-	}, g.prototype.hint = function(e) {
+	}, I.prototype.hint = function(e) {
 		var t = this,
 			a = (t.config, lay.elem("div", {
-				"class": o
+				"class": r
 			}));
-		t.elem && (a.innerHTML = e || "", lay(t.elem).find("." + o).remove(), t.elem.appendChild(a), clearTimeout(t
+		t.elem && (a.innerHTML = e || "", lay(t.elem).find("." + r).remove(), t.elem.appendChild(a), clearTimeout(t
 			.hinTimer), t.hinTimer = setTimeout(function() {
-			lay(t.elem).find("." + o).remove()
+			lay(t.elem).find("." + r).remove()
 		}, 3e3))
-	}, g.prototype.getAsYM = function(e, t, a) {
+	}, I.prototype.getAsYM = function(e, t, a) {
 		return a ? t-- : t++, t < 0 && (t = 11, e--), 11 < t && (t = 0, e++), [e, t]
-	}, g.prototype.systemDate = function(e) {
+	}, I.prototype.systemDate = function(e) {
 		var t = e || new Date;
 		return {
 			year: t.getFullYear(),
@@ -943,184 +1014,209 @@ layui.define(function(e) {
 			minutes: e ? e.getMinutes() : 0,
 			seconds: e ? e.getSeconds() : 0
 		}
-	}, g.prototype.checkDate = function(e) {
-		var t, o, s = this,
-			y = (new Date, s.config),
-			a = s.lang(),
-			n = y.dateTime = y.dateTime || s.systemDate(),
-			i = s.bindElem || y.elem[0],
-			l = (s.isInput(i), function() {
-				if (s.rangeElem) {
-					var e = [s.rangeElem[0].val(), s.rangeElem[1].val()];
-					if (e[0] && e[1]) return e.join(" " + s.rangeStr + " ")
+	}, I.prototype.checkDate = function(e) {
+		var t, o, d = this,
+			s = (new Date, d.config),
+			a = d.lang(),
+			n = s.dateTime = s.dateTime || d.systemDate(),
+			i = d.bindElem || s.elem[0],
+			l = (d.isInput(i), function() {
+				if (d.rangeElem) {
+					var e = [d.rangeElem[0].val(), d.rangeElem[1].val()];
+					if (e[0] && e[1]) return e.join(" " + d.rangeStr + " ")
 				}
-				return s.isInput(i) ? i.value : "static" === y.position ? "" : lay(i).attr("lay-date")
+				return d.isInput(i) ? i.value : "static" === s.position ? "" : lay(i).attr("lay-date")
 			}()),
-			d = function(e) {
-				e.year > h[1] && (e.year = h[1], o = !0), 11 < e.month && (e.month = 11, o = !0), 59 < e.seconds &&
-					(e.seconds = 0, e.minutes++, o = !0), 59 < e.minutes && (e.minutes = 0, e.hours++, o = !0), 23 <
-					e.hours && (e.hours = 0, o = !0), t = u.getEndDate(e.month + 1, e.year), e.date > t && (e.date =
-						t, o = !0)
+			y = function(e) {
+				e && (e.year > h[1] && (e.year = h[1], o = !0), 11 < e.month && (e.month = 11, o = !0), 59 < e
+					.seconds && (e.seconds = 0, e.minutes++, o = !0), 59 < e.minutes && (e.minutes = 0, e
+						.hours++, o = !0), 23 < e.hours && (e.hours = 0, o = !0), t = v.getEndDate(e.month + 1,
+						e.year), e.date > t && (e.date = t, o = !0))
 			},
 			r = function(n, i, l) {
 				var r = ["startTime", "endTime"];
-				i = (i.match(s.EXP_SPLIT) || []).slice(1), l = l || 0, y.range && (s[r[l]] = s[r[l]] || {}), lay
-					.each(s.format, function(e, t) {
+				i = (i.match(d.EXP_SPLIT) || []).slice(1), l = l || 0, s.range && (d[r[l]] = d[r[l]] || {}), lay
+					.each(d.format, function(e, t) {
 						var a = parseFloat(i[e]);
 						i[e].length < t.length && (o = !0), /yyyy|y/.test(t) ? (a < h[0] && (a = h[0], o = !0),
 								n.year = a) : /MM|M/.test(t) ? (a < 1 && (a = 1, o = !0), n.month = a - 1) :
 							/dd|d/.test(t) ? (a < 1 && (a = 1, o = !0), n.date = a) : /HH|H/.test(t) ? (a < 0 &&
-								(o = !(a = 0)), 23 < a && (a = 23, o = !0), n.hours = a, y.range && (s[r[l]]
+								(o = !(a = 0)), 23 < a && (a = 23, o = !0), n.hours = a, s.range && (d[r[l]]
 									.hours = a)) : /mm|m/.test(t) ? (a < 0 && (o = !(a = 0)), 59 < a && (a = 59,
-								o = !0), n.minutes = a, y.range && (s[r[l]].minutes = a)) : /ss|s/.test(t) && (
-								a < 0 && (o = !(a = 0)), 59 < a && (a = 59, o = !0), n.seconds = a, y.range && (
-									s[r[l]].seconds = a))
-					}), d(n)
+								o = !0), n.minutes = a, s.range && (d[r[l]].minutes = a)) : /ss|s/.test(t) && (
+								a < 0 && (o = !(a = 0)), 59 < a && (a = 59, o = !0), n.seconds = a, s.range && (
+									d[r[l]].seconds = a))
+					}), y(n)
 			};
-		if ("limit" === e) return d(n), s;
-		"string" == typeof(l = l || y.value) && (l = l.replace(/\s+/g, " ").replace(/^\s|\s$/g, ""));
-		var m, c = function() {
+		if ("limit" === e) return s.range ? (y(d.rangeLinked ? d.startDate : n), d.endDate && y(d.endDate)) : y(n),
+			d;
+		"string" == typeof(l = l || s.value) && (l = l.replace(/\s+/g, " ").replace(/^\s|\s$/g, ""));
+		var m, u, c = function() {
 			var e, t, a;
-			y.range && (s.endDate = s.endDate || lay.extend({}, y.dateTime, (e = {}, t = y.dateTime, a = s
-				.getAsYM(t.year, t.month), "year" === y.type ? e.year = t.year + 1 : "time" !== y
-				.type && (e.year = a[0], e.month = a[1]), "datetime" !== y.type && "time" !== y
+			s.range && (d.endDate = d.endDate || lay.extend({}, s.dateTime, (e = {}, t = s.dateTime, a = d
+				.getAsYM(t.year, t.month), "year" === s.type ? e.year = t.year + 1 : "time" !== s
+				.type && (e.year = a[0], e.month = a[1]), "datetime" !== s.type && "time" !== s
 				.type || (e.hours = 23, e.minutes = e.seconds = 59), e)))
 		};
-		return c(), "string" == typeof l && l ? s.EXP_IF.test(l) ? y.range ? (l = l.split(" " + s.rangeStr + " "),
-				lay.each([y.dateTime, s.endDate], function(e, t) {
+		return c(), "string" == typeof l && l ? d.EXP_IF.test(l) ? s.range ? (l = l.split(" " + d.rangeStr + " "),
+				lay.each([s.dateTime, d.endDate], function(e, t) {
 					r(t, l[e], e)
-				})) : r(n, l) : (s.hint(a.formatError[0] + (y.range ? y.format + " " + s.rangeStr + " " + y.format :
-				y.format) + a.formatError[1]), o = !0) : l && "date" === layui.type(l) ? y.dateTime = s.systemDate(
-				l) : (y.dateTime = s.systemDate(), delete s.startTime, delete s.endDate, c(), delete s.endTime), s
-			.rangeElem && (a = [s.rangeElem[0].val(), s.rangeElem[1].val()], m = [y.dateTime, s.endDate], lay.each(
-				a,
+				})) : r(n, l) : (d.hint(a.formatError[0] + (s.range ? s.format + " " + d.rangeStr + " " + s.format :
+				s.format) + a.formatError[1]), o = !0) : l && "date" === layui.type(l) ? s.dateTime = d.systemDate(
+				l) : (s.dateTime = d.systemDate(), delete d.startTime, delete d.endDate, c(), delete d.endTime), d
+			.rangeElem && (c = [d.rangeElem[0].val(), d.rangeElem[1].val()], m = [s.dateTime, d.endDate], lay.each(
+				c,
 				function(e, t) {
-					s.EXP_IF_ONE.test(t) && r(m[e], t, e)
-				})), d(n), y.range && d(s.endDate), o && l && s.setValue(!y.range || s.endDate ? s.parse() : ""), s
-			.getDateTime(n) > s.getDateTime(y.max) ? n = y.dateTime = lay.extend({}, y.max) : s.getDateTime(n) < s
-			.getDateTime(y.min) && (n = y.dateTime = lay.extend({}, y.min)), y.range && ((s.getDateTime(s.endDate) <
-				s.getDateTime(y.min) || s.getDateTime(s.endDate) > s.getDateTime(y.max)) && (s.endDate = lay
-				.extend({}, y.max)), s.startTime = {
-				hours: y.dateTime.hours,
-				minutes: y.dateTime.minutes,
-				seconds: y.dateTime.seconds
-			}, s.endTime = {
-				hours: s.endDate.hours,
-				minutes: s.endDate.minutes,
-				seconds: s.endDate.seconds
-			}), e && e(), s
-	}, g.prototype.mark = function(e, a) {
+					d.EXP_IF_ONE.test(t) && r(m[e], t, e)
+				})), y(n), s.range && y(d.endDate), o && l && d.setValue(!s.range || d.endDate ? d.parse() : ""), d
+			.getDateTime(n) > d.getDateTime(s.max) ? (n = s.dateTime = lay.extend({}, s.max), u = !0) : d
+			.getDateTime(n) < d.getDateTime(s.min) && (n = s.dateTime = lay.extend({}, s.min), u = !0), s.range && (
+				(d.getDateTime(d.endDate) < d.getDateTime(s.min) || d.getDateTime(d.endDate) > d.getDateTime(s
+				.max)) && (d.endDate = lay.extend({}, s.max), u = !0), d.startTime = {
+					hours: s.dateTime.hours,
+					minutes: s.dateTime.minutes,
+					seconds: s.dateTime.seconds
+				}, d.endTime = {
+					hours: d.endDate.hours,
+					minutes: d.endDate.minutes,
+					seconds: d.endDate.seconds
+				}, "month" === s.type && (s.dateTime.date = 1, d.endDate.date = 1)), u && l && (d.setValue(d
+			.parse()), d.hint("value " + a.invalidDate + a.formatError[1])), d.startDate = d.startDate || l && lay
+			.extend({}, s.dateTime), d.autoCalendarModel.auto && d.autoCalendarModel(), d.endState = !s.range || !d
+			.rangeLinked || !(!d.startDate || !d.endDate), e && e(), d
+	}, I.prototype.mark = function(e, a) {
 		var n, t = this.config;
 		return lay.each(t.mark, function(e, t) {
 			e = e.split("-");
 			e[0] != a[0] && 0 != e[0] || e[1] != a[1] && 0 != e[1] || e[2] != a[2] || (n = t || a[2])
-		}), n && e.html('<span class="laydate-day-mark">' + n + "</span>"), this
-	}, g.prototype.holidays = function(n, i) {
+		}), n && e.find("div").html('<span class="laydate-day-mark">' + n + "</span>"), this
+	}, I.prototype.holidays = function(n, i) {
 		var e = this.config,
 			l = ["", "work"];
 		return "array" !== layui.type(e.holidays) || lay.each(e.holidays, function(a, e) {
 			lay.each(e, function(e, t) {
-				t === n.attr("lay-ymd") && n.html('<span class="laydate-day-holidays"' + (l[a] ?
-					'type="' + l[a] + '"' : "") + ">" + i[2] + "</span>")
+				t === n.attr("lay-ymd") && n.find("div").html('<span class="laydate-day-holidays"' +
+					(l[a] ? 'type="' + l[a] + '"' : "") + ">" + i[2] + "</span>")
 			})
 		}), this
-	}, g.prototype.limit = function(e, t, a, i) {
-		var l = this,
-			n = l.config,
-			r = {},
-			a = (i ? 0 : 41) < a ? l.endDate : n.dateTime,
-			a = lay.extend({}, a, t || {});
+	}, I.prototype.limit = function(t) {
+		t = t || {};
+		var i = this,
+			e = i.config,
+			l = {},
+			a = t.index > (t.time ? 0 : 41) ? i.endDate : e.dateTime;
 		return lay.each({
-			now: a,
-			min: n.min,
-			max: n.max
+			now: lay.extend({}, a, t.date || {}),
+			min: e.min,
+			max: e.max
 		}, function(e, a) {
 			var n;
-			r[e] = l.newDate(lay.extend({
+			l[e] = i.newDate(lay.extend({
 				year: a.year,
-				month: a.month,
-				date: a.date
-			}, (n = {}, lay.each(i, function(e, t) {
+				month: "year" === t.type ? 0 : a.month,
+				date: "year" === t.type || "month" === t.type ? 1 : a.date
+			}, (n = {}, lay.each(t.time, function(e, t) {
 				n[t] = a[t]
 			}), n))).getTime()
-		}), t = r.now < r.min || r.now > r.max, e && e[t ? "addClass" : "removeClass"](x), t
-	}, g.prototype.thisDateTime = function(e) {
+		}), a = l.now < l.min || l.now > l.max, t.elem && t.elem[a ? "addClass" : "removeClass"](k), a
+	}, I.prototype.thisDateTime = function(e) {
 		var t = this.config;
 		return e ? this.endDate : t.dateTime
-	}, g.prototype.calendar = function(e, t, a) {
+	}, I.prototype.calendar = function(e, t, a) {
 		var i, l, r, o = this,
 			n = o.config,
 			t = t ? 1 : 0,
-			s = e || o.thisDateTime(t),
-			y = new Date,
-			d = o.lang(),
+			d = e || o.thisDateTime(t),
+			s = new Date,
+			y = o.lang(),
 			m = "date" !== n.type && "datetime" !== n.type,
-			c = lay(o.table[t]).find("td"),
-			t = lay(o.elemHeader[t][2]).find("span");
-		return s.year < h[0] && (s.year = h[0], o.hint(d.invalidDate)), s.year > h[1] && (s.year = h[1], o.hint(d
-				.invalidDate)), o.firstDate || (o.firstDate = lay.extend({}, s)), y.setFullYear(s.year, s.month, 1),
-			i = (y.getDay() + (7 - n.weekStart)) % 7, l = u.getEndDate(s.month || 12, s.year), r = u.getEndDate(s
-				.month + 1, s.year), lay.each(c, function(e, t) {
-				var a = [s.year, s.month],
+			u = lay(o.table[t]).find("td"),
+			c = lay(o.elemHeader[t][2]).find("span");
+		return d.year < h[0] && (d.year = h[0], o.hint(y.invalidDate)), d.year > h[1] && (d.year = h[1], o.hint(y
+				.invalidDate)), o.firstDate || (o.firstDate = lay.extend({}, d)), s.setFullYear(d.year, d.month, 1),
+			i = (s.getDay() + (7 - n.weekStart)) % 7, l = v.getEndDate(d.month || 12, d.year), r = v.getEndDate(d
+				.month + 1, d.year), lay.each(u, function(e, t) {
+				var a = [d.year, d.month],
 					n = 0;
 				(t = lay(t)).removeAttr("class"), e < i ? (n = l - i + e, t.addClass("laydate-day-prev"), a = o
-						.getAsYM(s.year, s.month, "sub")) : i <= e && e < r + i ? (n = e - i) + 1 === s.date &&
-					t.addClass(w) : (n = e - r - i, t.addClass("laydate-day-next"), a = o.getAsYM(s.year, s
-						.month)), a[1]++, a[2] = n + 1, t.attr("lay-ymd", a.join("-")).html(a[2]), o.mark(t, a)
-					.holidays(t, a).limit(t, {
+					.getAsYM(d.year, d.month, "sub")) : i <= e && e < r + i ? (n = e - i, o.rangeLinked ||
+					n + 1 === d.date && t.addClass(x)) : (n = e - r - i, t.addClass("laydate-day-next"), a =
+					o.getAsYM(d.year, d.month)), a[1]++, a[2] = n + 1, t.attr("lay-ymd", a.join("-")).html(
+					"<div>" + a[2] + "</div>"), o.mark(t, a).holidays(t, a).limit({
+					elem: t,
+					date: {
 						year: a[0],
 						month: a[1] - 1,
 						date: a[2]
-					}, e)
-			}), lay(t[0]).attr("lay-ym", s.year + "-" + (s.month + 1)), lay(t[1]).attr("lay-ym", s.year + "-" + (s
-				.month + 1)), "cn" === n.lang ? (lay(t[0]).attr("lay-type", "year").html(s.year + " \u5e74"), lay(t[
-				1]).attr("lay-type", "month").html(s.month + 1 + " \u6708")) : (lay(t[0]).attr("lay-type", "month")
-				.html(d.month[s.month]), lay(t[1]).attr("lay-type", "year").html(s.year)), m && (n.range ? e && (o
-				.listYM = [
-					[n.dateTime.year, n.dateTime.month + 1],
-					[o.endDate.year, o.endDate.month + 1]
-				], o.list(n.type, 0).list(n.type, 1), "time" === n.type ? o.setBtnStatus("\u65f6\u95f4", lay
-					.extend({}, o.systemDate(), o.startTime), lay.extend({}, o.systemDate(), o.endTime)) : o
-				.setBtnStatus(!0)) : (o.listYM = [
-				[s.year, s.month + 1]
-			], o.list(n.type, 0))), n.range && "init" === a && !e && o.calendar(o.endDate, 1), n.range || o.limit(
-				lay(o.footer).find(E), null, 0, ["hours", "minutes", "seconds"]), o.setBtnStatus(), o
-	}, g.prototype.list = function(t, n) {
-		var i, l, e, r, o = this,
-			s = o.config,
-			y = s.dateTime,
-			d = o.lang(),
-			a = s.range && "date" !== s.type && "datetime" !== s.type,
-			m = lay.elem("ul", {
-				"class": M + " " + {
+					},
+					index: e
+				})
+			}), lay(c[0]).attr("lay-ym", d.year + "-" + (d.month + 1)), lay(c[1]).attr("lay-ym", d.year + "-" + (d
+				.month + 1)), "cn" === n.lang ? (lay(c[0]).attr("lay-type", "year").html(d.year + " \u5e74"), lay(c[
+				1]).attr("lay-type", "month").html(d.month + 1 + " \u6708")) : (lay(c[0]).attr("lay-type", "month")
+				.html(y.month[d.month]), lay(c[1]).attr("lay-type", "year").html(d.year)), m && (n.range ? !e &&
+				"init" === a || (o.listYM = [
+						[(o.startDate || n.dateTime).year, (o.startDate || n.dateTime).month + 1],
+						[o.endDate.year, o.endDate.month + 1]
+					], o.list(n.type, 0).list(n.type, 1), "time" === n.type ? o.setBtnStatus("\u65f6\u95f4", lay
+						.extend({}, o.systemDate(), o.startTime), lay.extend({}, o.systemDate(), o.endTime)) : o
+					.setBtnStatus(!0)) : (o.listYM = [
+					[d.year, d.month + 1]
+				], o.list(n.type, 0))), n.range && "init" === a && (o.rangeLinked ? (s = o.getAsYM(d.year, d.month,
+				t ? "sub" : null), o.calendar(lay.extend({}, d, {
+				year: s[0],
+				month: s[1]
+			}), 1 - t)) : o.calendar(null, 1 - t)), n.range || (u = ["hours", "minutes", "seconds"], o.limit({
+				elem: lay(o.footer).find(".laydate-btns-now"),
+				date: o.systemDate(),
+				index: 0,
+				time: u
+			}), o.limit({
+				elem: lay(o.footer).find(C),
+				index: 0,
+				time: u
+			})), o.setBtnStatus(), lay(o.shortcut).find("li." + x).removeClass(x), n.range && !m && "init" !== a &&
+			o.stampRange(), o
+	}, I.prototype.list = function(n, i) {
+		var l, r, e, o, d = this,
+			s = d.config,
+			y = d.rangeLinked ? s.dateTime : [s.dateTime, d.endDate][i],
+			m = d.lang(),
+			t = s.range && "date" !== s.type && "datetime" !== s.type,
+			u = lay.elem("ul", {
+				"class": w + " " + {
 					year: "laydate-year-list",
 					month: "laydate-month-list",
 					time: "laydate-time-list"
-				} [t]
+				} [n]
 			}),
-			c = o.elemHeader[n],
-			u = lay(c[2]).find("span"),
-			h = o.elemCont[n || 0],
-			p = lay(h).find("." + M)[0],
-			f = "cn" === s.lang,
-			g = f ? "\u5e74" : "",
-			v = o.listYM[n] || {},
-			T = ["hours", "minutes", "seconds"],
-			D = ["startTime", "endTime"][n];
-		return v[0] < 1 && (v[0] = 1), "year" === t ? (e = i = v[0] - 7, i < 1 && (e = i = 1), lay.each(new Array(
+			a = d.elemHeader[i],
+			c = lay(a[2]).find("span"),
+			h = d.elemCont[i || 0],
+			f = lay(h).find("." + w)[0],
+			p = "cn" === s.lang,
+			g = p ? "\u5e74" : "",
+			v = d.listYM[i] || {},
+			D = ["hours", "minutes", "seconds"],
+			T = ["startTime", "endTime"][i];
+		return v[0] < 1 && (v[0] = 1), "year" === n ? (e = l = v[0] - 7, l < 1 && (e = l = 1), lay.each(new Array(
 				15), function(e) {
 				var t = lay.elem("li", {
-						"lay-ym": i
+						"lay-ym": l
 					}),
 					a = {
-						year: i,
+						year: l,
 						month: 0,
 						date: 1
 					};
-				i == v[0] && lay(t).addClass(w), t.innerHTML = i + g, m.appendChild(t), o.limit(lay(t), a,
-					n), i++
-			}), lay(u[f ? 0 : 1]).attr("lay-ym", i - 8 + "-" + v[1]).html(e + g + " - " + (i - 1) + g)) :
-			"month" === t ? (lay.each(new Array(12), function(e) {
+				l == v[0] && lay(t).addClass(x), t.innerHTML = l + g, u.appendChild(t), d.limit({
+					elem: lay(t),
+					date: a,
+					index: i,
+					type: n
+				}), l++
+			}), lay(c[p ? 0 : 1]).attr("lay-ym", l - 8 + "-" + v[1]).html(e + g + " - " + (l - 1) + g)) :
+			"month" === n ? (lay.each(new Array(12), function(e) {
 				var t = lay.elem("li", {
 						"lay-ym": e
 					}),
@@ -1129,98 +1225,120 @@ layui.define(function(e) {
 						month: e,
 						date: 1
 					};
-				e + 1 == v[1] && lay(t).addClass(w), t.innerHTML = d.month[e] + (f ? "\u6708" : ""), m
-					.appendChild(t), o.limit(lay(t), a, n)
-			}), lay(u[f ? 0 : 1]).attr("lay-ym", v[0] + "-" + v[1]).html(v[0] + g)) : "time" === t && (l =
-			function() {
-				lay(m).find("ol").each(function(a, e) {
-					lay(e).find("li").each(function(e, t) {
-						o.limit(lay(t), [{
-							hours: e
-						}, {
-							hours: o[D].hours,
-							minutes: e
-						}, {
-							hours: o[D].hours,
-							minutes: o[D].minutes,
-							seconds: e
-						}][a], n, [
-							["hours"],
-							["hours", "minutes"],
-							["hours", "minutes", "seconds"]
-						][a])
+				e + 1 == v[1] && lay(t).addClass(x), t.innerHTML = m.month[e] + (p ? "\u6708" : ""), u
+					.appendChild(t), d.limit({
+						elem: lay(t),
+						date: a,
+						index: i,
+						type: n
 					})
-				}), s.range || o.limit(lay(o.footer).find(E), o[D], 0, ["hours", "minutes", "seconds"])
-			}, s.range ? o[D] || (o[D] = "startTime" === D ? y : o.endDate) : o[D] = y, lay.each([24, 60, 60],
-				function(t, e) {
-					var a = lay.elem("li"),
-						n = ["<p>" + d.time[t] + "</p><ol>"];
-					lay.each(new Array(e), function(e) {
-						n.push("<li" + (o[D][T[t]] === e ? ' class="' + w + '"' : "") + ">" + lay.digit(
-							e, 2) + "</li>")
-					}), a.innerHTML = n.join("") + "</ol>", m.appendChild(a)
-				}), l()), p && h.removeChild(p), h.appendChild(m), "year" === t || "month" === t ? (lay(o.elemMain[
-				n]).addClass("laydate-ym-show"), lay(m).find("li").on("click", function() {
-				var e = 0 | lay(this).attr("lay-ym");
-				lay(this).hasClass(x) || (0 === n ? (y[t] = e, o.limit(lay(o.footer).find(E), null, 0)) : o
-					.endDate[t] = e, "year" === s.type || "month" === s.type ? (lay(m).find("." + w)
-						.removeClass(w), lay(this).addClass(w), "month" === s.type && "year" === t && (o
-							.listYM[n][0] = e, a && ((n ? o.endDate : y).year = e), o.list("month", n))
-						) : (o.checkDate("limit").calendar(null, n), o.closeList()), o.setBtnStatus(), s
-					.range || ("month" === s.type && "month" === t || "year" === s.type && "year" ===
-					t) && o.setValue(o.parse()).remove().done(), o.done(null, "change"), lay(o.footer)
-					.find("." + k).removeClass(x))
-			})) : (e = lay.elem("span", {
-					"class": C
-				}), r = function() {
-					lay(m).find("ol").each(function(e) {
-						var a = this,
-							t = lay(a).find("li");
-						a.scrollTop = 30 * (o[D][T[e]] - 2), a.scrollTop <= 0 && t.each(function(e, t) {
-							if (!lay(this).hasClass(x)) return a.scrollTop = 30 * (e - 2), !0
+			}), lay(c[p ? 0 : 1]).attr("lay-ym", v[0] + "-" + v[1]).html(v[0] + g)) : "time" === n && (r =
+			function() {
+				lay(u).find("ol").each(function(a, e) {
+					lay(e).find("li").each(function(e, t) {
+						d.limit({
+							elem: lay(t),
+							date: [{
+								hours: e
+							}, {
+								hours: d[T].hours,
+								minutes: e
+							}, {
+								hours: d[T].hours,
+								minutes: d[T].minutes,
+								seconds: e
+							}][a],
+							index: i,
+							time: [
+								["hours"],
+								["hours", "minutes"],
+								["hours", "minutes", "seconds"]
+							][a]
 						})
 					})
-				}, u = lay(c[2]).find("." + C), r(), e.innerHTML = s.range ? [d.startTime, d.endTime][n] : d
-				.timeTips, lay(o.elemMain[n]).addClass("laydate-time-show"), u[0] && u.remove(), c[2].appendChild(
-				e), lay(m).find("ol").each(function(t) {
+				}), s.range || d.limit({
+					elem: lay(d.footer).find(C),
+					date: d[T],
+					inedx: 0,
+					time: ["hours", "minutes", "seconds"]
+				})
+			}, s.range ? d[T] || (d[T] = "startTime" === T ? y : d.endDate) : d[T] = y, lay.each([24, 60, 60],
+				function(t, e) {
+					var a = lay.elem("li"),
+						n = ["<p>" + m.time[t] + "</p><ol>"];
+					lay.each(new Array(e), function(e) {
+						n.push("<li" + (d[T][D[t]] === e ? ' class="' + x + '"' : "") + ">" + lay.digit(
+							e, 2) + "</li>")
+					}), a.innerHTML = n.join("") + "</ol>", u.appendChild(a)
+				}), r()), f && h.removeChild(f), h.appendChild(u), "year" === n || "month" === n ? (lay(d.elemMain[
+				i]).addClass("laydate-ym-show"), lay(u).find("li").on("click", function() {
+				var e = 0 | lay(this).attr("lay-ym");
+				lay(this).hasClass(k) || (d.rangeLinked ? lay.extend(y, {
+						year: "year" === n ? e : v[0],
+						month: "year" === n ? v[1] - 1 : e
+					}) : y[n] = e, "year" === s.type || "month" === s.type ? (lay(u).find("." + x)
+						.removeClass(x), lay(this).addClass(x), "month" === s.type && "year" === n && (d
+							.listYM[i][0] = e, t && ((i ? d.endDate : y).year = e), d.list("month", i))
+						) : (d.checkDate("limit").calendar(y, i, "init"), d.closeList()), d
+					.setBtnStatus(), !s.range && s.autoConfirm && ("month" === s.type && "month" ===
+						n || "year" === s.type && "year" === n) && d.setValue(d.parse()).done()
+				.remove(), d.autoCalendarModel.auto && !d.rangeLinked ? d.choose(lay(h).find(
+						"td.layui-this"), i) : d.endState && d.done(null, "change"), lay(d.footer).find(
+						"." + E).removeClass(k))
+			})) : (e = lay.elem("span", {
+					"class": M
+				}), o = function() {
+					lay(u).find("ol").each(function(e) {
+						var a = this,
+							t = lay(a).find("li");
+						a.scrollTop = 30 * (d[T][D[e]] - 2), a.scrollTop <= 0 && t.each(function(e, t) {
+							if (!lay(this).hasClass(k)) return a.scrollTop = 30 * (e - 2), !0
+						})
+					})
+				}, c = lay(a[2]).find("." + M), o(), e.innerHTML = s.range ? [m.startTime, m.endTime][i] : m
+				.timeTips, lay(d.elemMain[i]).addClass("laydate-time-show"), c[0] && c.remove(), a[2].appendChild(
+				e), lay(u).find("ol").each(function(t) {
 					var a = this;
 					lay(a).find("li").on("click", function() {
 						var e = 0 | this.innerHTML;
-						lay(this).hasClass(x) || (s.range ? o[D][T[t]] = e : y[T[t]] = e, lay(a).find(
-								"." + w).removeClass(w), lay(this).addClass(w), l(), r(), !o
-							.endDate && "time" !== s.type || o.done(null, "change"), o
-							.setBtnStatus())
+						lay(this).hasClass(k) || (s.range ? d[T][D[t]] = e : y[D[t]] = e, lay(a).find(
+							"." + x).removeClass(x), lay(this).addClass(x), r(), o(), (d
+							.endDate || "time" === s.type || "datetime" === s.type && s
+							.fullPanel) && d.done(null, "change"), d.setBtnStatus())
 					})
-				})), o
-	}, g.prototype.listYM = [], g.prototype.closeList = function() {
+				})), d
+	}, I.prototype.listYM = [], I.prototype.closeList = function() {
 		var a = this;
 		a.config;
 		lay.each(a.elemCont, function(e, t) {
-			lay(this).find("." + M).remove(), lay(a.elemMain[e]).removeClass(
+			lay(this).find("." + w).remove(), lay(a.elemMain[e]).removeClass(
 				"laydate-ym-show laydate-time-show")
-		}), lay(a.elem).find("." + C).remove()
-	}, g.prototype.setBtnStatus = function(e, t, a) {
+		}), lay(a.elem).find("." + M).remove()
+	}, I.prototype.setBtnStatus = function(e, t, a) {
 		var n = this,
 			i = n.config,
 			l = n.lang(),
-			r = lay(n.footer).find(E);
-		i.range && "time" !== i.type && (t = t || i.dateTime, a = a || n.endDate, i = n.newDate(t).getTime() > n
-			.newDate(a).getTime(), n.limit(null, t) || n.limit(null, a) ? r.addClass(x) : r[i ? "addClass" :
-				"removeClass"](x), e && i && n.hint("string" == typeof e ? l.timeout.replace(/\u65e5\u671f/g,
-				e) : l.timeout))
-	}, g.prototype.parse = function(e, t) {
+			r = lay(n.footer).find(C);
+		i.range && "time" !== i.type && (t = t || (n.rangeLinked ? n.startDate : i.dateTime), a = a || n.endDate,
+			i = !n.endState || n.newDate(t).getTime() > n.newDate(a).getTime(), n.limit({
+				date: t
+			}) || n.limit({
+				date: a
+			}) ? r.addClass(k) : r[i ? "addClass" : "removeClass"](k), e && i && n.hint("string" == typeof e ? l
+				.timeout.replace(/\u65e5\u671f/g, e) : l.timeout))
+	}, I.prototype.parse = function(e, t) {
 		var a = this,
 			n = a.config,
-			t = t || ("end" == e ? lay.extend({}, a.endDate, a.endTime) : n.range ? lay.extend({}, n.dateTime, a
-				.startTime) : n.dateTime),
-			t = u.parse(t, a.format, 1);
+			t = t || ("end" == e ? lay.extend({}, a.endDate, a.endTime) : n.range ? lay.extend({}, a.rangeLinked ? a
+				.startDate : n.dateTime, a.startTime) : n.dateTime),
+			t = v.parse(t, a.format, 1);
 		return n.range && e === undefined ? t + " " + a.rangeStr + " " + a.parse("end") : t
-	}, g.prototype.newDate = function(e) {
+	}, I.prototype.newDate = function(e) {
 		return e = e || {}, new Date(e.year || 1, e.month || 0, e.date || 1, e.hours || 0, e.minutes || 0, e
 			.seconds || 0)
-	}, g.prototype.getDateTime = function(e) {
+	}, I.prototype.getDateTime = function(e) {
 		return this.newDate(e).getTime()
-	}, g.prototype.setValue = function(e) {
+	}, I.prototype.setValue = function(e) {
 		var t = this,
 			a = t.config,
 			n = t.bindElem || a.elem[0];
@@ -1228,17 +1346,46 @@ layui.define(function(e) {
 			"array" !== layui.type(e) && (e = e.split(" " + t.rangeStr + " ")), a[0].val(e[0] || ""), a[1]
 			.val(e[1] || "")) : (0 === lay(n).find("*").length && lay(n).html(e), lay(n).attr("lay-date",
 			e))), t
-	}, g.prototype.preview = function() {
+	}, I.prototype.preview = function() {
 		var e, t = this,
 			a = t.config;
-		a.isPreview && (e = lay(t.elem).find("." + f), a = !a.range || t.endDate ? t.parse() : "", e.html(a).css({
-			color: "#5FB878"
-		}), setTimeout(function() {
-			e.css({
-				color: "#666"
-			})
-		}, 300))
-	}, g.prototype.done = function(e, t) {
+		a.isPreview && (e = lay(t.elem).find("." + T), a = !a.range || (t.rangeLinked ? t.endState : t.endDate) ? t
+			.parse() : "", e.html(a), e.html() && (e.css({
+				color: "#5FB878"
+			}), setTimeout(function() {
+				e.css({
+					color: "#777"
+				})
+			}, 300)))
+	}, I.prototype.renderAdditional = function() {
+		this.config.fullPanel && this.list("time", 0)
+	}, I.prototype.stampRange = function() {
+		var n, i = this,
+			l = i.config,
+			r = i.rangeLinked ? i.startDate : l.dateTime,
+			e = lay(i.elem).find("td");
+		l.range && !i.endState && lay(i.footer).find(C).addClass(k), r = r && i.newDate({
+			year: r.year,
+			month: r.month,
+			date: r.date
+		}).getTime(), n = i.endState && i.endDate && i.newDate({
+			year: i.endDate.year,
+			month: i.endDate.month,
+			date: i.endDate.date
+		}).getTime(), lay.each(e, function(e, t) {
+			var a = lay(t).attr("lay-ymd").split("-"),
+				a = i.newDate({
+					year: a[0],
+					month: a[1] - 1,
+					date: a[2]
+				}).getTime();
+			l.rangeLinked && !i.startDate && a === i.newDate(i.systemDate()).getTime() && lay(t).addClass(
+					lay(t).hasClass(s) || lay(t).hasClass(y) ? "" : "laydate-day-now"), lay(t).removeClass(
+					o + " " + x), a !== r && a !== n || (i.rangeLinked || !i.rangeLinked && (e < 42 ? a ===
+					r : a === n)) && lay(t).addClass(lay(t).hasClass(s) || lay(t).hasClass(y) ? o : x), r <
+				a && a < n && lay(t).addClass(o)
+		})
+	}, I.prototype.done = function(e, t) {
 		var a = this,
 			n = a.config,
 			i = lay.extend({}, lay.extend(n.dateTime, a.startTime)),
@@ -1247,37 +1394,50 @@ layui.define(function(e) {
 				"month" in t && lay.extend(t, {
 					month: t.month + 1
 				})
-			}), a.preview(), e = e || [a.parse(), i, l], "function" == typeof n[t || "done"] && n[t || "done"]
-			.apply(n, e), a
-	}, g.prototype.choose = function(e, a) {
-		var n = this,
-			i = n.config,
-			l = n.thisDateTime(a),
-			t = (lay(n.elem).find("td"), {
-				year: 0 | (t = e.attr("lay-ymd").split("-"))[0],
-				month: (0 | t[1]) - 1,
-				date: 0 | t[2]
-			});
-		e.hasClass(x) || (lay.extend(l, t), i.range ? (lay.each(["startTime", "endTime"], function(e, t) {
-				n[t] = n[t] || {
-					hours: e ? 23 : 0,
-					minutes: e ? 59 : 0,
-					seconds: e ? 59 : 0
-				}, a === e && (n.getDateTime(lay.extend({}, l, n[t])) < n.getDateTime(i.min) ? (n[
-						t] = {
-							hours: i.min.hours,
-							minutes: i.min.minutes,
-							seconds: i.min.seconds
-						}, lay.extend(l, n[t])) : n.getDateTime(lay.extend({}, l, n[t])) > n
-					.getDateTime(i.max) && (n[t] = {
-						hours: i.max.hours,
-						minutes: i.max.minutes,
-						seconds: i.max.seconds
-					}, lay.extend(l, n[t])))
-			}), n.calendar(null, a).done(null, "change")) : "static" === i.position ? n.calendar().done().done(
-				null, "change") : "date" === i.type ? n.setValue(n.parse()).remove().done() : "datetime" === i
-			.type && n.calendar().done(null, "change"))
-	}, g.prototype.tool = function(e, t) {
+			}), a.preview(), e = e || [a.parse(), i, l], "change" === t && a.renderAdditional(), "function" ==
+			typeof n[t || "done"] && n[t || "done"].apply(n, e), a
+	}, I.prototype.choose = function(e, a) {
+		var n, i, t, l, r, o;
+		e.hasClass(k) || (i = (n = this).config, t = a, n.rangeLinked && (n.endState || !n.startDate ? (a = 0, n
+				.endState = !1, n.endDate = {}) : (a = 1, n.endState = !0)), l = n.thisDateTime(a), lay(n.elem)
+			.find("td"), e = {
+				year: 0 | (e = e.attr("lay-ymd").split("-"))[0],
+				month: (0 | e[1]) - 1,
+				date: 0 | e[2]
+			}, lay.extend(l, e), i.range ? (lay.each(["startTime", "endTime"], function(e, t) {
+					n[t] = n[t] || {
+						hours: e ? 23 : 0,
+						minutes: e ? 59 : 0,
+						seconds: e ? 59 : 0
+					}, a === e && (n.getDateTime(lay.extend({}, l, n[t])) < n.getDateTime(i.min) ? (n[
+							t] = {
+								hours: i.min.hours,
+								minutes: i.min.minutes,
+								seconds: i.min.seconds
+							}, lay.extend(l, n[t])) : n.getDateTime(lay.extend({}, l, n[t])) > n
+						.getDateTime(i.max) && (n[t] = {
+							hours: i.max.hours,
+							minutes: i.max.minutes,
+							seconds: i.max.seconds
+						}, lay.extend(l, n[t])))
+				}), a || (n.startDate = lay.extend({}, l)), n.endState && !n.limit({
+					date: n.thisDateTime(1 - a)
+				}) && (((r = n.endState && n.autoCalendarModel.auto ? n.autoCalendarModel() : r) || n
+					.rangeLinked && n.endState) && n.newDate(n.startDate) > n.newDate(n.endDate) && (e = n
+					.startDate.year === n.endDate.year && n.startDate.month === n.endDate.month && n
+					.startDate.date === n.endDate.date, o = n.startDate, n.startDate = lay.extend({}, n
+						.endDate, e ? {} : n.startTime), i.dateTime = lay.extend({}, n.startDate), n
+					.endDate = lay.extend({}, o, e ? {} : n.endTime), e && (o = n.startTime, n.startTime = n
+						.endTime, n.endTime = o)), r && (i.dateTime = lay.extend({}, n.startDate))), n
+				.rangeLinked ? (e = lay.extend({}, l), !t || a || r || (o = n.getAsYM(l.year, l.month, "sub"),
+					lay.extend(i.dateTime, {
+						year: o[0],
+						month: o[1]
+					})), n.calendar(e, t, r ? "init" : null)) : n.calendar(null, a, r ? "init" : null), n
+				.endState && n.done(null, "change")) : "static" === i.position ? n.calendar().done().done(null,
+				"change") : "date" === i.type ? i.autoConfirm ? n.setValue(n.parse()).done().remove() : n
+			.calendar().done(null, "change") : "datetime" === i.type && n.calendar().done(null, "change"))
+	}, I.prototype.tool = function(t, e) {
 		var a = this,
 			n = a.config,
 			i = a.lang(),
@@ -1285,76 +1445,86 @@ layui.define(function(e) {
 			r = "static" === n.position,
 			o = {
 				datetime: function() {
-					lay(e).hasClass(x) || (a.list("time", 0), n.range && a.list("time", 1), lay(e).attr(
+					lay(t).hasClass(k) || (a.list("time", 0), n.range && a.list("time", 1), lay(t).attr(
 						"lay-type", "date").html(a.lang().dateTips))
 				},
 				date: function() {
-					a.closeList(), lay(e).attr("lay-type", "datetime").html(a.lang().timeTips)
+					a.closeList(), lay(t).attr("lay-type", "datetime").html(a.lang().timeTips)
 				},
 				clear: function() {
 					r && (lay.extend(l, a.firstDate), a.calendar()), n.range && (delete n.dateTime, delete a
-						.endDate, delete a.startTime, delete a.endTime), a.setValue("").remove(), a.done([
-						"", {}, {}
-					])
+						.endDate, delete a.startTime, delete a.endTime), a.setValue(""), a.done(null,
+						"onClear").done(["", {}, {}]).remove()
 				},
 				now: function() {
 					var e = new Date;
+					if (lay(t).hasClass(k)) return a.hint(i.tools.now + ", " + i.invalidDate);
 					lay.extend(l, a.systemDate(), {
 						hours: e.getHours(),
 						minutes: e.getMinutes(),
 						seconds: e.getSeconds()
-					}), a.setValue(a.parse()).remove(), r && a.calendar(), a.done()
+					}), a.setValue(a.parse()), r && a.calendar(), a.done(null, "onNow").done().remove()
 				},
 				confirm: function() {
 					if (n.range) {
-						if (lay(e).hasClass(x)) return a.hint("time" === n.type ? i.timeout.replace(
+						if (lay(t).hasClass(k)) return a.hint("time" === n.type ? i.timeout.replace(
 							/\u65e5\u671f/g, "\u65f6\u95f4") : i.timeout)
-					} else if (lay(e).hasClass(x)) return a.hint(i.invalidDate);
-					a.setValue(a.parse()).remove(), a.done()
+					} else if (lay(t).hasClass(k)) return a.hint(i.invalidDate);
+					a.setValue(a.parse()), a.done(null, "onConfirm").done().remove()
 				}
 			};
-		o[t] && o[t]()
-	}, g.prototype.change = function(n) {
+		o[e] && o[e]()
+	}, I.prototype.change = function(n) {
 		var i = this,
 			l = i.config,
 			r = i.thisDateTime(n),
 			o = l.range && ("year" === l.type || "month" === l.type),
-			s = i.elemCont[n || 0],
-			y = i.listYM[n],
+			d = i.elemCont[n || 0],
+			s = i.listYM[n],
 			e = function(e) {
-				var t = lay(s).find(".laydate-year-list")[0],
-					a = lay(s).find(".laydate-month-list")[0];
-				return t && (y[0] = e ? y[0] - 15 : y[0] + 15, i.list("year", n)), a && (e ? y[0]-- : y[0]++, i
+				var t = lay(d).find(".laydate-year-list")[0],
+					a = lay(d).find(".laydate-month-list")[0];
+				return t && (s[0] = e ? s[0] - 15 : s[0] + 15, i.list("year", n)), a && (e ? s[0]-- : s[0]++, i
 					.list("month", n)), (t || a) && (lay.extend(r, {
-					year: y[0]
-				}), o && (r.year = y[0]), l.range || i.done(null, "change"), l.range || i.limit(lay(i
-					.footer).find(E), {
-					year: y[0]
+					year: s[0]
+				}), o && (r.year = s[0]), l.range || i.done(null, "change"), l.range || i.limit({
+					elem: lay(i.footer).find(C),
+					date: {
+						year: s[0]
+					}
 				})), i.setBtnStatus(), t || a
 			};
 		return {
 			prevYear: function() {
-				e("sub") || (r.year--, i.checkDate("limit").calendar(null, n), i.done(null, "change"))
+				e("sub") || (i.rangeLinked ? (l.dateTime.year--, i.checkDate("limit").calendar(null, null,
+					"init")) : (r.year--, i.checkDate("limit").calendar(null, n), i.autoCalendarModel
+					.auto ? i.choose(lay(d).find("td.layui-this"), n) : i.done(null, "change")))
 			},
 			prevMonth: function() {
+				i.rangeLinked && (r = l.dateTime);
 				var e = i.getAsYM(r.year, r.month, "sub");
 				lay.extend(r, {
 					year: e[0],
 					month: e[1]
-				}), i.checkDate("limit").calendar(null, n), i.done(null, "change")
+				}), i.checkDate("limit").calendar(null, null, "init"), i.rangeLinked || (i.autoCalendarModel
+					.auto ? i.choose(lay(d).find("td.layui-this"), n) : i.done(null, "change"))
 			},
 			nextMonth: function() {
+				i.rangeLinked && (r = l.dateTime);
 				var e = i.getAsYM(r.year, r.month);
 				lay.extend(r, {
 					year: e[0],
 					month: e[1]
-				}), i.checkDate("limit").calendar(null, n), i.done(null, "change")
+				}), i.checkDate("limit").calendar(null, null, "init"), i.rangeLinked || (i.autoCalendarModel
+					.auto ? i.choose(lay(d).find("td.layui-this"), n) : i.done(null, "change"))
 			},
 			nextYear: function() {
-				e() || (r.year++, i.checkDate("limit").calendar(null, n), i.done(null, "change"))
+				e() || (i.rangeLinked ? (l.dateTime.year++, i.checkDate("limit").calendar(null, 0, "init")) : (r
+					.year++, i.checkDate("limit").calendar(null, n), i.autoCalendarModel.auto ? i
+					.choose(lay(d).find("td.layui-this"), n) : i.done(null, "change")))
 			}
 		}
-	}, g.prototype.changeEvent = function() {
+	}, I.prototype.changeEvent = function() {
 		var i = this;
 		i.config;
 		lay(i.elem).on("click", function(e) {
@@ -1371,7 +1541,7 @@ layui.define(function(e) {
 					a = t.attr("lay-ym"),
 					t = t.attr("lay-type");
 				a && (a = a.split("-"), i.listYM[n] = [0 | a[0], 0 | a[1]], i.list(t, n), lay(i
-					.footer).find("." + k).addClass(x))
+					.footer).find("." + E).addClass(k))
 			}), lay(e[3]).on("click", function(e) {
 				i.change(n).nextMonth()
 			}), lay(e[4]).on("click", function(e) {
@@ -1385,60 +1555,66 @@ layui.define(function(e) {
 			var e = lay(this).attr("lay-type");
 			i.tool(this, e)
 		})
-	}, g.prototype.isInput = function(e) {
+	}, I.prototype.isInput = function(e) {
 		return /input|textarea/.test(e.tagName.toLocaleLowerCase()) || /INPUT|TEXTAREA/.test(e.tagName)
-	}, g.prototype.events = function() {
-		var a = this,
-			n = a.config,
-			e = function(e, t) {
-				e.on(n.trigger, function() {
-					u.thisId !== n.id && (t && (a.bindElem = this), a.render())
-				})
-			};
-		n.elem[0] && !n.elem[0].eventHandler && (e(n.elem, "bind"), e(n.eventElem), n.elem[0].eventHandler = !0)
-	}, s.that = {}, s.getThis = function(e) {
-		var t = s.that[e];
+	}, I.prototype.events = function() {
+		var e, t = this,
+			a = t.config;
+		a.elem[0] && !a.elem[0].eventHandler && (a.elem.on(a.trigger, e = function() {
+			v.thisId !== a.id && (t.bindElem = this, t.render())
+		}), a.elem[0].eventHandler = !0, a.eventElem.on(a.trigger, e), t.destroy = function() {
+			t.remove(), a.elem.off(a.trigger, e), a.elem.removeAttr("lay-key"), a.elem[0].eventHandler = !1,
+				a.eventElem.off(a.trigger, e), a.eventElem.removeAttr("lay-key"), delete d.that[a.id]
+		})
+	}, d.that = {}, d.getThis = function(e) {
+		var t = d.that[e];
 		return !t && n && layui.hint().error(e ? a + " instance with ID '" + e + "' not found" :
 			"ID argument required"), t
 	}, l.run = function(n) {
-		n(r).on("mousedown", function(e) {
+		n(g).on("mousedown", function(e) {
 			var t, a;
-			!u.thisId || (t = s.getThis(u.thisId)) && (a = t.config, e.target !== a.elem[0] && e.target !==
+			!v.thisId || (t = d.getThis(v.thisId)) && (a = t.config, e.target !== a.elem[0] && e.target !==
 				a.eventElem[0] && e.target !== n(a.closeStop)[0] && t.remove())
 		}).on("keydown", function(e) {
 			var t;
-			!u.thisId || (t = s.getThis(u.thisId)) && "static" !== t.config.position && 13 === e.keyCode &&
-				n("#" + t.elemID)[0] && t.elemID === g.thisElemDate && (e.preventDefault(), n(t.footer)
-					.find(E)[0].click())
+			!v.thisId || (t = d.getThis(v.thisId)) && "static" !== t.config.position && 13 === e.keyCode &&
+				n("#" + t.elemID)[0] && t.elemID === I.thisElemDate && (e.preventDefault(), n(t.footer)
+					.find(C)[0].click())
 		}), n(i).on("resize", function() {
-			if (u.thisId) {
-				var e = s.getThis(u.thisId);
+			if (v.thisId) {
+				var e = d.getThis(v.thisId);
 				if (e) return !(!e.elem || !n(".layui-laydate")[0]) && void e.position()
 			}
 		})
-	}, u.render = function(e) {
-		e = new g(e);
-		return s.call(e)
-	}, u.parse = function(a, n, i) {
-		return a = a || {}, n = ((n = "string" == typeof n ? s.formatArr(n) : n) || []).concat(), lay.each(n,
+	}, v.render = function(e) {
+		e = new I(e);
+		return d.call(e)
+	}, v.getInst = function(e) {
+		e = d.getThis(e);
+		if (e) return e.inst
+	}, v.parse = function(a, n, i) {
+		return a = a || {}, n = ((n = "string" == typeof n ? d.formatArr(n) : n) || []).concat(), lay.each(n,
 			function(e, t) {
 				/yyyy|y/.test(t) ? n[e] = lay.digit(a.year, t.length) : /MM|M/.test(t) ? n[e] = lay.digit(a
 						.month + (i || 0), t.length) : /dd|d/.test(t) ? n[e] = lay.digit(a.date, t.length) :
 					/HH|H/.test(t) ? n[e] = lay.digit(a.hours, t.length) : /mm|m/.test(t) ? n[e] = lay.digit(a
 						.minutes, t.length) : /ss|s/.test(t) && (n[e] = lay.digit(a.seconds, t.length))
 			}), n.join("")
-	}, u.getEndDate = function(e, t) {
+	}, v.getEndDate = function(e, t) {
 		var a = new Date;
 		return a.setFullYear(t || a.getFullYear(), e || a.getMonth() + 1, 1), new Date(a.getTime() - 864e5)
 		.getDate()
-	}, u.close = function(e) {
-		e = s.getThis(e || u.thisId);
+	}, v.close = function(e) {
+		e = d.getThis(e || v.thisId);
 		if (e) return e.remove()
-	}, n ? (u.ready(), layui.define("lay", function(e) {
-		u.path = layui.cache.dir, l.run(lay), e(a, u)
+	}, v.destroy = function(e) {
+		e = d.getThis(e || v.thisId);
+		if (e) return e.destroy()
+	}, n ? (v.ready(), layui.define("lay", function(e) {
+		v.path = layui.cache.dir, l.run(lay), e(a, v)
 	})) : "function" == typeof define && define.amd ? define(function() {
-		return l.run(lay), u
-	}) : (u.ready(), l.run(i.lay), i.laydate = u)
+		return l.run(lay), v
+	}) : (v.ready(), l.run(i.lay), i.laydate = v)
 }(window, window.document);
 ! function(e, t) {
 	"object" == typeof module && "object" == typeof module.exports ? module.exports = e.document ? t(e) : function(e) {
@@ -5082,8 +5258,8 @@ layui.define(function(e) {
 });
 ! function(p) {
 	"use strict";
-	var h, f, e, n = p.layui && layui.define,
-		c = {
+	var m, c, e, n = p.layui && layui.define,
+		f = {
 			getPath: (e = document.currentScript ? document.currentScript.src : function() {
 				for (var e, t = document.scripts, i = t.length - 1, n = i; 0 < n; n--)
 					if ("interactive" === t[n].readyState) {
@@ -5091,8 +5267,13 @@ layui.define(function(e) {
 						break
 					} return e || t[i].src
 			}(), (p.LAYUI_GLOBAL || {}).layer_dir || e.substring(0, e.lastIndexOf("/") + 1)),
-			config: {},
+			config: {
+				removeFocus: !0
+			},
 			end: {},
+			events: {
+				resize: {}
+			},
 			minIndex: 0,
 			minLeft: [],
 			btn: ["&#x786E;&#x5B9A;", "&#x53D6;&#x6D88;"],
@@ -5102,59 +5283,60 @@ layui.define(function(e) {
 				return e[e.getPropertyValue ? "getPropertyValue" : "getAttribute"](t)
 			},
 			link: function(e, i, t) {
-				var n, a, o, s, r, l;
-				m.path && (n = document.getElementsByTagName("head")[0], a = document.createElement("link"), o = ((
-						t = "string" == typeof i ? i : t) || e).replace(/\.|\//g, ""), s = "layuicss-" + o, r =
-					"creating", l = 0, a.rel = "stylesheet", a.href = m.path + e, a.id = s, document
-					.getElementById(s) || n.appendChild(a), "function" == typeof i && function f(e) {
+				var n, a, o, s, l, r;
+				h.path && (n = document.getElementsByTagName("head")[0], a = document.createElement("link"), o = ((
+						t = "string" == typeof i ? i : t) || e).replace(/\.|\//g, ""), s = "layuicss-" + o, l =
+					"creating", r = 0, a.rel = "stylesheet", a.href = h.path + e, a.id = s, document
+					.getElementById(s) || n.appendChild(a), "function" == typeof i && function c(e) {
 						var t = document.getElementById(s);
-						return 100 < ++l ? p.console && console.error(o + ".css: Invalid") : void(1989 ===
-							parseInt(c.getStyle(t, "width")) ? (e === r && t.removeAttribute("lay-status"),
-								t.getAttribute("lay-status") === r ? setTimeout(f, 100) : i()) : (t
-								.setAttribute("lay-status", r), setTimeout(function() {
-									f(r)
+						return 100 < ++r ? p.console && console.error(o + ".css: Invalid") : void(1989 ===
+							parseInt(f.getStyle(t, "width")) ? (e === l && t.removeAttribute("lay-status"),
+								t.getAttribute("lay-status") === l ? setTimeout(c, 100) : i()) : (t
+								.setAttribute("lay-status", l), setTimeout(function() {
+									c(l)
 								}, 100)))
 					}())
 			}
 		},
-		m = {
-			v: "3.5.1",
+		h = {
+			v: "3.6.0",
 			ie: (e = navigator.userAgent.toLowerCase(), !!(p.ActiveXObject || "ActiveXObject" in p) && ((e.match(
 				/msie\s(\d+)/) || [])[1] || "11")),
 			index: p.layer && p.layer.v ? 1e5 : 0,
-			path: c.getPath,
+			path: f.getPath,
 			config: function(e, t) {
-				return m.cache = c.config = h.extend({}, c.config, e = e || {}), m.path = c.config.path || m.path,
-					"string" == typeof e.extend && (e.extend = [e.extend]), c.config.path && m.ready(), e.extend &&
-					(n ? layui.addcss("modules/layer/" + e.extend) : c.link("theme/" + e.extend)), this
+				return h.cache = f.config = m.extend({}, f.config, e = e || {}), h.path = f.config.path || h.path,
+					"string" == typeof e.extend && (e.extend = [e.extend]), f.config.path && h.ready(), e.extend &&
+					(n ? layui.addcss("modules/layer/" + e.extend) : f.link("css/" + e.extend)), this
 			},
 			ready: function(e) {
 				var t = "layer",
-					i = (n ? "modules/layer/" : "theme/") + "layer.css?v=" + m.v;
-				return n ? layui.addcss(i, e, t) : c.link(i, e, t), this
+					i = (n ? "modules/" : "css/") + "layer.css?v=" + h.v;
+				return n ? layui["layui.all"] ? "function" == typeof e && e() : layui.addcss(i, e, t) : f.link(i, e,
+					t), this
 			},
 			alert: function(e, t, i) {
 				var n = "function" == typeof t;
-				return m.open(h.extend({
+				return h.open(m.extend({
 					content: e,
 					yes: i = n ? t : i
 				}, n ? {} : t))
 			},
 			confirm: function(e, t, i, n) {
 				var a = "function" == typeof t;
-				return a && (n = i, i = t), m.open(h.extend({
+				return a && (n = i, i = t), h.open(m.extend({
 					content: e,
-					btn: c.btn,
+					btn: f.btn,
 					yes: i,
 					btn2: n
 				}, a ? {} : t))
 			},
 			msg: function(e, t, i) {
 				var n = "function" == typeof t,
-					a = c.config.skin,
+					a = f.config.skin,
 					a = (a ? a + " " + a + "-msg" : "") || "layui-layer-msg",
 					o = d.anim.length - 1;
-				return n && (i = t), m.open(h.extend({
+				return n && (i = t), h.open(m.extend({
 					content: e,
 					time: 3e3,
 					shade: !1,
@@ -5163,23 +5345,25 @@ layui.define(function(e) {
 					closeBtn: !1,
 					btn: !1,
 					resize: !1,
-					end: i
-				}, n && !c.config.skin ? {
+					end: i,
+					removeFocus: !1
+				}, n && !f.config.skin ? {
 					skin: a + " layui-layer-hui",
 					anim: o
-				} : (-1 !== (t = t || {}).icon && (void 0 !== t.icon || c.config.skin) || (t.skin = a +
+				} : (-1 !== (t = t || {}).icon && (void 0 !== t.icon || f.config.skin) || (t.skin = a +
 					" " + (t.skin || "layui-layer-hui")), t)))
 			},
 			load: function(e, t) {
-				return m.open(h.extend({
+				return h.open(m.extend({
 					type: 3,
 					icon: e || 0,
 					resize: !1,
-					shade: .01
+					shade: .01,
+					removeFocus: !1
 				}, t))
 			},
 			tips: function(e, t, i) {
-				return m.open(h.extend({
+				return h.open(m.extend({
 					type: 4,
 					content: [e, t],
 					closeBtn: !1,
@@ -5187,7 +5371,8 @@ layui.define(function(e) {
 					shade: !1,
 					resize: !1,
 					fixed: !1,
-					maxWidth: 260
+					maxWidth: 260,
+					removeFocus: !1
 				}, i))
 			}
 		},
@@ -5196,7 +5381,7 @@ layui.define(function(e) {
 				i = function() {
 					t.creat()
 				};
-			t.index = ++m.index, t.config.maxWidth = h(f).width() - 30, t.config = h.extend({}, t.config, c.config, e),
+			t.index = ++h.index, t.config.maxWidth = m(c).width() - 30, t.config = m.extend({}, t.config, f.config, e),
 				document.body ? i() : setTimeout(function() {
 					i()
 				}, 30)
@@ -5227,94 +5412,107 @@ layui.define(function(e) {
 			scrollbar: !0,
 			tips: 2
 		}, t.pt.vessel = function(e, t) {
-			var i = this.index,
-				n = this.config,
-				a = n.zIndex + i,
-				o = "object" == typeof n.title,
-				s = n.maxmin && (1 === n.type || 2 === n.type),
-				o = n.title ? '<div class="layui-layer-title" style="' + (o ? n.title[1] : "") + '">' + (o ? n
-					.title[0] : n.title) + "</div>" : "";
-			return n.zIndex = a, t([n.shade ? '<div class="' + d.SHADE + '" id="' + d.SHADE + i + '" times="' + i +
-				'" style="z-index:' + (a - 1) + '; "></div>' : "", '<div class="' + d[0] + " layui-layer-" +
-				c.type[n.type] + (0 != n.type && 2 != n.type || n.shade ? "" : " layui-layer-border") +
-				" " + (n.skin || "") + '" id="' + d[0] + i + '" type="' + c.type[n.type] + '" times="' + i +
-				'" showtime="' + n.time + '" conType="' + (e ? "object" : "string") + '" style="z-index: ' +
-				a + "; width:" + n.area[0] + ";height:" + n.area[1] + ";position:" + (n.fixed ? "fixed;" :
-					"absolute;") + '">' + (e && 2 != n.type ? "" : o) + '<div id="' + (n.id || "") +
-				'" class="layui-layer-content' + (0 == n.type && -1 !== n.icon ? " layui-layer-padding" :
-					"") + (3 == n.type ? " layui-layer-loading" + n.icon : "") + '">' + (0 == n.type && -
-					1 !== n.icon ? '<i class="layui-layer-ico layui-layer-ico' + n.icon + '"></i>' : "") + (
-					(1 != n.type || !e) && n.content || "") + '</div><span class="layui-layer-setwin">' + (
-					i = s ?
-					'<a class="layui-layer-min" href="javascript:;"><cite></cite></a><a class="layui-layer-ico layui-layer-max" href="javascript:;"></a>' :
-					"", n.closeBtn && (i += '<a class="layui-layer-ico ' + d[7] + " " + d[7] + (n.title ? n
-						.closeBtn : 4 == n.type ? "1" : "2") + '" href="javascript:;"></a>'), i) +
-				"</span>" + (n.btn ? function() {
-					var e = "";
-					"string" == typeof n.btn && (n.btn = [n.btn]);
-					for (var t = 0, i = n.btn.length; t < i; t++) e += '<a class="' + d[6] + t + '">' +
-						n.btn[t] + "</a>";
-					return '<div class="' + d[6] + " layui-layer-btn-" + (n.btnAlign || "") + '">' + e +
-						"</div>"
-				}() : "") + (n.resize ? '<span class="layui-layer-resize"></span>' : "") + "</div>"
-			], o, h('<div class="' + d.MOVE + '" id="' + d.MOVE + '"></div>')), this
+			var i, n = this.index,
+				a = this.config,
+				o = a.zIndex + n,
+				s = "object" == typeof a.title,
+				l = a.maxmin && (1 === a.type || 2 === a.type),
+				s = a.title ? '<div class="layui-layer-title" style="' + (s ? a.title[1] : "") + '">' + (s ? a
+					.title[0] : a.title) + "</div>" : "";
+			return a.zIndex = o, t([a.shade ? '<div class="' + d.SHADE + '" id="' + d.SHADE + n + '" times="' + n +
+				'" style="z-index:' + (o - 1) + '; "></div>' : "", '<div class="' + d[0] + " layui-layer-" +
+				f.type[a.type] + (0 != a.type && 2 != a.type || a.shade ? "" : " layui-layer-border") +
+				" " + (a.skin || "") + '" id="' + d[0] + n + '" type="' + f.type[a.type] + '" times="' + n +
+				'" showtime="' + a.time + '" conType="' + (e ? "object" : "string") + '" style="z-index: ' +
+				o + "; width:" + a.area[0] + ";height:" + a.area[1] + ";position:" + (a.fixed ? "fixed;" :
+					"absolute;") + '">' + (e && 2 != a.type ? "" : s) + "<div" + (a.id ? ' id="' + a.id +
+					'"' : "") + ' class="layui-layer-content' + (0 == a.type && -1 !== a.icon ?
+					" layui-layer-padding" : "") + (3 == a.type ? " layui-layer-loading" + a.icon : "") +
+				'">' + (n = ["layui-icon-tips", "layui-icon-ok", "layui-icon-close-fill", "layui-icon-help",
+						"layui-icon-password", "layui-icon-face-cry", "layui-icon-face-smile"
+					], o = "layui-anim layui-anim-rotate layui-anim-loop", 0 == a.type && -1 !== a.icon ?
+					'<i class="layui-layer-face layui-icon ' + ((i = 16 == a.icon ?
+						"layui-icon layui-icon-loading " + o : i) || n[a.icon] || n[0]) + '"></i>' : 3 == a
+					.type ? (i = ["layui-icon-loading", "layui-icon-loading-1"], 2 == a.icon ?
+						'<div class="layui-layer-loading-2 ' + o + '"></div>' :
+						'<i class="layui-layer-loading-icon layui-icon ' + (i[a.icon] || i[0]) + " " + o +
+						'"></i>') : "") + ((1 != a.type || !e) && a.content || "") +
+				'</div><div class="layui-layer-setwin">' + (n = [], l && (n.push(
+					'<span class="layui-layer-min"></span>'), n.push(
+					'<span class="layui-layer-max"></span>')), a.closeBtn && n.push(
+					'<span class="layui-icon layui-icon-close ' + [d[7], d[7] + (a.title ? a.closeBtn :
+						4 == a.type ? "1" : "2")].join(" ") + '"></span>'), n.join("")) + "</div>" + (a
+					.btn ? function() {
+						var e = "";
+						"string" == typeof a.btn && (a.btn = [a.btn]);
+						for (var t = 0, i = a.btn.length; t < i; t++) e += '<a class="' + d[6] + t + '">' +
+							a.btn[t] + "</a>";
+						return '<div class="' + d[6] + " layui-layer-btn-" + (a.btnAlign || "") + '">' + e +
+							"</div>"
+					}() : "") + (a.resize ? '<span class="layui-layer-resize"></span>' : "") + "</div>"
+			], s, m('<div class="' + d.MOVE + '" id="' + d.MOVE + '"></div>')), this
 		}, t.pt.creat = function() {
 			var e, n = this,
 				a = n.config,
 				o = n.index,
-				s = "object" == typeof(l = a.content),
-				r = h("body");
-			if (!a.id || !h("#" + a.id)[0]) {
-				switch ("string" == typeof a.area && (a.area = "auto" === a.area ? ["", ""] : [a.area, ""]), a
-					.shift && (a.anim = a.shift), 6 == m.ie && (a.fixed = !1), a.type) {
+				s = "object" == typeof(r = a.content),
+				l = m("body");
+			if (!a.id || !m("." + d[0]).find("#" + a.id)[0]) {
+				switch (a.removeFocus && document.activeElement.blur(), "string" == typeof a.area && (a.area =
+					"auto" === a.area ? ["", ""] : [a.area, ""]), a.shift && (a.anim = a.shift), 6 == h.ie && (a
+					.fixed = !1), a.type) {
 					case 0:
-						a.btn = "btn" in a ? a.btn : c.btn[0], m.closeAll("dialog");
+						a.btn = "btn" in a ? a.btn : f.btn[0], h.closeAll("dialog");
 						break;
 					case 2:
-						var l = a.content = s ? a.content : [a.content || "", "auto"];
+						var r = a.content = s ? a.content : [a.content || "", "auto"];
 						a.content = '<iframe scrolling="' + (a.content[1] || "auto") +
 							'" allowtransparency="true" id="' + d[4] + o + '" name="' + d[4] + o +
 							'" onload="this.className=\'\';" class="layui-layer-load" frameborder="0" src="' + a
 							.content[0] + '"></iframe>';
 						break;
 					case 3:
-						delete a.title, delete a.closeBtn, -1 === a.icon && a.icon, m.closeAll("loading");
+						delete a.title, delete a.closeBtn, -1 === a.icon && a.icon, h.closeAll("loading");
 						break;
 					case 4:
 						s || (a.content = [a.content, "body"]), a.follow = a.content[1], a.content = a.content[0] +
 							'<i class="layui-layer-TipsG"></i>', delete a.title, a.tips = "object" == typeof a
-							.tips ? a.tips : [a.tips, !0], a.tipsMore || m.closeAll("tips")
+							.tips ? a.tips : [a.tips, !0], a.tipsMore || h.closeAll("tips")
 				}
 				n.vessel(s, function(e, t, i) {
-					r.append(e[0]), s ? 2 == a.type || 4 == a.type ? h("body").append(e[1]) : l.parents(
-							"." + d[0])[0] || (l.data("display", l.css("display")).show().addClass(
-								"layui-layer-wrap").wrap(e[1]), h("#" + d[0] + o).find("." + d[5]).before(
-							t)) : r.append(e[1]), h("#" + d.MOVE)[0] || r.append(c.moveElem = i), n.layero =
-						h("#" + d[0] + o), n.shadeo = h("#" + d.SHADE + o), a.scrollbar || d.html.css(
+					l.append(e[0]), s ? 2 == a.type || 4 == a.type ? m("body").append(e[1]) : r.parents(
+							"." + d[0])[0] || (r.data("display", r.css("display")).show().addClass(
+								"layui-layer-wrap").wrap(e[1]), m("#" + d[0] + o).find("." + d[5]).before(
+							t)) : l.append(e[1]), m("#" + d.MOVE)[0] || l.append(f.moveElem = i), n.layero =
+						m("#" + d[0] + o), n.shadeo = m("#" + d.SHADE + o), a.scrollbar || d.html.css(
 							"overflow", "hidden").attr("layer-full", o)
 				}).auto(o), n.shadeo.css({
 					"background-color": a.shade[1] || "#000",
 					opacity: a.shade[0] || a.shade
-				}), 2 == a.type && 6 == m.ie && n.layero.find("iframe").attr("src", l[0]), 4 == a.type ? n
-				.tips() : (n.offset(), parseInt(c.getStyle(document.getElementById(d.MOVE), "z-index")) || (n
-					.layero.css("visibility", "hidden"), m.ready(function() {
+				}), 2 == a.type && 6 == h.ie && n.layero.find("iframe").attr("src", r[0]), 4 == a.type ? n
+				.tips() : (n.offset(), parseInt(f.getStyle(document.getElementById(d.MOVE), "z-index")) || (n
+					.layero.css("visibility", "hidden"), h.ready(function() {
 						n.offset(), n.layero.css("visibility", "visible")
-					}))), a.fixed && f.on("resize", function() {
-					n.offset(), (/^\d+%$/.test(a.area[0]) || /^\d+%$/.test(a.area[1])) && n.auto(o), 4 == a
-						.type && n.tips()
-				}), a.time <= 0 || setTimeout(function() {
-					m.close(n.index)
+					}))), !a.fixed || f.events.resize[n.index] || (f.events.resize[n.index] = function() {
+					n.resize()
+				}, c.on("resize", f.events.resize[n.index])), a.time <= 0 || setTimeout(function() {
+					h.close(n.index)
 				}, a.time), n.move().callback(), d.anim[a.anim] && (e = "layer-anim " + d.anim[a.anim], n.layero
 					.addClass(e).one(
 						"webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",
 						function() {
-							h(this).removeClass(e)
+							m(this).removeClass(e)
 						})), a.isOutAnim && n.layero.data("isOutAnim", !0)
 			}
+		}, t.pt.resize = function() {
+			var e = this,
+				t = e.config;
+			e.offset(), (/^\d+%$/.test(t.area[0]) || /^\d+%$/.test(t.area[1])) && e.auto(e.index), 4 == t.type && e
+				.tips()
 		}, t.pt.auto = function(e) {
 			var t = this.config,
-				i = h("#" + d[0] + e),
-				n = ("" === t.area[0] && 0 < t.maxWidth && (m.ie && m.ie < 8 && t.btn && i.width(i.innerWidth()), i
+				i = m("#" + d[0] + e),
+				n = ("" === t.area[0] && 0 < t.maxWidth && (h.ie && h.ie < 8 && t.btn && i.width(i.innerWidth()), i
 					.outerWidth() > t.maxWidth && i.width(t.maxWidth)), [i.innerWidth(), i.innerHeight()]),
 				a = i.find(d[1]).outerHeight() || 0,
 				o = i.find("." + d[6]).outerHeight() || 0,
@@ -5322,7 +5520,7 @@ layui.define(function(e) {
 					(e = i.find(e)).height(n[1] - a - o - 2 * (0 | parseFloat(e.css("padding-top"))))
 				};
 			return 2 === t.type ? e("iframe") : "" === t.area[1] ? 0 < t.maxHeight && i.outerHeight() > t
-				.maxHeight ? (n[1] = t.maxHeight, e("." + d[5])) : t.fixed && n[1] >= f.height() && (n[1] = f
+				.maxHeight ? (n[1] = t.maxHeight, e("." + d[5])) : t.fixed && n[1] >= c.height() && (n[1] = c
 					.height(), e("." + d[5])) : e("." + d[5]), this
 		}, t.pt.offset = function() {
 			var e = this,
@@ -5330,18 +5528,18 @@ layui.define(function(e) {
 				i = e.layero,
 				n = [i.outerWidth(), i.outerHeight()],
 				a = "object" == typeof t.offset;
-			e.offsetTop = (f.height() - n[1]) / 2, e.offsetLeft = (f.width() - n[0]) / 2, a ? (e.offsetTop = t
+			e.offsetTop = (c.height() - n[1]) / 2, e.offsetLeft = (c.width() - n[0]) / 2, a ? (e.offsetTop = t
 					.offset[0], e.offsetLeft = t.offset[1] || e.offsetLeft) : "auto" !== t.offset && ("t" === t
-					.offset ? e.offsetTop = 0 : "r" === t.offset ? e.offsetLeft = f.width() - n[0] : "b" === t
-					.offset ? e.offsetTop = f.height() - n[1] : "l" === t.offset ? e.offsetLeft = 0 : "lt" === t
-					.offset ? (e.offsetTop = 0, e.offsetLeft = 0) : "lb" === t.offset ? (e.offsetTop = f.height() -
-						n[1], e.offsetLeft = 0) : "rt" === t.offset ? (e.offsetTop = 0, e.offsetLeft = f.width() -
-						n[0]) : "rb" === t.offset ? (e.offsetTop = f.height() - n[1], e.offsetLeft = f.width() - n[
-						0]) : e.offsetTop = t.offset), t.fixed || (e.offsetTop = /%$/.test(e.offsetTop) ? f
+					.offset ? e.offsetTop = 0 : "r" === t.offset ? e.offsetLeft = c.width() - n[0] : "b" === t
+					.offset ? e.offsetTop = c.height() - n[1] : "l" === t.offset ? e.offsetLeft = 0 : "lt" === t
+					.offset ? (e.offsetTop = 0, e.offsetLeft = 0) : "lb" === t.offset ? (e.offsetTop = c.height() -
+						n[1], e.offsetLeft = 0) : "rt" === t.offset ? (e.offsetTop = 0, e.offsetLeft = c.width() -
+						n[0]) : "rb" === t.offset ? (e.offsetTop = c.height() - n[1], e.offsetLeft = c.width() - n[
+						0]) : e.offsetTop = t.offset), t.fixed || (e.offsetTop = /%$/.test(e.offsetTop) ? c
 				.height() * parseFloat(e.offsetTop) / 100 : parseFloat(e.offsetTop), e.offsetLeft = /%$/.test(e
-						.offsetLeft) ? f.width() * parseFloat(e.offsetLeft) / 100 : parseFloat(e.offsetLeft), e
-					.offsetTop += f.scrollTop(), e.offsetLeft += f.scrollLeft()), i.attr("minLeft") && (e
-					.offsetTop = f.height() - (i.find(d[1]).outerHeight() || 0), e.offsetLeft = i.css("left")), i
+						.offsetLeft) ? c.width() * parseFloat(e.offsetLeft) / 100 : parseFloat(e.offsetLeft), e
+					.offsetTop += c.scrollTop(), e.offsetLeft += c.scrollLeft()), i.attr("minLeft") && (e
+					.offsetTop = c.height() - (i.find(d[1]).outerHeight() || 0), e.offsetLeft = i.css("left")), i
 				.css({
 					top: e.offsetTop,
 					left: e.offsetLeft
@@ -5350,9 +5548,9 @@ layui.define(function(e) {
 			var e = this.config,
 				t = this.layero,
 				i = [t.outerWidth(), t.outerHeight()],
-				n = h(e.follow),
+				n = m(e.follow),
 				a = {
-					width: (n = n[0] ? n : h("body")).outerWidth(),
+					width: (n = n[0] ? n : m("body")).outerWidth(),
 					height: n.outerHeight(),
 					top: n.offset().top,
 					left: n.offset().left
@@ -5360,7 +5558,7 @@ layui.define(function(e) {
 				o = t.find(".layui-layer-TipsG"),
 				n = e.tips[0];
 			e.tips[1] || o.remove(), a.autoLeft = function() {
-					0 < a.left + i[0] - f.width() ? (a.tipLeft = a.left + a.width - i[0], o.css({
+					0 < a.left + i[0] - c.width() ? (a.tipLeft = a.left + a.width - i[0], o.css({
 						right: 12,
 						left: "auto"
 					})) : a.tipLeft = a.left
@@ -5376,241 +5574,259 @@ layui.define(function(e) {
 				}, function() {
 					a.tipLeft = a.left - i[0] - 10, a.tipTop = a.top, o.removeClass("layui-layer-TipsR")
 						.addClass("layui-layer-TipsL").css("border-bottom-color", e.tips[1])
-				}], a.where[n - 1](), 1 === n ? a.top - (f.scrollTop() + i[1] + 16) < 0 && a.where[2]() : 2 === n ?
-				0 < f.width() - (a.left + a.width + i[0] + 16) || a.where[3]() : 3 === n ? 0 < a.top - f
-			.scrollTop() + a.height + i[1] + 16 - f.height() && a.where[0]() : 4 === n && 0 < i[0] + 16 - a.left &&
+				}], a.where[n - 1](), 1 === n ? a.top - (c.scrollTop() + i[1] + 16) < 0 && a.where[2]() : 2 === n ?
+				0 < c.width() - (a.left + a.width + i[0] + 16) || a.where[3]() : 3 === n ? 0 < a.top - c
+			.scrollTop() + a.height + i[1] + 16 - c.height() && a.where[0]() : 4 === n && 0 < i[0] + 16 - a.left &&
 				a.where[1](), t.find("." + d[5]).css({
 					"background-color": e.tips[1],
 					"padding-right": e.closeBtn ? "30px" : ""
 				}), t.css({
-					left: a.tipLeft - (e.fixed ? f.scrollLeft() : 0),
-					top: a.tipTop - (e.fixed ? f.scrollTop() : 0)
+					left: a.tipLeft - (e.fixed ? c.scrollLeft() : 0),
+					top: a.tipTop - (e.fixed ? c.scrollTop() : 0)
 				})
 		}, t.pt.move = function() {
-			var o = this,
-				s = o.config,
-				e = h(document),
-				r = o.layero,
-				t = r.find(s.move),
-				i = r.find(".layui-layer-resize"),
-				l = {};
-			return s.move && t.css("cursor", "move"), t.on("mousedown", function(e) {
-				e.preventDefault(), s.move && (l.moveStart = !0, l.offset = [e.clientX - parseFloat(r.css(
-					"left")), e.clientY - parseFloat(r.css("top"))], c.moveElem.css("cursor",
-					"move").show())
+			var n = this,
+				a = n.config,
+				e = m(document),
+				o = n.layero,
+				r = ["LAY_MOVE_DICT", "LAY_RESIZE_DICT"],
+				t = o.find(a.move),
+				i = o.find(".layui-layer-resize");
+			return a.move && t.css("cursor", "move"), t.on("mousedown", function(e) {
+				var t, i;
+				e.button || (t = m(this), i = {}, a.move && (i.layero = o, i.config = a, i.offset = [e
+						.clientX - parseFloat(o.css("left")), e.clientY - parseFloat(o.css("top"))
+					], t.data(r[0], i), f.eventMoveElem = t, f.moveElem.css("cursor", "move")
+				.show()), e.preventDefault())
 			}), i.on("mousedown", function(e) {
-				e.preventDefault(), l.resizeStart = !0, l.offset = [e.clientX, e.clientY], l.area = [r
-					.outerWidth(), r.outerHeight()
-				], c.moveElem.css("cursor", "se-resize").show()
-			}), e.on("mousemove", function(e) {
-				var t, i, n, a;
-				l.moveStart && (n = e.clientX - l.offset[0], a = e.clientY - l.offset[1], t = "fixed" === r
-					.css("position"), e.preventDefault(), l.stX = t ? 0 : f.scrollLeft(), l.stY = t ?
-					0 : f.scrollTop(), s.moveOut || (t = f.width() - r.outerWidth() + l.stX, i = f
-						.height() - r.outerHeight() + l.stY, t < (n = n < l.stX ? l.stX : n) && (n = t),
-						i < (a = a < l.stY ? l.stY : a) && (a = i)), r.css({
-						left: n,
-						top: a
-					})), s.resize && l.resizeStart && (n = e.clientX - l.offset[0], a = e.clientY - l
-					.offset[1], e.preventDefault(), m.style(o.index, {
-						width: l.area[0] + n,
-						height: l.area[1] + a
-					}), l.isResize = !0, s.resizing && s.resizing(r))
+				var t = m(this),
+					i = {};
+				a.resize && (i.layero = o, i.config = a, i.offset = [e.clientX, e.clientY], i.index = n
+						.index, i.area = [o.outerWidth(), o.outerHeight()], t.data(r[1], i), f
+						.eventResizeElem = t, f.moveElem.css("cursor", "se-resize").show()), e
+					.preventDefault()
+			}), f.docEvent || (e.on("mousemove", function(e) {
+				var t, i, n, a, o, s, l;
+				f.eventMoveElem && (t = (a = f.eventMoveElem.data(r[0]) || {}).layero, o = a.config, s =
+					e.clientX - a.offset[0], l = e.clientY - a.offset[1], i = "fixed" === t.css(
+						"position"), e.preventDefault(), a.stX = i ? 0 : c.scrollLeft(), a.stY = i ?
+					0 : c.scrollTop(), o.moveOut || (i = c.width() - t.outerWidth() + a.stX, n = c
+						.height() - t.outerHeight() + a.stY, i < (s = s < a.stX ? a.stX : s) && (s =
+							i), n < (l = l < a.stY ? a.stY : l) && (l = n)), t.css({
+						left: s,
+						top: l
+					})), f.eventResizeElem && (o = (a = f.eventResizeElem.data(r[1]) || {}).config,
+					s = e.clientX - a.offset[0], l = e.clientY - a.offset[1], e.preventDefault(), h
+					.style(a.index, {
+						width: a.area[0] + s,
+						height: a.area[1] + l
+					}), o.resizing && o.resizing(a.layero))
 			}).on("mouseup", function(e) {
-				l.moveStart && (delete l.moveStart, c.moveElem.hide(), s.moveEnd && s.moveEnd(r)), l
-					.resizeStart && (delete l.resizeStart, c.moveElem.hide())
-			}), o
+				var t, i;
+				f.eventMoveElem && (i = (t = f.eventMoveElem.data(r[0]) || {}).config, f.eventMoveElem
+					.removeData(r[0]), delete f.eventMoveElem, f.moveElem.hide(), i.moveEnd && i
+					.moveEnd(t.layero)), f.eventResizeElem && (f.eventResizeElem.removeData(r[1]),
+					delete f.eventResizeElem, f.moveElem.hide())
+			}), f.docEvent = !0), n
 		}, t.pt.callback = function() {
 			var t = this,
 				i = t.layero,
 				n = t.config;
 			t.openLayer(), n.success && (2 == n.type ? i.find("iframe").on("load", function() {
 				n.success(i, t.index, t)
-			}) : n.success(i, t.index, t)), 6 == m.ie && t.IE6(i), i.find("." + d[6]).children("a").on("click",
+			}) : n.success(i, t.index, t)), 6 == h.ie && t.IE6(i), i.find("." + d[6]).children("a").on("click",
 				function() {
-					var e = h(this).index();
-					0 === e ? n.yes ? n.yes(t.index, i) : n.btn1 ? n.btn1(t.index, i) : m.close(t.index) : !
-						1 !== (n["btn" + (e + 1)] && n["btn" + (e + 1)](t.index, i)) && m.close(t.index)
+					var e = m(this).index();
+					0 === e ? n.yes ? n.yes(t.index, i, t) : n.btn1 ? n.btn1(t.index, i, t) : h.close(t.index) :
+						!1 !== (n["btn" + (e + 1)] && n["btn" + (e + 1)](t.index, i, t)) && h.close(t.index)
 				}), i.find("." + d[7]).on("click", function() {
-				!1 !== (n.cancel && n.cancel(t.index, i)) && m.close(t.index)
+				!1 !== (n.cancel && n.cancel(t.index, i, t)) && h.close(t.index)
 			}), n.shadeClose && t.shadeo.on("click", function() {
-				m.close(t.index)
+				h.close(t.index)
 			}), i.find(".layui-layer-min").on("click", function() {
-				!1 !== (n.min && n.min(i, t.index)) && m.min(t.index, n)
+				!1 !== (n.min && n.min(i, t.index, t)) && h.min(t.index, n)
 			}), i.find(".layui-layer-max").on("click", function() {
-				h(this).hasClass("layui-layer-maxmin") ? (m.restore(t.index), n.restore && n.restore(i, t
-					.index)) : (m.full(t.index, n), setTimeout(function() {
-					n.full && n.full(i, t.index)
+				m(this).hasClass("layui-layer-maxmin") ? (h.restore(t.index), n.restore && n.restore(i, t
+					.index, t)) : (h.full(t.index, n), setTimeout(function() {
+					n.full && n.full(i, t.index, t)
 				}, 100))
-			}), n.end && (c.end[t.index] = n.end)
-		}, c.reselect = function() {
-			h.each(h("select"), function(e, t) {
-				var i = h(this);
-				i.parents("." + d[0])[0] || 1 == i.attr("layer") && h("." + d[0]).length < 1 && i
+			}), n.end && (f.end[t.index] = n.end)
+		}, f.reselect = function() {
+			m.each(m("select"), function(e, t) {
+				var i = m(this);
+				i.parents("." + d[0])[0] || 1 == i.attr("layer") && m("." + d[0]).length < 1 && i
 					.removeAttr("layer").show()
 			})
 		}, t.pt.IE6 = function(e) {
-			h("select").each(function(e, t) {
-				var i = h(this);
+			m("select").each(function(e, t) {
+				var i = m(this);
 				i.parents("." + d[0])[0] || "none" !== i.css("display") && i.attr({
 					layer: "1"
 				}).hide()
 			})
 		}, t.pt.openLayer = function() {
-			m.zIndex = this.config.zIndex, m.setTop = function(e) {
-				return m.zIndex = parseInt(e[0].style.zIndex), e.on("mousedown", function() {
-					m.zIndex++, e.css("z-index", m.zIndex + 1)
-				}), m.zIndex
+			h.zIndex = this.config.zIndex, h.setTop = function(e) {
+				return h.zIndex = parseInt(e[0].style.zIndex), e.on("mousedown", function() {
+					h.zIndex++, e.css("z-index", h.zIndex + 1)
+				}), h.zIndex
 			}
-		}, c.record = function(e) {
-			var t = [e.width(), e.height(), e.position().top, e.position().left + parseFloat(e.css("margin-left"))];
+		}, f.record = function(e) {
+			var t = [e[0].style.width || e.width(), e[0].style.height || e.height(), e.position().top, e.position()
+				.left + parseFloat(e.css("margin-left"))
+			];
 			e.find(".layui-layer-max").addClass("layui-layer-maxmin"), e.attr({
 				area: t
 			})
-		}, c.rescollbar = function(e) {
+		}, f.rescollbar = function(e) {
 			d.html.attr("layer-full") == e && (d.html[0].style.removeProperty ? d.html[0].style.removeProperty(
 				"overflow") : d.html[0].style.removeAttribute("overflow"), d.html.removeAttr("layer-full"))
-		}, (p.layer = m).getChildFrame = function(e, t) {
-			return t = t || h("." + d[4]).attr("times"), h("#" + d[0] + t).find("iframe").contents().find(e)
-		}, m.getFrameIndex = function(e) {
-			return h("#" + e).parents("." + d[4]).attr("times")
-		}, m.iframeAuto = function(e) {
+		}, (p.layer = h).getChildFrame = function(e, t) {
+			return t = t || m("." + d[4]).attr("times"), m("#" + d[0] + t).find("iframe").contents().find(e)
+		}, h.getFrameIndex = function(e) {
+			return m("#" + e).parents("." + d[4]).attr("times")
+		}, h.iframeAuto = function(e) {
 			var t, i, n;
-			e && (t = m.getChildFrame("html", e).outerHeight(), i = (e = h("#" + d[0] + e)).find(d[1])
+			e && (t = h.getChildFrame("html", e).outerHeight(), i = (e = m("#" + d[0] + e)).find(d[1])
 			.outerHeight() || 0, n = e.find("." + d[6]).outerHeight() || 0, e.css({
 					height: t + i + n
 				}), e.find("iframe").css({
 					height: t
 				}))
-		}, m.iframeSrc = function(e, t) {
-			h("#" + d[0] + e).find("iframe").attr("src", t)
-		}, m.style = function(e, t, i) {
-			var e = h("#" + d[0] + e),
+		}, h.iframeSrc = function(e, t) {
+			m("#" + d[0] + e).find("iframe").attr("src", t)
+		}, h.style = function(e, t, i) {
+			var e = m("#" + d[0] + e),
 				n = e.find(".layui-layer-content"),
 				a = e.attr("type"),
 				o = e.find(d[1]).outerHeight() || 0,
 				s = e.find("." + d[6]).outerHeight() || 0;
 			e.attr("minLeft");
-			a !== c.type[3] && a !== c.type[4] && (i || (parseFloat(t.width) <= 260 && (t.width = 260), parseFloat(t
+			a !== f.type[3] && a !== f.type[4] && (i || (parseFloat(t.width) <= 260 && (t.width = 260), parseFloat(t
 					.height) - o - s <= 64 && (t.height = 64 + o + s)), e.css(t), s = e.find("." + d[6])
-				.outerHeight() || 0, a === c.type[2] ? e.find("iframe").css({
-					height: parseFloat(t.height) - o - s
+				.outerHeight() || 0, a === f.type[2] ? e.find("iframe").css({
+					height: ("number" == typeof t.height ? t.height : e.height()) - o - s
 				}) : n.css({
-					height: parseFloat(t.height) - o - s - parseFloat(n.css("padding-top")) - parseFloat(n
-						.css("padding-bottom"))
+					height: ("number" == typeof t.height ? t.height : e.height()) - o - s - parseFloat(n
+						.css("padding-top")) - parseFloat(n.css("padding-bottom"))
 				}))
-		}, m.min = function(e, t) {
+		}, h.min = function(e, t) {
 			t = t || {};
-			var i = h("#" + d[0] + e),
-				n = h("#" + d.SHADE + e),
-				a = i.find(d[1]).outerHeight() || 0,
-				o = i.attr("minLeft") || 181 * c.minIndex + "px",
-				s = i.css("position"),
-				r = {
+			var i, n, a, o, s = m("#" + d[0] + e),
+				l = s.data("maxminStatus");
+			"min" !== l && ("max" === l && h.restore(e), s.data("maxminStatus", "min"), l = m("#" + d.SHADE + e),
+				i = s.find(d[1]).outerHeight() || 0, n = s.attr("minLeft") || 181 * f.minIndex + "px", a = s
+				.css("position"), o = {
 					width: 180,
-					height: a,
+					height: i,
 					position: "fixed",
 					overflow: "hidden"
-				};
-			c.record(i), c.minLeft[0] && (o = c.minLeft[0], c.minLeft.shift()), t.minStack && (r.left = o, r.top = f
-					.height() - a, i.attr("minLeft") || c.minIndex++, i.attr("minLeft", o)), i.attr("position", s),
-				m.style(e, r, !0), i.find(".layui-layer-min").hide(), "page" === i.attr("type") && i.find(d[4])
-				.hide(), c.rescollbar(e), n.hide()
-		}, m.restore = function(e) {
-			var t = h("#" + d[0] + e),
-				i = h("#" + d.SHADE + e),
+				}, f.record(s), f.minLeft[0] && (n = f.minLeft[0], f.minLeft.shift()), t.minStack && (o.left =
+					n, o.top = c.height() - i, s.attr("minLeft") || f.minIndex++, s.attr("minLeft", n)), s.attr(
+					"position", a), h.style(e, o, !0), s.find(".layui-layer-min").hide(), "page" === s.attr(
+					"type") && s.find(d[4]).hide(), f.rescollbar(e), l.hide())
+		}, h.restore = function(e) {
+			var t = m("#" + d[0] + e),
+				i = (t.data("maxminStatus", ""), m("#" + d.SHADE + e)),
 				n = t.attr("area").split(",");
 			t.attr("type");
-			m.style(e, {
-					width: parseFloat(n[0]),
-					height: parseFloat(n[1]),
+			h.style(e, {
+					width: n[0],
+					height: n[1],
 					top: parseFloat(n[2]),
 					left: parseFloat(n[3]),
 					position: t.attr("position"),
 					overflow: "visible"
 				}, !0), t.find(".layui-layer-max").removeClass("layui-layer-maxmin"), t.find(".layui-layer-min")
-				.show(), "page" === t.attr("type") && t.find(d[4]).show(), c.rescollbar(e), i.show()
-		}, m.full = function(t) {
-			var i = h("#" + d[0] + t);
-			c.record(i), d.html.attr("layer-full") || d.html.css("overflow", "hidden").attr("layer-full", t),
-				clearTimeout(void 0), setTimeout(function() {
-					var e = "fixed" === i.css("position");
-					m.style(t, {
-						top: e ? 0 : f.scrollTop(),
-						left: e ? 0 : f.scrollLeft(),
-						width: f.width(),
-						height: f.height()
-					}, !0), i.find(".layui-layer-min").hide()
-				}, 100)
-		}, m.title = function(e, t) {
-			h("#" + d[0] + (t || m.index)).find(d[1]).html(e)
-		}, m.close = function(a, o) {
-			var s, e, r = h("#" + d[0] + a),
-				l = r.attr("type");
-			r[0] && (s = "layui-layer-wrap", e = function() {
-					if (l === c.type[1] && "object" === r.attr("conType")) {
-						r.children(":not(." + d[5] + ")").remove();
-						for (var e = r.find("." + s), t = 0; t < 2; t++) e.unwrap();
+				.show(), "page" === t.attr("type") && t.find(d[4]).show(), t.attr("minLeft", ""), f.rescollbar(e), i
+				.show(), f.events.resize[e]()
+		}, h.full = function(t) {
+			var i = m("#" + d[0] + t),
+				e = i.data("maxminStatus");
+			"max" !== e && ("min" === e && h.restore(t), i.data("maxminStatus", "max"), f.record(i), d.html.attr(
+				"layer-full") || d.html.css("overflow", "hidden").attr("layer-full", t), clearTimeout(
+				void 0), setTimeout(function() {
+				var e = "fixed" === i.css("position");
+				h.style(t, {
+					top: e ? 0 : c.scrollTop(),
+					left: e ? 0 : c.scrollLeft(),
+					width: "100%",
+					height: "100%"
+				}, !0), i.find(".layui-layer-min").hide()
+			}, 100))
+		}, h.title = function(e, t) {
+			m("#" + d[0] + (t || h.index)).find(d[1]).html(e)
+		}, h.close = function(a, o) {
+			var e, s, t, l = (e = m("." + d[0]).find("#" + a).closest("." + d[0]))[0] ? (a = e.attr("times"), e) :
+				m("#" + d[0] + a),
+				r = l.attr("type");
+			l[0] && (s = "layui-layer-wrap", t = function() {
+					if (r === f.type[1] && "object" === l.attr("conType")) {
+						l.children(":not(." + d[5] + ")").remove();
+						for (var e = l.find("." + s), t = 0; t < 2; t++) e.unwrap();
 						e.css("display", e.data("display")).removeClass(s)
 					} else {
-						if (l === c.type[2]) try {
-							var i = h("#" + d[4] + a)[0];
-							i.contentWindow.document.write(""), i.contentWindow.close(), r.find("." + d[5])[
+						if (r === f.type[2]) try {
+							var i = m("#" + d[4] + a)[0];
+							i.contentWindow.document.write(""), i.contentWindow.close(), l.find("." + d[5])[
 								0].removeChild(i)
 						} catch (n) {}
-						r[0].innerHTML = "", r.remove()
+						l[0].innerHTML = "", l.remove()
 					}
-					"function" == typeof c.end[a] && c.end[a](), delete c.end[a], "function" == typeof o && o()
-				}, r.data("isOutAnim") && r.addClass("layer-anim layer-anim-close"), h("#layui-layer-moves, #" +
-					d.SHADE + a).remove(), 6 == m.ie && c.reselect(), c.rescollbar(a), r.attr("minLeft") && (c
-					.minIndex--, c.minLeft.push(r.attr("minLeft"))), m.ie && m.ie < 10 || !r.data("isOutAnim") ?
-				e() : setTimeout(function() {
-					e()
+					"function" == typeof f.end[a] && f.end[a](), delete f.end[a], "function" == typeof o && o(),
+						f.events.resize[a] && (c.off("resize", f.events.resize[a]), delete f.events.resize[a])
+				}, l.data("isOutAnim") && l.addClass("layer-anim layer-anim-close"), m("#layui-layer-moves, #" +
+					d.SHADE + a).remove(), 6 == h.ie && f.reselect(), f.rescollbar(a), l.attr("minLeft") && (f
+					.minIndex--, f.minLeft.push(l.attr("minLeft"))), h.ie && h.ie < 10 || !l.data("isOutAnim") ?
+				t() : setTimeout(function() {
+					t()
 				}, 200))
-		}, m.closeAll = function(n, a) {
+		}, h.closeAll = function(n, a) {
 			"function" == typeof n && (a = n, n = null);
-			var o = h("." + d[0]);
-			h.each(o, function(e) {
-				var t = h(this),
+			var o = m("." + d[0]);
+			m.each(o, function(e) {
+				var t = m(this),
 					i = n ? t.attr("type") === n : 1;
-				i && m.close(t.attr("times"), e === o.length - 1 ? a : null)
+				i && h.close(t.attr("times"), e === o.length - 1 ? a : null)
 			}), 0 === o.length && "function" == typeof a && a()
-		}, m.cache || {}),
+		}, h.closeLast = function(e) {
+			h.close(m(".layui-layer-" + (e = e || "page") + ":last").attr("times"))
+		}, h.cache || {}),
 		g = function(e) {
 			return i.skin ? " " + i.skin + " " + i.skin + "-" + e : ""
 		};
-	m.prompt = function(i, n) {
-		var e = "";
-		"function" == typeof(i = i || {}) && (n = i), i.area && (e = 'style="width: ' + (t = i.area)[0] +
-			"; height: " + t[1] + ';"', delete i.area);
-		var a, t = 2 == i.formType ? '<textarea class="layui-layer-input"' + e + "></textarea>" : '<input type="' +
-			(1 == i.formType ? "password" : "text") + '" class="layui-layer-input">',
-			o = i.success;
-		return delete i.success, m.open(h.extend({
+	h.prompt = function(i, n) {
+		var e = "",
+			t = "";
+		"function" == typeof(i = i || {}) && (n = i), i.area && (e = 'style="width: ' + (o = i.area)[0] +
+			"; height: " + o[1] + ';"', delete i.area), i.placeholder && (t = ' placeholder="' + i.placeholder +
+			'"');
+		var a, o = 2 == i.formType ? '<textarea class="layui-layer-input"' + e + t + "></textarea>" :
+			'<input type="' + (1 == i.formType ? "password" : "text") + '" class="layui-layer-input"' + t + ">",
+			s = i.success;
+		return delete i.success, h.open(m.extend({
 			type: 1,
 			btn: ["&#x786E;&#x5B9A;", "&#x53D6;&#x6D88;"],
-			content: t,
+			content: o,
 			skin: "layui-layer-prompt" + g("prompt"),
-			maxWidth: f.width(),
+			maxWidth: c.width(),
 			success: function(e) {
 				(a = e.find(".layui-layer-input")).val(i.value || "").focus(), "function" ==
-					typeof o && o(e)
+					typeof s && s(e)
 			},
 			resize: !1,
 			yes: function(e) {
 				var t = a.val();
-				"" === t ? a.focus() : t.length > (i.maxlength || 500) ? m.tips(
-					"&#x6700;&#x591A;&#x8F93;&#x5165;" + (i.maxlength || 500) +
-					"&#x4E2A;&#x5B57;&#x6570;", a, {
-						tips: 1
-					}) : n && n(t, e, a)
+				t.length > (i.maxlength || 500) ? h.tips("&#x6700;&#x591A;&#x8F93;&#x5165;" + (i
+					.maxlength || 500) + "&#x4E2A;&#x5B57;&#x6570;", a, {
+					tips: 1
+				}) : n && n(t, e, a)
 			}
 		}, i))
-	}, m.tab = function(n) {
+	}, h.tab = function(n) {
 		var a = (n = n || {}).tab || {},
 			o = "layui-this",
 			s = n.success;
-		return delete n.success, m.open(h.extend({
+		return delete n.success, h.open(m.extend({
 			type: 1,
 			skin: "layui-layer-tab" + g("tab"),
 			resize: !1,
@@ -5639,28 +5855,28 @@ layui.define(function(e) {
 					i = e.find(".layui-layer-tabmain").children();
 				t.on("mousedown", function(e) {
 					e.stopPropagation ? e.stopPropagation() : e.cancelBubble = !0;
-					var e = h(this),
+					var e = m(this),
 						t = e.index();
 					e.addClass(o).siblings().removeClass(o), i.eq(t).show().siblings()
 					.hide(), "function" == typeof n.change && n.change(t)
 				}), "function" == typeof s && s(e)
 			}
 		}, n))
-	}, m.photos = function(i, e, n) {
-		var a = {};
-		if ((i = i || {}).photos) {
-			var t = !("string" == typeof i.photos || i.photos instanceof h),
-				o = t ? i.photos : {},
-				s = o.data || [],
-				r = o.start || 0,
-				l = (a.imgIndex = 1 + (0 | r), i.img = i.img || "img", i.success);
-			if (delete i.success, t) {
-				if (0 === s.length) return m.msg("&#x6CA1;&#x6709;&#x56FE;&#x7247;")
+	}, h.photos = function(n, e, a) {
+		var o = {};
+		if ((n = n || {}).photos) {
+			var t = !("string" == typeof n.photos || n.photos instanceof m),
+				i = t ? n.photos : {},
+				s = i.data || [],
+				l = i.start || 0,
+				r = (o.imgIndex = 1 + (0 | l), n.img = n.img || "img", n.success);
+			if (delete n.success, t) {
+				if (0 === s.length) return h.msg("&#x6CA1;&#x6709;&#x56FE;&#x7247;")
 			} else {
-				var f = h(i.photos),
-					c = function() {
-						s = [], f.find(i.img).each(function(e) {
-							var t = h(this);
+				var c = m(n.photos),
+					f = function() {
+						s = [], c.find(n.img).each(function(e) {
+							var t = m(this);
 							t.attr("layer-index", e), s.push({
 								alt: t.attr("alt"),
 								pid: t.attr("layer-pid"),
@@ -5669,48 +5885,49 @@ layui.define(function(e) {
 							})
 						})
 					};
-				if (c(), 0 === s.length) return;
-				if (e || f.on("click", i.img, function() {
-						c();
-						var e = h(this).attr("layer-index");
-						m.photos(h.extend(i, {
+				if (f(), 0 === s.length) return;
+				if (e || c.on("click", n.img, function() {
+						f();
+						var e = m(this).attr("layer-index");
+						h.photos(m.extend(n, {
 							photos: {
 								start: e,
 								data: s,
-								tab: i.tab
+								tab: n.tab
 							},
-							full: i.full
+							full: n.full
 						}), !0)
 					}), !e) return
 			}
-			a.imgprev = function(e) {
-				a.imgIndex--, a.imgIndex < 1 && (a.imgIndex = s.length), a.tabimg(e)
-			}, a.imgnext = function(e, t) {
-				a.imgIndex++, a.imgIndex > s.length && (a.imgIndex = 1, t) || a.tabimg(e)
-			}, a.keyup = function(e) {
+			o.imgprev = function(e) {
+				o.imgIndex--, o.imgIndex < 1 && (o.imgIndex = s.length), o.tabimg(e)
+			}, o.imgnext = function(e, t) {
+				o.imgIndex++, o.imgIndex > s.length && (o.imgIndex = 1, t) || o.tabimg(e)
+			}, o.keyup = function(e) {
 				var t;
-				a.end || (t = e.keyCode, e.preventDefault(), 37 === t ? a.imgprev(!0) : 39 === t ? a.imgnext(!
-					0) : 27 === t && m.close(a.index))
-			}, a.tabimg = function(e) {
-				if (!(s.length <= 1)) return o.start = a.imgIndex - 1, m.close(a.index), m.photos(i, !0, e)
-			}, a.event = function() {
-				a.bigimg.find(".layui-layer-imgprev").on("click", function(e) {
-					e.preventDefault(), a.imgprev(!0)
-				}), a.bigimg.find(".layui-layer-imgnext").on("click", function(e) {
-					e.preventDefault(), a.imgnext(!0)
-				}), h(document).on("keyup", a.keyup)
-			}, a.loadi = m.load(1, {
-				shade: !("shade" in i) && .9,
+				o.end || (t = e.keyCode, e.preventDefault(), 37 === t ? o.imgprev(!0) : 39 === t ? o.imgnext(!
+					0) : 27 === t && h.close(o.index))
+			}, o.tabimg = function(e) {
+				if (!(s.length <= 1)) return i.start = o.imgIndex - 1, h.close(o.index), h.photos(n, !0, e)
+			}, o.event = function() {
+				o.bigimg.find(".layui-layer-imgprev").on("click", function(e) {
+					e.preventDefault(), o.imgprev(!0)
+				}), o.bigimg.find(".layui-layer-imgnext").on("click", function(e) {
+					e.preventDefault(), o.imgnext(!0)
+				}), m(document).on("keyup", o.keyup)
+			}, o.loadi = h.load(1, {
+				shade: !("shade" in n) && .9,
 				scrollbar: !1
 			});
-			var t = s[r].src,
+			var t = s[l].src,
 				d = function(e) {
-					var t;
-					m.close(a.loadi), n && (i.anim = -1), a.index = m.open(h.extend({
+					h.close(o.loadi);
+					var t, i = s[l].alt || "";
+					a && (n.anim = -1), o.index = h.open(m.extend({
 						type: 1,
 						id: "layui-layer-photos",
-						area: (e = [e.width, e.height], t = [h(p).width() - 100, h(p).height() - 100], !
-							i.full && (e[0] > t[0] || e[1] > t[1]) && ((t = [e[0] / t[0], e[1] / t[
+						area: (e = [e.width, e.height], t = [m(p).width() - 100, m(p).height() - 100], !
+							n.full && (e[0] > t[0] || e[1] > t[1]) && ((t = [e[0] / t[0], e[1] / t[
 									1]])[1] < t[0] ? (e[0] = e[0] / t[0], e[1] = e[1] / t[0]) : t[
 								0] < t[1] && (e[0] = e[0] / t[1], e[1] = e[1] / t[1])), [e[0] +
 								"px", e[1] + "px"
@@ -5726,30 +5943,36 @@ layui.define(function(e) {
 						anim: 5,
 						isOutAnim: !1,
 						skin: "layui-layer-photos" + g("photos"),
-						content: '<div class="layui-layer-phimg"><img src="' + s[r].src + '" alt="' + (
-							s[r].alt || "") + '" layer-pid="' + s[r].pid + '">' + (1 < s.length ?
-							'<div class="layui-layer-imgsee"><span class="layui-layer-imguide"><a href="javascript:;" class="layui-layer-iconext layui-layer-imgprev"></a><a href="javascript:;" class="layui-layer-iconext layui-layer-imgnext"></a></span><div class="layui-layer-imgbar" style="display:' +
-							(n ? "block" : "") +
-							'"><span class="layui-layer-imgtit"><a href="javascript:;">' + (s[r]
-								.alt || "") + "</a><em>" + a.imgIndex + " / " + s.length +
-							"</em></span></div></div>" : "") + "</div>",
+						content: '<div class="layui-layer-phimg"><img src="' + s[l].src + '" alt="' +
+							i + '" layer-pid="' + s[l].pid + '">' + (t = [
+								'<div class="layui-layer-imgsee">'
+							], 1 < s.length && t.push(['<div class="layui-layer-imguide">',
+								'<span class="layui-icon layui-icon-left layui-layer-iconext layui-layer-imgprev"></span>',
+								'<span class="layui-icon layui-icon-right layui-layer-iconext layui-layer-imgnext"></span>',
+								"</div>"
+							].join("")), n.hideFooter || t.push(['<div class="layui-layer-imgbar">',
+								'<div class="layui-layer-imgtit">', "<h3>" + i + "</h3>",
+								"<em>" + o.imgIndex + " / " + s.length + "</em>", '<a href="' +
+								s[l].src + '" target="_blank">\u67e5\u770b\u539f\u56fe</a>',
+								"</div>", "</div>"
+							].join("")), t.push("</div>"), t.join("")) + "</div>",
 						success: function(e, t) {
-							a.bigimg = e.find(".layui-layer-phimg"), a.imgsee = e.find(
-									".layui-layer-imgbar"), a.event(e), i.tab && i.tab(s[r], e),
-								"function" == typeof l && l(e)
+							o.bigimg = e.find(".layui-layer-phimg"), o.imgsee = e.find(
+									".layui-layer-imgbar"), o.event(e), n.tab && n.tab(s[l], e),
+								"function" == typeof r && r(e)
 						},
 						end: function() {
-							a.end = !0, h(document).off("keyup", a.keyup)
+							o.end = !0, m(document).off("keyup", o.keyup)
 						}
-					}, i))
+					}, n))
 				},
 				u = function() {
-					m.close(a.loadi), m.msg(
+					h.close(o.loadi), h.msg(
 						"&#x5F53;&#x524D;&#x56FE;&#x7247;&#x5730;&#x5740;&#x5F02;&#x5E38;<br>&#x662F;&#x5426;&#x7EE7;&#x7EED;&#x67E5;&#x770B;&#x4E0B;&#x4E00;&#x5F20;&#xFF1F;", {
 							time: 3e4,
 							btn: ["&#x4E0B;&#x4E00;&#x5F20;", "&#x4E0D;&#x770B;&#x4E86;"],
 							yes: function() {
-								1 < s.length && a.imgnext(!0, !0)
+								1 < s.length && o.imgnext(!0, !0)
 							}
 						})
 				},
@@ -5760,56 +5983,71 @@ layui.define(function(e) {
 				y.onerror = null, u(e)
 			})
 		}
-	}, c.run = function(e) {
-		f = (h = e)(p), d.html = h("html"), m.open = function(e) {
+	}, f.run = function(e) {
+		c = (m = e)(p), d.html = m("html"), h.open = function(e) {
 			return new t(e).index
 		}
-	}, p.layui && layui.define ? (m.ready(), layui.define("jquery", function(e) {
-		m.path = layui.cache.dir, c.run(layui.$), e("layer", p.layer = m)
+	}, p.layui && layui.define ? (h.ready(), layui.define("jquery", function(e) {
+		h.path = layui.cache.dir, f.run(layui.$), e("layer", p.layer = h)
 	})) : "function" == typeof define && define.amd ? define(["jquery"], function() {
-		return c.run(p.jQuery), m
-	}) : (m.ready(), c.run(p.jQuery))
+		return f.run(p.jQuery), h
+	}) : (h.ready(), f.run(p.jQuery))
 }(window);
 layui.define("jquery", function(e) {
 	"use strict";
-	var u = layui.$,
+	var s = layui.$,
 		a = layui.hint(),
 		o = {
-			fixbar: function(t) {
-				var e, i, n = "layui-fixbar",
-					o = "layui-fixbar-top",
-					a = u(document),
-					r = u("body"),
-					l = ((t = u.extend({
-							showHeight: 200
-						}, t)).bar1 = !0 === t.bar1 ? "&#xe606;" : t.bar1, t.bar2 = !0 === t.bar2 ?
-						"&#xe607;" : t.bar2, t.bgcolor = t.bgcolor ? "background-color:" + t.bgcolor : "", [
-							t.bar1, t.bar2, "&#xe604;"
-						]),
-					l = u(['<ul class="' + n + '">', t.bar1 ?
-						'<li class="layui-icon" lay-type="bar1" style="' + t.bgcolor + '">' + l[0] +
-						"</li>" : "", t.bar2 ? '<li class="layui-icon" lay-type="bar2" style="' + t
-						.bgcolor + '">' + l[1] + "</li>" : "", '<li class="layui-icon ' + o +
-						'" lay-type="top" style="' + t.bgcolor + '">' + l[2] + "</li>", "</ul>"
-					].join("")),
-					c = l.find("." + o),
-					g = function() {
-						a.scrollTop() >= t.showHeight ? e || (c.show(), e = 1) : e && (c.hide(), e = 0)
-					};
-				u("." + n)[0] || ("object" == typeof t.css && l.css(t.css), r.append(l), g(), l.find("li")
-					.on("click", function() {
-						var e = u(this).attr("lay-type");
-						"top" === e && u("html,body").animate({
-							scrollTop: 0
-						}, 200), t.click && t.click.call(this, e)
-					}), a.on("scroll", function() {
-						clearTimeout(i), i = setTimeout(function() {
-							g()
-						}, 100)
-					}))
+			fixbar: function(i) {
+				var o, e, t, n, a = "layui-fixbar",
+					r = s(document),
+					l = (i = s.extend(!0, {
+						target: "body",
+						bars: [],
+						"default": !0,
+						showHeight: 200,
+						duration: 200
+					}, i), s(i.target)),
+					c = i.scroll ? s(i.scroll) : s("body" === i.target ? r : l),
+					u = (i["default"] && (i.bar1 && i.bars.push({
+						type: "bar1",
+						icon: "layui-icon-chat"
+					}), i.bar2 && i.bars.push({
+						type: "bar2",
+						icon: "layui-icon-help"
+					}), i.bars.push({
+						type: "top",
+						icon: "layui-icon-top"
+					})), s("<ul>").addClass(a));
+				layui.each(i.bars, function(e, t) {
+						var n = s('<li class="layui-icon">');
+						n.addClass(t.icon).attr({
+							"lay-type": t.type,
+							style: t.style || "background-color: " + i.bgcolor
+						}).html(t.content), n.on("click", function() {
+							var e = s(this).attr("lay-type");
+							"top" === e && ("body" === i.target ? s("html,body") : c).animate({
+								scrollTop: 0
+							}, i.duration), "function" == typeof i.click && i.click.call(
+								this, e)
+						}), "object" === layui.type(i.on) && layui.each(i.on, function(e, t) {
+							n.on(e, function() {
+								var e = s(this).attr("lay-type");
+								"function" == typeof t && t.call(this, e)
+							})
+						}), "top" === t.type && (n.addClass("layui-fixbar-top"), o = n), u.append(n)
+					}), l.find("." + a).remove(), "object" == typeof i.css && u.css(i.css), l.append(u),
+					o && (t = function t() {
+						return c.scrollTop() >= i.showHeight ? e || (o.show(), e = 1) : e && (o.hide(),
+							e = 0), t
+					}()), c.on("scroll", function() {
+						t && (clearTimeout(n), n = setTimeout(function() {
+							t()
+						}, 100))
+					})
 			},
-			countdown: function(e, t, i) {
-				var n = this,
+			countdown: function(e, t, n) {
+				var i = this,
 					o = "function" == typeof t,
 					a = new Date(e).getTime(),
 					r = new Date(!t || o ? (new Date).getTime() : t).getTime(),
@@ -5817,43 +6055,43 @@ layui.define("jquery", function(e) {
 					l = [Math.floor(a / 864e5), Math.floor(a / 36e5) % 24, Math.floor(a / 6e4) % 60, Math
 						.floor(a / 1e3) % 60
 					],
-					o = (o && (i = t), setTimeout(function() {
-						n.countdown(e, r + 1e3, i)
+					o = (o && (n = t), setTimeout(function() {
+						i.countdown(e, r + 1e3, n)
 					}, 1e3));
-				return i && i(0 < a ? l : [0, 0, 0, 0], t, o), a <= 0 && clearTimeout(o), o
+				return n && n(0 < a ? l : [0, 0, 0, 0], t, o), a <= 0 && clearTimeout(o), o
 			},
 			timeAgo: function(e, t) {
-				var i = this,
-					n = [
+				var n = this,
+					i = [
 						[],
 						[]
 					],
 					o = (new Date).getTime() - new Date(e).getTime();
-				return 26784e5 < o ? (o = new Date(e), n[0][0] = i.digit(o.getFullYear(), 4), n[0][1] = i
-						.digit(o.getMonth() + 1), n[0][2] = i.digit(o.getDate()), t || (n[1][0] = i.digit(o
-							.getHours()), n[1][1] = i.digit(o.getMinutes()), n[1][2] = i.digit(o
-							.getSeconds())), n[0].join("-") + " " + n[1].join(":")) : 864e5 <= o ? (o /
+				return 26784e5 < o ? (o = new Date(e), i[0][0] = n.digit(o.getFullYear(), 4), i[0][1] = n
+						.digit(o.getMonth() + 1), i[0][2] = n.digit(o.getDate()), t || (i[1][0] = n.digit(o
+							.getHours()), i[1][1] = n.digit(o.getMinutes()), i[1][2] = n.digit(o
+							.getSeconds())), i[0].join("-") + " " + i[1].join(":")) : 864e5 <= o ? (o /
 						1e3 / 60 / 60 / 24 | 0) + "\u5929\u524d" : 36e5 <= o ? (o / 1e3 / 60 / 60 | 0) +
 					"\u5c0f\u65f6\u524d" : 18e4 <= o ? (o / 1e3 / 60 | 0) + "\u5206\u949f\u524d" : o < 0 ?
 					"\u672a\u6765" : "\u521a\u521a"
 			},
 			digit: function(e, t) {
-				var i = "";
+				var n = "";
 				t = t || 2;
-				for (var n = (e = String(e)).length; n < t; n++) i += "0";
-				return e < Math.pow(10, t) ? i + (0 | e) : e
+				for (var i = (e = String(e)).length; i < t; i++) n += "0";
+				return e < Math.pow(10, t) ? n + (0 | e) : e
 			},
 			toDateString: function(e, t) {
 				if (null === e || "" === e) return "";
-				var i = this,
-					n = new Date(function() {
+				var n = this,
+					i = new Date(function() {
 						if (e) return !isNaN(e) && "string" == typeof e ? parseInt(e) : e
 					}() || new Date),
-					o = [i.digit(n.getFullYear(), 4), i.digit(n.getMonth() + 1), i.digit(n.getDate())],
-					i = [i.digit(n.getHours()), i.digit(n.getMinutes()), i.digit(n.getSeconds())];
-				return n.getDate() ? (t = t || "yyyy-MM-dd HH:mm:ss").replace(/yyyy/g, o[0]).replace(/MM/g,
-					o[1]).replace(/dd/g, o[2]).replace(/HH/g, i[0]).replace(/mm/g, i[1]).replace(/ss/g,
-					i[2]) : (a.error('Invalid Msec for "util.toDateString(Msec)"'), "")
+					o = [n.digit(i.getFullYear(), 4), n.digit(i.getMonth() + 1), n.digit(i.getDate())],
+					n = [n.digit(i.getHours()), n.digit(i.getMinutes()), n.digit(i.getSeconds())];
+				return i.getDate() ? (t = t || "yyyy-MM-dd HH:mm:ss").replace(/yyyy/g, o[0]).replace(/MM/g,
+					o[1]).replace(/dd/g, o[2]).replace(/HH/g, n[0]).replace(/mm/g, n[1]).replace(/ss/g,
+					n[2]) : (a.error('Invalid Msec for "util.toDateString(Msec)"'), "")
 			},
 			escape: function(e) {
 				return e === undefined || null === e ? "" : /[<"'>]|&(?=#[a-zA-Z0-9]+)/g.test(e += "") ? e
@@ -5865,26 +6103,31 @@ layui.define("jquery", function(e) {
 					/\&lt;/g, "<").replace(/\&gt;/g, ">").replace(/\&#39;/g, "'").replace(/\&quot;/g,
 					'"')
 			},
+			openWin: function(e) {
+				var t = (e = e || {}).window || window.open(e.url || "", e.target, e.specs);
+				e.url || (t.document.open("text/html", "replace"), t.document.write(e.content || ""), t
+					.document.close())
+			},
 			toVisibleArea: function(e) {
-				var t, i, n, o, a, r, l, c;
-				(e = u.extend({
+				var t, n, i, o, a, r, l, c;
+				(e = s.extend({
 					margin: 160,
 					duration: 200,
 					type: "y"
-				}, e)).scrollElem[0] && e.thisElem[0] && (t = e.scrollElem, l = e.thisElem, n = (a = "y" ===
-					e.type) ? "top" : "left", o = t[i = a ? "scrollTop" : "scrollLeft"](), a = t[a ?
-					"height" : "width"](), r = t.offset()[n], c = {}, ((l = l.offset()[n] - r) > a -
-					e.margin || l < e.margin) && (c[i] = l - a / 2 + o, t.animate(c, e.duration)))
+				}, e)).scrollElem[0] && e.thisElem[0] && (t = e.scrollElem, l = e.thisElem, i = (a = "y" ===
+					e.type) ? "top" : "left", o = t[n = a ? "scrollTop" : "scrollLeft"](), a = t[a ?
+					"height" : "width"](), r = t.offset()[i], c = {}, ((l = l.offset()[i] - r) > a -
+					e.margin || l < e.margin) && (c[n] = l - a / 2 + o, t.animate(c, e.duration)))
 			},
-			event: function(i, n, e) {
-				var t = u("body");
-				return e = e || "click", n = o.event[i] = u.extend(!0, o.event[i], n) || {}, o.event
-					.UTIL_EVENT_CALLBACK = o.event.UTIL_EVENT_CALLBACK || {}, t.off(e, "*[" + i + "]", o
-						.event.UTIL_EVENT_CALLBACK[i]), o.event.UTIL_EVENT_CALLBACK[i] = function() {
-						var e = u(this),
-							t = e.attr(i);
-						"function" == typeof n[t] && n[t].call(this, e)
-					}, t.on(e, "*[" + i + "]", o.event.UTIL_EVENT_CALLBACK[i]), n
+			event: function(n, i, e) {
+				var t = s("body");
+				return e = e || "click", i = o.event[n] = s.extend(!0, o.event[n], i) || {}, o.event
+					.UTIL_EVENT_CALLBACK = o.event.UTIL_EVENT_CALLBACK || {}, t.off(e, "*[" + n + "]", o
+						.event.UTIL_EVENT_CALLBACK[n]), o.event.UTIL_EVENT_CALLBACK[n] = function() {
+						var e = s(this),
+							t = e.attr(n);
+						"function" == typeof i[t] && i[t].call(this, e)
+					}, t.on(e, "*[" + n + "]", o.event.UTIL_EVENT_CALLBACK[n]), i
 			}
 		};
 	o.on = o.event, e("util", o)
@@ -5894,46 +6137,50 @@ layui.define(["jquery", "laytpl", "lay"], function(e) {
 	var n, i, t, s = layui.$,
 		m = layui.laytpl,
 		a = layui.hint(),
-		l = layui.device().mobile ? "click" : "mousedown",
-		o = "dropdown",
-		r = "layui_" + o + "_index",
-		c = {
+		o = layui.device().mobile ? "touchstart" : "mousedown",
+		r = "dropdown",
+		c = "layui_" + r + "_index",
+		p = {
 			config: {},
-			index: layui[o] ? layui[o].index + 1e4 : 0,
+			index: layui[r] ? layui[r].index + 1e4 : 0,
 			set: function(e) {
 				var i = this;
 				return i.config = s.extend({}, i.config, e), i
 			},
 			on: function(e, i) {
-				return layui.onevent.call(this, o, e, i)
+				return layui.onevent.call(this, r, e, i)
 			}
 		},
-		p = function() {
+		y = function() {
 			var i = this,
 				e = i.config,
 				t = e.id;
-			return p.that[t] = i, {
+			return y.that[t] = i, {
 				config: e,
 				reload: function(e) {
 					i.reload.call(i, e)
+				},
+				close: function() {
+					i.remove()
 				}
 			}
 		},
-		u = "layui-menu-item-up",
-		d = "layui-menu-item-down",
-		y = "layui-menu-body-title",
-		f = "layui-menu-item-group",
-		g = "layui-menu-item-parent",
-		h = "layui-menu-item-checked",
+		l = "layui-menu-item-up",
+		u = "layui-menu-item-down",
+		f = "layui-menu-body-title",
+		d = "layui-menu-item-group",
+		h = "layui-menu-item-parent",
+		g = "layui-menu-item-checked",
 		v = "layui-menu-item-checked2",
 		w = "layui-menu-body-panel",
 		C = "layui-menu-body-panel-left",
-		V = "." + f + ">." + y,
-		k = function(e) {
+		V = "layui-dropdown-shade",
+		x = "." + d + ">." + f,
+		b = function(e) {
 			var i = this;
-			i.index = ++c.index, i.config = s.extend({}, i.config, c.config, e), i.init()
+			i.index = ++p.index, i.config = s.extend({}, i.config, p.config, e), i.init()
 		};
-	k.prototype.config = {
+	b.prototype.config = {
 		trigger: "click",
 		content: "",
 		className: "",
@@ -5942,23 +6189,24 @@ layui.define(["jquery", "laytpl", "lay"], function(e) {
 		isAllowSpread: !0,
 		isSpreadItem: !0,
 		data: [],
-		delay: 300
-	}, k.prototype.reload = function(e) {
+		delay: 300,
+		shade: 0
+	}, b.prototype.reload = function(e) {
 		var i = this;
 		i.config = s.extend({}, i.config, e), i.init(!0)
-	}, k.prototype.init = function(e) {
+	}, b.prototype.init = function(e) {
 		var i = this,
 			t = i.config,
 			n = t.elem = s(t.elem);
 		return 1 < n.length ? (layui.each(n, function() {
-			c.render(s.extend({}, t, {
+			p.render(s.extend({}, t, {
 				elem: this
 			}))
-		}), i) : !e && n[0] && n.data(r) ? (n = p.getThis(n.data(r))) ? n.reload(t) : void 0 : (t.id =
+		}), i) : !e && n[0] && n.data(c) ? (n = y.getThis(n.data(c))) ? n.reload(t) : void 0 : (t.id =
 			"id" in t ? t.id : i.index, t.show && i.render(e), void i.events())
-	}, k.prototype.render = function(e) {
-		var n = this,
-			u = n.config,
+	}, b.prototype.render = function(e) {
+		var l = this,
+			u = l.config,
 			i = s("body"),
 			d = function(r, e) {
 				return layui.each(e, function(e, i) {
@@ -5975,17 +6223,17 @@ layui.define(["jquery", "laytpl", "lay"], function(e) {
 						group: "layui-menu-item-group" + (u.isAllowSpread ? a ?
 							" layui-menu-item-down" :
 							" layui-menu-item-up" : ""),
-						parent: g,
+						parent: h,
 						"-": "layui-menu-item-divider"
 					}, n || o ? ' class="' + t[o] + '"' : "") + ">", (t = "href" in
 						i ? '<a href="' + i.href + '" target="' + (i.target ||
 							"_self") + '">' + l + "</a>" : l, n ? '<div class="' +
-						y + '">' + t + ("parent" === o ?
+						f + '">' + t + ("parent" === o ?
 							'<i class="layui-icon layui-icon-right"></i>' :
 							"group" === o && u.isAllowSpread ?
 							'<i class="layui-icon layui-icon-' + (a ? "up" :
 							"down") + '"></i>' : "") + "</div>" : '<div class="' +
-						y + '">' + t + "</div>"), "</li>"].join(""))).data("item", i), n && (a =
+						f + '">' + t + "</div>"), "</li>"].join(""))).data("item", i), n && (a =
 						s('<div class="layui-panel layui-menu-body-panel"></div>'), t = s(
 							"<ul></ul>"), "parent" === o ? (a.append(d(t, i.child)), l.append(
 							a)) : l.append(d(t, i.child))), r.append(l))
@@ -5994,29 +6242,33 @@ layui.define(["jquery", "laytpl", "lay"], function(e) {
 			t = ['<div class="layui-dropdown layui-border-box layui-panel layui-anim layui-anim-downbit">',
 				"</div>"
 			].join("");
-		!(e = "contextmenu" !== u.trigger && !lay.isTopElem(u.elem[0]) ? e : !0) && u.elem.data(r +
-			"_opened") || (n.elemView = s(t), n.elemView.append(u.content || (e = s(
+		!(e = "contextmenu" !== u.trigger && !lay.isTopElem(u.elem[0]) ? e : !0) && u.elem.data(c +
+			"_opened") || (l.elemView = s(t), l.elemView.append(u.content || (e = s(
 				'<ul class="layui-menu layui-dropdown-menu"></ul>'), 0 < u.data.length ? d(e, u
-				.data) : e.html('<li class="layui-menu-item-none">no menu</li>'), e)), u.className && n
-			.elemView.addClass(u.className), u.style && n.elemView.attr("style", u.style), c.thisId = u
-			.id, n.remove(), i.append(n.elemView), u.elem.data(r + "_opened", !0), n.position(), (p
-				.prevElem = n.elemView).data("prevElem", u.elem), n.elemView.find(".layui-menu").on(l,
-				function(e) {
-					layui.stope(e)
-				}), n.elemView.find(".layui-menu li").on("click", function(e) {
+				.data) : e.html('<li class="layui-menu-item-none">no menu</li>'), e)), u.className && l
+			.elemView.addClass(u.className), u.style && l.elemView.attr("style", u.style), p.thisId = u
+			.id, l.remove(), i.append(l.elemView), u.elem.data(c + "_opened", !0), t = u.shade ?
+			'<div class="' + V + '" style="z-index:' + (l.elemView.css("z-index") - 1) +
+			"; background-color: " + (u.shade[1] || "#000") + "; opacity: " + (u.shade[0] || u.shade) +
+			'"></div>' : "", l.elemView.before(t), l.position(), (y.prevElem = l.elemView).data(
+				"prevElem", u.elem), l.elemView.find(".layui-menu").on(o, function(e) {
+				layui.stope(e)
+			}), l.elemView.find(".layui-menu li").on("click", function(e) {
 				var i = s(this),
-					t = i.data("item") || {};
-				t.child && 0 < t.child.length || "-" === t.type || (n.remove(), "function" ==
-					typeof u.click && u.click(t, i))
-			}), n.elemView.find(V).on("click", function(e) {
+					t = i.data("item") || {},
+					n = t.child && 0 < t.child.length,
+					a = "all" === u.clickScope;
+				n && !a || "-" === t.type || (!1 === ("function" == typeof u.click && u.click(t,
+					i)) || n || l.remove(), layui.stope(e))
+			}), l.elemView.find(x).on("click", function(e) {
 				var i = s(this).parent();
-				"group" === (i.data("item") || {}).type && u.isAllowSpread && p.spread(i)
-			}), "mouseenter" === u.trigger && n.elemView.on("mouseenter", function() {
-				clearTimeout(p.timer)
+				"group" === (i.data("item") || {}).type && u.isAllowSpread && y.spread(i)
+			}), "mouseenter" === u.trigger && l.elemView.on("mouseenter", function() {
+				clearTimeout(y.timer)
 			}).on("mouseleave", function() {
-				n.delayRemove()
+				l.delayRemove()
 			}))
-	}, k.prototype.position = function(e) {
+	}, b.prototype.position = function(e) {
 		var i = this.config;
 		lay.position(i.elem[0], this.elemView[0], {
 			position: i.position,
@@ -6024,64 +6276,65 @@ layui.define(["jquery", "laytpl", "lay"], function(e) {
 			clickType: "contextmenu" === i.trigger ? "right" : null,
 			align: i.align || null
 		})
-	}, k.prototype.remove = function() {
+	}, b.prototype.remove = function() {
 		this.config;
-		var e = p.prevElem;
-		e && (e.data("prevElem") && e.data("prevElem").data(r + "_opened", !1), e.remove())
-	}, k.prototype.delayRemove = function() {
+		var e = y.prevElem;
+		e && (e.data("prevElem") && e.data("prevElem").data(c + "_opened", !1), e.remove()), lay("." + V)
+			.remove()
+	}, b.prototype.delayRemove = function() {
 		var e = this,
 			i = e.config;
-		clearTimeout(p.timer), p.timer = setTimeout(function() {
+		clearTimeout(y.timer), y.timer = setTimeout(function() {
 			e.remove()
 		}, i.delay)
-	}, k.prototype.events = function() {
+	}, b.prototype.events = function() {
 		var i = this,
 			t = i.config;
 		"hover" === t.trigger && (t.trigger = "mouseenter"), i.prevElem && i.prevElem.off(t.trigger, i
 			.prevElemCallback), i.prevElem = t.elem, i.prevElemCallback = function(e) {
-			clearTimeout(p.timer), i.e = e, i.render(), e.preventDefault(), "function" == typeof t
+			clearTimeout(y.timer), i.e = e, i.render(), e.preventDefault(), "function" == typeof t
 				.ready && t.ready(i.elemView, t.elem, i.e.target)
 		}, t.elem.on(t.trigger, i.prevElemCallback), "mouseenter" === t.trigger && t.elem.on(
 			"mouseleave",
 			function() {
 				i.delayRemove()
 			})
-	}, p.that = {}, p.getThis = function(e) {
-		var i = p.that[e];
-		return i || a.error(e ? o + " instance with ID '" + e + "' not found" : "ID argument required"), i
-	}, p.spread = function(e) {
-		var i = e.children("." + y).find(".layui-icon");
-		e.hasClass(u) ? (e.removeClass(u).addClass(d), i.removeClass("layui-icon-down").addClass(
-			"layui-icon-up")) : (e.removeClass(d).addClass(u), i.removeClass("layui-icon-up").addClass(
+	}, y.that = {}, y.getThis = function(e) {
+		var i = y.that[e];
+		return i || a.error(e ? r + " instance with ID '" + e + "' not found" : "ID argument required"), i
+	}, y.spread = function(e) {
+		var i = e.children("." + f).find(".layui-icon");
+		e.hasClass(l) ? (e.removeClass(l).addClass(u), i.removeClass("layui-icon-down").addClass(
+			"layui-icon-up")) : (e.removeClass(u).addClass(l), i.removeClass("layui-icon-up").addClass(
 			"layui-icon-down"))
 	}, n = s(window), i = s(document), n.on("resize", function() {
-		if (c.thisId) {
-			var e = p.getThis(c.thisId);
+		if (p.thisId) {
+			var e = y.getThis(p.thisId);
 			if (e) {
 				if (!e.elemView[0] || !s(".layui-dropdown")[0]) return !1;
 				"contextmenu" === e.config.trigger ? e.remove() : e.position()
 			}
 		}
-	}), i.on(l, function(e) {
+	}), i.on(o, function(e) {
 		var i, t;
-		!c.thisId || (i = p.getThis(c.thisId)) && (t = i.config, !lay.isTopElem(t.elem[0]) &&
+		!p.thisId || (i = y.getThis(p.thisId)) && (t = i.config, !lay.isTopElem(t.elem[0]) &&
 			"contextmenu" !== t.trigger && (e.target === t.elem[0] || t.elem.find(e.target)[0] || e
 				.target === i.elemView[0] || i.elemView && i.elemView.find(e.target)[0]) || i
 			.remove())
 	}), t = ".layui-menu:not(.layui-dropdown-menu) li", i.on("click", t, function(e) {
 		var i = s(this),
 			t = i.parents(".layui-menu").eq(0),
-			n = i.hasClass(f) || i.hasClass(g),
+			n = i.hasClass(d) || i.hasClass(h),
 			a = t.attr("lay-filter") || t.attr("id"),
 			l = lay.options(this);
-		i.hasClass("layui-menu-item-divider") || n || (t.find("." + h).removeClass(h), t.find("." + v)
-			.removeClass(v), i.addClass(h), i.parents("." + g).addClass(v), layui.event.call(this,
-				o, "click(" + a + ")", l))
-	}), i.on("click", t + V, function(e) {
-		var i = s(this).parents("." + f + ":eq(0)"),
+		i.hasClass("layui-menu-item-divider") || n || (t.find("." + g).removeClass(g), t.find("." + v)
+			.removeClass(v), i.addClass(g), i.parents("." + h).addClass(v), layui.event.call(this,
+				r, "click(" + a + ")", l))
+	}), i.on("click", t + x, function(e) {
+		var i = s(this).parents("." + d + ":eq(0)"),
 			t = lay.options(i[0]);
-		"isAllowSpread" in t && !t.isAllowSpread || p.spread(i)
-	}), t = ".layui-menu ." + g, i.on("mouseenter", t, function(e) {
+		"isAllowSpread" in t && !t.isAllowSpread || y.spread(i)
+	}), t = ".layui-menu ." + h, i.on("mouseenter", t, function(e) {
 		var i, t = s(this).find("." + w);
 		t[0] && ((i = t[0].getBoundingClientRect()).right > n.width() && (t.addClass(C), (i = t[0]
 				.getBoundingClientRect()).left < 0 && t.removeClass(C)), i.bottom > n.height() && t
@@ -6089,23 +6342,393 @@ layui.define(["jquery", "laytpl", "lay"], function(e) {
 	}).on("mouseleave", t, function(e) {
 		var i = s(this).children("." + w);
 		i.removeClass(C), i.css("margin-top", 0)
-	}), c.reload = function(e, i) {
-		e = p.getThis(e);
-		return e ? (e.reload(i), p.call(e)) : this
-	}, c.render = function(e) {
-		e = new k(e);
-		return p.call(e)
-	}, e(o, c)
+	}), p.reload = function(e, i) {
+		e = y.getThis(e);
+		return e ? (e.reload(i), y.call(e)) : this
+	}, p.render = function(e) {
+		e = new b(e);
+		return y.call(e)
+	}, e(r, p)
+});
+layui.define(["jquery", "lay"], function(e) {
+	"use strict";
+	var m = layui.$,
+		t = layui.lay,
+		o = layui.hint(),
+		i = layui.device().mobile ? "click" : "mousedown",
+		n = {
+			config: {},
+			index: layui.colorpicker ? layui.colorpicker.index + 1e4 : 0,
+			set: function(e) {
+				var i = this;
+				return i.config = m.extend({}, i.config, e), i
+			},
+			on: function(e, i) {
+				return layui.onevent.call(this, "colorpicker", e, i)
+			}
+		},
+		l = function() {
+			var e = this.config,
+				i = e.id;
+			return l.that[i] = this, {
+				config: e
+			}
+		},
+		r = "colorpicker",
+		c = "layui-colorpicker",
+		a = ".layui-colorpicker-main",
+		x = "layui-icon-down",
+		P = "layui-icon-close",
+		C = "layui-colorpicker-trigger-span",
+		B = "layui-colorpicker-trigger-i",
+		w = "layui-colorpicker-side-slider",
+		I = "layui-colorpicker-basis",
+		D = "layui-colorpicker-alpha-bgcolor",
+		E = "layui-colorpicker-alpha-slider",
+		F = "layui-colorpicker-basis-cursor",
+		M = "layui-colorpicker-main-input",
+		T = function(e) {
+			var i = {
+					h: 0,
+					s: 0,
+					b: 0
+				},
+				o = Math.min(e.r, e.g, e.b),
+				r = Math.max(e.r, e.g, e.b),
+				t = r - o;
+			return i.b = r, i.s = 0 !== r ? 255 * t / r : 0, 0 !== i.s ? e.r == r ? i.h = (e.g - e.b) / t : e
+				.g == r ? i.h = 2 + (e.b - e.r) / t : i.h = 4 + (e.r - e.g) / t : i.h = -1, r === o && (i.h =
+				0), i.h *= 60, i.h < 0 && (i.h += 360), i.s *= 100 / 255, i.b *= 100 / 255, i
+		},
+		Y = function(e) {
+			var i, o = {},
+				r = e.h,
+				t = 255 * e.s / 100,
+				e = 255 * e.b / 100;
+			return 0 == t ? o.r = o.g = o.b = e : (e = r % 60 * ((i = e) - (t = (255 - t) * e / 255)) / 60, (r =
+				360 === r ? 0 : r) < 60 ? (o.r = i, o.b = t, o.g = t + e) : r < 120 ? (o.g = i, o.b = t,
+				o.r = i - e) : r < 180 ? (o.g = i, o.r = t, o.b = t + e) : r < 240 ? (o.b = i, o.r = t,
+				o.g = i - e) : r < 300 ? (o.b = i, o.g = t, o.r = t + e) : r < 360 ? (o.r = i, o.g = t,
+				o.b = i - e) : (o.r = 0, o.g = 0, o.b = 0)), {
+				r: Math.round(o.r),
+				g: Math.round(o.g),
+				b: Math.round(o.b)
+			}
+		},
+		j = function(e) {
+			var e = Y(e),
+				o = [e.r.toString(16), e.g.toString(16), e.b.toString(16)];
+			return m.each(o, function(e, i) {
+				1 === i.length && (o[e] = "0" + i)
+			}), o.join("")
+		},
+		L = function(e) {
+			e = e.match(/[0-9]{1,3}/g) || [];
+			return {
+				r: e[0],
+				g: e[1],
+				b: e[2]
+			}
+		},
+		H = m(window),
+		s = m(document),
+		d = function(e) {
+			this.index = ++n.index, this.config = m.extend({}, this.config, n.config, e), this.render()
+		};
+	d.prototype.config = {
+		color: "",
+		size: null,
+		alpha: !1,
+		format: "hex",
+		predefine: !1,
+		colors: ["#009688", "#5FB878", "#1E9FFF", "#FF5722", "#FFB800", "#01AAED", "#999", "#c00",
+			"#ff8c00", "#ffd700", "#90ee90", "#00ced1", "#1e90ff", "#c71585", "rgb(0, 186, 189)",
+			"rgb(255, 120, 0)", "rgb(250, 212, 0)", "#393D49", "rgba(0,0,0,.5)",
+			"rgba(255, 69, 0, 0.68)", "rgba(144, 240, 144, 0.5)", "rgba(31, 147, 255, 0.73)"
+		]
+	}, d.prototype.render = function() {
+		var e = this,
+			i = e.config,
+			o = m(i.elem);
+		if (1 < o.length) return layui.each(o, function() {
+			n.render(m.extend({}, i, {
+				elem: this
+			}))
+		}), e;
+		m.extend(i, t.options(o[0]));
+		var o = m(['<div class="layui-unselect layui-colorpicker">', "<span " + ("rgb" == i.format && i
+					.alpha ? 'class="layui-colorpicker-trigger-bgcolor"' : "") + ">",
+				'<span class="layui-colorpicker-trigger-span" ', 'lay-type="' + ("rgb" == i.format ? i
+					.alpha ? "rgba" : "torgb" : "") + '" ', 'style="' + (o = "", i.color ? (o = i.color,
+					3 < (i.color.match(/[0-9]{1,3}/g) || []).length && (i.alpha && "rgb" == i
+						.format || (o = "#" + j(T(L(i.color))))), "background: " + o) : o) + '">',
+				'<i class="layui-icon layui-colorpicker-trigger-i ' + (i.color ? x : P) + '"></i>',
+				"</span>", "</span>", "</div>"
+			].join("")),
+			r = i.elem = m(i.elem);
+		i.size && o.addClass("layui-colorpicker-" + i.size), r.addClass("layui-inline").html(e
+			.elemColorBox = o), i.id = "id" in i ? i.id : e.index, e.color = e.elemColorBox.find("." +
+			C)[0].style.background, e.events()
+	}, d.prototype.renderPicker = function() {
+		var o, e = this,
+			i = e.config,
+			r = e.elemColorBox[0],
+			t = e.elemPicker = m(['<div id="layui-colorpicker' + e.index + '" data-index="' + e.index +
+				'" class="layui-anim layui-anim-downbit layui-colorpicker-main">',
+				'<div class="layui-colorpicker-main-wrapper">', '<div class="layui-colorpicker-basis">',
+				'<div class="layui-colorpicker-basis-white"></div>',
+				'<div class="layui-colorpicker-basis-black"></div>',
+				'<div class="layui-colorpicker-basis-cursor"></div>', "</div>",
+				'<div class="layui-colorpicker-side">',
+				'<div class="layui-colorpicker-side-slider"></div>', "</div>", "</div>",
+				'<div class="layui-colorpicker-main-alpha ' + (i.alpha ? "layui-show" : "") + '">',
+				'<div class="layui-colorpicker-alpha-bgcolor">',
+				'<div class="layui-colorpicker-alpha-slider"></div>', "</div>", "</div>", i.predefine ?
+				(o = ['<div class="layui-colorpicker-main-pre">'], layui.each(i.colors, function(e, i) {
+					o.push(['<div class="layui-colorpicker-pre' + (3 < (i.match(
+								/[0-9]{1,3}/g) || []).length ?
+							" layui-colorpicker-pre-isalpha" : "") + '">',
+						'<div style="background:' + i + '"></div>', "</div>"
+					].join(""))
+				}), o.push("</div>"), o.join("")) : "", '<div class="layui-colorpicker-main-input">',
+				'<div class="layui-inline">', '<input type="text" class="layui-input">', "</div>",
+				'<div class="layui-btn-container">',
+				'<button class="layui-btn layui-btn-primary layui-btn-sm" colorpicker-events="clear">\u6e05\u7a7a</button>',
+				'<button class="layui-btn layui-btn-sm" colorpicker-events="confirm">\u786e\u5b9a</button>',
+				"</div", "</div>", "</div>"
+			].join(""));
+		e.elemColorBox.find("." + C)[0];
+		m(a)[0] && m(a).data("index") == e.index ? e.removePicker(d.thisElemInd) : (e.removePicker(d
+				.thisElemInd), m("body").append(t)), n.thisId = i.id, d.thisElemInd = e.index, d.thisColor =
+			r.style.background, e.position(), e.pickerEvents()
+	}, d.prototype.removePicker = function(e) {
+		var i = this.config,
+			e = m("#layui-colorpicker" + (e || this.index));
+		return e[0] && (e.remove(), delete n.thisId, "function" == typeof i.close && i.close(this.color)),
+			this
+	}, d.prototype.position = function() {
+		var e = this,
+			i = e.config;
+		return t.position(e.bindElem || e.elemColorBox[0], e.elemPicker[0], {
+			position: i.position,
+			align: "center"
+		}), e
+	}, d.prototype.val = function() {
+		var e, i = this,
+			o = (i.config, i.elemColorBox.find("." + C)),
+			r = i.elemPicker.find("." + M),
+			t = o[0].style.backgroundColor;
+		t ? (e = T(L(t)), o = o.attr("lay-type"), i.select(e.h, e.s, e.b), "torgb" === o && r.find("input")
+			.val(t), "rgba" === o && (e = L(t), 3 === (t.match(/[0-9]{1,3}/g) || []).length ? (r.find(
+						"input").val("rgba(" + e.r + ", " + e.g + ", " + e.b + ", 1)"), i.elemPicker
+					.find("." + E).css("left", 280)) : (r.find("input").val(t), o = 280 * t.slice(t
+					.lastIndexOf(",") + 1, t.length - 1), i.elemPicker.find("." + E).css("left", o)), i
+				.elemPicker.find("." + D)[0].style.background = "linear-gradient(to right, rgba(" + e
+				.r + ", " + e.g + ", " + e.b + ", 0), rgb(" + e.r + ", " + e.g + ", " + e.b + "))")) : (
+			i.select(0, 100, 100), r.find("input").val(""), i.elemPicker.find("." + D)[0].style
+			.background = "", i.elemPicker.find("." + E).css("left", 280))
+	}, d.prototype.side = function() {
+		var n = this,
+			l = n.config,
+			c = n.elemColorBox.find("." + C),
+			a = c.attr("lay-type"),
+			s = n.elemPicker.find(".layui-colorpicker-side"),
+			e = n.elemPicker.find("." + w),
+			d = n.elemPicker.find("." + I),
+			r = n.elemPicker.find("." + F),
+			f = n.elemPicker.find("." + D),
+			u = n.elemPicker.find("." + E),
+			g = e[0].offsetTop / 180 * 360,
+			h = 100 - (r[0].offsetTop + 3) / 180 * 100,
+			p = (r[0].offsetLeft + 3) / 260 * 100,
+			v = Math.round(u[0].offsetLeft / 280 * 100) / 100,
+			b = n.elemColorBox.find("." + B),
+			i = n.elemPicker.find(".layui-colorpicker-pre").children("div"),
+			y = function(e, i, o, r) {
+				n.select(e, i, o);
+				var t = Y({
+						h: e,
+						s: i,
+						b: o
+					}),
+					e = j({
+						h: e,
+						s: i,
+						b: o
+					}),
+					i = n.elemPicker.find("." + M).find("input");
+				b.addClass(x).removeClass(P), c[0].style.background = "rgb(" + t.r + ", " + t.g + ", " + t
+					.b + ")", "torgb" === a ? i.val("rgb(" + t.r + ", " + t.g + ", " + t.b + ")") :
+					"rgba" === a ? (u.css("left", 280 * r), i.val("rgba(" + t.r + ", " + t.g + ", " + t.b +
+							", " + r + ")"), c[0].style.background = "rgba(" + t.r + ", " + t.g + ", " + t
+						.b + ", " + r + ")", f[0].style.background = "linear-gradient(to right, rgba(" + t
+						.r + ", " + t.g + ", " + t.b + ", 0), rgb(" + t.r + ", " + t.g + ", " + t.b + "))"
+						) : i.val("#" + e), l.change && l.change(n.elemPicker.find("." + M).find("input")
+						.val())
+			},
+			o = m(['<div class="layui-auxiliar-moving" id="LAY-colorpicker-moving"></div>'].join("")),
+			k = function(e) {
+				m("#LAY-colorpicker-moving")[0] || m("body").append(o), o.on("mousemove", e), o.on(
+					"mouseup",
+					function() {
+						o.remove()
+					}).on("mouseleave", function() {
+					o.remove()
+				})
+			};
+		e.on("mousedown", function(e) {
+			var r = this.offsetTop,
+				t = e.clientY;
+			k(function(e) {
+				var i = r + (e.clientY - t),
+					o = s[0].offsetHeight,
+					o = (i = o < (i = i < 0 ? 0 : i) ? o : i) / 180 * 360;
+				y(g = o, p, h, v), e.preventDefault()
+			}), e.preventDefault()
+		}), s.on("click", function(e) {
+			var i = e.clientY - m(this).offset().top,
+				i = (i = (i = i < 0 ? 0 : i) > this.offsetHeight ? this.offsetHeight : i) / 180 *
+				360;
+			y(g = i, p, h, v), e.preventDefault()
+		}), r.on("mousedown", function(e) {
+			var n = this.offsetTop,
+				l = this.offsetLeft,
+				c = e.clientY,
+				a = e.clientX;
+			layui.stope(e), k(function(e) {
+				var i = n + (e.clientY - c),
+					o = l + (e.clientX - a),
+					r = d[0].offsetHeight - 3,
+					t = d[0].offsetWidth - 3,
+					t = ((o = t < (o = o < -3 ? -3 : o) ? t : o) + 3) / 260 * 100,
+					o = 100 - ((i = r < (i = i < -3 ? -3 : i) ? r : i) + 3) / 180 * 100;
+				y(g, p = t, h = o, v), e.preventDefault()
+			}), e.preventDefault()
+		}), d.on("mousedown", function(e) {
+			var i = e.clientY - m(this).offset().top - 3 + H.scrollTop(),
+				o = e.clientX - m(this).offset().left - 3 + H.scrollLeft(),
+				o = ((i = i < -3 ? -3 : i) > this.offsetHeight - 3 && (i = this.offsetHeight - 3), (
+					(o = (o = o < -3 ? -3 : o) > this.offsetWidth - 3 ? this.offsetWidth - 3 :
+						o) + 3) / 260 * 100),
+				i = 100 - (i + 3) / 180 * 100;
+			y(g, p = o, h = i, v), layui.stope(e), e.preventDefault(), r.trigger(e, "mousedown")
+		}), u.on("mousedown", function(e) {
+			var r = this.offsetLeft,
+				t = e.clientX;
+			k(function(e) {
+				var i = r + (e.clientX - t),
+					o = f[0].offsetWidth,
+					o = (o < (i = i < 0 ? 0 : i) && (i = o), Math.round(i / 280 * 100) /
+						100);
+				y(g, p, h, v = o), e.preventDefault()
+			}), e.preventDefault()
+		}), f.on("click", function(e) {
+			var i = e.clientX - m(this).offset().left,
+				i = ((i = i < 0 ? 0 : i) > this.offsetWidth && (i = this.offsetWidth), Math.round(
+					i / 280 * 100) / 100);
+			y(g, p, h, v = i), e.preventDefault()
+		}), i.each(function() {
+			m(this).on("click", function() {
+				m(this).parent(".layui-colorpicker-pre").addClass("selected").siblings()
+					.removeClass("selected");
+				var e = this.style.backgroundColor,
+					i = T(L(e)),
+					o = e.slice(e.lastIndexOf(",") + 1, e.length - 1);
+				g = i.h, p = i.s, h = i.b, 3 === (e.match(/[0-9]{1,3}/g) || []).length && (
+					o = 1), v = o, y(i.h, i.s, i.b, o)
+			})
+		})
+	}, d.prototype.select = function(e, i, o, r) {
+		this.config;
+		var t = j({
+				h: e,
+				s: 100,
+				b: 100
+			}),
+			e = (j({
+				h: e,
+				s: i,
+				b: o
+			}), e / 360 * 180),
+			o = 180 - o / 100 * 180 - 3,
+			i = i / 100 * 260 - 3;
+		this.elemPicker.find("." + w).css("top", e), this.elemPicker.find("." + I)[0].style.background =
+			"#" + t, this.elemPicker.find("." + F).css({
+				top: o,
+				left: i
+			})
+	}, d.prototype.pickerEvents = function() {
+		var c = this,
+			a = c.config,
+			s = c.elemColorBox.find("." + C),
+			d = c.elemPicker.find("." + M + " input"),
+			o = {
+				clear: function(e) {
+					s[0].style.background = "", c.elemColorBox.find("." + B).removeClass(x).addClass(P),
+						c.color = "", a.done && a.done(""), c.removePicker()
+				},
+				confirm: function(e, i) {
+					var o, r, t, n, l = d.val();
+					if (-1 < l.indexOf(",") ? (r = T(L(l)), c.select(r.h, r.s, r.b), s[0].style
+							.background = o = "#" + j(r), 3 < (l.match(/[0-9]{1,3}/g) || []).length &&
+							"rgba" === s.attr("lay-type") && (t = 280 * l.slice(l.lastIndexOf(",") + 1,
+									l.length - 1), c.elemPicker.find("." + E).css("left", t), o = s[0]
+								.style.background = l)) : (3 === (t = -1 < (t = l).indexOf("#") ? t
+							.substring(1) : t).length && (t = (n = t.split(""))[0] + n[0] + n[1] +
+							n[1] + n[2] + n[2]), n = {
+							r: (t = parseInt(t, 16)) >> 16,
+							g: (65280 & t) >> 8,
+							b: 255 & t
+						}, r = T(n), s[0].style.background = o = "#" + j(r), c.elemColorBox.find(
+							"." + B).removeClass(P).addClass(x)), "change" === i) return c.select(r.h, r
+						.s, r.b, i), void(a.change && a.change(o));
+					c.color = l, a.done && a.done(l), c.removePicker()
+				}
+			};
+		c.elemPicker.on("click", "*[colorpicker-events]", function() {
+			var e = m(this),
+				i = e.attr("colorpicker-events");
+			o[i] && o[i].call(this, e)
+		}), d.on("keyup", function(e) {
+			var i = m(this);
+			o.confirm.call(this, i, 13 === e.keyCode ? null : "change")
+		})
+	}, d.prototype.events = function() {
+		var e = this;
+		e.config;
+		e.elemColorBox.on("click", function() {
+			e.renderPicker(), m(a)[0] && (e.val(), e.side())
+		})
+	}, s.on(i, function(e) {
+		var i, o, r;
+		!n.thisId || (i = l.getThis(n.thisId)) && (o = i.config, r = i.elemColorBox.find("." + C), m(e
+			.target).hasClass(c) || m(e.target).parents("." + c)[0] || m(e.target).hasClass(a
+			.replace(/\./g, "")) || m(e.target).parents(a)[0] || i.elemPicker && (i.color ? (e =
+				T(L(i.color)), i.select(e.h, e.s, e.b)) : i.elemColorBox.find("." + B)
+			.removeClass(x).addClass(P), r[0].style.background = i.color || "", "function" ==
+			typeof o.cancel && o.cancel(i.color), i.removePicker()))
+	}), H.on("resize", function() {
+		if (n.thisId) {
+			var e = l.getThis(n.thisId);
+			if (e) return !(!e.elemPicker || !m(a)[0]) && void e.position()
+		}
+	}), l.that = {}, l.getThis = function(e) {
+		var i = l.that[e];
+		return i || o.error(e ? r + " instance with ID '" + e + "' not found" : "ID argument required"), i
+	}, n.render = function(e) {
+		e = new d(e);
+		return l.call(e)
+	}, e(r, n)
 });
 layui.define("jquery", function(e) {
 	"use strict";
-	var h = layui.$,
+	var g = layui.$,
 		t = {
 			config: {},
 			index: layui.slider ? layui.slider.index + 1e4 : 0,
 			set: function(e) {
 				var i = this;
-				return i.config = h.extend({}, i.config, e), i
+				return i.config = g.extend({}, i.config, e), i
 			},
 			on: function(e, i) {
 				return layui.onevent.call(this, a, e, i)
@@ -6113,15 +6736,15 @@ layui.define("jquery", function(e) {
 		},
 		a = "slider",
 		c = "layui-disabled",
-		y = "layui-slider-bar",
-		g = "layui-slider-wrap",
-		b = "layui-slider-wrap-btn",
-		x = "layui-slider-tips",
-		T = "layui-slider-input-txt",
-		w = "layui-slider-hover",
+		x = "layui-slider-bar",
+		b = "layui-slider-wrap",
+		T = "layui-slider-wrap-btn",
+		w = "layui-slider-tips",
+		M = "layui-slider-input-txt",
+		L = "layui-slider-hover",
 		i = function(e) {
 			var i = this;
-			i.index = ++t.index, i.config = h.extend({}, i.config, t.config, e), i.render()
+			i.index = ++t.index, i.config = g.extend({}, i.config, t.config, e), i.render()
 		};
 	i.prototype.config = {
 		type: "default",
@@ -6150,7 +6773,7 @@ layui.define("jquery", function(e) {
 					.value = l.min), l.value > l.max && (l.value = l.max), t = Math.floor((l.value - l
 					.min) / (l.max - l.min) * 100) + "%"), l.disabled ? "#c2c2c2" : l.theme),
 			i = '<div class="layui-slider ' + ("vertical" === l.type ? "layui-slider-vertical" : "") +
-			'">' + (l.tips ? '<div class="' + x + '"></div>' : "") +
+			'">' + (l.tips ? '<div class="' + w + '"></div>' : "") +
 			'<div class="layui-slider-bar" style="background:' + e + "; " + ("vertical" === l.type ?
 				"height" : "width") + ":" + t + ";" + ("vertical" === l.type ? "bottom" : "left") + ":" + (
 				i || 0) + ';"></div><div class="layui-slider-wrap" style="' + ("vertical" === l.type ?
@@ -6159,11 +6782,11 @@ layui.define("jquery", function(e) {
 				.range ? '<div class="layui-slider-wrap" style="' + ("vertical" === l.type ? "bottom" :
 					"left") + ":" + s + ';"><div class="layui-slider-wrap-btn" style="border: 2px solid ' +
 				e + ';"></div></div>' : "") + "</div>",
-			t = h(l.elem),
+			t = g(l.elem),
 			s = t.next(".layui-slider");
-		if (s[0] && s.remove(), n.elemTemp = h(i), l.range ? (n.elemTemp.find("." + g).eq(0).data("value", l
-				.value[0]), n.elemTemp.find("." + g).eq(1).data("value", l.value[1])) : n.elemTemp.find(
-				"." + g).data("value", l.value), t.html(n.elemTemp), "vertical" === l.type && n.elemTemp
+		if (s[0] && s.remove(), n.elemTemp = g(i), l.range ? (n.elemTemp.find("." + b).eq(0).data("value", l
+				.value[0]), n.elemTemp.find("." + b).eq(1).data("value", l.value[1])) : n.elemTemp.find(
+				"." + b).data("value", l.value), t.html(n.elemTemp), "vertical" === l.type && n.elemTemp
 			.height(l.height + "px"), l.showstep) {
 			for (var o = (l.max - l.min) / l.step, r = "", u = 1; u < 1 + o; u++) {
 				var d = 100 * u / o;
@@ -6172,121 +6795,123 @@ layui.define("jquery", function(e) {
 			}
 			n.elemTemp.append(r)
 		}
-		l.input && !l.range && (e = h(
+		l.input && !l.range && (e = g(
 			'<div class="layui-slider-input layui-input"><div class="layui-slider-input-txt"><input type="text" class="layui-input"></div><div class="layui-slider-input-btn"><i class="layui-icon layui-icon-up"></i><i class="layui-icon layui-icon-down"></i></div></div>'
-			), t.css("position", "relative"), t.append(e), t.find("." + T).children("input").val(l
+			), t.css("position", "relative"), t.append(e), t.find("." + M).children("input").val(l
 			.value), "vertical" === l.type ? e.css({
 			left: 0,
 			top: -48
 		}) : n.elemTemp.css("margin-right", e.outerWidth() + 15)), l.disabled ? (n.elemTemp.addClass(c),
-			n.elemTemp.find("." + b).addClass(c)) : n.slide(), n.elemTemp.find("." + b).on("mouseover",
+			n.elemTemp.find("." + T).addClass(c)) : n.slide(), n.elemTemp.find("." + T).on("mouseover",
 			function() {
 				var e = "vertical" === l.type ? l.height : n.elemTemp[0].offsetWidth,
-					i = n.elemTemp.find("." + g),
-					t = ("vertical" === l.type ? e - h(this).parent()[0].offsetTop - i.height() : h(
+					i = n.elemTemp.find("." + b),
+					t = ("vertical" === l.type ? e - g(this).parent()[0].offsetTop - i.height() : g(
 						this).parent()[0].offsetLeft) / e * 100,
-					i = h(this).parent().data("value"),
+					i = g(this).parent().data("value"),
 					e = l.setTips ? l.setTips(i) : i;
-				n.elemTemp.find("." + x).html(e), clearTimeout(a), a = setTimeout(function() {
-					"vertical" === l.type ? n.elemTemp.find("." + x).css({
+				n.elemTemp.find("." + w).html(e), clearTimeout(a), a = setTimeout(function() {
+					"vertical" === l.type ? n.elemTemp.find("." + w).css({
 						bottom: t + "%",
 						"margin-bottom": "20px",
 						display: "inline-block"
-					}) : n.elemTemp.find("." + x).css({
+					}) : n.elemTemp.find("." + w).css({
 						left: t + "%",
 						display: "inline-block"
 					})
 				}, 300)
 			}).on("mouseout", function() {
-			clearTimeout(a), n.elemTemp.find("." + x).css("display", "none")
+			clearTimeout(a), n.elemTemp.find("." + w).css("display", "none")
 		})
 	}, i.prototype.slide = function(e, i, t) {
-		var o = this.config,
-			r = this.elemTemp,
-			u = function() {
-				return "vertical" === o.type ? o.height : r[0].offsetWidth
+		var o = this,
+			r = o.config,
+			u = o.elemTemp,
+			d = function() {
+				return "vertical" === r.type ? r.height : u[0].offsetWidth
 			},
-			d = r.find("." + g),
-			s = r.next(".layui-slider-input"),
-			c = s.children("." + T).children("input").val(),
-			m = 100 / ((o.max - o.min) / Math.ceil(o.step)),
-			v = function(e, i) {
-				e = 100 < (e = 100 < Math.ceil(e) * m ? Math.ceil(e) * m : Math.round(e) * m) ? 100 : e, d
-					.eq(i).css("vertical" === o.type ? "bottom" : "left", e + "%");
-				var t, a = p(d[0].offsetLeft),
-					n = o.range ? p(d[1].offsetLeft) : 0,
-					l = ("vertical" === o.type ? (r.find("." + x).css({
+			c = u.find("." + b),
+			m = u.next(".layui-slider-input"),
+			v = m.children("." + M).children("input").val(),
+			p = 100 / ((r.max - r.min) / Math.ceil(r.step)),
+			f = function(e, i, t) {
+				e = (e = 100 < (e = 100 < Math.ceil(e) * p ? Math.ceil(e) * p : Math.round(e) * p) ? 100 :
+					e) < 0 ? 0 : e, c.eq(i).css("vertical" === r.type ? "bottom" : "left", e + "%");
+				var a, n = h(c[0].offsetLeft),
+					l = r.range ? h(c[1].offsetLeft) : 0,
+					s = ("vertical" === r.type ? (u.find("." + w).css({
 							bottom: e + "%",
 							"margin-bottom": "20px"
-						}), a = p(u() - d[0].offsetTop - d.height()), n = o.range ? p(u() - d[1]
-							.offsetTop - d.height()) : 0) : r.find("." + x).css("left", e + "%"), a = 100 <
-						a ? 100 : a, n = 100 < n ? 100 : n, Math.min(a, n)),
-					a = Math.abs(a - n),
-					n = ("vertical" === o.type ? r.find("." + y).css({
-						height: a + "%",
-						bottom: l + "%"
-					}) : r.find("." + y).css({
-						width: a + "%",
-						left: l + "%"
-					}), o.min + Math.round((o.max - o.min) * e / 100));
-				c = n, s.children("." + T).children("input").val(c), d.eq(i).data("value", n), r.find("." +
-					x).html(o.setTips ? o.setTips(n) : n), o.range && (t = [d.eq(0).data("value"), d.eq(
-					1).data("value")])[0] > t[1] && t.reverse(), o.change && o.change(o.range ? t : n)
+						}), n = h(d() - c[0].offsetTop - c.height()), l = r.range ? h(d() - c[1]
+							.offsetTop - c.height()) : 0) : u.find("." + w).css("left", e + "%"), n = 100 <
+						n ? 100 : n, l = 100 < l ? 100 : l, Math.min(n, l)),
+					n = Math.abs(n - l),
+					l = ("vertical" === r.type ? u.find("." + x).css({
+						height: n + "%",
+						bottom: s + "%"
+					}) : u.find("." + x).css({
+						width: n + "%",
+						left: s + "%"
+					}), r.min + Math.round((r.max - r.min) * e / 100));
+				v = l, m.children("." + M).children("input").val(v), c.eq(i).data("value", l), u.find("." +
+						w).html(r.setTips ? r.setTips(l) : l), r.range && (a = [c.eq(0).data("value"), c.eq(
+						1).data("value")])[0] > a[1] && a.reverse(), o.value = r.range ? a : l, r.change &&
+					r.change(o.value), "done" === t && r.done && r.done(o.value)
 			},
-			p = function(e) {
-				var i = e / u() * 100 / m,
-					t = Math.round(i) * m;
-				return t = e == u() ? Math.ceil(i) * m : t
+			h = function(e) {
+				var i = e / d() * 100 / p,
+					t = Math.round(i) * p;
+				return t = e == d() ? Math.ceil(i) * p : t
 			},
-			f = h(['<div class="layui-auxiliar-moving" id="LAY-slider-moving"></div'].join(""));
-		if ("set" === e) return v(i, t);
-		r.find("." + b).each(function(l) {
-			var s = h(this);
+			y = g(['<div class="layui-auxiliar-moving" id="LAY-slider-moving"></div'].join(""));
+		if ("set" === e) return f(i - r.min, t, "done");
+		u.find("." + T).each(function(l) {
+			var s = g(this);
 			s.on("mousedown", function(e) {
 				e = e || window.event;
 				var i, t, a = s.parent()[0].offsetLeft,
 					n = e.clientX;
-				"vertical" === o.type && (a = u() - s.parent()[0].offsetTop - d.height(),
+				"vertical" === r.type && (a = d() - s.parent()[0].offsetTop - c.height(),
 					n = e.clientY);
 				e = function(e) {
 					e = e || window.event;
-					var i = a + ("vertical" === o.type ? n - e.clientY : e.clientX - n),
-						i = (i = (i = i < 0 ? 0 : i) > u() ? u() : i) / u() * 100 / m;
-					v(i, l), s.addClass(w), r.find("." + x).show(), e.preventDefault()
+					var i = a + ("vertical" === r.type ? n - e.clientY : e.clientX - n),
+						i = (i = (i = i < 0 ? 0 : i) > d() ? d() : i) / d() * 100 / p;
+					f(i, l), s.addClass(L), u.find("." + w).show(), e.preventDefault()
 				}, i = function() {
-					s.removeClass(w), r.find("." + x).hide()
+					s.removeClass(L), u.find("." + w).hide()
 				}, t = function() {
-					i && i(), f.remove()
-				}, h("#LAY-slider-moving")[0] || h("body").append(f), f.on("mousemove",
-					e), f.on("mouseup", t).on("mouseleave", t)
+					i && i(), y.remove(), r.done && r.done(o.value)
+				}, g("#LAY-slider-moving")[0] || g("body").append(y), y.on("mousemove",
+					e), y.on("mouseup", t).on("mouseleave", t)
 			})
-		}), r.on("click", function(e) {
-			var i = h("." + b),
-				t = h(this);
+		}), u.on("click", function(e) {
+			var i = g("." + T),
+				t = g(this);
 			!i.is(event.target) && 0 === i.has(event.target).length && i.length && (t = (i = (i = (
-					i = "vertical" === o.type ? u() - e.clientY + t.offset().top - h(
-						window).scrollTop() : e.clientX - t.offset().left - h(window)
-					.scrollLeft()) < 0 ? 0 : i) > u() ? u() : i) / u() * 100 / m, i = o.range ?
-				"vertical" === o.type ? Math.abs(i - parseInt(h(d[0]).css("bottom"))) > Math
-				.abs(i - parseInt(h(d[1]).css("bottom"))) ? 1 : 0 : Math.abs(i - d[0]
-					.offsetLeft) > Math.abs(i - d[1].offsetLeft) ? 1 : 0 : 0, v(t, i), e
+					i = "vertical" === r.type ? d() - e.clientY + t.offset().top - g(
+						window).scrollTop() : e.clientX - t.offset().left - g(window)
+					.scrollLeft()) < 0 ? 0 : i) > d() ? d() : i) / d() * 100 / p, i = r.range ?
+				"vertical" === r.type ? Math.abs(i - parseInt(g(c[0]).css("bottom"))) > Math
+				.abs(i - parseInt(g(c[1]).css("bottom"))) ? 1 : 0 : Math.abs(i - c[0]
+					.offsetLeft) > Math.abs(i - c[1].offsetLeft) ? 1 : 0 : 0, f(t, i, "done"), e
 				.preventDefault())
-		}), s.children(".layui-slider-input-btn").children("i").each(function(i) {
-			h(this).on("click", function() {
-				c = s.children("." + T).children("input").val();
-				var e = ((c = 1 == i ? c - o.step < o.min ? o.min : Number(c) - o.step :
-						Number(c) + o.step > o.max ? o.max : Number(c) + o.step) - o
-					.min) / (o.max - o.min) * 100 / m;
-				v(e, 0)
+		}), m.children(".layui-slider-input-btn").children("i").each(function(i) {
+			g(this).on("click", function() {
+				v = m.children("." + M).children("input").val();
+				var e = ((v = 1 == i ? v - r.step < r.min ? r.min : Number(v) - r.step :
+						Number(v) + r.step > r.max ? r.max : Number(v) + r.step) - r
+					.min) / (r.max - r.min) * 100 / p;
+				f(e, 0, "done")
 			})
 		});
 		var a = function() {
 			var e = this.value,
-				e = (e = (e = (e = isNaN(e) ? 0 : e) < o.min ? o.min : e) > o.max ? o.max : e, ((this
-					.value = e) - o.min) / (o.max - o.min) * 100 / m);
-			v(e, 0)
+				e = (e = (e = (e = isNaN(e) ? 0 : e) < r.min ? r.min : e) > r.max ? r.max : e, ((this
+					.value = e) - r.min) / (r.max - r.min) * 100 / p);
+			f(e, 0, "done")
 		};
-		s.children("." + T).children("input").on("keydown", function(e) {
+		m.children("." + M).children("input").on("keydown", function(e) {
 			13 === e.keyCode && (e.preventDefault(), a.call(this))
 		}).on("change", a)
 	}, i.prototype.events = function() {
@@ -6298,366 +6923,13 @@ layui.define("jquery", function(e) {
 				a = t.config;
 			return {
 				setValue: function(e, i) {
-					return a.value = e, t.slide("set", e, i || 0)
+					return e = (e = e > a.max ? a.max : e) < a.min ? a.min : e, a.value = e, t
+						.slide("set", e, i || 0)
 				},
 				config: a
 			}
 		}.call(e)
 	}, e(a, t)
-});
-layui.define(["jquery", "lay"], function(e) {
-	"use strict";
-	var k = layui.jquery,
-		n = layui.lay,
-		r = layui.device().mobile ? "click" : "mousedown",
-		l = {
-			config: {},
-			index: layui.colorpicker ? layui.colorpicker.index + 1e4 : 0,
-			set: function(e) {
-				var i = this;
-				return i.config = k.extend({}, i.config, e), i
-			},
-			on: function(e, i) {
-				return layui.onevent.call(this, "colorpicker", e, i)
-			}
-		},
-		t = "layui-colorpicker",
-		c = ".layui-colorpicker-main",
-		y = "layui-icon-down",
-		x = "layui-icon-close",
-		P = "layui-colorpicker-trigger-span",
-		C = "layui-colorpicker-trigger-i",
-		B = "layui-colorpicker-side-slider",
-		w = "layui-colorpicker-basis",
-		D = "layui-colorpicker-alpha-bgcolor",
-		j = "layui-colorpicker-alpha-slider",
-		E = "layui-colorpicker-basis-cursor",
-		F = "layui-colorpicker-main-input",
-		H = function(e) {
-			var i = {
-					h: 0,
-					s: 0,
-					b: 0
-				},
-				o = Math.min(e.r, e.g, e.b),
-				r = Math.max(e.r, e.g, e.b),
-				n = r - o;
-			return i.b = r, i.s = 0 != r ? 255 * n / r : 0, 0 != i.s ? e.r == r ? i.h = (e.g - e.b) / n : e.g ==
-				r ? i.h = 2 + (e.b - e.r) / n : i.h = 4 + (e.r - e.g) / n : i.h = -1, r == o && (i.h = 0), i
-				.h *= 60, i.h < 0 && (i.h += 360), i.s *= 100 / 255, i.b *= 100 / 255, i
-		},
-		M = function(e) {
-			var i, o = {},
-				r = e.h,
-				n = 255 * e.s / 100,
-				e = 255 * e.b / 100;
-			return 0 == n ? o.r = o.g = o.b = e : (e = r % 60 * ((i = e) - (n = (255 - n) * e / 255)) / 60, (r =
-				360 == r ? 0 : r) < 60 ? (o.r = i, o.b = n, o.g = n + e) : r < 120 ? (o.g = i, o.b = n,
-				o.r = i - e) : r < 180 ? (o.g = i, o.r = n, o.b = n + e) : r < 240 ? (o.b = i, o.r = n,
-				o.g = i - e) : r < 300 ? (o.b = i, o.g = n, o.r = n + e) : r < 360 ? (o.r = i, o.g = n,
-				o.b = i - e) : (o.r = 0, o.g = 0, o.b = 0)), {
-				r: Math.round(o.r),
-				g: Math.round(o.g),
-				b: Math.round(o.b)
-			}
-		},
-		f = function(e) {
-			var e = M(e),
-				o = [e.r.toString(16), e.g.toString(16), e.b.toString(16)];
-			return k.each(o, function(e, i) {
-				1 == i.length && (o[e] = "0" + i)
-			}), o.join("")
-		},
-		Y = function(e) {
-			e = e.match(/[0-9]{1,3}/g) || [];
-			return {
-				r: e[0],
-				g: e[1],
-				b: e[2]
-			}
-		},
-		I = k(window),
-		a = k(document),
-		s = function(e) {
-			this.index = ++l.index, this.config = k.extend({}, this.config, l.config, e), this.render()
-		};
-	s.prototype.config = {
-		color: "",
-		size: null,
-		alpha: !1,
-		format: "hex",
-		predefine: !1,
-		colors: ["#009688", "#5FB878", "#1E9FFF", "#FF5722", "#FFB800", "#01AAED", "#999", "#c00",
-			"#ff8c00", "#ffd700", "#90ee90", "#00ced1", "#1e90ff", "#c71585", "rgb(0, 186, 189)",
-			"rgb(255, 120, 0)", "rgb(250, 212, 0)", "#393D49", "rgba(0,0,0,.5)",
-			"rgba(255, 69, 0, 0.68)", "rgba(144, 240, 144, 0.5)", "rgba(31, 147, 255, 0.73)"
-		]
-	}, s.prototype.render = function() {
-		var e = this,
-			i = e.config,
-			o = k(i.elem);
-		if (1 < o.length) return layui.each(o, function() {
-			l.render(k.extend({}, i, {
-				elem: this
-			}))
-		}), e;
-		k.extend(i, n.options(o[0]));
-		var o = k(['<div class="layui-unselect layui-colorpicker">', "<span " + ("rgb" == i.format && i
-					.alpha ? 'class="layui-colorpicker-trigger-bgcolor"' : "") + ">",
-				'<span class="layui-colorpicker-trigger-span" ', 'lay-type="' + ("rgb" == i.format ? i
-					.alpha ? "rgba" : "torgb" : "") + '" ', 'style="' + (o = "", i.color ? (o = i.color,
-					3 < (i.color.match(/[0-9]{1,3}/g) || []).length && (i.alpha && "rgb" == i
-						.format || (o = "#" + f(H(Y(i.color))))), "background: " + o) : o) + '">',
-				'<i class="layui-icon layui-colorpicker-trigger-i ' + (i.color ? y : x) + '"></i>',
-				"</span>", "</span>", "</div>"
-			].join("")),
-			r = i.elem = k(i.elem);
-		i.size && o.addClass("layui-colorpicker-" + i.size), r.addClass("layui-inline").html(e
-			.elemColorBox = o), e.color = e.elemColorBox.find("." + P)[0].style.background, e.events()
-	}, s.prototype.renderPicker = function() {
-		var o, e = this,
-			i = e.config,
-			r = e.elemColorBox[0],
-			i = e.elemPicker = k(['<div id="layui-colorpicker' + e.index + '" data-index="' + e.index +
-				'" class="layui-anim layui-anim-downbit layui-colorpicker-main">',
-				'<div class="layui-colorpicker-main-wrapper">', '<div class="layui-colorpicker-basis">',
-				'<div class="layui-colorpicker-basis-white"></div>',
-				'<div class="layui-colorpicker-basis-black"></div>',
-				'<div class="layui-colorpicker-basis-cursor"></div>', "</div>",
-				'<div class="layui-colorpicker-side">',
-				'<div class="layui-colorpicker-side-slider"></div>', "</div>", "</div>",
-				'<div class="layui-colorpicker-main-alpha ' + (i.alpha ? "layui-show" : "") + '">',
-				'<div class="layui-colorpicker-alpha-bgcolor">',
-				'<div class="layui-colorpicker-alpha-slider"></div>', "</div>", "</div>", i.predefine ?
-				(o = ['<div class="layui-colorpicker-main-pre">'], layui.each(i.colors, function(e, i) {
-					o.push(['<div class="layui-colorpicker-pre' + (3 < (i.match(
-								/[0-9]{1,3}/g) || []).length ?
-							" layui-colorpicker-pre-isalpha" : "") + '">',
-						'<div style="background:' + i + '"></div>', "</div>"
-					].join(""))
-				}), o.push("</div>"), o.join("")) : "", '<div class="layui-colorpicker-main-input">',
-				'<div class="layui-inline">', '<input type="text" class="layui-input">', "</div>",
-				'<div class="layui-btn-container">',
-				'<button class="layui-btn layui-btn-primary layui-btn-sm" colorpicker-events="clear">\u6e05\u7a7a</button>',
-				'<button class="layui-btn layui-btn-sm" colorpicker-events="confirm">\u786e\u5b9a</button>',
-				"</div", "</div>", "</div>"
-			].join(""));
-		e.elemColorBox.find("." + P)[0];
-		k(c)[0] && k(c).data("index") == e.index ? e.removePicker(s.thisElemInd) : (e.removePicker(s
-				.thisElemInd), k("body").append(i)), s.thisElemInd = e.index, s.thisColor = r.style
-			.background, e.position(), e.pickerEvents()
-	}, s.prototype.removePicker = function(e) {
-		this.config;
-		return k("#layui-colorpicker" + (e || this.index)).remove(), this
-	}, s.prototype.position = function() {
-		var e = this,
-			i = e.config;
-		return n.position(e.bindElem || e.elemColorBox[0], e.elemPicker[0], {
-			position: i.position,
-			align: "center"
-		}), e
-	}, s.prototype.val = function() {
-		var e, i = this,
-			o = (i.config, i.elemColorBox.find("." + P)),
-			r = i.elemPicker.find("." + F),
-			n = o[0].style.backgroundColor;
-		n ? (e = H(Y(n)), o = o.attr("lay-type"), i.select(e.h, e.s, e.b), "torgb" === o && r.find("input")
-			.val(n), "rgba" === o && (e = Y(n), 3 == (n.match(/[0-9]{1,3}/g) || []).length ? (r.find(
-						"input").val("rgba(" + e.r + ", " + e.g + ", " + e.b + ", 1)"), i.elemPicker
-					.find("." + j).css("left", 280)) : (r.find("input").val(n), o = 280 * n.slice(n
-					.lastIndexOf(",") + 1, n.length - 1), i.elemPicker.find("." + j).css("left", o)), i
-				.elemPicker.find("." + D)[0].style.background = "linear-gradient(to right, rgba(" + e
-				.r + ", " + e.g + ", " + e.b + ", 0), rgb(" + e.r + ", " + e.g + ", " + e.b + "))")) : (
-			i.select(0, 100, 100), r.find("input").val(""), i.elemPicker.find("." + D)[0].style
-			.background = "", i.elemPicker.find("." + j).css("left", 280))
-	}, s.prototype.side = function() {
-		var n = this,
-			l = n.config,
-			t = n.elemColorBox.find("." + P),
-			c = t.attr("lay-type"),
-			a = n.elemPicker.find(".layui-colorpicker-side"),
-			e = n.elemPicker.find("." + B),
-			s = n.elemPicker.find("." + w),
-			r = n.elemPicker.find("." + E),
-			d = n.elemPicker.find("." + D),
-			f = n.elemPicker.find("." + j),
-			u = e[0].offsetTop / 180 * 360,
-			p = 100 - (r[0].offsetTop + 3) / 180 * 100,
-			g = (r[0].offsetLeft + 3) / 260 * 100,
-			h = Math.round(f[0].offsetLeft / 280 * 100) / 100,
-			v = n.elemColorBox.find("." + C),
-			i = n.elemPicker.find(".layui-colorpicker-pre").children("div"),
-			b = function(e, i, o, r) {
-				n.select(e, i, o);
-				e = M({
-					h: e,
-					s: i,
-					b: o
-				});
-				v.addClass(y).removeClass(x), t[0].style.background = "rgb(" + e.r + ", " + e.g + ", " + e
-					.b + ")", "torgb" === c && n.elemPicker.find("." + F).find("input").val("rgb(" + e.r +
-						", " + e.g + ", " + e.b + ")"), "rgba" === c && (f.css("left", 280 * r), n
-						.elemPicker.find("." + F).find("input").val("rgba(" + e.r + ", " + e.g + ", " + e
-							.b + ", " + r + ")"), t[0].style.background = "rgba(" + e.r + ", " + e.g +
-						", " + e.b + ", " + r + ")", d[0].style.background =
-						"linear-gradient(to right, rgba(" + e.r + ", " + e.g + ", " + e.b + ", 0), rgb(" + e
-						.r + ", " + e.g + ", " + e.b + "))"), l.change && l.change(n.elemPicker.find("." +
-						F).find("input").val())
-			},
-			o = k(['<div class="layui-auxiliar-moving" id="LAY-colorpicker-moving"></div>'].join("")),
-			m = function(e) {
-				k("#LAY-colorpicker-moving")[0] || k("body").append(o), o.on("mousemove", e), o.on(
-					"mouseup",
-					function() {
-						o.remove()
-					}).on("mouseleave", function() {
-					o.remove()
-				})
-			};
-		e.on("mousedown", function(e) {
-			var r = this.offsetTop,
-				n = e.clientY;
-			m(function(e) {
-				var i = r + (e.clientY - n),
-					o = a[0].offsetHeight,
-					o = (i = o < (i = i < 0 ? 0 : i) ? o : i) / 180 * 360;
-				b(u = o, g, p, h), e.preventDefault()
-			}), e.preventDefault()
-		}), a.on("click", function(e) {
-			var i = e.clientY - k(this).offset().top,
-				i = (i = (i = i < 0 ? 0 : i) > this.offsetHeight ? this.offsetHeight : i) / 180 *
-				360;
-			b(u = i, g, p, h), e.preventDefault()
-		}), r.on("mousedown", function(e) {
-			var l = this.offsetTop,
-				t = this.offsetLeft,
-				c = e.clientY,
-				a = e.clientX;
-			layui.stope(e), m(function(e) {
-				var i = l + (e.clientY - c),
-					o = t + (e.clientX - a),
-					r = s[0].offsetHeight - 3,
-					n = s[0].offsetWidth - 3,
-					n = ((o = n < (o = o < -3 ? -3 : o) ? n : o) + 3) / 260 * 100,
-					o = 100 - ((i = r < (i = i < -3 ? -3 : i) ? r : i) + 3) / 180 * 100;
-				b(u, g = n, p = o, h), e.preventDefault()
-			}), e.preventDefault()
-		}), s.on("mousedown", function(e) {
-			var i = e.clientY - k(this).offset().top - 3 + I.scrollTop(),
-				o = e.clientX - k(this).offset().left - 3 + I.scrollLeft(),
-				o = ((i = i < -3 ? -3 : i) > this.offsetHeight - 3 && (i = this.offsetHeight - 3), (
-					(o = (o = o < -3 ? -3 : o) > this.offsetWidth - 3 ? this.offsetWidth - 3 :
-						o) + 3) / 260 * 100),
-				i = 100 - (i + 3) / 180 * 100;
-			b(u, g = o, p = i, h), layui.stope(e), e.preventDefault(), r.trigger(e, "mousedown")
-		}), f.on("mousedown", function(e) {
-			var r = this.offsetLeft,
-				n = e.clientX;
-			m(function(e) {
-				var i = r + (e.clientX - n),
-					o = d[0].offsetWidth,
-					o = (o < (i = i < 0 ? 0 : i) && (i = o), Math.round(i / 280 * 100) /
-						100);
-				b(u, g, p, h = o), e.preventDefault()
-			}), e.preventDefault()
-		}), d.on("click", function(e) {
-			var i = e.clientX - k(this).offset().left,
-				i = ((i = i < 0 ? 0 : i) > this.offsetWidth && (i = this.offsetWidth), Math.round(
-					i / 280 * 100) / 100);
-			b(u, g, p, h = i), e.preventDefault()
-		}), i.each(function() {
-			k(this).on("click", function() {
-				k(this).parent(".layui-colorpicker-pre").addClass("selected").siblings()
-					.removeClass("selected");
-				var e = this.style.backgroundColor,
-					i = H(Y(e)),
-					o = e.slice(e.lastIndexOf(",") + 1, e.length - 1);
-				u = i.h, g = i.s, p = i.b, 3 == (e.match(/[0-9]{1,3}/g) || []).length && (
-					o = 1), h = o, b(i.h, i.s, i.b, o)
-			})
-		})
-	}, s.prototype.select = function(e, i, o, r) {
-		var n = this,
-			l = (n.config, f({
-				h: e,
-				s: 100,
-				b: 100
-			})),
-			t = f({
-				h: e,
-				s: i,
-				b: o
-			}),
-			e = e / 360 * 180,
-			o = 180 - o / 100 * 180 - 3,
-			i = i / 100 * 260 - 3;
-		n.elemPicker.find("." + B).css("top", e), n.elemPicker.find("." + w)[0].style.background = "#" + l,
-			n.elemPicker.find("." + E).css({
-				top: o,
-				left: i
-			}), "change" !== r && n.elemPicker.find("." + F).find("input").val("#" + t)
-	}, s.prototype.pickerEvents = function() {
-		var c = this,
-			a = c.config,
-			s = c.elemColorBox.find("." + P),
-			d = c.elemPicker.find("." + F + " input"),
-			o = {
-				clear: function(e) {
-					s[0].style.background = "", c.elemColorBox.find("." + C).removeClass(y).addClass(x),
-						c.color = "", a.done && a.done(""), c.removePicker()
-				},
-				confirm: function(e, i) {
-					var o, r, n = d.val(),
-						l = n,
-						t = {};
-					if (-1 < n.indexOf(",") ? (t = H(Y(n)), c.select(t.h, t.s, t.b), s[0].style
-							.background = l = "#" + f(t), 3 < (n.match(/[0-9]{1,3}/g) || []).length &&
-							"rgba" === s.attr("lay-type") && (o = 280 * n.slice(n.lastIndexOf(",") + 1,
-									n.length - 1), c.elemPicker.find("." + j).css("left", o), l = s[0]
-								.style.background = n)) : (3 == (o = -1 < (o = n).indexOf("#") ? o
-							.substring(1) : o).length && (o = (r = o.split(""))[0] + r[0] + r[1] +
-							r[1] + r[2] + r[2]), r = {
-							r: (o = parseInt(o, 16)) >> 16,
-							g: (65280 & o) >> 8,
-							b: 255 & o
-						}, t = H(r), s[0].style.background = l = "#" + f(t), c.elemColorBox.find(
-							"." + C).removeClass(x).addClass(y)), "change" === i) return c.select(t.h, t
-						.s, t.b, i), void(a.change && a.change(l));
-					c.color = n, a.done && a.done(n), c.removePicker()
-				}
-			};
-		c.elemPicker.on("click", "*[colorpicker-events]", function() {
-			var e = k(this),
-				i = e.attr("colorpicker-events");
-			o[i] && o[i].call(this, e)
-		}), d.on("keyup", function(e) {
-			var i = k(this);
-			o.confirm.call(this, i, 13 === e.keyCode ? null : "change")
-		})
-	}, s.prototype.events = function() {
-		var i = this,
-			e = i.config,
-			o = i.elemColorBox.find("." + P);
-		i.elemColorBox.on("click", function() {
-			i.renderPicker(), k(c)[0] && (i.val(), i.side())
-		}), e.elem[0] && !i.elemColorBox[0].eventHandler && (a.on(r, function(e) {
-			k(e.target).hasClass(t) || k(e.target).parents("." + t)[0] || k(e.target).hasClass(c
-				.replace(/\./g, "")) || k(e.target).parents(c)[0] || i.elemPicker && (i
-				.color ? (e = H(Y(i.color)), i.select(e.h, e.s, e.b)) : i.elemColorBox.find(
-					"." + C).removeClass(y).addClass(x), o[0].style.background = i.color ||
-				"", i.removePicker())
-		}), I.on("resize", function() {
-			if (!i.elemPicker || !k(c)[0]) return !1;
-			i.position()
-		}), i.elemColorBox[0].eventHandler = !0)
-	}, l.render = function(e) {
-		e = new s(e);
-		return function() {
-			return {
-				config: this.config
-			}
-		}.call(e)
-	}, e("colorpicker", l)
 });
 layui.define("jquery", function(t) {
 	"use strict";
@@ -6700,7 +6972,9 @@ layui.define("jquery", function(t) {
 			var a = "layui-progress",
 				t = u("." + a + "[lay-filter=" + t + "]").find("." + a + "-bar"),
 				a = t.find("." + a + "-text");
-			return t.css("width", i).attr("lay-percent", i), a.text(i), this
+			return t.css("width", function() {
+				return /^.+\/.+$/.test(i) ? 100 * new Function("return " + i)() + "%" : i
+			}).attr("lay-percent", i), a.text(i), this
 		}, ".layui-nav"),
 		f = "layui-nav-item",
 		l = "layui-nav-bar",
@@ -6906,11 +7180,12 @@ layui.define("jquery", function(t) {
 							var t = u(this),
 								i = t.find(".layui-progress-bar"),
 								a = i.attr("lay-percent");
-							i.css("width", /^.+\/.+$/.test(a) ? 100 * new Function("return " +
-								a)() + "%" : a), t.attr("lay-showPercent") && setTimeout(
-								function() {
-									i.html('<span class="' + e + '-text">' + a + "</span>")
-								}, 350)
+							i.css("width", function() {
+								return /^.+\/.+$/.test(a) ? 100 * new Function(
+									"return " + a)() + "%" : a
+							}), t.attr("lay-showPercent") && setTimeout(function() {
+								i.html('<span class="' + e + '-text">' + a + "</span>")
+							}, 350)
 						})
 					},
 					collapse: function() {
@@ -6939,11 +7214,10 @@ layui.define("jquery", function(t) {
 	e.on("click", ".layui-tab-title li", C.tabClick), e.on("click", C.hideTabMore), u(window).on("resize", C
 		.tabAuto), t(c, a)
 });
-layui.define("layer", function(e) {
+layui.define(["lay", "layer"], function(e) {
 	"use strict";
 	var v = layui.$,
 		t = layui.layer,
-		r = layui.hint(),
 		y = layui.device(),
 		i = {
 			config: {},
@@ -6956,8 +7230,8 @@ layui.define("layer", function(e) {
 			}
 		},
 		n = "upload",
-		o = "layui-upload-file",
-		a = "layui-upload-form",
+		a = "layui-upload-file",
+		o = "layui-upload-form",
 		F = "layui-upload-iframe",
 		b = "layui-upload-choose",
 		x = function(e) {
@@ -6985,22 +7259,22 @@ layui.define("layer", function(e) {
 	}, x.prototype.file = function() {
 		var e = this,
 			t = e.config,
-			i = e.elemFile = v(['<input class="' + o + '" type="file" accept="' + t.acceptMime +
+			i = e.elemFile = v(['<input class="' + a + '" type="file" accept="' + t.acceptMime +
 				'" name="' + t.field + '"', t.multiple ? " multiple" : "", ">"
 			].join("")),
 			n = t.elem.next();
-		(n.hasClass(o) || n.hasClass(a)) && n.remove(), y.ie && y.ie < 10 && t.elem.wrap(
+		(n.hasClass(a) || n.hasClass(o)) && n.remove(), y.ie && y.ie < 10 && t.elem.wrap(
 			'<div class="layui-upload-wrap"></div>'), e.isFile() ? (e.elemFile = t.elem, t.field = t
 			.elem[0].name) : t.elem.after(i), y.ie && y.ie < 10 && e.initIE()
 	}, x.prototype.initIE = function() {
 		var i, e = this.config,
 			t = v('<iframe id="' + F + '" class="' + F + '" name="' + F + '" frameborder="0"></iframe>'),
-			n = v(['<form target="' + F + '" class="' + a +
+			n = v(['<form target="' + F + '" class="' + o +
 				'" method="post" key="set-mine" enctype="multipart/form-data" action="' + e.url + '">',
 				"</form>"
 			].join(""));
-		v("#" + F)[0] || v("body").append(t), e.elem.next().hasClass(a) || (this.elemFile.wrap(n), e.elem
-			.next("." + a).append((i = [], layui.each(e.data, function(e, t) {
+		v("#" + F)[0] || v("body").append(t), e.elem.next().hasClass(o) || (this.elemFile.wrap(n), e.elem
+			.next("." + o).append((i = [], layui.each(e.data, function(e, t) {
 				t = "function" == typeof t ? t() : t, i.push('<input type="hidden" name="' +
 					e + '" value="' + t + '">')
 			}), i.join(""))))
@@ -7020,26 +7294,26 @@ layui.define("layer", function(e) {
 			}
 		})
 	}, x.prototype.upload = function(i, e) {
-		var n, o, t, a, l = this,
+		var n, a, t, o, l = this,
 			r = l.config,
-			u = l.elemFile[0],
-			c = function() {
+			c = l.elemFile[0],
+			u = function() {
 				var t = 0,
-					o = 0,
-					e = i || l.files || l.chooseFiles || u.files,
-					a = function() {
-						r.multiple && t + o === l.fileLength && "function" == typeof r.allDone && r
+					a = 0,
+					e = i || l.files || l.chooseFiles || c.files,
+					o = function() {
+						r.multiple && t + a === l.fileLength && "function" == typeof r.allDone && r
 					.allDone({
 							total: l.fileLength,
 							successful: t,
-							failed: o
+							failed: a
 						})
 					};
 				layui.each(e, function(i, e) {
 					var n = new FormData,
-						e = (n.append(r.field, e), layui.each(r.data, function(e, t) {
+						e = (layui.each(r.data, function(e, t) {
 							t = "function" == typeof t ? t() : t, n.append(e, t)
-						}), {
+						}), n.append(r.field, e), {
 							url: r.url,
 							type: "post",
 							data: n,
@@ -7048,11 +7322,11 @@ layui.define("layer", function(e) {
 							dataType: "json",
 							headers: r.headers || {},
 							success: function(e) {
-								t++, f(i, e), a()
+								t++, f(i, e), o()
 							},
 							error: function(e) {
-								o++, l.msg("Request URL is abnormal: " + (e.statusText ||
-									"error")), p(i), a()
+								a++, l.msg("Request URL is abnormal: " + (e.statusText ||
+									"error")), p(i), o()
 							}
 						});
 					"function" == typeof r.progress && (e.xhr = function() {
@@ -7080,7 +7354,7 @@ layui.define("layer", function(e) {
 				}, 30)
 			},
 			f = function(e, t) {
-				if (l.elemFile.next("." + b).remove(), u.value = "", "json" === r.force && "object" !=
+				if (l.elemFile.next("." + b).remove(), c.value = "", "json" === r.force && "object" !=
 					typeof t) try {
 					t = JSON.parse(t)
 				} catch (i) {
@@ -7091,14 +7365,14 @@ layui.define("layer", function(e) {
 				})
 			},
 			p = function(e) {
-				r.auto && (u.value = ""), "function" == typeof r.error && r.error(e || 0, function(e) {
+				r.auto && (c.value = ""), "function" == typeof r.error && r.error(e || 0, function(e) {
 					l.upload(e)
 				})
 			},
 			d = r.exts,
-			m = (o = [], layui.each(i || l.chooseFiles, function(e, t) {
-				o.push(t.name)
-			}), o),
+			m = (a = [], layui.each(i || l.chooseFiles, function(e, t) {
+				a.push(t.name)
+			}), a),
 			h = {
 				preview: function(e) {
 					l.preview(e)
@@ -7123,7 +7397,7 @@ layui.define("layer", function(e) {
 				video: "\u89c6\u9891",
 				audio: "\u97f3\u9891"
 			} [r.accept] || "\u6587\u4ef6",
-			m = 0 === m.length ? u.value.match(/[^\/\\]+\..+/g) || [] || "" : m;
+			m = 0 === m.length ? c.value.match(/[^\/\\]+\..+/g) || [] || "" : m;
 		if (0 !== m.length) {
 			switch (r.accept) {
 				case "file":
@@ -7150,9 +7424,9 @@ layui.define("layer", function(e) {
 					})
 			}
 			if (n) return l.msg("\u9009\u62e9\u7684" + g +
-				"\u4e2d\u5305\u542b\u4e0d\u652f\u6301\u7684\u683c\u5f0f"), u.value = "";
+				"\u4e2d\u5305\u542b\u4e0d\u652f\u6301\u7684\u683c\u5f0f"), c.value = "";
 			if ("choose" !== e && !r.auto || (r.choose && r.choose(h), "choose" !== e)) {
-				if (l.fileLength = (t = 0, g = i || l.files || l.chooseFiles || u.files, layui.each(g,
+				if (l.fileLength = (t = 0, g = i || l.files || l.chooseFiles || c.files, layui.each(g,
 						function() {
 							t++
 						}), t), r.number && l.fileLength > r.number) return l.msg(
@@ -7162,9 +7436,9 @@ layui.define("layer", function(e) {
 				if (0 < r.size && !(y.ie && y.ie < 10))
 					if (layui.each(l.chooseFiles, function(e, t) {
 							t.size > 1024 * r.size && (t = 1 <= (t = r.size / 1024) ? t.toFixed(2) +
-								"MB" : r.size + "KB", u.value = "", a = t)
-						}), a) return l.msg("\u6587\u4ef6\u5927\u5c0f\u4e0d\u80fd\u8d85\u8fc7 " + a);
-				if (!r.before || !1 !== r.before(h)) y.ie ? (9 < y.ie ? c : s)() : c()
+								"MB" : r.size + "KB", c.value = "", o = t)
+						}), o) return l.msg("\u6587\u4ef6\u5927\u5c0f\u4e0d\u80fd\u8d85\u8fc7 " + o);
+				if (!r.before || !1 !== r.before(h)) y.ie ? (9 < y.ie ? u : s)() : u()
 			}
 		}
 	}, x.prototype.reload = function(e) {
@@ -7176,8 +7450,8 @@ layui.define("layer", function(e) {
 		})
 	}, x.prototype.events = function() {
 		var n = this,
-			o = n.config,
-			a = function(e) {
+			a = n.config,
+			o = function(e) {
 				n.chooseFiles = {}, layui.each(e, function(e, t) {
 					var i = (new Date).getTime();
 					n.chooseFiles[i + "-" + e] = t
@@ -7185,47 +7459,47 @@ layui.define("layer", function(e) {
 			},
 			l = function(e, t) {
 				var i = n.elemFile,
-					e = (o.item || o.elem, 1 < e.length ? e.length + "\u4e2a\u6587\u4ef6" : (e[0] || {})
+					e = (a.item || a.elem, 1 < e.length ? e.length + "\u4e2a\u6587\u4ef6" : (e[0] || {})
 						.name || i[0].value.match(/[^\/\\]+\..+/g) || [] || "");
-				i.next().hasClass(b) && i.next().remove(), n.upload(null, "choose"), n.isFile() || o
+				i.next().hasClass(b) && i.next().remove(), n.upload(null, "choose"), n.isFile() || a
 					.choose || i.after('<span class="layui-inline ' + b + '">' + e + "</span>")
+			},
+			r = function() {
+				var e = v(this);
+				(e.attr("lay-data") || e.attr("lay-options")) && (n.config = v.extend({}, a, lay.options(
+					this, {
+						attr: e.attr("lay-data") ? "lay-data" : null
+					})))
 			};
-		o.elem.off("upload.start").on("upload.start", function() {
-			var e = v(this),
-				t = e.attr("lay-data");
-			if (t) try {
-				t = new Function("return " + t)(), n.config = v.extend({}, o, t)
-			} catch (i) {
-				r.error("Upload element property lay-data configuration item has a syntax error: " +
-					t)
-			}
-			n.config.item = e, n.elemFile[0].click()
-		}), y.ie && y.ie < 10 || o.elem.off("upload.over").on("upload.over", function() {
+		a.elem.off("upload.start").on("upload.start", function() {
+			var e = v(this);
+			r.call(this), n.config.item = e, n.elemFile[0].click()
+		}), y.ie && y.ie < 10 || a.elem.off("upload.over").on("upload.over", function() {
 			v(this).attr("lay-over", "")
 		}).off("upload.leave").on("upload.leave", function() {
 			v(this).removeAttr("lay-over")
 		}).off("upload.drop").on("upload.drop", function(e, t) {
 			var i = v(this),
 				t = t.originalEvent.dataTransfer.files || [];
-			i.removeAttr("lay-over"), a(t), o.auto ? n.upload() : l(t)
+			i.removeAttr("lay-over"), r.call(this), o(t), a.auto ? n.upload() : l(t)
 		}), n.elemFile.off("upload.change").on("upload.change", function() {
 			var e = this.files || [];
-			a(e), o.auto ? n.upload() : l(e)
-		}), o.bindAction.off("upload.action").on("upload.action", function() {
+			r.call(this), o(e), a.auto ? n.upload() : l(e)
+		}), a.bindAction.off("upload.action").on("upload.action", function() {
 			n.upload()
-		}), o.elem.data("haveEvents") || (n.elemFile.on("change", function() {
+		}), a.elem.data("haveEvents") || (n.elemFile.on("change", function() {
 			v(this).trigger("upload.change")
-		}), o.elem.on("click", function() {
+		}), a.elem.on("click", function() {
 			n.isFile() || v(this).trigger("upload.start")
-		}), o.drag && o.elem.on("dragover", function(e) {
+		}), a.drag && a.elem.on("dragover", function(e) {
 			e.preventDefault(), v(this).trigger("upload.over")
 		}).on("dragleave", function(e) {
 			v(this).trigger("upload.leave")
 		}).on("drop", function(e) {
 			e.preventDefault(), v(this).trigger("upload.drop", e)
-		}), o.bindAction.on("click", function() {
+		}), a.bindAction.on("click", function() {
 			v(this).trigger("upload.action")
-		}), o.elem.data("haveEvents", !0))
+		}), a.elem.data("haveEvents", !0))
 	}, i.render = function(e) {
 		e = new x(e);
 		return function() {
@@ -7242,9 +7516,9 @@ layui.define("layer", function(e) {
 		}.call(e)
 	}, e(n, i)
 });
-layui.define(["layer", "util"], function(e) {
+layui.define(["lay", "layer", "util"], function(e) {
 	"use strict";
-	var C = layui.$,
+	var b = layui.$,
 		h = layui.layer,
 		d = layui.util,
 		l = layui.hint(),
@@ -7252,7 +7526,7 @@ layui.define(["layer", "util"], function(e) {
 		o = ".layui-form",
 		T = "layui-this",
 		$ = "layui-hide",
-		E = "layui-disabled",
+		F = "layui-disabled",
 		t = function() {
 			this.config = {
 				verify: {
@@ -7278,16 +7552,16 @@ layui.define(["layer", "util"], function(e) {
 			}
 		},
 		i = (t.prototype.set = function(e) {
-			return C.extend(!0, this.config, e), this
+			return b.extend(!0, this.config, e), this
 		}, t.prototype.verify = function(e) {
-			return C.extend(!0, this.config.verify, e), this
+			return b.extend(!0, this.config.verify, e), this
 		}, t.prototype.getFormElem = function(e) {
-			return C(o + (e ? '[lay-filter="' + e + '"]' : ""))
+			return b(o + (e ? '[lay-filter="' + e + '"]' : ""))
 		}, t.prototype.on = function(e, t) {
 			return layui.onevent.call(this, w, e, t)
 		}, t.prototype.val = function(e, i) {
 			return this.getFormElem(e).each(function(e, t) {
-				var a = C(this);
+				var a = b(this);
 				layui.each(i, function(e, t) {
 					var i, e = a.find('[name="' + e + '"]');
 					e[0] && ("checkbox" === (i = e[0].type) ? e[0].checked = t : "radio" ===
@@ -7303,7 +7577,7 @@ layui.define(["layer", "util"], function(e) {
 				e = t.find("input,select,textarea");
 			return layui.each(e, function(e, t) {
 				var i;
-				C(this);
+				b(this);
 				t.name = (t.name || "").replace(/^\s*|\s*&/, ""), t.name && (/^.*\[\]$/.test(t
 					.name) && (i = t.name.match(/^(.*)\[\]$/g)[0], a[i] = 0 | a[i], i = t.name
 						.replace(/^(.*)\[\]$/, "$1[" + a[i]++ + "]")), /^checkbox|radio$/.test(t
@@ -7311,46 +7585,110 @@ layui.define(["layer", "util"], function(e) {
 			}), n
 		}, t.prototype.render = function(e, t) {
 			var i = this.config,
-				a = C(o + (t ? '[lay-filter="' + t + '"]' : "")),
+				a = b(o + (t ? '[lay-filter="' + t + '"]' : "")),
 				n = {
 					input: function(e) {
 						e = e || a.find("input,textarea");
-						i.autocomplete && e.attr("autocomplete", i.autocomplete)
+						i.autocomplete && e.attr("autocomplete", i.autocomplete), a.find(
+							"input[lay-affix],textarea[lay-affix]").each(function() {
+							var l = b(this),
+								r = l.attr("lay-affix"),
+								s = "layui-input-suffix",
+								o = "layui-input-affix",
+								e = l.is("[disabled]") || l.is("[readonly]"),
+								c = function(e, t) {
+									(e = b(e))[0] && e[b.trim(t) ? "removeClass" : "addClass"](
+										$)
+								},
+								n = function(t) {
+									t = b.extend({}, u[r] || {
+										value: r
+									}, t, lay.options(l[0]));
+									var i = b('<div class="' + o + '">'),
+										e = b('<i class="layui-icon layui-icon-' + t.value + (t
+											.disabled ? " " + F : "") + '"></i>'),
+										a = (i.append(e), t.split && i.addClass(
+											"layui-input-split"), l.next("." + o)),
+										n = (a[0] && a.remove(), l.next("." + s));
+									n[0] ? ((a = n.find("." + o))[0] && a.remove(), n.prepend(
+											i), l.css("padding-right", function() {
+												return (l.closest(".layui-input-group")[0] ?
+													0 : n.outerWidth()) + i.outerWidth()
+											})) : (i.addClass(s), l.after(i)), "auto" === t
+										.show && c(i, l.val()), l.on("input propertychange",
+											function() {
+												var e = this.value;
+												"auto" === t.show && c(i, e)
+											}), e.on("click", function() {
+											var e = l.attr("lay-filter");
+											b(this).hasClass(F) || ("function" == typeof t
+												.click && t.click.call(this, l, t),
+												layui.event.call(this, w,
+													"input-affix(" + e + ")", {
+														elem: l[0],
+														affix: r,
+														options: t
+													}))
+										})
+								},
+								u = {
+									eye: {
+										value: "eye-invisible",
+										click: function(e, t) {
+											var i = "LAY_FORM_INPUT_AFFIX_SHOW",
+												a = e.data(i);
+											e.attr("type", a ? "password" : "text").data(i,
+												!a), n({
+												value: a ? "eye-invisible" : "eye"
+											})
+										}
+									},
+									clear: {
+										value: "clear",
+										click: function(e) {
+											e.val("").focus(), c(b(this).parent(), null)
+										},
+										show: "auto",
+										disabled: e
+									}
+								};
+							n()
+						})
 					},
 					select: function(e) {
-						var p, c = "\u8bf7\u9009\u62e9",
+						var v, c = "\u8bf7\u9009\u62e9",
 							m = "layui-form-select",
 							g = "layui-select-title",
-							k = "layui-select-none",
-							x = "",
+							x = "layui-select-none",
+							k = "",
 							e = e || a.find("select"),
-							b = function(e, t) {
-								C(e.target).parent().hasClass(g) && !t || (C("." + m).removeClass(m +
-									"ed " + m + "up"), p && x && p.val(x)), p = null
+							C = function(e, t) {
+								b(e.target).parent().hasClass(g) && !t || (b("." + m).removeClass(m +
+									"ed " + m + "up"), v && k && v.val(k)), v = null
 							},
 							u = function(a, e, t) {
-								var s, r, i, n, o, l, c = C(this),
+								var s, r, i, n, o, l, c = b(this),
 									u = a.find("." + g),
 									d = u.find("input"),
 									f = a.find("dl"),
 									h = f.children("dd"),
 									y = f.children("dt"),
-									v = this.selectedIndex;
+									p = this.selectedIndex;
 								e || (r = c.attr("lay-search"), i = function() {
 									var e = a.offset().top + a.outerHeight() + 5 - q
 									.scrollTop(),
 										t = f.outerHeight();
-									v = c[0].selectedIndex, a.addClass(m + "ed"), h.removeClass(
-											$), y.removeClass($), s = null, h.eq(v).addClass(T)
-										.siblings().removeClass(T), e + t > q.height() && t <=
-										e && a.addClass(m + "up"), o()
+									p = c[0].selectedIndex, a.addClass(m + "ed"), h.removeClass(
+											$), y.removeClass($), s = null, h.removeClass(T),
+										0 <= p && h.eq(p).addClass(T), e + t > q.height() &&
+										t <= e && a.addClass(m + "up"), o()
 								}, n = function(e) {
 									a.removeClass(m + "ed " + m + "up"), d.blur(), s = null,
 										e || l(d.val(), function(e) {
 											var t = c[0].selectedIndex;
-											e && (x = C(c[0].options[t]).html(), 0 === t &&
-												x === d.attr("placeholder") && (x = ""),
-												d.val(x || ""))
+											e && (k = b(c[0].options[t]).html(), 0 === t &&
+												k === d.attr("placeholder") && (k = ""),
+												d.val(k || ""))
 										})
 								}, o = function() {
 									var e, t, i = f.children("dd." + T);
@@ -7359,8 +7697,8 @@ layui.define(["layer", "util"], function(e) {
 										t + i - 5), e < 0 && f.scrollTop(e + f
 										.scrollTop() - 5))
 								}, u.on("click", function(e) {
-									a.hasClass(m + "ed") ? n() : (b(e, !0), i()), f.find(
-										"." + k).remove()
+									a.hasClass(m + "ed") ? n() : (C(e, !0), i()), f.find(
+										"." + x).remove()
 								}), u.find(".layui-edge").on("click", function() {
 									d.focus()
 								}), d.on("keyup", function(e) {
@@ -7374,7 +7712,7 @@ layui.define(["layer", "util"], function(e) {
 													if (f.children("dd." + $)[0] &&
 														"next" === a) {
 														var t = f.children("dd:not(." +
-																$ + ",." + E + ")"),
+																$ + ",." + F + ")"),
 															i = t.eq(0).index();
 														if (0 <= i && i < e.index() && !
 															t.hasClass(T)) return t.eq(
@@ -7388,7 +7726,7 @@ layui.define(["layer", "util"], function(e) {
 												t = e[a](),
 												i = e[a]("dd:not(." + $ + ")");
 											return t[0] ? (s = e[a](), i[0] && !i
-													.hasClass(E) || !s[0] ? (i.addClass(
+													.hasClass(F) || !s[0] ? (i.addClass(
 															T).siblings().removeClass(
 														T), void o()) : r(a, s)) : s =
 												null
@@ -7399,7 +7737,7 @@ layui.define(["layer", "util"], function(e) {
 								}), l = function(a, e, n) {
 									var l = 0,
 										t = (layui.each(h, function() {
-											var e = C(this),
+											var e = b(this),
 												t = e.text(),
 												i = ("cs" !== r && (t = t.toLowerCase(),
 														a = a.toLowerCase()), -1 === t
@@ -7408,38 +7746,40 @@ layui.define(["layer", "util"], function(e) {
 											l++, "keyup" === n && e[i ? "addClass" :
 												"removeClass"]($)
 										}), "keyup" === n && layui.each(y, function() {
-											var e = C(this),
+											var e = b(this),
 												t = e.nextUntil("dt").filter("dd");
 											e[t.length == t.filter("." + $).length ?
 												"addClass" : "removeClass"]($)
 										}), l === h.length);
 									return e(t), t
-								}, t && d.on("keyup", function(e) {
+								}, t && d.on("input propertychange", function(e) {
 									var t = this.value,
 										e = e.keyCode;
 									if (9 === e || 13 === e || 37 === e || 38 === e ||
 										39 === e || 40 === e) return !1;
 									l(t, function(e) {
-											e ? f.find("." + k)[0] || f.append(
-													'<p class="' + k +
-													'">\u65e0\u5339\u914d\u9879</p>') :
-												f.find("." + k).remove()
-										}, "keyup"), "" === t && f.find("." + k).remove(),
-										o()
+										e ? f.find("." + x)[0] || f.append(
+												'<p class="' + x +
+												'">\u65e0\u5339\u914d\u9879</p>') :
+											f.find("." + x).remove()
+									}, "keyup"), "" === t && (c.val(""), f.find("." + T)
+										.removeClass(T), (c[0].options[0] || {})
+										.value || f.children("dd:eq(0)").addClass(T), f
+										.find("." + x).remove()), o()
 								}).on("blur", function(e) {
 									var t = c[0].selectedIndex;
-									p = d, x = C(c[0].options[t]).html(), 0 === t && x === d
-										.attr("placeholder") && (x = ""), setTimeout(
+									v = d, k = b(c[0].options[t]).html(), 0 === t && k === d
+										.attr("placeholder") && (k = ""), setTimeout(
 											function() {
 												l(d.val(), function(e) {
-													x || d.val("")
+													k || d.val("")
 												}, "blur")
 											}, 200)
 								}), h.on("click", function() {
-									var e = C(this),
+									var e = b(this),
 										t = e.attr("lay-value"),
 										i = c.attr("lay-filter");
-									return e.hasClass(E) || (e.hasClass(
+									return e.hasClass(F) || (e.hasClass(
 										"layui-select-tips") ? d.val("") : (d.val(e
 											.text()), e.addClass(T)), e.siblings()
 										.removeClass(T), c.val(t).removeClass(
@@ -7451,42 +7791,43 @@ layui.define(["layer", "util"], function(e) {
 											}), n(!0)), !1
 								}), a.find("dl>dt").on("click", function(e) {
 									return !1
-								}), C(document).off("click", b).on("click", b))
+								}), b(document).off("click", C).on("click", C))
 							};
 						e.each(function(e, t) {
-							var i = C(this),
+							var i = b(this),
 								a = i.next("." + m),
 								n = this.disabled,
 								l = t.value,
-								r = C(t.options[t.selectedIndex]),
+								r = b(t.options[t.selectedIndex]),
 								t = t.options[0];
 							if ("string" == typeof i.attr("lay-ignore")) return i.show();
 							var s, o = "string" == typeof i.attr("lay-search"),
 								t = t && !t.value && t.innerHTML || c,
-								r = C(['<div class="' + (o ? "" : "layui-unselect ") + m, (n ?
+								r = b(['<div class="' + (o ? "" : "layui-unselect ") + m, (n ?
 										" layui-select-disabled" : "") + '">',
 									'<div class="' + g + '">',
-									'<input type="text" placeholder="' + d.escape(C.trim(
-									t)) + '" value="' + d.escape(C.trim(l ? r.html() :
+									'<input type="text" placeholder="' + d.escape(b.trim(
+									t)) + '" value="' + d.escape(b.trim(l ? r.html() :
 									"")) + '"' + (!n && o ? "" : " readonly") +
 									' class="layui-input' + (o ? "" : " layui-unselect") + (
-										n ? " " + E : "") + '">',
+										n ? " " + F : "") + '">',
 									'<i class="layui-edge"></i></div>',
 									'<dl class="layui-anim layui-anim-upbit' + (i.find(
 										"optgroup")[0] ? " layui-select-group" : "") + '">',
 									(t = i.find("*"), s = [], layui.each(t, function(e, t) {
-											0 !== e || t.value ? "optgroup" === t
-												.tagName.toLowerCase() ? s.push("<dt>" +
-													t.label + "</dt>") : s.push(
+											var i = t.tagName.toLowerCase();
+											0 !== e || t.value || "optgroup" === i ?
+												"optgroup" === i ? s.push("<dt>" + t
+													.label + "</dt>") : s.push(
 													'<dd lay-value="' + d.escape(t
 														.value) + '" class="' + (l === t
 														.value ? T : "") + (t.disabled ?
-														" " + E : "") + '">' + C.trim(t
+														" " + F : "") + '">' + b.trim(t
 														.innerHTML) + "</dd>") : s.push(
 													'<dd lay-value="" class="layui-select-tips">' +
-													C.trim(t.innerHTML || c) + "</dd>")
+													b.trim(t.innerHTML || c) + "</dd>")
 										}), 0 === s.length && s.push(
-											'<dd lay-value="" class="' + E +
+											'<dd lay-value="" class="' + F +
 											'">\u6ca1\u6709\u9009\u9879</dd>'), s.join("") +
 										"</dl>"), "</div>"
 								].join(""));
@@ -7496,34 +7837,40 @@ layui.define(["layer", "util"], function(e) {
 					checkbox: function(e) {
 						var o = {
 								checkbox: ["layui-form-checkbox", "layui-form-checked", "checkbox"],
-								_switch: ["layui-form-switch", "layui-form-onswitch", "switch"]
+								"switch": ["layui-form-switch", "layui-form-onswitch", "switch"]
 							},
-							e = e || a.find("input[type=checkbox]");
+							e = e || a.find("input[type=checkbox]"),
+							c = {
+								primary: !0,
+								tag: !0,
+								"switch": !0
+							};
 						e.each(function(e, t) {
-							var i = C(this),
-								a = i.attr("lay-skin"),
-								n = (i.attr("lay-text") || "").split("|"),
+							var i = b(this),
+								a = i.attr("lay-skin") || "primary",
+								n = b.trim(t.title || (t.title = i.attr("lay-text") || ""))
+								.split("|"),
 								l = this.disabled,
-								r = o[a = "switch" === a ? "_" + a : a] || o.checkbox;
+								r = o[a = c[a] ? a : "primary"] || o.checkbox;
 							if ("string" == typeof i.attr("lay-ignore")) return i.show();
 							var s = i.next("." + r[0]),
-								t = C(['<div class="layui-unselect ' + r[0], t.checked ? " " +
-									r[1] : "", l ? " layui-checkbox-disabled " + E : "",
+								t = b(['<div class="layui-unselect ' + r[0], t.checked ? " " +
+									r[1] : "", l ? " layui-checkbox-disabled " + F : "",
 									'"', a ? ' lay-skin="' + a + '"' : "", ">", (l = {
-										checkbox: [t.title.replace(/\s/g, "") ?
-											"<span>" + t.title + "</span>" : "",
+										checkbox: [n[0] ? "<span>" + d.escape(n[0]) +
+											"</span>" : "",
 											'<i class="layui-icon layui-icon-ok"></i>'
 										].join(""),
-										_switch: "<em>" + ((t.checked ? n[0] : n[1]) ||
+										"switch": "<em>" + ((t.checked ? n[0] : n[1]) ||
 											"") + "</em><i></i>"
 									})[a] || l.checkbox, "</div>"
 								].join(""));
 							s[0] && s.remove(), i.after(t),
 								function(i, a) {
-									var n = C(this);
+									var n = b(this);
 									i.on("click", function() {
 										var e = n.attr("lay-filter"),
-											t = (n.attr("lay-text") || "").split("|");
+											t = (n.attr("title") || "").split("|");
 										n[0].disabled || (n[0].checked ? (n[0]
 												.checked = !1, i.removeClass(a[1])
 												.find("em").text(t[1])) : (n[0]
@@ -7543,22 +7890,22 @@ layui.define(["layer", "util"], function(e) {
 							s = ["&#xe643;", "&#xe63f;"],
 							e = e || a.find("input[type=radio]");
 						e.each(function(e, t) {
-							var i = C(this),
+							var i = b(this),
 								a = i.next("." + r),
 								n = this.disabled;
 							if ("string" == typeof i.attr("lay-ignore")) return i.show();
 							a[0] && a.remove();
-							n = C(['<div class="layui-unselect ' + r, t.checked ? " " + r +
-								"ed" : "", (n ? " layui-radio-disabled " + E : "") +
+							n = b(['<div class="layui-unselect ' + r, t.checked ? " " + r +
+								"ed" : "", (n ? " layui-radio-disabled " + F : "") +
 								'">', '<i class="layui-anim layui-icon">' + s[t
-									.checked ? 0 : 1] + "</i>", "<div>" + (a = t
-									.title || "", a = "string" == typeof i.next().attr(
-										"lay-radio") ? i.next().html() : a) + "</div>",
-								"</div>"
+									.checked ? 0 : 1] + "</i>", "<div>" + (a = d.escape(
+										t.title || ""), a = "string" == typeof i.next()
+									.attr("lay-radio") ? i.next().html() : a) +
+								"</div>", "</div>"
 							].join(""));
 							i.after(n),
 								function(a) {
-									var n = C(this),
+									var n = b(this),
 										l = "layui-anim-scaleSpring";
 									a.on("click", function() {
 										var e = n[0].name,
@@ -7567,7 +7914,7 @@ layui.define(["layer", "util"], function(e) {
 											e = t.find("input[name=" + e.replace(
 												/(\.|#|\[|\])/g, "\\$1") + "]");
 										n[0].disabled || (layui.each(e, function() {
-												var e = C(this).next("." + r);
+												var e = b(this).next("." + r);
 												this.checked = !1, e
 													.removeClass(r + "ed"), e
 													.find(".layui-icon")
@@ -7584,25 +7931,28 @@ layui.define(["layer", "util"], function(e) {
 								}.call(this, n)
 						})
 					}
+				},
+				t = function() {
+					layui.each(n, function(e, t) {
+						t()
+					})
 				};
-			return "object" === layui.type(e) ? e.each(function(e, t) {
-				var i = C(t);
+			return "object" === layui.type(e) ? b(e).is(o) ? (a = b(e), t()) : e.each(function(e, t) {
+				var i = b(t);
 				i.closest(o).length && ("SELECT" === t.tagName ? n.select(i) : "INPUT" === t
 					.tagName && ("checkbox" === (t = t.type) || "radio" === t ? n[t](i) : n
 						.input(i)))
 			}) : e ? n[e] ? n[e]() : l.error('\u4e0d\u652f\u6301\u7684 "' + e +
-				'" \u8868\u5355\u6e32\u67d3') : layui.each(n, function(e, t) {
-				t()
-			}), this
+				'" \u8868\u5355\u6e32\u67d3') : t(), this
 		}, t.prototype.validate = function(e) {
 			var u = null,
 				d = r.config.verify,
 				f = "layui-form-danger";
-			return !(e = C(e))[0] || (e.attr("lay-verify") !== undefined || !1 !== this.validate(e.find(
+			return !(e = b(e))[0] || (e.attr("lay-verify") !== undefined || !1 !== this.validate(e.find(
 				"*[lay-verify]"))) && (layui.each(e, function(e, r) {
-				var s = C(this),
+				var s = b(this),
 					t = (s.attr("lay-verify") || "").split("|"),
-					o = s.attr("lay-verType"),
+					o = s.attr("lay-vertype"),
 					c = s.val();
 				if (s.removeClass(f), layui.each(t, function(e, t) {
 						var i = "",
@@ -7612,7 +7962,7 @@ layui.define(["layer", "util"], function(e) {
 								l = "select" === r.tagName.toLowerCase() ||
 								/^checkbox|radio$/.test(r.type),
 								i = i || a[1];
-							if ("required" === t && (i = s.attr("lay-reqText") || i), n)
+							if ("required" === t && (i = s.attr("lay-reqtext") || i), n)
 								return "tips" === o ? h.tips(i, "string" != typeof s.attr(
 									"lay-ignore") && l ? s.next() : s, {
 									tips: 1
@@ -7629,7 +7979,7 @@ layui.define(["layer", "util"], function(e) {
 					}), u) return u
 			}), !u)
 		}, t.prototype.submit = function(e, t) {
-			var i = C(this),
+			var i = b(this),
 				e = "string" == typeof e ? e : i.attr("lay-filter"),
 				a = this.getFormElem ? this.getFormElem(e) : i.parents(o).eq(0),
 				n = a.find("*[lay-verify]");
@@ -7642,54 +7992,56 @@ layui.define(["layer", "util"], function(e) {
 			return "function" == typeof t && t(a), layui.event.call(this, w, "submit(" + e + ")", a)
 		}),
 		r = new t,
-		t = C(document),
-		q = C(window);
-	C(function() {
+		t = b(document),
+		q = b(window);
+	b(function() {
 		r.render()
 	}), t.on("reset", o, function() {
-		var e = C(this).attr("lay-filter");
+		var e = b(this).attr("lay-filter");
 		setTimeout(function() {
 			r.render(null, e)
 		}, 50)
 	}), t.on("submit", o, i).on("click", "*[lay-submit]", i), e(w, r)
 });
-layui.define(["laytpl", "laypage", "form", "util"], function(e) {
+layui.define(["lay", "laytpl", "laypage", "form", "util"], function(e) {
 	"use strict";
-	var m = layui.$,
-		v = layui.laytpl,
-		c = layui.laypage,
-		g = layui.layer,
-		y = layui.form,
-		b = layui.util,
-		f = layui.hint(),
-		h = layui.device(),
-		x = {
+	var v = layui.$,
+		r = layui.lay,
+		g = layui.laytpl,
+		S = layui.laypage,
+		b = layui.layer,
+		h = layui.form,
+		x = layui.util,
+		u = layui.hint(),
+		p = layui.device(),
+		k = {
 			config: {
 				checkName: "LAY_CHECKED",
 				indexName: "LAY_TABLE_INDEX",
+				numbersName: "LAY_INDEX",
 				disabledName: "LAY_DISABLED"
 			},
 			cache: {},
 			index: layui.table ? layui.table.index + 1e4 : 0,
 			set: function(e) {
 				var t = this;
-				return t.config = m.extend({}, t.config, e), t
+				return t.config = v.extend({}, t.config, e), t
 			},
 			on: function(e, t) {
-				return layui.onevent.call(this, C, e, t)
+				return layui.onevent.call(this, w, e, t)
 			}
 		},
-		p = function() {
+		f = function() {
 			var a = this,
 				e = a.config,
 				i = e.id || e.index;
-			return i && (p.that[i] = a, p.config[i] = e), {
+			return i && (f.that[i] = a, f.config[i] = e), {
 				config: e,
 				reload: function(e, t) {
 					a.reload.call(a, e, t)
 				},
 				reloadData: function(e, t) {
-					x.reloadData(i, e, t)
+					k.reloadData(i, e, t)
 				},
 				setColsWidth: function() {
 					a.setColsWidth.call(a)
@@ -7699,36 +8051,44 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				}
 			}
 		},
-		l = function(e) {
-			var t = p.config[e];
-			return t || f.error(e ? "The table instance with ID '" + e + "' not found" :
+		m = function(e) {
+			var t = f.that[e];
+			return t || u.error(e ? "The table instance with ID '" + e + "' not found" :
 				"ID argument required"), t || null
 		},
-		k = function(e) {
+		l = function(e) {
+			var t = f.config[e];
+			return t || u.error(e ? "The table instance with ID '" + e + "' not found" :
+				"ID argument required"), t || null
+		},
+		C = function(e) {
 			var t = this.config || {},
 				a = (e = e || {}).item3,
 				i = e.content,
-				t = (("escape" in a ? a : t).escape && (i = b.escape(i)), e.text && a.exportTemplet || a
+				t = (("escape" in a ? a : t).escape && (i = x.escape(i)), e.text && a.exportTemplet || a
 					.templet || a.toolbar);
-			return t && (i = "function" == typeof t ? t.call(a, e.tplData, e.obj) : v(m(t).html() || String(i))
-				.render(m.extend({
+			return t && (i = "function" == typeof t ? t.call(a, e.tplData, e.obj) : g(v(t).html() || String(i))
+				.render(v.extend({
 					LAY_COL: a
-				}, e.tplData))), e.text ? m("<div>" + i + "</div>").text() : i
+				}, e.tplData))), e.text ? v("<div>" + i + "</div>").text() : i
 		},
-		C = "table",
-		w = "layui-hide",
-		r = "layui-hide-v",
-		d = "layui-none",
-		s = "layui-table-view",
-		u = ".layui-table-header",
-		T = ".layui-table-body",
-		L = ".layui-table-pageview",
-		N = ".layui-table-sort",
-		D = "layui-table-edit",
-		A = "layui-table-hover",
-		E = "layui-table-col-special",
-		_ = "LAY_TABLE_MOVE_DICT",
-		t = function(e) {
+		w = "table",
+		t = ".layui-table",
+		T = "layui-hide",
+		d = "layui-hide-v",
+		c = "layui-none",
+		L = "layui-table-view",
+		o = ".layui-table-header",
+		N = ".layui-table-body",
+		s = ".layui-table-pageview",
+		D = ".layui-table-sort",
+		A = "layui-table-edit",
+		E = "layui-table-hover",
+		W = "laytable-cell-group",
+		R = "layui-table-col-special",
+		_ = "layui-table-tool-panel",
+		j = "LAY_TABLE_MOVE_DICT",
+		a = function(e) {
 			return ['<table cellspacing="0" cellpadding="0" border="0" class="layui-table" ',
 				'{{# if(d.data.skin){ }}lay-skin="{{=d.data.skin}}"{{# } }} {{# if(d.data.size){ }}lay-size="{{=d.data.size}}"{{# } }} {{# if(d.data.even){ }}lay-even{{# } }}>',
 				"<thead>", "{{# layui.each(d.data.cols, function(i1, item1){ }}", "<tr>",
@@ -7738,7 +8098,7 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				.fixed ? '{{# if(item2.fixed && item2.fixed !== "right"){ }}' : "right" === e.fixed ?
 				'{{# if(item2.fixed === "right"){ }}' : "",
 				"{{# var isSort = !(item2.colGroup) && item2.sort; }}",
-				'<th data-field="{{= item2.field||i2 }}" data-key="{{=d.index}}-{{=i1}}-{{=i2}}" {{# if( item2.parentKey){ }}data-parentkey="{{= item2.parentKey }}"{{# } }} {{# if(item2.minWidth){ }}data-minwidth="{{=item2.minWidth}}"{{# } }} {{#if(item2.colspan){}} colspan="{{=item2.colspan}}"{{#} if(item2.rowspan){}} rowspan="{{=item2.rowspan}}"{{#}}} {{# if(item2.unresize || item2.colGroup){ }}data-unresize="true"{{# } }} class="{{# if(item2.hide){ }}layui-hide{{# } }}{{# if(isSort){ }} layui-unselect{{# } }}{{# if(!item2.field){ }} layui-table-col-special{{# } }}">',
+				'<th data-field="{{= item2.field||i2 }}" data-key="{{=d.index}}-{{=i1}}-{{=i2}}" {{# if( item2.parentKey){ }}data-parentkey="{{= item2.parentKey }}"{{# } }} {{# if(item2.minWidth){ }}data-minwidth="{{=item2.minWidth}}"{{# } }} {{# if(item2.maxWidth){ }}data-maxwidth="{{=item2.maxWidth}}"{{# } }} {{#if(item2.colspan){}} colspan="{{=item2.colspan}}"{{#} if(item2.rowspan){}} rowspan="{{=item2.rowspan}}"{{#}}} {{# if(item2.unresize || item2.colGroup){ }}data-unresize="true"{{# } }} class="{{# if(item2.hide){ }}layui-hide{{# } }}{{# if(isSort){ }} layui-unselect{{# } }}{{# if(!item2.field){ }} layui-table-col-special{{# } }}"{{# if(item2.title){ }} title="{{ layui.$(\'<div>\' + item2.title + \'</div>\').text() }}"{{# } }}>',
 				'<div class="layui-table-cell laytable-cell-', "{{# if(item2.colGroup){ }}", "group",
 				"{{# } else { }}", "{{=d.index}}-{{=i1}}-{{=i2}}", '{{# if(item2.type !== "normal"){ }}',
 				" laytable-cell-{{= item2.type }}", "{{# } }}", "{{# } }}",
@@ -7751,24 +8111,24 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				"</tr>", "{{# }); }}", "</thead>", "</table>"
 			].join("")
 		},
-		a = ['<table cellspacing="0" cellpadding="0" border="0" class="layui-table" ',
+		i = ['<table cellspacing="0" cellpadding="0" border="0" class="layui-table" ',
 			'{{# if(d.data.skin){ }}lay-skin="{{=d.data.skin}}"{{# } }} {{# if(d.data.size){ }}lay-size="{{=d.data.size}}"{{# } }} {{# if(d.data.even){ }}lay-even{{# } }}>',
 			"<tbody></tbody>", "</table>"
 		].join(""),
-		j = [, "{{# if(d.data.toolbar){ }}", '<div class="layui-table-tool">',
+		F = [, "{{# if(d.data.toolbar){ }}", '<div class="layui-table-tool">',
 			'<div class="layui-table-tool-temp"></div>', '<div class="layui-table-tool-self"></div>', "</div>",
 			"{{# } }}", '<div class="layui-table-box">', "{{# if(d.data.loading){ }}",
 			'<div class="layui-table-init" style="background-color: #fff;">',
 			'<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>',
-			"</div>", "{{# } }}", "{{# var left, right; }}", '<div class="layui-table-header">', t(), "</div>",
-			'<div class="layui-table-body layui-table-main">', a, "</div>", "{{# if(left){ }}",
-			'<div class="layui-table-fixed layui-table-fixed-l">', '<div class="layui-table-header">', t({
+			"</div>", "{{# } }}", "{{# var left, right; }}", '<div class="layui-table-header">', a(), "</div>",
+			'<div class="layui-table-body layui-table-main">', i, "</div>", "{{# if(left){ }}",
+			'<div class="layui-table-fixed layui-table-fixed-l">', '<div class="layui-table-header">', a({
 				fixed: !0
-			}), "</div>", '<div class="layui-table-body">', a, "</div>", "</div>", "{{# }; }}",
+			}), "</div>", '<div class="layui-table-body">', i, "</div>", "</div>", "{{# }; }}",
 			"{{# if(right){ }}", '<div class="layui-table-fixed layui-table-fixed-r layui-hide">',
-			'<div class="layui-table-header">', t({
+			'<div class="layui-table-header">', a({
 				fixed: "right"
-			}), '<div class="layui-table-mend"></div>', "</div>", '<div class="layui-table-body">', a, "</div>",
+			}), '<div class="layui-table-mend"></div>', "</div>", '<div class="layui-table-body">', i, "</div>",
 			"</div>", "{{# }; }}", "</div>", "{{# if(d.data.totalRow){ }}", '<div class="layui-table-total">',
 			'<table cellspacing="0" cellpadding="0" border="0" class="layui-table" ',
 			'{{# if(d.data.skin){ }}lay-skin="{{=d.data.skin}}"{{# } }} {{# if(d.data.size){ }}lay-size="{{=d.data.size}}"{{# } }} {{# if(d.data.even){ }}lay-even{{# } }}>',
@@ -7785,30 +8145,33 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 			"}", "{{= cellClassName }}:hover{overflow: auto;}", "{{# } }}", "{{# if(d.data.css){ }}",
 			"{{- d.data.css }}", "{{# } }}", "</style>"
 		].join(""),
-		R = m(window),
-		S = m(document),
-		i = function(e) {
-			this.index = ++x.index, this.config = m.extend({}, this.config, x.config, e), this.render()
+		M = v(window),
+		H = v(document),
+		n = function(e) {
+			this.index = ++k.index, this.config = v.extend({}, this.config, k.config, e), this.render()
 		},
-		F = (i.prototype.config = {
+		y = (n.prototype.config = {
 			limit: 10,
 			loading: !0,
 			escape: !0,
 			cellMinWidth: 60,
+			cellMaxWidth: Number.MAX_VALUE,
 			editTrigger: "click",
 			defaultToolbar: ["filter", "exports", "print"],
+			defaultContextmenu: !0,
 			autoSort: !0,
 			text: {
 				none: "\u65e0\u6570\u636e"
-			}
-		}, i.prototype.render = function(e) {
+			},
+			cols: []
+		}, n.prototype.render = function(e) {
 			var t = this,
 				a = t.config;
-			if (a.elem = m(a.elem), a.where = a.where || {}, a.id = a.id || a.elem.attr("id") || t.index, a
-				.request = m.extend({
+			if (a.elem = v(a.elem), a.where = a.where || {}, a.id = "id" in a ? a.id : a.elem.attr("id") ||
+				t.index, a.request = v.extend({
 					pageName: "page",
 					limitName: "limit"
-				}, a.request), a.response = m.extend({
+				}, a.request), a.response = v.extend({
 					statusName: "code",
 					statusCode: 0,
 					msgName: "msg",
@@ -7818,35 +8181,34 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				}, a.response), "object" == typeof a.page && (a.limit = a.page.limit || a.limit, a.limits =
 					a.page.limits || a.limits, t.page = a.page.curr = a.page.curr || 1, delete a.page.elem,
 					delete a.page.jump), !a.elem[0]) return t;
-			if ("reloadData" === e) return t.pullData(t.page, {
-				type: "reloadData"
-			});
-			a.height && /^full-\d+$/.test(a.height) && (t.fullHeightGap = a.height.split("-")[1], a.height =
-				R.height() - t.fullHeightGap), t.setInit();
-			var i, l, e = a.elem,
-				n = e.next("." + s),
-				o = t.elem = m("<div></div>");
-			o.addClass((i = [s, s + "-" + t.index, "layui-form", "layui-border-box"], a.className && i.push(
+			if (a.elem.attr("lay-filter") || a.elem.attr("lay-filter", a.id), "reloadData" === e) return t
+				.pullData(t.page, {
+					type: "reloadData"
+				});
+			a.index = t.index, t.key = a.id || a.index, t.setInit(), a.height && /^full-\d+$/.test(a
+				.height) ? (t.fullHeightGap = a.height.split("-")[1], a.height = M.height() - t
+					.fullHeightGap) : a.height && /^#\w+\S*-\d+$/.test(a.height) && (e = a.height.split(
+					"-"), t.parentHeightGap = e.pop(), t.parentDiv = e.join("-"), a.height = v(t.parentDiv)
+					.height() - t.parentHeightGap);
+			var i, e = a.elem,
+				l = e.next("." + L),
+				n = t.elem = v("<div></div>");
+			n.addClass((i = [L, L + "-" + t.index, "layui-form", "layui-border-box"], a.className && i.push(
 					a.className), i.join(" "))).attr({
 					"lay-filter": "LAY-TABLE-FORM-DF-" + t.index,
 					"lay-id": a.id,
 					style: (i = [], a.width && i.push("width:" + a.width + "px;"), a.height && i.push(
 						"height:" + a.height + "px;"), i.join(""))
-				}).html(v(j).render({
+				}).html(g(F).render({
 					data: a,
 					index: t.index
-				})), a.index = t.index, t.key = a.id || a.index, n[0] && n.remove(), e.after(o), t.layTool =
-				o.find(".layui-table-tool"), t.layBox = o.find(".layui-table-box"), t.layHeader = o.find(u),
-				t.layMain = o.find(".layui-table-main"), t.layBody = o.find(T), t.layFixed = o.find(
-					".layui-table-fixed"), t.layFixLeft = o.find(".layui-table-fixed-l"), t.layFixRight = o
-				.find(".layui-table-fixed-r"), t.layTotal = o.find(".layui-table-total"), t.layPage = o
-				.find(".layui-table-page"), t.renderToolbar(), t.renderPagebar(), t.fullSize(), 1 < a.cols
-				.length && (i = t.layFixed.find(u).find("th"), l = t.layHeader.first(), layui.each(i,
-					function(e, t) {
-						(t = m(t)).height(l.find('th[data-key="' + t.attr("data-key") + '"]').height() +
-							"px")
-					})), t.pullData(t.page), t.events()
-		}, i.prototype.initOpts = function(e) {
+				})), l[0] && l.remove(), e.after(n), t.layTool = n.find(".layui-table-tool"), t.layBox = n
+				.find(".layui-table-box"), t.layHeader = n.find(o), t.layMain = n.find(".layui-table-main"),
+				t.layBody = n.find(N), t.layFixed = n.find(".layui-table-fixed"), t.layFixLeft = n.find(
+					".layui-table-fixed-l"), t.layFixRight = n.find(".layui-table-fixed-r"), t.layTotal = n
+				.find(".layui-table-total"), t.layPage = n.find(".layui-table-page"), t.renderToolbar(), t
+				.renderPagebar(), t.fullSize(), t.pullData(t.page), t.events()
+		}, n.prototype.initOpts = function(e) {
 			this.config;
 			e.checkbox && (e.type = "checkbox"), e.space && (e.type = "space"), e.type || (e.type =
 				"normal"), "normal" !== e.type && (e.unresize = !0, e.width = e.width || {
@@ -7855,9 +8217,9 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				space: 30,
 				numbers: 60
 			} [e.type])
-		}, i.prototype.setInit = function(e) {
-			var l, a, c = this,
-				r = c.config;
+		}, n.prototype.setInit = function(e) {
+			var l, a, d = this,
+				r = d.config;
 			if (r.clientWidth = r.width || (l = function(e) {
 					var t, a = (e = e || r.elem.parent()).width();
 					try {
@@ -7865,26 +8227,28 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 					} catch (i) {}
 					return !e[0] || a && !t ? a : l(e.parent())
 				})(), "width" === e) return r.clientWidth;
-			r.css && -1 === r.css.indexOf(s) && (a = r.css.split("}"), layui.each(a, function(e, t) {
-				t && (a[e] = "." + s + "-" + c.index + " " + t)
-			}), r.css = a.join("}"));
-			var d = function(a, e, i, l) {
+			r.height = r.maxHeight || r.height, r.css && -1 === r.css.indexOf(L) && (a = r.css.split("}"),
+				layui.each(a, function(e, t) {
+					t && (a[e] = "." + L + "-" + d.index + " " + t)
+				}), r.css = a.join("}"));
+			var c = function(a, e, i, l) {
 				var n, o;
-				l ? (l.key = a + "-" + i, l.hide = l.hide || !1, l.colspan = l.colspan || 1, l.rowspan =
-					l.rowspan || 1, c.initOpts(l), (n = a + (parseInt(l.rowspan) || 1)) < r.cols
-					.length ? (l.colGroup = !0, o = 0, layui.each(r.cols[n], function(e, t) {
-						t.HAS_PARENT || 1 <= o && o == (l.colspan || 1) || (t.HAS_PARENT = !
-							0, t.parentKey = a + "-" + i, o += parseInt(1 < t.colspan ?
-								t.colspan : 1), d(n, r.cols[n], e, t))
-					})) : l.colGroup = !1) : e.splice(i, 1)
+				l ? (l.key = [r.index, a, i].join("-"), l.hide = l.hide || !1, l.colspan = l.colspan ||
+					0, l.rowspan = l.rowspan || 0, d.initOpts(l), (n = a + (parseInt(l.rowspan) ||
+						1)) < r.cols.length ? (l.colGroup = !0, o = 0, layui.each(r.cols[n],
+						function(e, t) {
+							t.HAS_PARENT || 1 <= o && o == (l.colspan || 1) || (t.HAS_PARENT = !
+								0, t.parentKey = [r.index, a, i].join("-"), o += parseInt(
+									1 < t.colspan ? t.colspan : 1), c(n, r.cols[n], e, t))
+						})) : l.colGroup = !1) : e.splice(i, 1)
 			};
 			layui.each(r.cols, function(a, i) {
 				if (a) return !0;
 				layui.each(i, function(e, t) {
-					d(a, i, e, t)
+					c(a, i, e, t)
 				})
 			})
-		}, i.prototype.renderToolbar = function() {
+		}, n.prototype.renderToolbar = function() {
 			var e = this.config,
 				t = [
 					'<div class="layui-inline" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></div>',
@@ -7892,8 +8256,8 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 					'<div class="layui-inline" lay-event="delete"><i class="layui-icon layui-icon-delete"></i></div>'
 				].join(""),
 				a = this.layTool.find(".layui-table-tool-temp"),
-				i = ("default" === e.toolbar ? a.html(t) : "string" == typeof e.toolbar && (t = m(e.toolbar)
-					.html() || "") && a.html(v(t).render(e)), {
+				i = ("default" === e.toolbar ? a.html(t) : "string" == typeof e.toolbar && (t = v(e.toolbar)
+					.html() || "") && a.html(g(t).render(e)), {
 					filter: {
 						title: "\u7b5b\u9009\u5217",
 						layEvent: "LAYTABLE_COLS",
@@ -7916,19 +8280,19 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				t && l.push('<div class="layui-inline" title="' + t.title + '" lay-event="' + t
 					.layEvent + '"><i class="layui-icon ' + t.icon + '"></i></div>')
 			}), this.layTool.find(".layui-table-tool-self").html(l.join(""))
-		}, i.prototype.renderPagebar = function() {
+		}, n.prototype.renderPagebar = function() {
 			var e, t = this.config,
-				a = this.layPagebar = m('<div class="layui-inline layui-table-pagebar"></div>');
-			t.pagebar && ((e = m(t.pagebar).html() || "") && a.append(v(e).render(t)), this.layPage.append(
+				a = this.layPagebar = v('<div class="layui-inline layui-table-pagebar"></div>');
+			t.pagebar && ((e = v(t.pagebar).html() || "") && a.append(g(e).render(t)), this.layPage.append(
 				a))
-		}, i.prototype.setParentCol = function(e, t) {
+		}, n.prototype.setParentCol = function(e, t) {
 			var a = this.config,
-				i = this.layHeader.find('th[data-key="' + a.index + "-" + t + '"]'),
+				i = this.layHeader.find('th[data-key="' + t + '"]'),
 				l = parseInt(i.attr("colspan")) || 0;
-			i[0] && (t = t.split("-"), t = a.cols[t[0]][t[1]], e ? l-- : l++, i.attr("colspan", l), i[l <
-				1 ? "addClass" : "removeClass"](w), t.colspan = l, t.hide = l < 1, (a = i.data(
-				"parentkey")) && this.setParentCol(e, a))
-		}, i.prototype.setColsPatch = function() {
+			i[0] && (t = t.split("-"), t = a.cols[t[1]][t[2]], e ? l-- : l++, i.attr("colspan", l), i[1 <=
+				l || !e ? "removeClass" : "addClass"](T), t.colspan = l, t.hide = 1 <= l || !e, (a =
+				i.data("parentkey")) && this.setParentCol(e, a))
+		}, n.prototype.setColsPatch = function() {
 			var a = this,
 				e = a.config;
 			layui.each(e.cols, function(e, t) {
@@ -7936,76 +8300,100 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 					t.hide && a.setParentCol(t.hide, t.parentKey)
 				})
 			})
-		}, i.prototype.setColsWidth = function() {
-			var t, a, i = this,
-				o = i.config,
-				l = 0,
-				c = 0,
+		}, n.prototype.setGroupWidth = function(i) {
+			var e, l = this;
+			l.config.cols.length <= 1 || ((e = l.layHeader.find((i ? "th[data-key=" + i.data("parentkey") +
+				"]>" : "") + "." + W)).css("width", 0), layui.each(e.get().reverse(), function() {
+				var e = v(this),
+					t = e.parent().data("key"),
+					a = 0;
+				l.layHeader.eq(0).find("th[data-parentkey=" + t + "]").width(function(e, t) {
+						v(this).hasClass(T) || 0 < t && (a += t)
+					}), a && e.css("max-width", a), i && e.parent().data("parentkey") && l
+					.setGroupWidth(e.parent())
+			}), e.css("width", "auto"))
+		}, n.prototype.setColsWidth = function() {
+			var t, a, n = this,
+				d = n.config,
+				i = 0,
 				r = 0,
-				d = 0,
-				s = i.setInit("width"),
-				e = (i.eachCols(function(e, t) {
-					t.hide || l++
-				}), s = s - ("line" === o.skin || "nob" === o.skin ? 2 : l + 1) - i.getScrollWidth(i
-					.layMain[0]) - 1, function(n) {
-					layui.each(o.cols, function(e, l) {
-						layui.each(l, function(e, t) {
+				c = 0,
+				s = 0,
+				y = n.setInit("width"),
+				e = (n.eachCols(function(e, t) {
+					t.hide || i++
+				}), y = y - ("line" === d.skin || "nob" === d.skin ? 2 : i + 1) - n.getScrollWidth(n
+					.layMain[0]) - 1, function(o) {
+					layui.each(d.cols, function(e, n) {
+						layui.each(n, function(e, t) {
 							var a = 0,
-								i = t.minWidth || o.cellMinWidth;
-							t ? t.colGroup || t.hide || (n ? r && r < i && (c--, a =
-								i) : (a = t.width || 0, /\d+%$/.test(a) ? (a = Math
-									.floor(parseFloat(a) / 100 * s)) < i && (a =
-									i) : a || (t.width = a = 0, c++)), t.hide && (
-									a = 0), d += a) : l.splice(e, 1)
+								i = t.minWidth || d.cellMinWidth,
+								l = t.maxWidth || d.cellMaxWidth;
+							t ? t.colGroup || t.hide || (o ? c && c < i ? (r--, a = i) :
+								c && l < c && (r--, a = l) : (a = t.width || 0,
+									/\d+%$/.test(a) ? l < (a = (a = Math.floor(
+										parseFloat(a) / 100 * y)) < i ? i : a) && (
+										a = l) : a ? "normal" === t.type && (a <
+										i && (t.width = a = i), l < a && (t.width =
+											a = l)) : (t.width = a = 0, r++)), t
+								.hide && (a = 0), s += a) : n.splice(e, 1)
 						})
-					}), d < s && c && (r = (s - d) / c)
+					}), s < y && 0 < r && (c = (y - s) / r)
 				}),
-				n = (e(), e(!0), i.autoColNums = c, i.eachCols(function(e, t) {
-						var a = t.minWidth || o.cellMinWidth;
-						t.colGroup || t.hide || (0 === t.width ? i.getCssRule(o.index + "-" + t.key,
-							function(e) {
-								e.style.width = Math.floor(a <= r ? r : a) + "px"
-							}) : /\d+%$/.test(t.width) && i.getCssRule(o.index + "-" + t.key,
-							function(e) {
-								e.style.width = Math.floor(parseFloat(t.width) / 100 * s) + "px"
-							}))
-					}), i.layMain.width() - i.getScrollWidth(i.layMain[0]) - i.layMain.children("table")
+				l = (e(), e(!0), n.autoColNums = r = 0 < r ? r : 0, n.eachCols(function(e, a) {
+						var i = a.minWidth || d.cellMinWidth,
+							l = a.maxWidth || d.cellMaxWidth;
+						a.colGroup || a.hide || (0 === a.width ? n.getCssRule(a.key, function(e) {
+							e.style.width = Math.floor(c < i ? i : l < c ? l : c) + "px"
+						}) : /\d+%$/.test(a.width) ? n.getCssRule(a.key, function(e) {
+							var t = Math.floor(parseFloat(a.width) / 100 * y);
+							e.style.width = (t = l < (t = t < i ? i : t) ? l : t) + "px"
+						}) : n.getCssRule(a.key, function(e) {
+							e.style.width = a.width + "px"
+						}))
+					}), n.layMain.width() - n.getScrollWidth(n.layMain[0]) - n.layMain.children("table")
 					.outerWidth());
-			i.autoColNums && -l <= n && n <= l && (e = (a = (t = function(e) {
-				return !(e = e || i.layHeader.eq(0).find("thead th:last-child")).data(
-					"field") && e.prev()[0] ? t(e.prev()) : e
-			})()).data("key"), i.getCssRule(e, function(e) {
-				var t = e.style.width || a.outerWidth();
-				e.style.width = parseFloat(t) + n + "px", 0 < i.layMain.height() - i.layMain
-					.prop("clientHeight") && (e.style.width = parseFloat(e.style.width) - 1 +
-						"px")
-			})), i.loading(!0)
-		}, i.prototype.resize = function() {
+			0 < n.autoColNums && -i <= l && l <= i && (e = (a = (t = function(e) {
+					return !(e = e || n.layHeader.eq(0).find("thead th:last-child")).data(
+						"field") && e.prev()[0] ? t(e.prev()) : e
+				})()).data("key"), n.getCssRule(e, function(e) {
+					var t = e.style.width || a.outerWidth();
+					e.style.width = parseFloat(t) + l + "px", 0 < n.layMain.height() - n.layMain
+						.prop("clientHeight") && (e.style.width = parseFloat(e.style.width) - 1 +
+							"px")
+				})), n.setGroupWidth(), n.layMain.find("tbody").is(":empty") ? (e = n.layHeader.first()
+					.children("table").width(), n.layMain.find("table").width(e)) : n.layMain.find("table")
+				.width("auto"), n.loading(!0)
+		}, n.prototype.resize = function() {
 			this.fullSize(), this.setColsWidth(), this.scrollPatch()
-		}, i.prototype.reload = function(e, t, a) {
+		}, n.prototype.reload = function(e, t, a) {
 			var i = this;
 			e = e || {}, delete i.haveInit, layui.each(e, function(e, t) {
 				"array" === layui.type(t) && delete i.config[e]
-			}), i.config = m.extend(t, {}, i.config, e), i.render(a)
-		}, i.prototype.errorView = function(e) {
+			}), i.config = v.extend(t, {}, i.config, e), i.render(a)
+		}, n.prototype.errorView = function(e) {
 			var t = this,
-				a = t.layMain.find("." + d),
-				e = m('<div class="' + d + '">' + (e || "Error") + "</div>");
-			a[0] && (t.layNone.remove(), a.remove()), t.layFixed.addClass(w), t.layMain.find("tbody").html(
-					""), t.layMain.append(t.layNone = e), t.layTotal.addClass(r), t.layPage.find(L)
-				.addClass(r), x.cache[t.key] = [], t.syncCheckAll()
-		}, i.prototype.page = 1, i.prototype.pullData = function(t, a) {
+				a = t.layMain.find("." + c),
+				e = v('<div class="' + c + '">' + (e || "Error") + "</div>");
+			a[0] && (t.layNone.remove(), a.remove()), t.layFixed.addClass(T), t.layMain.find("tbody").html(
+					""), t.layMain.append(t.layNone = e), t.layTotal.addClass(d), t.layPage.find(s)
+				.addClass(d), k.cache[t.key] = [], t.syncCheckAll()
+		}, n.prototype.page = 1, n.prototype.pullData = function(t, a) {
 			var e, i = this,
 				l = i.config,
 				n = l.request,
 				o = l.response,
-				c = function() {
-					"object" == typeof l.initSort && i.sort(l.initSort.field, l.initSort.type)
+				d = function() {
+					"object" == typeof l.initSort && i.sort({
+						field: l.initSort.field,
+						type: l.initSort.type,
+						reloadType: a.type
+					})
 				};
 			a = a || {}, "function" == typeof l.before && l.before(l), i.startTime = (new Date).getTime(), l
-				.url ? ((e = {})[n.pageName] = t, e[n.limitName] = l.limit, n = m.extend(e, l.where), l
+				.url ? ((e = {})[n.pageName] = t, e[n.limitName] = l.limit, n = v.extend(e, l.where), l
 					.contentType && 0 == l.contentType.indexOf("application/json") && (n = JSON.stringify(
-						n)), i.loading(), m.ajax({
+						n)), i.loading(), v.ajax({
 						type: l.method || "get",
 						url: l.url,
 						contentType: l.contentType,
@@ -8023,7 +8411,7 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 									curr: t,
 									count: e[o.countName],
 									type: a.type
-								}), c(), l.time = (new Date).getTime() - i.startTime + " ms"), i
+								}), d(), l.time = (new Date).getTime() - i.startTime + " ms"), i
 								.setColsWidth(), "function" == typeof l.done && l.done(e, t, e[o
 									.countName])
 						},
@@ -8035,226 +8423,269 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 						}
 					})) : "array" === layui.type(l.data) && (e = t * l.limit - l.limit, (n = {})[o
 					.dataName] = l.data.concat().splice(e, l.limit), n[o.countName] = l.data.length,
-					"object" == typeof l.totalRow && (n[o.totalRowName] = m.extend({}, l.totalRow)), i
+					"object" == typeof l.totalRow && (n[o.totalRowName] = v.extend({}, l.totalRow)), i
 					.renderData({
 						res: n,
 						curr: t,
 						count: n[o.countName],
 						type: a.type
-					}), c(), i.setColsWidth(), "function" == typeof l.done && l.done(n, t, n[o.countName]))
-		}, i.prototype.eachCols = function(e) {
-			return x.eachCols(null, e, this.config.cols), this
-		}, i.prototype.col = function(e) {
+					}), d(), i.setColsWidth(), "function" == typeof l.done && l.done(n, t, n[o.countName]))
+		}, n.prototype.eachCols = function(e) {
+			return k.eachCols(null, e, this.config.cols), this
+		}, n.prototype.col = function(e) {
 			try {
-				return e = e.split("-"), this.config.cols[e[1]][e[2]]
+				return e = e.split("-"), this.config.cols[e[1]][e[2]] || {}
 			} catch (t) {
-				return f.error(t), {}
+				return u.error(t), {}
 			}
-		}, i.prototype.renderData = function(e) {
+		}, n.prototype.renderData = function(e) {
 			var u = this,
-				y = u.config,
+				h = u.config,
 				t = e.res,
-				l = e.curr,
-				a = e.count,
-				n = e.sort,
-				i = t[y.response.dataName] || [],
-				t = t[y.response.totalRowName],
-				h = [],
-				f = [],
+				a = e.curr,
+				i = e.count,
+				l = e.sort,
+				n = t[h.response.dataName] || [],
+				t = t[h.response.totalRowName],
 				p = [],
+				f = [],
+				m = [],
 				o = function() {
-					var s;
-					if (y.HAS_SET_COLS_PATCH || u.setColsPatch(), y.HAS_SET_COLS_PATCH = !0, !n && u
-						.sortKey) return u.sort(u.sortKey.field, u.sortKey.sort, !0);
-					layui.each(i, function(o, c) {
-							var a = [],
-								i = [],
+					var y;
+					if (h.HAS_SET_COLS_PATCH || u.setColsPatch(), h.HAS_SET_COLS_PATCH = !0, !l && u
+						.sortKey) return u.sort({
+						field: u.sortKey.field,
+						type: u.sortKey.sort,
+						pull: !0,
+						reloadType: e.type
+					});
+					layui.each(n, function(o, d) {
+							var i = [],
 								r = [],
-								d = o + y.limit * (l - 1) + 1;
-							"array" === layui.type(c) && 0 === c.length || (n || (c[x.config
-									.indexName] = o), u.eachCols(function(e, l) {
-									var e = l.field || e,
-										t = y.index + "-" + l.key,
-										n = c[e];
+								c = [],
+								s = o + h.limit * (a - 1) + 1;
+							if ("object" != typeof d) {
+								n[o] = d = {
+									LAY_KEY: d
+								};
+								try {
+									k.cache[u.key][o] = d
+								} catch (e) {}
+							}
+							"array" === layui.type(d) && 0 === d.length || (d[k.config.numbersName] = s,
+								l || (d[k.config.indexName] = o), u.eachCols(function(e, l) {
+									var t, e = l.field || e,
+										a = l.key,
+										n = d[e];
 									n !== undefined && null !== n || (n = ""), l.colGroup || (
-										t = ['<td data-field="' + e + '" data-key="' + t +
-											'" ' + (e = [], l.templet && e.push(
-													'data-content="' + b.escape(n) + '"'), l
-												.toolbar && e.push('data-off="true"'), l
+										t = ['<td data-field="' + e + '" data-key="' + a +
+											'" ' + (e = [], (t = "function" == typeof l
+													.edit ? l.edit(d) : l.edit) && e.push(
+													'data-edit="' + t + '"'), l.templet && e
+												.push('data-content="' + x.escape(n) + '"'),
+												l.toolbar && e.push('data-off="true"'), l
 												.event && e.push('lay-event="' + l.event +
 													'"'), l.minWidth && e.push(
-													'data-minwidth="' + l.minWidth + '"'), e
-												.join(" ")) + ' class="' + (e = [], l
-												.hide && e.push(w), l.field || e.push(E), e
-												.join(" ")) + '">',
+													'data-minwidth="' + l.minWidth + '"'), l
+												.maxWidth && e.push('data-maxwidth="' + l
+													.maxWidth + '"'), e.join(" ")) +
+											' class="' + (t = [], l.hide && t.push(T), l
+												.field || t.push(R), t.join(" ")) + '">',
 											'<div class="layui-table-cell laytable-cell-' +
-											("normal" === l.type ? t : t +
+											("normal" === l.type ? a : a +
 												" laytable-cell-" + l.type) + '"' + (l
 												.align ? ' align="' + l.align + '"' : "") +
 											(e = [], l.style && e.push('style="' + l.style +
 												'"'), e.join(" ")) + ">" + function() {
-												var e, t = m.extend(!0, {
-														LAY_INDEX: d,
+												var e, t = v.extend(!0, {
 														LAY_COL: l
-													}, c),
-													a = x.config.checkName,
-													i = x.config.disabledName;
+													}, d),
+													a = k.config.checkName,
+													i = k.config.disabledName;
 												switch (l.type) {
 													case "checkbox":
 														return '<input type="checkbox" name="layTableCheckbox" lay-skin="primary" ' +
-															(e = [], l[a] && (c[a] = l[a],
+															(e = [], l[a] && (d[a] = l[a],
 																	l[a] && (e[0] =
 																		"checked")), t[a] &&
 																(e[0] = "checked"), t[i] &&
 																e.push("disabled"), e.join(
-																	" ")) + ">";
+																	" ")) +
+															' lay-type="layTableCheckbox">';
 													case "radio":
-														return t[a] && (s = o),
+														return t[a] && (y = o),
 															'<input type="radio" name="layTableRadio_' +
-															y.index + '" ' + (e = [], t[
+															h.index + '" ' + (e = [], t[
 																a] && (e[0] = "checked"), t[
 																	i] && e.push(
 																"disabled"), e.join(" ")) +
 															' lay-type="layTableRadio">';
 													case "numbers":
-														return d
+														return s
 												}
-												return l.toolbar ? v(m(l.toolbar).html() ||
-													"").render(t) : k.call(u, {
+												return l.toolbar ? g(v(l.toolbar).html() ||
+													"").render(t) : C.call(u, {
 													item3: l,
 													content: n,
 													tplData: t
 												})
 											}(), "</div></td>"
-										].join(""), a.push(t), l.fixed && "right" !== l
-										.fixed && i.push(t), "right" === l.fixed && r.push(
+										].join(""), i.push(t), l.fixed && "right" !== l
+										.fixed && r.push(t), "right" === l.fixed && c.push(
 											t))
-								}), h.push('<tr data-index="' + o + '">' + a.join("") + "</tr>"), f
-								.push('<tr data-index="' + o + '">' + i.join("") + "</tr>"), p.push(
-									'<tr data-index="' + o + '">' + r.join("") + "</tr>"))
-						}), "fixed" === y.scrollPos && "reloadData" === e.type || u.layBody.scrollTop(0),
-						"reset" === y.scrollPos && u.layBody.scrollLeft(0), u.layMain.find("." + d)
-					.remove(), u.layMain.find("tbody").html(h.join("")), u.layFixLeft.find("tbody").html(f
-							.join("")), u.layFixRight.find("tbody").html(p.join("")), u.renderForm(),
-						"number" == typeof s && u.setThisRowChecked(s), u.syncCheckAll(), u.fullSize(), u
-						.haveInit ? u.scrollPatch() : setTimeout(function() {
-							u.scrollPatch()
-						}, 50), u.haveInit = !0, g.close(u.tipsIndex)
+								}), p.push('<tr data-index="' + o + '">' + i.join("") + "</tr>"), f
+								.push('<tr data-index="' + o + '">' + r.join("") + "</tr>"), m.push(
+									'<tr data-index="' + o + '">' + c.join("") + "</tr>"))
+						}), "fixed" === h.scrollPos && "reloadData" === e.type || u.layBody.scrollTop(0),
+						"reset" === h.scrollPos && u.layBody.scrollLeft(0), u.layMain.find("." + c)
+					.remove(), u.layMain.find("tbody").html(p.join("")), u.layFixLeft.find("tbody").html(f
+							.join("")), u.layFixRight.find("tbody").html(m.join("")), u.renderForm(),
+						"number" == typeof y && u.setRowChecked({
+							type: "radio",
+							index: y
+						}, !0), u.syncCheckAll(), u.fullSize(), u.haveInit ? u.scrollPatch() : setTimeout(
+							function() {
+								u.scrollPatch()
+							}, 50), u.haveInit = !0, b.close(u.tipsIndex)
 				};
-			return x.cache[u.key] = i, u.layTotal[0 == i.length ? "addClass" : "removeClass"](r), u.layPage[
-				y.page || y.pagebar ? "removeClass" : "addClass"](w), u.layPage.find(L)[!y.page || 0 ==
-				a || 0 === i.length && 1 == l ? "addClass" : "removeClass"](r), 0 === i.length ? (u
-				.renderForm(), u.errorView(y.text.none)) : (u.layFixLeft.removeClass(w), n ? o() : (o(),
-				u.renderTotal(i, t), u.layTotal && u.layTotal.removeClass(w), void(y.page && (y
-					.page = m.extend({
-						elem: "layui-table-page" + y.index,
-						count: a,
-						limit: y.limit,
-						limits: y.limits || [10, 20, 30, 40, 50, 60, 70, 80, 90],
+			return k.cache[u.key] = n, u.layTotal[0 == n.length ? "addClass" : "removeClass"](d), u.layPage[
+				h.page || h.pagebar ? "removeClass" : "addClass"](T), u.layPage.find(s)[!h.page || 0 ==
+				i || 0 === n.length && 1 == a ? "addClass" : "removeClass"](d), 0 === n.length ? (u
+				.renderForm(), u.errorView(h.text.none)) : (u.layFixLeft.removeClass(T), l ? o() : (o(),
+				u.renderTotal(n, t), u.layTotal && u.layTotal.removeClass(T), void(h.page && (h
+					.page = v.extend({
+						elem: "layui-table-page" + h.index,
+						count: i,
+						limit: h.limit,
+						limits: h.limits || [10, 20, 30, 40, 50, 60, 70, 80, 90],
 						groups: 3,
 						layout: ["prev", "page", "next", "skip", "count", "limit"],
 						prev: '<i class="layui-icon">&#xe603;</i>',
 						next: '<i class="layui-icon">&#xe602;</i>',
 						jump: function(e, t) {
-							t || (u.page = e.curr, y.limit = e.limit, u.pullData(e
+							t || (u.page = e.curr, h.limit = e.limit, u.pullData(e
 								.curr))
 						}
-					}, y.page), y.page.count = a, c.render(y.page)))))
-		}, i.prototype.renderTotal = function(e, o) {
-			var c, r = this,
-				d = r.config,
+					}, h.page), h.page.count = i, S.render(h.page)))))
+		}, n.prototype.renderTotal = function(e, o) {
+			var d, r = this,
+				c = r.config,
 				s = {};
-			d.totalRow && (layui.each(e, function(e, i) {
+			c.totalRow && (layui.each(e, function(e, i) {
 				"array" === layui.type(i) && 0 === i.length || r.eachCols(function(e, t) {
 					var e = t.field || e,
 						a = i[e];
 					t.totalRow && (s[e] = (s[e] || 0) + (parseFloat(a) || 0))
 				})
-			}), r.dataTotal = {}, c = [], r.eachCols(function(e, t) {
+			}), r.dataTotal = [], d = [], r.eachCols(function(e, t) {
 				var a, e = t.field || e,
 					i = o && o[t.field],
-					l = (a = t.totalRowText || "", n = "totalRowDecimals" in t ? t
-						.totalRowDecimals : 2, n = parseFloat(s[e]).toFixed(n), (l = {
-							LAY_COL: t
-						})[e] = n, n = t.totalRow && k.call(r, {
-							item3: t,
-							content: n,
-							tplData: l
-						}) || a, i || n),
-					n = ['<td data-field="' + e + '" data-key="' + d.index + "-" + t.key +
-						'" ' + (a = [], t.align && a.push('align="' + t.align + '"'), t
-							.minWidth && a.push('data-minwidth="' + t.minWidth + '"'), a.join(
-								" ")) + ' class="' + (n = [], t.hide && n.push(w), t.field || n
-							.push(E), n.join(" ")) + '">',
-						'<div class="layui-table-cell laytable-cell-' + (a = d.index + "-" + t
-							.key, "normal" === t.type ? a : a + " laytable-cell-" + t.type) +
+					l = "totalRowDecimals" in t ? t.totalRowDecimals : 2,
+					l = s[e] ? parseFloat(s[e] || 0).toFixed(l) : "",
+					l = (a = t.totalRowText || "", (n = {
+						LAY_COL: t
+					})[e] = l, n = t.totalRow && C.call(r, {
+						item3: t,
+						content: l,
+						tplData: n
+					}) || a, i || n),
+					n = (t.field && r.dataTotal.push({
+						field: t.field,
+						total: v("<div>" + l + "</div>").text()
+					}), ['<td data-field="' + e + '" data-key="' + t.key + '" ' + (a = [], t
+							.align && a.push('align="' + t.align + '"'), t.minWidth && a
+							.push('data-minwidth="' + t.minWidth + '"'), t.maxWidth && a
+							.push('data-maxwidth="' + t.maxWidth + '"'), a.join(" ")) +
+						' class="' + (n = [], t.hide && n.push(T), t.field || n.push(R), n
+							.join(" ")) + '">',
+						'<div class="layui-table-cell laytable-cell-' + (a = t.key,
+							"normal" === t.type ? a : a + " laytable-cell-" + t.type) +
 						'"' + (n = [], t.style && n.push('style="' + t.style + '"'), n.join(
-							" ")) + ">" + ("string" == typeof(a = t.totalRow || d.totalRow) ? v(
-							a).render(m.extend({
-							TOTAL_NUMS: i || s[e],
-							LAY_COL: t
-						}, t)) : l), "</div></td>"
-					].join("");
-				t.field && (r.dataTotal[e] = l), c.push(n)
-			}), r.layTotal.find("tbody").html("<tr>" + c.join("") + "</tr>"))
-		}, i.prototype.getColElem = function(e, t) {
-			var a = this.config;
-			return e.eq(0).find(".laytable-cell-" + a.index + "-" + t + ":eq(0)")
-		}, i.prototype.renderForm = function(e) {
+							" ")) + ">" + ("string" == typeof(a = t.totalRow || c
+							.totalRow) ? g(a).render(v.extend({
+								TOTAL_NUMS: i || s[e],
+								TOTAL_ROW: o || {},
+								LAY_COL: t
+							}, t)) : l), "</div></td>"
+					].join(""));
+				d.push(n)
+			}), e = r.layTotal.find(".layui-table-patch"), r.layTotal.find("tbody").html("<tr>" + d
+				.join("") + (e.length ? e.get(0).outerHTML : "") + "</tr>"))
+		}, n.prototype.getColElem = function(e, t) {
+			this.config;
+			return e.eq(0).find(".laytable-cell-" + t + ":eq(0)")
+		}, n.prototype.renderForm = function(e) {
 			this.config;
 			var t = this.elem.attr("lay-filter");
-			y.render(e, t)
-		}, i.prototype.setThisRowChecked = function(e) {
-			this.config;
-			var t = "layui-table-click";
-			this.layBody.find('tr[data-index="' + e + '"]').addClass(t).siblings("tr").removeClass(t)
-		}, i.prototype.sort = function(l, e, t, a) {
-			var i, n = this,
-				o = {},
-				c = n.config,
-				r = c.elem.attr("lay-filter"),
-				d = x.cache[n.key];
-			"string" == typeof l && (s = l, n.layHeader.find("th").each(function(e, t) {
-				var a = m(this),
+			h.render(e, t)
+		}, n.prototype.setRowChecked = function(a, e) {
+			var t = this,
+				i = t.config,
+				l = "layui-table-click",
+				n = t.layBody.find("tr" + ("all" === a.index ? "" : '[data-index="' + a.index + '"]'));
+			"checkbox" === (a = v.extend({
+				type: "checkbox",
+				checked: !0
+			}, a)).type || a.isAll || n.addClass(l).siblings("tr").removeClass(l), e || (l = k.cache[t.key],
+				layui.each(l, function(e, t) {
+					a.index === e || "all" === a.index ? t[i.checkName] = a.checked : "radio" === a
+						.type && delete t[i.checkName]
+				}), n.find('input[lay-type="' + ({
+					radio: "layTableRadio",
+					checkbox: "layTableCheckbox"
+				} [a.type] || "checkbox") + '"]').prop("checked", a.checked), t.syncCheckAll(), t
+				.renderForm(a.type))
+		}, n.prototype.sort = function(l) {
+			var e, t = this,
+				a = {},
+				i = t.config,
+				n = i.elem.attr("lay-filter"),
+				o = k.cache[t.key];
+			"string" == typeof(l = l || {}).field && (d = l.field, t.layHeader.find("th").each(function(e,
+				t) {
+				var a = v(this),
 					i = a.data("field");
-				if (i === l) return l = a, s = i, !1
+				if (i === l.field) return l.field = a, d = i, !1
 			}));
 			try {
-				var s = s || l.data("field"),
-					u = l.data("key");
-				if (n.sortKey && !t && s === n.sortKey.field && e === n.sortKey.sort) return;
-				var y = n.layHeader.find("th .laytable-cell-" + u).find(N);
-				n.layHeader.find("th").find(N).removeAttr("lay-sort"), y.attr("lay-sort", e || null), n
+				var d = d || l.field.data("field"),
+					r = l.field.data("key");
+				if (t.sortKey && !l.pull && d === t.sortKey.field && l.type === t.sortKey.sort) return;
+				var c = t.layHeader.find("th .laytable-cell-" + r).find(D);
+				t.layHeader.find("th").find(D).removeAttr("lay-sort"), c.attr("lay-sort", l.type || null), t
 					.layFixed.find("th")
-			} catch (h) {
-				f.error("Table modules: sort field '" + s + "' not matched")
+			} catch (s) {
+				u.error("Table modules: sort field '" + d + "' not matched")
 			}
-			n.sortKey = {
-				field: s,
-				sort: e
-			}, c.autoSort && ("asc" === e ? i = layui.sort(d, s) : "desc" === e ? i = layui.sort(d, s, !
-				0) : (i = layui.sort(d, x.config.indexName), delete n.sortKey, delete c.initSort)), o[c
-				.response.dataName] = i || d, n.renderData({
-				res: o,
-				curr: n.page,
-				count: n.count,
-				sort: !0
-			}), a && (c.initSort = {
-				field: s,
-				type: e
-			}, layui.event.call(l, C, "sort(" + r + ")", c.initSort))
-		}, i.prototype.loading = function(e) {
+			t.sortKey = {
+				field: d,
+				sort: l.type
+			}, i.autoSort && ("asc" === l.type ? e = layui.sort(o, d) : "desc" === l.type ? e = layui
+				.sort(o, d, !0) : (e = layui.sort(o, k.config.indexName), delete t.sortKey, delete i
+					.initSort)), a[i.response.dataName] = e || o, t.renderData({
+				res: a,
+				curr: t.page,
+				count: t.count,
+				sort: !0,
+				type: l.reloadType
+			}), l.fromEvent && (i.initSort = {
+				field: d,
+				type: l.type
+			}, layui.event.call(l.field, w, "sort(" + n + ")", v.extend({
+				config: i
+			}, i.initSort)))
+		}, n.prototype.loading = function(e) {
 			var t = this;
 			t.config.loading && (e ? (t.layInit && t.layInit.remove(), delete t.layInit, t.layBox.find(
-				".layui-table-init").remove()) : (t.layInit = m(['<div class="layui-table-init">',
+				".layui-table-init").remove()) : (t.layInit = v(['<div class="layui-table-init">',
 				'<i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>',
 				"</div>"
 			].join("")), t.layBox.append(t.layInit)))
-		}, i.prototype.setCheckData = function(e, t) {
+		}, n.prototype.setCheckData = function(e, t) {
 			var a = this.config,
-				i = x.cache[this.key];
+				i = k.cache[this.key];
 			i[e] && "array" !== layui.type(i[e]) && (i[e][a.checkName] = t)
-		}, i.prototype.syncCheckAll = function() {
+		}, n.prototype.syncCheckAll = function() {
 			var e = this,
 				i = e.config,
 				t = e.layHeader.find('input[name="layTableCheckbox"]'),
@@ -8263,30 +8694,45 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 						"checkbox" === t.type && (t[i.checkName] = a)
 					}), a
 				};
-			t[0] && (x.checkStatus(e.key).isAll ? (t[0].checked || (t.prop("checked", !0), e.renderForm(
+			t[0] && (k.checkStatus(e.key).isAll ? (t[0].checked || (t.prop("checked", !0), e.renderForm(
 				"checkbox")), a(!0)) : (t[0].checked && (t.prop("checked", !1), e.renderForm(
 				"checkbox")), a(!1)))
-		}, i.prototype.getCssRule = function(a, i) {
+		}, n.prototype.getCssRule = function(a, i) {
 			var e = this.elem.find("style")[0],
 				e = e.sheet || e.styleSheet || {},
 				e = e.cssRules || e.rules;
 			layui.each(e, function(e, t) {
 				if (t.selectorText === ".laytable-cell-" + a) return i(t), !0
 			})
-		}, i.prototype.fullSize = function() {
-			var e = this,
-				t = e.config,
-				a = t.height;
-			e.fullHeightGap && (a = R.height() - e.fullHeightGap, e.elem.css("height", a = a < 135 ? 135 :
-				a)), a && (a = parseFloat(a) - (e.layHeader.outerHeight() || 38), t.toolbar && (a -= e
-					.layTool.outerHeight() || 50), t.totalRow && (a -= e.layTotal.outerHeight() || 40),
-				(t.page || t.pagebar) && (a -= e.layPage.outerHeight() || 43), e.layMain.outerHeight(a))
-		}, i.prototype.getScrollWidth = function(e) {
+		}, n.prototype.fullSize = function() {
+			var e, a, i = this,
+				t = i.config,
+				l = t.height;
+			i.fullHeightGap ? (l = M.height() - i.fullHeightGap, i.elem.css("height", l = l < 135 ? 135 :
+				l)) : i.parentDiv && i.parentHeightGap && (l = v(i.parentDiv).height() - i
+				.parentHeightGap, i.elem.css("height", l = l < 135 ? 135 : l)), 1 < t.cols.length && (
+				e = i.layFixed.find(o).find("th"), a = i.layHeader.first(), layui.each(e, function(e,
+				t) {
+					(t = v(t)).height(a.find('th[data-key="' + t.attr("data-key") + '"]').height() +
+						"px")
+				})), l && (e = parseFloat(l) - (i.layHeader.outerHeight() || 38), t.toolbar && (e -= i
+					.layTool.outerHeight() || 50), t.totalRow && (e -= i.layTotal.outerHeight() || 40),
+				(t.page || t.pagebar) && (e -= i.layPage.outerHeight() || 43), t.maxHeight ? layui
+			.each({
+					elem: l,
+					layMain: e
+				}, function(e, t) {
+					i[e].css({
+						height: "auto",
+						maxHeight: t + "px"
+					})
+				}) : i.layMain.outerHeight(e))
+		}, n.prototype.getScrollWidth = function(e) {
 			var t = 0;
 			return e ? t = e.offsetWidth - e.clientWidth : ((e = document.createElement("div")).style
 				.width = "100px", e.style.height = "100px", e.style.overflowY = "scroll", document.body
 				.appendChild(e), t = e.offsetWidth - e.clientWidth, document.body.removeChild(e)), t
-		}, i.prototype.scrollPatch = function() {
+		}, n.prototype.scrollPatch = function() {
 			var e = this,
 				t = e.layMain.children("table"),
 				a = e.layMain.width() - e.layMain.prop("clientWidth"),
@@ -8294,7 +8740,7 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				l = (e.getScrollWidth(e.layMain[0]), t.outerWidth() - e.layMain.width()),
 				n = function(e) {
 					var t;
-					a && i ? (e = e.eq(0)).find(".layui-table-patch")[0] || ((t = m(
+					a && i ? (e = e.eq(0)).find(".layui-table-patch")[0] || ((t = v(
 						'<th class="layui-table-patch"><div class="layui-table-cell"></div></th>'
 						)).find("div").css({
 						width: a
@@ -8302,29 +8748,29 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				};
 			n(e.layHeader), n(e.layTotal);
 			n = e.layMain.height() - i;
-			e.layFixed.find(T).css("height", t.height() >= n ? n : "auto"), e.layFixRight[0 < l ?
-				"removeClass" : "addClass"](w), e.layFixRight.css("right", a - 1)
-		}, i.prototype.events = function() {
+			e.layFixed.find(N).css("height", t.height() >= n ? n : "auto"), e.layFixRight[0 < l ?
+				"removeClass" : "addClass"](T), e.layFixRight.css("right", a - 1)
+		}, n.prototype.events = function() {
 			var s = this,
-				r = s.config,
-				d = r.elem.attr("lay-filter"),
+				y = s.config,
+				r = y.elem.attr("lay-filter"),
 				e = s.layHeader.find("th"),
 				u = ".layui-table-cell",
-				i = m("body"),
-				l = {},
-				n = (s.layTool.on("click", "*[lay-event]", function(e) {
-					var a, i = m(this),
+				n = v("body"),
+				o = {},
+				d = (s.layTool.on("click", "*[lay-event]", function(e) {
+					var a, i = v(this),
 						t = i.attr("lay-event"),
 						l = function(e) {
-							var t = m(e.list),
-								a = m('<ul class="layui-table-tool-panel"></ul>');
-							a.html(t), r.height && a.css("max-height", r.height - (s.layTool
-									.outerHeight() || 50)), i.find(".layui-table-tool-panel")[0] ||
-								i.append(a), s.renderForm(), a.on("click", function(e) {
+							var t = v(e.list),
+								a = v('<ul class="' + _ + '"></ul>');
+							a.html(t), y.height && a.css("max-height", y.height - (s.layTool
+									.outerHeight() || 50)), i.find("." + _)[0] || i.append(a), s
+								.renderForm(), a.on("click", function(e) {
 									layui.stope(e)
 								}), e.done && e.done(a, t)
 						};
-					switch (layui.stope(e), S.trigger("table.tool.panel.remove"), g.close(s
+					switch (layui.stope(e), H.trigger("table.tool.panel.remove"), b.close(s
 						.tipsIndex), t) {
 						case "LAYTABLE_COLS":
 							l({
@@ -8335,56 +8781,38 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 										'" data-parentkey="' + (t
 											.parentKey || "") +
 										'" lay-skin="primary" ' + (t.hide ?
-											"" : "checked") + ' title="' + b
-										.escape(t.title || t.field) +
+											"" : "checked") + ' title="' + x
+										.escape(v("<div>" + (t.fieldTitle ||
+												t.title || t.field) +
+											"</div>").text()) +
 										'" lay-filter="LAY_TABLE_TOOL_COLS"></li>'
 										)
 								}), a.join("")),
 								done: function() {
-									y.on("checkbox(LAY_TABLE_TOOL_COLS)", function(e) {
-										var e = m(e.elem),
-											i = this.checked,
-											l = e.data("key"),
-											n = e.data("parentkey");
-										layui.each(r.cols, function(a, e) {
-											layui.each(e, function(e,
-											t) {
-												a + "-" + e ===
-													l && (e = t
-														.hide, t
-														.hide = !
-														i, s
-														.elem
-														.find(
-															'*[data-key="' +
-															r
-															.index +
-															"-" +
-															l +
-															'"]'
-															)[
-															i ?
-															"removeClass" :
-															"addClass"
-															](
-														w), e !=
-														t
-														.hide &&
-														s
-														.setParentCol(
-															!i,
-															n),
-														s
-														.resize()
-														)
-											})
-										})
+									h.on("checkbox(LAY_TABLE_TOOL_COLS)", function(e) {
+										var e = v(e.elem),
+											t = this.checked,
+											a = e.data("key"),
+											i = s.col(a),
+											l = i.hide,
+											e = e.data("parentkey");
+										i.key && (i.hide = !t, s.elem.find(
+												'*[data-key="' + a + '"]')[
+												t ? "removeClass" :
+												"addClass"](T), l != i
+											.hide && s.setParentCol(!t, e),
+											s.resize(), layui.event.call(
+												this, w, "colToggled(" + r +
+												")", {
+													col: i,
+													config: y
+												}))
 									})
 								}
 							});
 							break;
 						case "LAYTABLE_EXPORT":
-							h.ie ? g.tips(
+							p.ie ? b.tips(
 								"\u5bfc\u51fa\u529f\u80fd\u4e0d\u652f\u6301 IE\uff0c\u8bf7\u7528 Chrome \u7b49\u9ad8\u7ea7\u6d4f\u89c8\u5668\u5bfc\u51fa",
 								this, {
 									tips: 3
@@ -8394,8 +8822,8 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 								].join(""),
 								done: function(e, t) {
 									t.on("click", function() {
-										var e = m(this).data("type");
-										x.exportFile.call(s, r.id, null, e)
+										var e = v(this).data("type");
+										k.exportFile.call(s, y.id, null, e)
 									})
 								}
 							});
@@ -8408,101 +8836,137 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 									"a{color: #5F5F5F; text-decoration:none;}",
 									"*.layui-hide{display: none}", "</style>"
 								].join(""),
-								c = m(s.layHeader.html());
-							c.append(s.layMain.find("table").html()), c.append(s.layTotal.find(
-									"table").html()), c.find("th.layui-table-patch").remove(), c
-								.find("thead>tr>th." + E).filter(function(e, t) {
-									return !m(t).children(".laytable-cell-group").length
-								}).remove(), c.find("tbody>tr>td." + E).remove(), n.document.write(
-									o + c.prop("outerHTML")), n.document.close(), n.print(), n
+								d = v(s.layHeader.html());
+							d.append(s.layMain.find("table").html()), d.append(s.layTotal.find(
+									"table").html()), d.find("th.layui-table-patch").remove(), d
+								.find("thead>tr>th." + R).filter(function(e, t) {
+									return !v(t).children("." + W).length
+								}).remove(), d.find("tbody>tr>td." + R).remove(), n.document.write(
+									o + d.prop("outerHTML")), n.document.close(), n.print(), n
 								.close()
 					}
-					layui.event.call(this, C, "toolbar(" + d + ")", m.extend({
+					layui.event.call(this, w, "toolbar(" + r + ")", v.extend({
 						event: t,
-						config: r
+						config: y
 					}, {}))
 				}), s.layPagebar.on("click", "*[lay-event]", function(e) {
-					var t = m(this).attr("lay-event");
-					layui.event.call(this, C, "pagebar(" + d + ")", m.extend({
+					var t = v(this).attr("lay-event");
+					layui.event.call(this, w, "pagebar(" + r + ")", v.extend({
 						event: t,
-						config: r
+						config: y
 					}, {}))
 				}), e.on("mousemove", function(e) {
-					var t = m(this),
+					var t = v(this),
 						a = t.offset().left,
 						e = e.clientX - a;
-					t.data("unresize") || p.eventMoveElem || (l.allowResize = t.width() - e <= 10, i
-						.css("cursor", l.allowResize ? "col-resize" : ""))
+					t.data("unresize") || f.eventMoveElem || (o.allowResize = t.width() - e <= 10, n
+						.css("cursor", o.allowResize ? "col-resize" : ""))
 				}).on("mouseleave", function() {
-					m(this);
-					p.eventMoveElem || i.css("cursor", "")
+					v(this);
+					f.eventMoveElem || n.css("cursor", "")
 				}).on("mousedown", function(e) {
-					var t, a = m(this);
-					l.allowResize && (t = a.data("key"), e.preventDefault(), l.offset = [e.clientX,
+					var t, a = v(this);
+					o.allowResize && (t = a.data("key"), e.preventDefault(), o.offset = [e.clientX,
 						e.clientY
 					], s.getCssRule(t, function(e) {
 						var t = e.style.width || a.outerWidth();
-						l.rule = e, l.ruleWidth = parseFloat(t), l.minWidth = a.data(
-							"minwidth") || r.cellMinWidth
-					}), a.data(_, l), p.eventMoveElem = a)
-				}), p.docEvent || S.on("mousemove", function(e) {
-					var t;
-					p.eventMoveElem && (t = p.eventMoveElem.data(_) || {}, p.eventMoveElem.data(
-						"resizing", 1), e.preventDefault(), t.rule && ((e = t.ruleWidth + e
-							.clientX - t.offset[0]) < t.minWidth && (e = t.minWidth), t.rule
-						.style.width = e + "px", g.close(s.tipsIndex)))
+						o.rule = e, o.ruleWidth = parseFloat(t), o.minWidth = a.data(
+							"minwidth") || y.cellMinWidth, o.maxWidth = a.data(
+							"maxwidth") || y.cellMaxWidth
+					}), a.data(j, o), f.eventMoveElem = a)
+				}), f.docEvent || H.on("mousemove", function(e) {
+					var t, a;
+					f.eventMoveElem && (t = f.eventMoveElem.data(j) || {}, f.eventMoveElem.data(
+						"resizing", 1), e.preventDefault(), t.rule && (e = t.ruleWidth + e
+						.clientX - t.offset[0], a = f.eventMoveElem.closest("." + L).attr(
+							"lay-id"), (a = m(a)) && ((e = e < t.minWidth ? t.minWidth :
+							e) > t.maxWidth && (e = t.maxWidth), t.rule.style.width = e +
+							"px", a.setGroupWidth(f.eventMoveElem), b.close(s.tipsIndex))))
 				}).on("mouseup", function(e) {
-					p.eventMoveElem && (l = {}, i.css("cursor", ""), s.scrollPatch(), p
-						.eventMoveElem.removeData(_), delete p.eventMoveElem)
-				}), p.docEvent = !0, e.on("click", function(e) {
-					var t = m(this),
-						a = t.find(N),
+					var t, a, i, l;
+					f.eventMoveElem && (i = (t = f.eventMoveElem).closest("." + L).attr("lay-id"), (
+						a = m(i)) && (i = t.data("key"), l = a.col(i), o = {}, n.css(
+							"cursor", ""), a.scrollPatch(), t.removeData(j), delete f
+						.eventMoveElem, a.getCssRule(i, function(e) {
+							l.width = parseFloat(e.style.width), layui.event.call(t[0],
+								w, "colResized(" + r + ")", {
+									col: l,
+									config: a.config
+								})
+						})))
+				}), f.docEvent = !0, e.on("click", function(e) {
+					var t = v(this),
+						a = t.find(D),
 						i = a.attr("lay-sort");
 					if (!a[0] || 1 === t.data("resizing")) return t.removeData("resizing");
-					s.sort(t, "asc" === i ? "desc" : "desc" === i ? null : "asc", null, !0)
-				}).find(N + " .layui-edge ").on("click", function(e) {
-					var t = m(this),
+					s.sort({
+						field: t,
+						type: "asc" === i ? "desc" : "desc" === i ? null : "asc",
+						fromEvent: !0
+					})
+				}).find(D + " .layui-edge ").on("click", function(e) {
+					var t = v(this),
 						a = t.index(),
 						t = t.parents("th").eq(0).data("field");
-					layui.stope(e), 0 === a ? s.sort(t, "asc", null, !0) : s.sort(t, "desc", null, !
-						0)
+					layui.stope(e), 0 === a ? s.sort({
+						field: t,
+						type: "asc",
+						fromEvent: !0
+					}) : s.sort({
+						field: t,
+						type: "desc",
+						fromEvent: !0
+					})
 				}), s.commonMember = function(e) {
-					var t = m(this).parents("tr").eq(0).data("index"),
+					var t = v(this).parents("tr").eq(0).data("index"),
 						r = s.layBody.find('tr[data-index="' + t + '"]'),
-						d = (d = x.cache[s.key] || [])[t] || {};
-					return m.extend({
-						tr: r,
-						data: x.clearCacheKey(d),
-						del: function() {
-							x.cache[s.key][t] = [], r.remove(), s.scrollPatch()
-						},
-						update: function(e, c) {
-							e = e || {}, layui.each(e, function(i, l) {
-								var n = r.children('td[data-field="' + i + '"]'),
-									o = n.children(u);
-								i in d && (d[i] = l), s.eachCols(function(e, t) {
-									var a;
-									t.field == i ? (o.html(k.call(s, {
-										item3: t,
-										content: l,
-										tplData: d
-									})), n.data("content", l)) : c && (t
-										.templet || t.toolbar) && (e = r
-										.children('td[data-field="' + (t
-											.field || e) + '"]'), a = d[
-											t.field], e.children(u)
-										.html(k.call(s, {
+						c = (c = k.cache[s.key] || [])[t] || {},
+						a = {
+							tr: r,
+							config: y,
+							data: k.clearCacheKey(c),
+							index: t,
+							del: function() {
+								k.cache[s.key][t] = [], r.remove(), s.scrollPatch()
+							},
+							update: function(e, d) {
+								e = e || {}, layui.each(e, function(i, l) {
+									var n = r.children('td[data-field="' + i + '"]'),
+										o = n.children(u);
+									c[i] = a.data[i] = l, s.eachCols(function(e, t) {
+										var a;
+										t.field == i ? (o.html(C.call(s, {
 											item3: t,
-											content: a,
-											tplData: d
-										})), e.data("content", a))
-								})
-							}), s.renderForm()
-						}
-					}, e)
+											content: l,
+											tplData: v.extend({
+												LAY_COL: t
+											}, c)
+										})), n.data("content", l)) : d && (t
+											.templet || t.toolbar) && (e = r
+											.children('td[data-field="' + (t
+												.field || e) + '"]'), a = c[t
+												.field], e.children(u).html(C
+												.call(s, {
+													item3: t,
+													content: a,
+													tplData: v.extend({
+														LAY_COL: t
+													}, c)
+												})), e.data("content", a))
+									})
+								}), s.renderForm()
+							},
+							setRowChecked: function(e) {
+								s.setRowChecked(v.extend({
+									type: "radio",
+									index: t
+								}, e))
+							}
+						};
+					return v.extend(a, e)
 				}),
 				t = (s.elem.on("click", 'input[name="layTableCheckbox"]+', function() {
-					var e = m(this).prev(),
+					var e = v(this).prev(),
 						t = s.layBody.find('input[name="layTableCheckbox"]'),
 						a = e.parents("tr").eq(0).data("index"),
 						i = e[0].checked,
@@ -8510,194 +8974,206 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 					e[0].disabled || (l ? (t.each(function(e, t) {
 						t.checked = i, s.setCheckData(e, i)
 					}), s.syncCheckAll(), s.renderForm("checkbox")) : (s.setCheckData(a, i),
-						s.syncCheckAll()), layui.event.call(e[0], C, "checkbox(" + d + ")",
-						n.call(e[0], {
+						s.syncCheckAll()), layui.event.call(e[0], w, "checkbox(" + r + ")",
+						d.call(e[0], {
 							checked: i,
 							type: l ? "all" : "one"
 						})))
 				}), s.elem.on("click", 'input[lay-type="layTableRadio"]+', function() {
-					var e = m(this).prev(),
+					var e = v(this).prev(),
 						t = e[0].checked,
-						a = x.cache[s.key],
-						i = e.parents("tr").eq(0).data("index");
-					layui.each(a, function(e, t) {
-						i === e ? t[r.checkName] = !0 : delete t[r.checkName]
-					}), s.setThisRowChecked(i), layui.event.call(this, C, "radio(" + d + ")", n
-						.call(this, {
-							checked: t
-						}))
+						e = e.parents("tr").eq(0).data("index");
+					s.setRowChecked({
+						type: "radio",
+						index: e
+					}), layui.event.call(this, w, "radio(" + r + ")", d.call(this, {
+						checked: t
+					}))
 				}), s.layBody.on("mouseenter", "tr", function() {
-					var e = m(this),
+					var e = v(this),
 						t = e.index();
-					e.data("off") || s.layBody.find("tr:eq(" + t + ")").addClass(A)
+					e.data("off") || s.layBody.find("tr:eq(" + t + ")").addClass(E)
 				}).on("mouseleave", "tr", function() {
-					var e = m(this),
+					var e = v(this),
 						t = e.index();
-					e.data("off") || s.layBody.find("tr:eq(" + t + ")").removeClass(A)
+					e.data("off") || s.layBody.find("tr:eq(" + t + ")").removeClass(E)
 				}).on("click", "tr", function() {
 					t.call(this, "row")
 				}).on("dblclick", "tr", function() {
 					t.call(this, "rowDouble")
+				}).on("contextmenu", "tr", function(e) {
+					y.defaultContextmenu || e.preventDefault(), t.call(this, "contextmenu")
 				}), function(e) {
-					var t = m(this);
-					t.data("off") || layui.event.call(this, C, e + "(" + d + ")", n.call(t.children(
+					var t = v(this);
+					t.data("off") || layui.event.call(this, w, e + "(" + r + ")", d.call(t.children(
 						"td")[0]))
 				}),
-				o = (s.layBody.on("change", "." + D, function() {
-					var e = m(this),
-						t = this.value,
-						a = e.parent().data("field"),
-						e = e.parents("tr").eq(0).data("index");
-					x.cache[s.key][e][a] = t, layui.event.call(this, C, "edit(" + d + ")", n.call(
-						this, {
-							value: t,
-							field: a
-						}))
-				}).on("blur", "." + D, function() {
-					var e, t = m(this),
-						a = t.parent(),
-						i = a.data("key"),
-						l = t.closest("tr").data("index"),
-						l = x.cache[s.key][l];
-					t.siblings(u).html((e = t[0].value, k.call(s, {
-						item3: s.col(i),
-						content: e,
-						tplData: l
-					}))), a.data("content", t[0].value), t.remove()
-				}), s.layBody.on(r.editTrigger, "td", function(e) {
-					var t, a, i, l, n = m(this);
-					n.data("off") || (t = n.data("field"), l = n.data("key"), l = s.col(l), a = n
-						.closest("tr").data("index"), a = x.cache[s.key][a], i = n.children(u),
-						(l = "function" == typeof l.edit ? l.edit(a) : l.edit) && ((l = m(
-								"textarea" === l ? '<textarea class="layui-input ' + D +
-								'"></textarea>' : '<input class="layui-input ' + D + '">'))[0]
-							.value = n.data("content") || a[t] || i.text(), n.find("." + D)[
-							0] || n.append(l), l.focus(), layui.stope(e)))
+				c = function(e, t) {
+					var a, i, l, n;
+					(e = v(e)).data("off") || (a = e.data("field"), n = e.data("key"), n = s.col(n), i = e
+						.closest("tr").data("index"), i = k.cache[s.key][i], l = e.children(u), (n =
+							"function" == typeof n.edit ? n.edit(i) : n.edit) && ((n = v("textarea" ===
+								n ? '<textarea class="layui-input ' + A + '"></textarea>' :
+								'<input class="layui-input ' + A + '">'))[0].value = e.data(
+							"content") || i[a] || l.text(), e.find("." + A)[0] || e.append(n), n
+						.focus(), t && layui.stope(t)))
+				},
+				i = (s.layBody.on("change", "." + A, function() {
+					var e = v(this),
+						t = e.parent(),
+						a = this.value,
+						i = e.parent().data("field"),
+						e = e.closest("tr").data("index"),
+						e = k.cache[s.key][e],
+						l = d.call(t[0], {
+							value: a,
+							field: i,
+							oldValue: e[i],
+							td: t,
+							reedit: function() {
+								setTimeout(function() {
+									c(l.td);
+									var e = {};
+									e[i] = l.oldValue, l.update(e)
+								})
+							},
+							getCol: function() {
+								return s.col(t.data("key"))
+							}
+						}),
+						e = {};
+					e[i] = a, l.update(e), layui.event.call(t[0], w, "edit(" + r + ")", l)
+				}).on("blur", "." + A, function() {
+					v(this).remove()
+				}), s.layBody.on(y.editTrigger, "td", function(e) {
+					c(this, e)
 				}).on("mouseenter", "td", function() {
 					a.call(this)
 				}).on("mouseleave", "td", function() {
 					a.call(this, "hide")
 				}), "layui-table-grid-down"),
 				a = function(e) {
-					var t = m(this),
+					var t = v(this),
 						a = t.children(u);
 					t.data("off") || (e ? t.find(".layui-table-grid-down").remove() : !(a.prop(
-							"scrollWidth") > a.outerWidth() || 0 < a.find("br").length) || r
-						.lineStyle || a.find("." + o)[0] || t.append('<div class="' + o +
+							"scrollWidth") > a.outerWidth() || 0 < a.find("br").length) || y
+						.lineStyle || a.find("." + i)[0] || t.append('<div class="' + i +
 							'"><i class="layui-icon layui-icon-down"></i></div>'))
 				},
-				c = (s.layBody.on("click", "." + o, function(e) {
-					var t = m(this).parent().children(u);
-					s.tipsIndex = g.tips([
+				l = (s.layBody.on("click", "." + i, function(e) {
+					var t = v(this).parent().children(u);
+					s.tipsIndex = b.tips([
 						'<div class="layui-table-tips-main" style="margin-top: -' + (t
-							.height() + 23) + "px;" + ("sm" === r.size ?
-							"padding: 4px 15px; font-size: 12px;" : "lg" === r.size ?
+							.height() + 23) + "px;" + ("sm" === y.size ?
+							"padding: 4px 15px; font-size: 12px;" : "lg" === y.size ?
 							"padding: 14px 15px;" : "") + '">', t.html(), "</div>",
 						'<i class="layui-icon layui-table-tips-c layui-icon-close"></i>'
 					].join(""), t[0], {
 						tips: [3, ""],
 						time: -1,
 						anim: -1,
-						maxWidth: h.ios || h.android ? 300 : s.elem.width() / 2,
+						maxWidth: p.ios || p.android ? 300 : s.elem.width() / 2,
 						isOutAnim: !1,
 						skin: "layui-table-tips",
 						success: function(e, t) {
 							e.find(".layui-table-tips-c").on("click", function() {
-								g.close(t)
+								b.close(t)
 							})
 						}
 					}), layui.stope(e)
 				}), function(e) {
-					var t = m(this),
+					var t = v(this),
 						a = t.parents("tr").eq(0).data("index");
-					layui.event.call(this, C, (e || "tool") + "(" + d + ")", n.call(this, {
+					layui.event.call(this, w, (e || "tool") + "(" + r + ")", d.call(this, {
 						event: t.attr("lay-event")
-					})), s.setThisRowChecked(a)
+					})), s.setRowChecked({
+						type: "radio",
+						index: a
+					}, !0)
 				});
 			s.layBody.on("click", "*[lay-event]", function(e) {
-				c.call(this), layui.stope(e)
+				l.call(this), layui.stope(e)
 			}).on("dblclick", "*[lay-event]", function(e) {
-				c.call(this, "toolDouble"), layui.stope(e)
+				l.call(this, "toolDouble"), layui.stope(e)
 			}), s.layMain.on("scroll", function() {
-				var e = m(this),
+				var e = v(this),
 					t = e.scrollLeft(),
 					e = e.scrollTop();
-				s.layHeader.scrollLeft(t), s.layTotal.scrollLeft(t), s.layFixed.find(T).scrollTop(
-					e), g.close(s.tipsIndex)
-			}), R.on("resize", function() {
+				s.layHeader.scrollLeft(t), s.layTotal.scrollLeft(t), s.layFixed.find(N).scrollTop(
+					e), b.close(s.tipsIndex)
+			}), M.on("resize", function() {
 				s.resize()
 			})
-		}, S.on("click", function() {
-			S.trigger("table.remove.tool.panel")
-		}), S.on("table.remove.tool.panel", function() {
-			m(".layui-table-tool-panel").remove()
-		}), x.init = function(a, i) {
-			i = i || {};
-			var e = m(a ? 'table[lay-filter="' + a + '"]' : ".layui-table[lay-data]"),
-				c = "Table element property lay-data configuration item has a syntax error: ";
+		}, H.on("click", function() {
+			H.trigger("table.remove.tool.panel")
+		}), H.on("table.remove.tool.panel", function() {
+			v("." + _).remove()
+		}), k.init = function(i, o) {
+			o = o || {};
+			var e = "object" == typeof i ? i : v("string" == typeof i ? 'table[lay-filter="' + i + '"]' :
+					t + "[lay-data], " + t + "[lay-options]"),
+				d = "Table element property lay-data configuration item has a syntax error: ";
 			return e.each(function() {
-				var e = m(this),
-					t = e.attr("lay-data");
-				try {
-					t = new Function("return " + t)()
-				} catch (l) {
-					f.error(c + t, "error")
-				}
-				var n = [],
-					o = m.extend({
+				var l, e = v(this),
+					t = e.attr("lay-data"),
+					t = r.options(this, {
+						attr: t ? "lay-data" : null,
+						errorText: d + (t || e.attr("lay-options"))
+					}),
+					n = v.extend({
 						elem: this,
 						cols: [],
 						data: [],
 						skin: e.attr("lay-skin"),
 						size: e.attr("lay-size"),
 						even: "string" == typeof e.attr("lay-even")
-					}, x.config, i, t);
-				a && e.hide(), e.find("thead>tr").each(function(i) {
-					o.cols[i] = [], m(this).children().each(function(e) {
-						var t = m(this),
-							a = t.attr("lay-data");
-						try {
-							a = new Function("return " + a)()
-						} catch (l) {
-							return f.error(c + a)
-						}
-						t = m.extend({
-							title: t.text(),
-							colspan: t.attr("colspan") || 1,
-							rowspan: t.attr("rowspan") || 1
-						}, a);
-						t.colspan < 2 && n.push(t), o.cols[i].push(t)
-					})
-				}), e.find("tbody>tr").each(function(e) {
-					var a = m(this),
-						l = {};
-					a.children("td").each(function(e, t) {
-						var a = m(this),
-							i = a.data("field");
-						if (i) return l[i] = a.html()
-					}), layui.each(n, function(e, t) {
-						e = a.children("td").eq(e);
-						l[t.field] = e.html()
-					}), o.data[e] = l
-				}), x.render(o)
+					}, k.config, o, t),
+					a = (i && e.hide(), e.find("thead>tr").each(function(i) {
+						n.cols[i] = [], v(this).children().each(function(e) {
+							var t = v(this),
+								a = t.attr("lay-data"),
+								a = r.options(this, {
+									attr: a ? "lay-data" : null,
+									errorText: d + (a || t.attr("lay-options"))
+								}),
+								t = v.extend({
+									title: t.text(),
+									colspan: parseInt(t.attr("colspan")) || 0,
+									rowspan: parseInt(t.attr("rowspan")) || 0
+								}, a);
+							n.cols[i].push(t)
+						})
+					}), e.find("tbody>tr")),
+					t = k.render(n);
+				!a.length || o.data || t.config.url || (l = 0, k.eachCols(t.config.id, function(e,
+					i) {
+					a.each(function(e) {
+						n.data[e] = n.data[e] || {};
+						var t = v(this),
+							a = i.field;
+						n.data[e][a] = t.children("td").eq(l).html()
+					}), l++
+				}), t.reloadData({
+					data: n.data
+				}))
 			}), this
-		}, p.that = {}, p.config = {}, function(a, i, e, l) {
+		}, f.that = {}, f.config = {}, function(a, i, e, l) {
 			var n, o;
 			l.colGroup && (n = 0, a++, l.CHILD_COLS = [], o = e + (parseInt(l.rowspan) || 1), layui.each(i[
 				o], function(e, t) {
 				t.parentKey ? t.parentKey === l.key && (t.PARENT_COL_INDEX = a, l.CHILD_COLS
-					.push(t), F(a, i, o, t)) : t.PARENT_COL_INDEX || 1 <= n && n == (l
+					.push(t), y(a, i, o, t)) : t.PARENT_COL_INDEX || 1 <= n && n == (l
 					.colspan || 1) || (t.PARENT_COL_INDEX = a, l.CHILD_COLS.push(t), n += t
-					.hide ? 0 : parseInt(1 < t.colspan ? t.colspan : 1), F(a, i, o, t))
+					.hide ? 0 : parseInt(1 < t.colspan ? t.colspan : 1), y(a, i, o, t))
 			}))
 		});
-	x.eachCols = function(e, a, i) {
-		var e = p.config[e] || {},
+	k.eachCols = function(e, a, i) {
+		var e = f.config[e] || {},
 			l = [],
-			n = (i = m.extend(!0, [], i || e.cols), layui.each(i, function(a, e) {
+			n = (i = v.extend(!0, [], i || e.cols), layui.each(i, function(a, e) {
 				if (a) return !0;
 				layui.each(e, function(e, t) {
-					F(0, i, a, t), t.PARENT_COL_INDEX || l.push(t)
+					y(0, i, a, t), t.PARENT_COL_INDEX || l.push(t)
 				})
 			}), function(e) {
 				layui.each(e || l, function(e, t) {
@@ -8706,91 +9182,116 @@ layui.define(["laytpl", "laypage", "form", "util"], function(e) {
 				})
 			});
 		n()
-	}, x.checkStatus = function(e) {
+	}, k.checkStatus = function(e) {
 		var a = 0,
 			i = 0,
 			l = [],
-			e = x.cache[e] || [];
+			e = k.cache[e] || [];
 		return layui.each(e, function(e, t) {
-			"array" === layui.type(t) ? i++ : t[x.config.checkName] && (a++, t[x.config
-				.disabledName] || l.push(x.clearCacheKey(t)))
+			"array" === layui.type(t) ? i++ : t[k.config.checkName] && (a++, t[k.config
+				.disabledName] || l.push(k.clearCacheKey(t)))
 		}), {
 			data: l,
 			isAll: !!e.length && a === e.length - i
 		}
-	}, x.getData = function(e) {
+	}, k.setRowChecked = function(e, t) {
+		e = m(e);
+		e && e.setRowChecked(t)
+	}, k.getData = function(e) {
 		var a = [],
-			e = x.cache[e] || [];
+			e = k.cache[e] || [];
 		return layui.each(e, function(e, t) {
-			"array" !== layui.type(t) && a.push(x.clearCacheKey(t))
+			"array" !== layui.type(t) && a.push(k.clearCacheKey(t))
 		}), a
-	}, x.exportFile = function(e, t, a) {
-		t = t || x.clearCacheKey(x.cache[e]);
-		var c, i, l, r, n = (a = "object" == typeof a ? a : (n = {}, a && (n.type = a), n)).type || "csv",
-			d = p.that[e],
-			o = p.config[e] || {},
+	}, k.resize = function(e) {
+		e ? l(e) && m(e).resize() : layui.each(f.that, function() {
+			this.resize()
+		})
+	}, k.exportFile = function(e, t, a) {
+		t = t || k.clearCacheKey(k.cache[e]);
+		var o, d, i, r, l = (a = "object" == typeof a ? a : (l = {}, a && (l.type = a), l)).type || "csv",
+			c = f.that[e],
+			n = f.config[e] || {},
 			s = {
 				csv: "text/csv",
 				xls: "application/vnd.ms-excel"
-			} [n],
-			u = document.createElement("a");
-		if (h.ie) return f.error("IE_NOT_SUPPORT_EXPORTS");
-		u.href = "data:" + s + ";charset=utf-8,\ufeff" + encodeURIComponent((c = [], i = [], l = [], r = {},
-				layui.each(t, function(l, n) {
-					var o = [];
+			} [l],
+			y = document.createElement("a");
+		if (p.ie) return u.error("IE_NOT_SUPPORT_EXPORTS");
+		y.href = "data:" + s + ";charset=utf-8,\ufeff" + encodeURIComponent((o = [], d = [], i = [], r = {},
+				layui.each(t, function(i, l) {
+					var n = [];
 					"object" == typeof e ? (layui.each(e, function(e, t) {
-						0 == l && c.push(t || "")
-					}), layui.each(x.clearCacheKey(n), function(e, t) {
-						o.push('"' + (t || "") + '"')
-					})) : x.eachCols(e, function(e, t) {
-						var a, i;
-						t.field && "normal" == t.type && (t.hide ? 0 == l && (r[t.field] = !
-							0) : (a = n[t.field], i = d.layBody.find(
-								'tr[data-index="' + l + '"]>td'), a !== undefined &&
-							null !== a || (a = ""), 0 == l && c.push(t.title || ""),
-							o.push('"' + k.call(d, {
-								item3: t,
-								content: a,
-								tplData: n,
-								text: "text",
-								obj: d.commonMember.call(i.eq(0), {
-									td: function(e) {
-										return i.filter(
-											'[data-field="' +
-											e + '"]')
-									}
-								})
-							}) + '"')))
-					}), i.push(o.join(","))
-				}), d && layui.each(d.dataTotal, function(e, t) {
-					r[e] || l.push(t)
-				}), c.join(",") + "\r\n" + i.join("\r\n") + "\r\n" + l.join(","))), u.download = (a.title ||
-				o.title || "table_" + (o.index || "")) + "." + n, document.body.appendChild(u), u.click(),
-			document.body.removeChild(u)
-	}, x.resize = function(e) {
-		e ? l(e) && p.that[e].resize() : layui.each(p.that, function() {
-			this.resize()
-		})
-	}, x.reload = function(e, t, a, i) {
-		if (l(e)) return e = p.that[e], e.reload(t, a, i), p.call(e)
-	}, x.reloadData = function() {
-		var a = m.extend([], arguments),
+						0 == i && o.push(t || "")
+					}), layui.each(layui.isArray(l) ? v.extend([], l) : k.clearCacheKey(l),
+						function(e, t) {
+							n.push('"' + (t || "") + '"')
+						})) : k.eachCols(e, function(e, t) {
+						var a;
+						t.field && "normal" == t.type && (t.hide ? 0 == i && (r[t.field] = !
+							0) : ((a = l[t.field]) !== undefined && null !== a || (
+							a = ""), 0 == i && o.push(t.fieldTitle || t.title ||
+							t.field || ""), a = (a = C.call(c, {
+							item3: t,
+							content: a,
+							tplData: l,
+							text: "text",
+							obj: {
+								td: function(e) {
+									return c.layBody.find(
+										'tr[data-index="' + i +
+										'"]>td').filter(
+										'[data-field="' + e +
+										'"]')
+								}
+							}
+						})).replace(/"/g, '""'), n.push(a = '"' + (a += "\t") +
+							'"')))
+					}), d.push(n.join(","))
+				}), c && layui.each(c.dataTotal, function(e, t) {
+					r[t.field] || i.push(t.total + "\t")
+				}), o.join(",") + "\r\n" + d.join("\r\n") + "\r\n" + i.join(","))), y.download = (a.title ||
+				n.title || "table_" + (n.index || "")) + "." + l, document.body.appendChild(y), y.click(),
+			document.body.removeChild(y)
+	}, k.getOptions = function(e) {
+		return v.extend(!0, {}, l(e))
+	}, k.hideCol = function(e, l) {
+		var n = m(e);
+		n && ("boolean" === layui.type(l) ? n.eachCols(function(e, t) {
+			var a = t.key,
+				i = n.col(a),
+				t = t.parentKey;
+			i.hide != l && (i = i.hide = l, n.elem.find('*[data-key="' + a + '"]')[i ?
+				"addClass" : "removeClass"](T), n.setParentCol(i, t))
+		}) : layui.each(l, function(e, l) {
+			n.eachCols(function(e, t) {
+				var a, i;
+				l.field === t.field && (a = t.key, i = n.col(a), t = t.parentKey,
+					"hide" in l && i.hide != l.hide && (i = i.hide = !!l.hide, n
+						.elem.find('*[data-key="' + a + '"]')[i ? "addClass" :
+							"removeClass"](T), n.setParentCol(i, t)))
+			})
+		}), v("." + _).remove(), n.resize())
+	}, k.reload = function(e, t, a, i) {
+		if (l(e)) return e = m(e), e.reload(t, a, i), f.call(e)
+	}, k.reloadData = function() {
+		var a = v.extend([], arguments),
 			i = (a[3] = "reloadData", new RegExp("^(" + ["data", "url", "method", "contentType", "dataType",
 				"jsonpCallback", "headers", "where", "page", "limit", "request", "response",
 				"parseData", "scrollPos"
 			].join("|") + ")$"));
 		return layui.each(a[1], function(e, t) {
 			i.test(e) || delete a[1][e]
-		}), x.reload.apply(null, a)
-	}, x.render = function(e) {
-		e = new i(e);
-		return p.call(e)
-	}, x.clearCacheKey = function(e) {
-		return delete(e = m.extend({}, e))[x.config.checkName], delete e[x.config.indexName], delete e[x
-			.config.disabledName], e
-	}, m(function() {
-		x.init()
-	}), e(C, x)
+		}), k.reload.apply(null, a)
+	}, k.render = function(e) {
+		e = new n(e);
+		return f.call(e)
+	}, k.clearCacheKey = function(e) {
+		return delete(e = v.extend({}, e))[k.config.checkName], delete e[k.config.indexName], delete e[k
+			.config.numbersName], delete e[k.config.disabledName], e
+	}, v(function() {
+		k.init()
+	}), e(w, k)
 });
 layui.define("form", function(e) {
 	"use strict";
@@ -9123,9 +9624,9 @@ layui.define("form", function(e) {
 				a = u(i).children("." + m).find('input[same="layuiTreeCheck"]'),
 				t = a.next();
 			if ("number" == typeof l) {
-				if (n == l) return a[0].checked || t.click(), !1
+				if (n.toString() == l.toString()) return a[0].checked || t.click(), !1
 			} else "object" == typeof l && layui.each(l, function(e, i) {
-				if (i == n && !a[0].checked) return t.click(), !0
+				if (i.toString() == n.toString() && !a[0].checked) return t.click(), !0
 			})
 		})
 	}, t.that = {}, t.config = {}, a.reload = function(e, i) {
@@ -9185,7 +9686,7 @@ layui.define(["laytpl", "form"], function(e) {
 				e.index + "] || 'list" + (e.index + 1) + "' }}\">", "</div>",
 				"{{# if(d.data.showSearch){ }}", '<div class="layui-transfer-search">',
 				'<i class="layui-icon layui-icon-search"></i>',
-				'<input type="input" class="layui-input" placeholder="\u5173\u952e\u8bcd\u641c\u7d22">',
+				'<input type="text" class="layui-input" placeholder="\u5173\u952e\u8bcd\u641c\u7d22">',
 				"</div>", "{{# } }}", '<ul class="layui-transfer-data"></ul>', "</div>"
 			].join("")
 		},
@@ -9379,17 +9880,17 @@ layui.define("jquery", function(e) {
 				return i.config = a.extend({}, i.config, e), i
 			},
 			on: function(e, i) {
-				return layui.onevent.call(this, d, e, i)
+				return layui.onevent.call(this, r, e, i)
 			}
 		}),
-		d = "carousel",
-		r = "layui-this",
+		r = "carousel",
+		d = "layui-this",
 		s = "layui-carousel-left",
 		u = "layui-carousel-right",
 		c = "layui-carousel-prev",
 		m = "layui-carousel-next",
 		t = "layui-carousel-arrow",
-		l = "layui-carousel-ind",
+		o = "layui-carousel-ind",
 		i = function(e) {
 			var i = this;
 			i.config = a.extend({}, i.config, n.config, e), i.render()
@@ -9418,7 +9919,7 @@ layui.define("jquery", function(e) {
 			}) : i.elem.css({
 				width: i.width,
 				height: i.height
-			}), i.elem.attr("lay-anim", i.anim), e.elemItem.eq(i.index).addClass(r), e.elemItem
+			}), i.elem.attr("lay-anim", i.anim), e.elemItem.eq(i.index).addClass(d), e.elemItem
 			.length <= 1 || (e.indicator(), e.arrow(), e.autoplay(), e.events()))
 	}, i.prototype.reload = function(e) {
 		var i = this;
@@ -9453,38 +9954,41 @@ layui.define("jquery", function(e) {
 				var e = a(this).attr("lay-type");
 				i.slide(e)
 			})
+	}, i.prototype.jump = function(e) {
+		var i = this,
+			n = i.config;
+		e > n.index ? i.slide("add", e - n.index) : e < n.index && i.slide("sub", n.index - e)
 	}, i.prototype.indicator = function() {
-		var i, n = this,
-			t = n.config,
-			e = n.elemInd = a(['<div class="' + l + '"><ul>', (i = [], layui.each(n.elemItem, function(e) {
-				i.push("<li" + (t.index === e ? ' class="layui-this"' : "") + "></li>")
+		var i, e = this,
+			n = e.config,
+			t = e.elemInd = a(['<div class="' + o + '"><ul>', (i = [], layui.each(e.elemItem, function(e) {
+				i.push("<li" + (n.index === e ? ' class="layui-this"' : "") + "></li>")
 			}), i.join("")), "</ul></div>"].join(""));
-		t.elem.attr("lay-indicator", t.indicator), t.elem.find("." + l)[0] && t.elem.find("." + l).remove(),
-			t.elem.append(e), "updown" === t.anim && e.css("margin-top", -e.height() / 2), e.find("li").on(
-				"hover" === t.trigger ? "mouseover" : t.trigger,
+		n.elem.attr("lay-indicator", n.indicator), n.elem.find("." + o)[0] && n.elem.find("." + o).remove(),
+			n.elem.append(t), "updown" === n.anim && t.css("margin-top", -t.height() / 2), t.find("li").on(
+				"hover" === n.trigger ? "mouseover" : n.trigger,
 				function() {
-					var e = a(this).index();
-					e > t.index ? n.slide("add", e - t.index) : e < t.index && n.slide("sub", t.index - e)
+					e.jump(a(this).index())
 				})
 	}, i.prototype.slide = function(e, i) {
 		var n = this,
 			t = n.elemItem,
 			a = n.config,
-			l = a.index,
-			o = a.elem.attr("lay-filter");
+			o = a.index,
+			l = a.elem.attr("lay-filter");
 		n.haveSlide || ("sub" === e ? (n.subIndex(i), t.eq(a.index).addClass(c), setTimeout(function() {
-				t.eq(l).addClass(u), t.eq(a.index).addClass(u)
+				t.eq(o).addClass(u), t.eq(a.index).addClass(u)
 			}, 50)) : (n.addIndex(i), t.eq(a.index).addClass(m), setTimeout(function() {
-				t.eq(l).addClass(s), t.eq(a.index).addClass(s)
+				t.eq(o).addClass(s), t.eq(a.index).addClass(s)
 			}, 50)), setTimeout(function() {
-				t.removeClass(r + " " + c + " " + m + " " + s + " " + u), t.eq(a.index).addClass(r),
+				t.removeClass(d + " " + c + " " + m + " " + s + " " + u), t.eq(a.index).addClass(d),
 					n.haveSlide = !1
-			}, 300), n.elemInd.find("li").eq(a.index).addClass(r).siblings().removeClass(r), n
+			}, 300), n.elemInd.find("li").eq(a.index).addClass(d).siblings().removeClass(d), n
 			.haveSlide = !0, e = {
 				index: a.index,
-				prevIndex: l,
+				prevIndex: o,
 				item: t.eq(a.index)
-			}, "function" == typeof a.change && a.change(e), layui.event.call(this, d, "change(" + o +
+			}, "function" == typeof a.change && a.change(e), layui.event.call(this, r, "change(" + l +
 				")", e))
 	}, i.prototype.events = function() {
 		var e = this,
@@ -9496,7 +10000,7 @@ layui.define("jquery", function(e) {
 		}), i.elem.data("haveEvents", !0))
 	}, n.render = function(e) {
 		return new i(e)
-	}, e(d, n)
+	}, e(r, n)
 });
 layui.define("jquery", function(e) {
 	"use strict";
@@ -9663,349 +10167,135 @@ layui.define("jquery", function(l) {
 		}), n
 	}, l("flow", new e)
 });
-layui.define(["layer", "form"], function(t) {
+layui.define(["lay", "util", "element", "form"], function(e) {
 	"use strict";
-	var u = layui.$,
-		c = layui.layer,
-		a = layui.form,
-		d = (layui.hint(), layui.device()),
-		i = "layedit",
-		y = "layui-disabled",
-		e = function() {
-			this.index = 0, this.config = {
-				tool: ["strong", "italic", "underline", "del", "|", "left", "center", "right", "|", "link",
-					"unlink"
-				],
-				hideTool: [],
-				height: 280
-			}
+	var M = layui.$,
+		_ = layui.util,
+		w = layui.element,
+		C = layui.form,
+		b = {
+			ELEM_VIEW: "layui-code-view",
+			ELEM_TITLE: "layui-code-title",
+			ELEM_FULL: "layui-code-full",
+			ELEM_PREVIEW: "layui-code-preview",
+			ELEM_ITEM: "layui-code-item",
+			ELEM_SHOW: "layui-show"
 		},
-		f = (e.prototype.set = function(t) {
-			return u.extend(!0, this.config, t), this
-		}, e.prototype.on = function(t, e) {
-			return layui.onevent(i, t, e)
-		}, e.prototype.build = function(t, e) {
-			e = e || {};
-			var i, l, a = this,
-				n = a.config,
-				o = "layui-layedit",
-				s = u("string" == typeof t ? "#" + t : t),
-				r = "LAY_layedit_" + ++a.index,
-				c = s.next("." + o),
-				n = u.extend({}, n, e),
-				e = (i = [], l = {}, layui.each(n.hideTool, function(t, e) {
-					l[e] = !0
-				}), layui.each(n.tool, function(t, e) {
-					C[e] && !l[e] && i.push(C[e])
-				}), i.join("")),
-				o = u(['<div class="' + o + '">', '<div class="layui-unselect layui-layedit-tool">' + e +
-					"</div>", '<div class="layui-layedit-iframe">', '<iframe id="' + r + '" name="' +
-					r + '" textarea="' + t + '" frameborder="0"></iframe>', "</div>", "</div>"
-				].join(""));
-			return d.ie && d.ie < 8 ? s.removeClass("layui-hide").addClass("layui-show") : (c[0] && c
-				.remove(), f.call(a, o, s[0], n), s.addClass("layui-hide").after(o), a.index)
-		}, e.prototype.getContent = function(t) {
-			t = n(t);
-			if (t[0]) return l(t[0].document.body.innerHTML)
-		}, e.prototype.getText = function(t) {
-			t = n(t);
-			if (t[0]) return u(t[0].document.body).text()
-		}, e.prototype.setContent = function(t, e, i) {
-			var l = n(t);
-			l[0] && (i ? u(l[0].document.body).append(e) : u(l[0].document.body).html(e), layedit.sync(t))
-		}, e.prototype.sync = function(t) {
-			t = n(t);
-			t[0] && u("#" + t[1].attr("textarea")).val(l(t[0].document.body.innerHTML))
-		}, e.prototype.getSelection = function(t) {
-			var t = n(t);
-			if (t[0]) return t = p(t[0].document), document.selection ? t.text : t.toString()
-		}, function(a, n, o) {
-			var s = this,
-				r = a.find("iframe");
-			r.css({
-				height: o.height
-			}).on("load", function() {
-				var t = r.contents(),
-					e = r.prop("contentWindow"),
-					i = t.find("head"),
-					l = u(["<style>", "*{margin: 0; padding: 0;}",
-						"body{padding: 10px; line-height: 20px; overflow-x: hidden; word-wrap: break-word; font: 14px Helvetica Neue,Helvetica,PingFang SC,Microsoft YaHei,Tahoma,Arial,sans-serif; -webkit-box-sizing: border-box !important; -moz-box-sizing: border-box !important; box-sizing: border-box !important;}",
-						"a{color:#01AAED; text-decoration:none;}a:hover{color:#c00}",
-						"p{margin-bottom: 10px;}",
-						"img{display: inline-block; border: none; vertical-align: middle;}",
-						"pre{margin: 10px 0; padding: 10px; line-height: 20px; border: 1px solid #ddd; border-left-width: 6px; background-color: #F2F2F2; color: #333; font-family: Courier New; font-size: 12px;}",
-						"</style>"
-					].join("")),
-					t = t.find("body");
-				i.append(l), t.attr("contenteditable", "true").css({
-					"min-height": o.height
-				}).html(n.value || ""), m.apply(s, [e, r, n, o]), g.call(s, e, a, o)
-			})
-		}),
-		n = function(t) {
-			t = u("#LAY_layedit_" + t);
-			return [t.prop("contentWindow"), t]
-		},
-		l = function(t) {
-			return t = 8 == d.ie ? t.replace(/<.+>/g, function(t) {
-				return t.toLowerCase()
-			}) : t
-		},
-		m = function(e, t, i, l) {
-			var a = e.document,
-				n = u(a.body);
-			n.on("keydown", function(t) {
-				if (13 === t.keyCode) {
-					var e = p(a);
-					if ("pre" === h(e).parentNode.tagName.toLowerCase()) return t.shiftKey ? void 0 : (c
-						.msg("\u8bf7\u6682\u65f6\u7528shift+enter"), !1);
-					a.execCommand("formatBlock", !1, "<p>")
-				}
-			}), u(i).parents("form").on("submit", function() {
-				var t = n.html();
-				8 == d.ie && (t = t.replace(/<.+>/g, function(t) {
-					return t.toLowerCase()
-				})), i.value = t
-			}), n.on("paste", function(t) {
-				a.execCommand("formatBlock", !1, "<p>"), setTimeout(function() {
-					o.call(e, n), i.value = n.html()
-				}, 100)
-			})
-		},
-		o = function(t) {
-			this.document;
-			t.find("*[style]").each(function() {
-				var t = this.style.textAlign;
-				this.removeAttribute("style"), u(this).css({
-					"text-align": t || ""
-				})
-			}), t.find("table").addClass("layui-table"), t.find("script,link").remove()
-		},
-		p = function(t) {
-			return t.selection ? t.selection.createRange() : t.getSelection().getRangeAt(0)
-		},
-		h = function(t) {
-			return t.endContainer || t.parentElement().childNodes[0]
-		},
-		v = function(t, e, i) {
-			var l, a, n = this.document,
-				o = document.createElement(t);
-			for (l in e) o.setAttribute(l, e[l]);
-			o.removeAttribute("text"), n.selection ? (a = i.text || e.text, "a" === t && !a || (a && (o
-				.innerHTML = a), i.pasteHTML(u(o).prop("outerHTML")), i.select())) : (a = i.toString() || e
-				.text, "a" === t && !a || (a && (o.innerHTML = a), i.deleteContents(), i.insertNode(o)))
-		},
-		b = function(e, t) {
-			var i = this.document,
-				l = "layedit-tool-active",
-				i = h(p(i)),
-				a = function(t) {
-					return e.find(".layedit-tool-" + t)
-				};
-			t && t[t.hasClass(l) ? "removeClass" : "addClass"](l), e.find(">i").removeClass(l), a("unlink")
-				.addClass(y), u(i).parents().each(function() {
-					var t = this.tagName.toLowerCase(),
-						e = this.style.textAlign;
-					"b" !== t && "strong" !== t || a("b").addClass(l), "i" !== t && "em" !== t || a("i")
-						.addClass(l), "u" === t && a("u").addClass(l), "strike" === t && a("d").addClass(l),
-						"p" === t && a("center" === e ? "center" : "right" === e ? "right" : "left")
-						.addClass(l), "a" === t && (a("link").addClass(l), a("unlink").removeClass(y))
-				})
-		},
-		g = function(a, t, e) {
-			var n = a.document,
-				o = u(n.body),
-				s = {
-					link: function(i) {
-						var t = h(i),
-							l = u(t).parent();
-						x.call(o, {
-							href: l.attr("href"),
-							target: l.attr("target")
-						}, function(t) {
-							var e = l[0];
-							"A" === e.tagName ? e.href = t.url : v.call(a, "a", {
-								target: t.target,
-								href: t.url,
-								text: t.url
-							}, i)
-						})
-					},
-					unlink: function(t) {
-						n.execCommand("unlink")
-					},
-					code: function(e) {
-						k.call(o, function(t) {
-							v.call(a, "pre", {
-								text: t.code,
-								"lay-lang": t.lang
-							}, e)
-						})
-					},
-					help: function() {
-						c.open({
-							type: 2,
-							title: "\u5e2e\u52a9",
-							area: ["600px", "380px"],
-							shadeClose: !0,
-							shade: .1,
-							skin: "layui-layer-msg",
-							content: ["", "no"]
-						})
-					}
-				},
-				r = t.find(".layui-layedit-tool"),
-				i = function() {
-					var t, e = u(this),
-						i = e.attr("layedit-event"),
-						l = e.attr("lay-command");
-					e.hasClass(y) || (o.focus(), (t = p(n)).commonAncestorContainer, l ? (n.execCommand(l),
-						/justifyLeft|justifyCenter|justifyRight/.test(l) && n.execCommand("formatBlock",
-							!1, "<p>"), setTimeout(function() {
-							o.focus()
-						}, 10)) : s[i] && s[i].call(this, t), b.call(a, r, e))
-				},
-				l = /image/;
-			r.find(">i").on("mousedown", function() {
-				var t = u(this).attr("layedit-event");
-				l.test(t) || i.call(this)
-			}).on("click", function() {
-				var t = u(this).attr("layedit-event");
-				l.test(t) && i.call(this)
-			}), o.on("click", function() {
-				b.call(a, r)
-			})
-		},
-		x = function(t, i) {
-			var l = this,
-				t = c.open({
-					type: 1,
-					id: "LAY_layedit_link",
-					area: "350px",
-					shade: .05,
-					shadeClose: !0,
-					moveType: 1,
-					title: "\u8d85\u94fe\u63a5",
-					skin: "layui-layer-msg",
-					content: ['<ul class="layui-form" style="margin: 15px;">',
-						'<li class="layui-form-item">',
-						'<label class="layui-form-label" style="width: 60px;">URL</label>',
-						'<div class="layui-input-block" style="margin-left: 90px">',
-						'<input name="url" lay-verify="url" value="' + (t.href || "") +
-						'" autofocus="true" autocomplete="off" class="layui-input">', "</div>", "</li>",
-						'<li class="layui-form-item">',
-						'<label class="layui-form-label" style="width: 60px;">\u6253\u5f00\u65b9\u5f0f</label>',
-						'<div class="layui-input-block" style="margin-left: 90px">',
-						'<input type="radio" name="target" value="_self" class="layui-input" title="\u5f53\u524d\u7a97\u53e3"' +
-						("_self" !== t.target && t.target ? "" : "checked") + ">",
-						'<input type="radio" name="target" value="_blank" class="layui-input" title="\u65b0\u7a97\u53e3" ' +
-						("_blank" === t.target ? "checked" : "") + ">", "</div>", "</li>",
-						'<li class="layui-form-item" style="text-align: center;">',
-						'<button type="button" lay-submit lay-filter="layedit-link-yes" class="layui-btn"> \u786e\u5b9a </button>',
-						'<button style="margin-left: 20px;" type="button" class="layui-btn layui-btn-primary"> \u53d6\u6d88 </button>',
-						"</li>", "</ul>"
-					].join(""),
-					success: function(t, e) {
-						a.render("radio"), t.find(".layui-btn-primary").on("click", function() {
-							c.close(e), l.focus()
-						}), a.on("submit(layedit-link-yes)", function(t) {
-							c.close(x.index), i && i(t.field)
-						})
-					}
-				});
-			x.index = t
-		},
-		k = function(i) {
-			var l = this,
-				t = c.open({
-					type: 1,
-					id: "LAY_layedit_code",
-					area: "550px",
-					shade: .05,
-					shadeClose: !0,
-					moveType: 1,
-					title: "\u63d2\u5165\u4ee3\u7801",
-					skin: "layui-layer-msg",
-					content: ['<ul class="layui-form layui-form-pane" style="margin: 15px;">',
-						'<li class="layui-form-item">',
-						'<label class="layui-form-label">\u8bf7\u9009\u62e9\u8bed\u8a00</label>',
-						'<div class="layui-input-block">', '<select name="lang">',
-						'<option value="JavaScript">JavaScript</option>',
-						'<option value="HTML">HTML</option>', '<option value="CSS">CSS</option>',
-						'<option value="Java">Java</option>', '<option value="PHP">PHP</option>',
-						'<option value="C#">C#</option>', '<option value="Python">Python</option>',
-						'<option value="Ruby">Ruby</option>', '<option value="Go">Go</option>',
-						"</select>", "</div>", "</li>", '<li class="layui-form-item layui-form-text">',
-						'<label class="layui-form-label">\u4ee3\u7801</label>',
-						'<div class="layui-input-block">',
-						'<textarea name="code" lay-verify="required" autofocus="true" class="layui-textarea" style="height: 200px;"></textarea>',
-						"</div>", "</li>", '<li class="layui-form-item" style="text-align: center;">',
-						'<button type="button" lay-submit lay-filter="layedit-code-yes" class="layui-btn"> \u786e\u5b9a </button>',
-						'<button style="margin-left: 20px;" type="button" class="layui-btn layui-btn-primary"> \u53d6\u6d88 </button>',
-						"</li>", "</ul>"
-					].join(""),
-					success: function(t, e) {
-						a.render("select"), t.find(".layui-btn-primary").on("click", function() {
-							c.close(e), l.focus()
-						}), a.on("submit(layedit-code-yes)", function(t) {
-							c.close(k.index), i && i(t.field)
-						})
-					}
-				});
-			k.index = t
-		},
-		C = {
-			html: '<i class="layui-icon layedit-tool-html" title="HTML\u6e90\u4ee3\u7801" lay-command="html" layedit-event="html"">&#xe64b;</i><span class="layedit-tool-mid"></span>',
-			strong: '<i class="layui-icon layedit-tool-b" title="\u52a0\u7c97" lay-command="Bold" layedit-event="b"">&#xe62b;</i>',
-			italic: '<i class="layui-icon layedit-tool-i" title="\u659c\u4f53" lay-command="italic" layedit-event="i"">&#xe644;</i>',
-			underline: '<i class="layui-icon layedit-tool-u" title="\u4e0b\u5212\u7ebf" lay-command="underline" layedit-event="u"">&#xe646;</i>',
-			del: '<i class="layui-icon layedit-tool-d" title="\u5220\u9664\u7ebf" lay-command="strikeThrough" layedit-event="d"">&#xe64f;</i>',
-			"|": '<span class="layedit-tool-mid"></span>',
-			left: '<i class="layui-icon layedit-tool-left" title="\u5de6\u5bf9\u9f50" lay-command="justifyLeft" layedit-event="left"">&#xe649;</i>',
-			center: '<i class="layui-icon layedit-tool-center" title="\u5c45\u4e2d\u5bf9\u9f50" lay-command="justifyCenter" layedit-event="center"">&#xe647;</i>',
-			right: '<i class="layui-icon layedit-tool-right" title="\u53f3\u5bf9\u9f50" lay-command="justifyRight" layedit-event="right"">&#xe648;</i>',
-			link: '<i class="layui-icon layedit-tool-link" title="\u63d2\u5165\u94fe\u63a5" layedit-event="link"">&#xe64c;</i>',
-			unlink: '<i class="layui-icon layedit-tool-unlink layui-disabled" title="\u6e05\u9664\u94fe\u63a5" lay-command="unlink" layedit-event="unlink"">&#xe64d;</i>',
-			face: '<i class="layui-icon layedit-tool-face" title="\u8868\u60c5" layedit-event="face"">&#xe650;</i>',
-			image: '<i class="layui-icon layedit-tool-image" title="\u56fe\u7247" layedit-event="image">&#xe64a;<input type="file" name="file"></i>',
-			code: '<i class="layui-icon layedit-tool-code" title="\u63d2\u5165\u4ee3\u7801" layedit-event="code">&#xe64e;</i>',
-			help: '<i class="layui-icon layedit-tool-help" title="\u5e2e\u52a9" layedit-event="help">&#xe607;</i>'
-		},
-		e = new e;
-	t(i, e)
-});
-layui.define(["lay", "util"], function(e) {
-	"use strict";
-	var d = layui.$,
-		o = layui.util,
-		u = "layui-code-title",
 		l = {
 			elem: ".layui-code",
 			title: "&lt;/&gt;",
 			about: "",
-			ln: !0
+			ln: !0,
+			header: !1,
+			text: {
+				code: _.escape("</>"),
+				preview: "Preview"
+			}
+		},
+		I = function(e) {
+			return M.trim(e).replace(/^\n|\n$/, "")
 		};
 	e("code", function(e) {
-		var c = e = d.extend({}, l, e);
-		e.elem = d(e.elem), e.elem[0] && layui.each(e.elem.get().reverse(), function(e, l) {
-			var t, a = d(l),
-				i = (i = a.html(), d.trim(i).replace(/^\n|\n$/, "")),
-				l = d.extend({}, c, lay.options(l), (t = {}, layui.each(["title", "height",
+		var L = e = M.extend(!0, {}, l, e);
+		e.elem = M(e.elem), e.elem[0] && layui.each(e.elem.get().reverse(), function(e, l) {
+			var t, i, a, s, n, o, d, r, c, u, E = M(l),
+				y = I(E.html()),
+				v = M.extend(!0, {}, L, lay.options(l), (t = {}, layui.each(["title", "height",
 					"encode", "skin", "about"
 				], function(e, l) {
-					var i = a.attr("lay-" + l);
+					var i = E.attr("lay-" + l);
 					"string" == typeof i && (t[l] = i)
 				}), t)),
-				s = l.ln ? "ol" : "ul",
-				s = d("<" + s + ' class="layui-code-' + s + '">'),
-				n = d('<div class="' + u + '">');
-			a.addClass("layui-code-view layui-box"), l.skin && ("notepad" === l.skin && (l
-				.skin = "dark"), a.addClass("layui-code-" + l.skin)), i = (i = l.encode ? o
-				.escape(i) : i).replace(/[\r\t\n]+/g, "</li><li>"), a.html(s.html("<li>" +
-				i + "</li>")), a.children("." + u)[0] || (n.html(l.title + (l.about ?
-				'<div class="layui-code-about">' + l.about + "</div>" : "")), a.prepend(
-				n)), 0 < (i = Math.floor(s.find("li").length / 100)) && s.css("margin-left",
-				i + "px"), l.height && s.css("max-height", l.height)
+				f = (i = [], (l = E.children("textarea")).each(function() {
+					i.push(I(this.value))
+				}), l[0] && (y = _.escape(i.join(""))), 0 === i.length && i.push(I(E
+				.html())), i),
+				h = (v.preview && (l = "LAY-CODE-DF-" + e, a = v.layout || ["code", "preview"],
+					s = "iframe" === v.preview, p = M('<div class="' + b.ELEM_PREVIEW +
+						'">'), u = M('<div class="layui-tab layui-tab-brief">'), n = M(
+						'<div class="layui-tab-title">'), o = M('<div class="' + [b
+						.ELEM_ITEM, b.ELEM_ITEM + "-preview", "layui-border"
+					].join(" ") + '">'), d = M('<div class="layui-code-tools"></div>'), h =
+					E.prev("." + b.ELEM_PREVIEW), m = E.next("." + b.ELEM_ITEM +
+					"-preview"), v.id && p.attr("id", v.id), u.attr("lay-filter", l), layui
+					.each(a, function(e, l) {
+						var i = M('<li lay-id="' + l + '">');
+						0 === e && i.addClass("layui-this"), i.html(v.text[l]), n
+							.append(i)
+					}), r = {
+						full: {
+							className: "screen-full",
+							title: ["\u6700\u5927\u5316\u663e\u793a",
+								"\u8fd8\u539f\u663e\u793a"
+							],
+							event: function(e, l) {
+								var i = e.closest("." + b.ELEM_PREVIEW),
+									t = "layui-icon-" + this.className,
+									a = "layui-icon-screen-restore",
+									s = this.title,
+									n = M("html,body"),
+									o = "layui-scollbar-hide";
+								e.hasClass(t) ? (i.addClass(b.ELEM_FULL), e.removeClass(
+										t).addClass(a), e.attr("title", s[1]), n
+									.addClass(o)) : (i.removeClass(b.ELEM_FULL), e
+									.removeClass(a).addClass(t), e.attr("title", s[
+										0]), n.removeClass(o))
+							}
+						},
+						window: {
+							className: "release",
+							title: ["\u5728\u65b0\u7a97\u53e3\u9884\u89c8"],
+							event: function(e, l) {
+								_.openWin({
+									content: f.join("")
+								})
+							}
+						}
+					}, d.on("click", ">i", function() {
+						var e = M(this),
+							l = e.data("type");
+						"function" == typeof r[l].event && r[l].event(e, l),
+							"function" == typeof v.toolsEvent && v.toolsEvent(e, l)
+					}), layui.each(v.tools, function(e, l) {
+						var i = r[l] && r[l].className || l,
+							t = r[l].title || [""];
+						d.append('<i class="layui-icon layui-icon-' + i +
+							'" data-type="' + l + '" title="' + t[0] + '"></i>')
+					}), h[0] && h.remove(), m[0] && m.remove(), u.append(n), v.tools && u
+					.append(d), E.wrap(p).addClass(b.ELEM_ITEM).before(u), s && o.html(
+						"<iframe></iframe>"), c = function(e) {
+						var l = e.children("iframe")[0],
+							i = (s && l ? l.srcdoc = f.join("") : e.html(f.join("")), {
+								container: e,
+								render: function() {
+									C.render(e.find(".layui-form")), w.render()
+								}
+							});
+						setTimeout(function() {
+							"function" == typeof v.done && v.done(i)
+						}, 3)
+					}, "preview" === a[0] ? (o.addClass(b.ELEM_SHOW), E.before(o), c(o)) : E
+					.addClass(b.ELEM_SHOW).after(o), v.codeStyle = [v.style, v.codeStyle]
+					.join(""), v.previewStyle = [v.style, v.previewStyle].join(""), o.attr(
+						"style", v.previewStyle), w.on("tab(" + l + ")", function(e) {
+						var l = M(this),
+							i = M(e.elem).closest("." + b.ELEM_PREVIEW).find("." + b
+								.ELEM_ITEM),
+							e = i.eq(e.index);
+						i.removeClass(b.ELEM_SHOW), e.addClass(b.ELEM_SHOW),
+							"preview" === l.attr("lay-id") && c(e)
+					})), v.ln ? "ol" : "ul"),
+				m = M("<" + h + ' class="layui-code-' + h + '">'),
+				p = M('<div class="' + b.ELEM_TITLE + '">');
+			E.addClass("layui-code-view layui-box"), v.skin && ("notepad" === v.skin && (v
+					.skin = "dark"), E.addClass("layui-code-" + v.skin)), y = (y = v.encode ? _
+					.escape(y) : y).replace(/[\r\t\n]+/g, "</li><li>"), E.html(m.html("<li>" +
+					y + "</li>")), v.header && !E.children("." + b.ELEM_TITLE)[0] && (p.html(v
+					.title + (v.about ? '<div class="layui-code-about">' + v.about +
+						"</div>" : "")), E.prepend(p)), v.elem.length === e + 1 && "function" ==
+				typeof v.allDone && v.allDone(), 0 < (u = Math.floor(m.find("li").length /
+				100)) && m.css("margin-left", u + "px"), v.height && m.css("max-height", v
+					.height), m.attr("style", v.codeStyle)
 		})
 	})
-}).addcss("modules/code.css?v=3", "skincodecss");
+}), layui["layui.all"] || layui.addcss("modules/code.css?v=3", "skincodecss");
