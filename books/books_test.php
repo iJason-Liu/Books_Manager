@@ -9,7 +9,7 @@ if ($_SESSION['is_flag'] != 2) {
 header("Content-Type:text/html;charset=utf-8");
 
 //执行sql语句的查询语句
-$sql1 = "select * from books";
+$sql1 = "select * from book_list";
 $result = mysqli_query($db_connect, $sql1);
 
 mysqli_close($db_connect); //关闭数据库资源
@@ -21,338 +21,460 @@ mysqli_close($db_connect); //关闭数据库资源
 <head>
     <meta charset="utf-8">
     <title>表格数据</title>
+    <link rel="shortcut icon" href="../images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../css/layui.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/modules/layer/layer.css">
+    <style>
+        .have{
+            color: #009688;
+        }
+        .use{
+            color: #ff5722;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <a href="../administrator/index.php">
+                <div class="layui-logo layui-hide-xs layui-bg-black">Library</div>
+            </a>
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <!-- 移动端显示 -->
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                    <i class="layui-icon layui-icon-spread-left"></i>
+                </li>
 
-    <table class="layui-hide" id="bookcase" lay-filter="test"></table>
-
-    <script type="text/html" id="toolbarDemo">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-            <button class="layui-btn layui-btn-sm" lay-event="getData">获取当前页数据</button>
-            <button class="layui-btn layui-btn-sm" lay-event="isAll">是否全选</button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="multi-row">
-                多行
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="default-row">
-                单行
-            </button>
-            <button class="layui-btn layui-btn-sm" id="moreTest">
-                更多操作
-                <i class="layui-icon layui-icon-down layui-font-12"></i>
-            </button>
-        </div>
-    </script>
-
-    <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </script>
-
-    <script src="../js/layui.simple.js"></script>
-
-    <?php
-    class status
-    {
-        public $code = "";
-        public $msg = "";
-        public $count = "";
-    }
-    class booksData
-    {
-        public $id = "";  //图书编号
-        public $name = ""; //图书名称
-        public $price = ""; //图书价格
-        public $author = ""; //作者
-        public $publisher = ""; //出版社
-        public $number = "";  //库存
-        public $type = "";  //图书类型
-        public $mark = "";  //图书介绍
-    }
-    while ($row = mysqli_fetch_array($result)) {
-        //创建状态实例
-        $status = new status();
-        $status->code = 0;
-        $status->msg = "成功";
-        $status->count = "100";
-
-        //创建图书实例
-        $data = new booksData();
-        $data->id = $row["book_id"];
-        $data->name = $row["book_name"];
-        $data->price = $row["price"];
-        $data->author = $row["author"];
-        $data->publisher = $row["publisher"];
-        $data->number = $row["number"];
-        $data->type = $row["book_type"];
-        $data->mark = $row["mark"];
-
-        // echo $data->id;
-        $sta = json_encode($status, JSON_UNESCAPED_UNICODE);
-        $dat = json_encode($data, JSON_UNESCAPED_UNICODE);  //对数组进行json格式化
-        // $json_Data = $sta .= $dat;
-        // echo $json_Data;
-        // var_dump($json_Data);
-
-
-        //把获取到的数据保存为json文件
-        // $jsonFile = fopen("../json/bookListFile".date('y-m-d').".json", "w") or die("打开文件失败！");
-        $jsonFile = fopen("../json/bookListFile.json", "w") or die("打开文件失败！");
-        fwrite($jsonFile, $json_Data);
-        // fclose($jsonFile);
-    ?>
-        <script>
-            layui.use(['table', 'dropdown'], function() {
-                var table = layui.table;
-                var dropdown = layui.dropdown;
-
-                // 创建渲染实例
-                table.render({
-                    elem: '#bookcase',
-                    url: '../books/test.php', // 此处为静态模拟数据，实际使用时需换成真实接口
-                    parseData: function(res) { //res 即为原始返回的数据
-                        return {
-                            "status": 200, //解析接口状态
-                            "msg": "success", //解析提示文本
-                            "count": res.count, //解析数据长度
-                            "data": res, //解析数据列表
+                <li class="layui-nav-item layui-hide-xs"><a href="../administrator/index.php">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="">帮助中心</a></li>
+                <!-- <li class="layui-nav-item">
+                    <a href="javascript:;">更多</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">menu 11</a></dd>
+                        <dd><a href="">menu 22</a></dd>
+                        <dd><a href="">menu 33</a></dd>
+                    </dl>
+                </li> -->
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                    <a href="javascript:;">
+                        <img src="https://xn--gmqz83awjh.org/images/ico/tututu.jpg" class="layui-nav-img">
+                        <?php
+                        if ($_SESSION['is_flag'] != 2) {
+                            echo "<script>alert('您没有权限访问！');location.href='../login/login.php'</script>";
+                        } else {
+                            echo "您好！". $_SESSION['user'];
                         }
-                    },
-                    response: {
-                        statusName: 'status', //规定数据状态的字段名称，默认：code
-                        statusCode: 200, //规定成功的状态码，默认：0
-                        msgName: 'msg', //规定状态信息的字段名称，默认：msg
-                        countName: 'count', //规定数据总数的字段名称，默认：count
-                        dataName: 'data' //规定数据列表的字段名称，默认：data
-                    },
-                    toolbar: '#toolbarDemo',
-                    defaultToolbar: ['filter', 'exports', 'print', {
-                        title: '帮助',
-                        layEvent: 'LAYTABLE_TIPS',
-                        icon: 'layui-icon-tips'
-                    }],
-                    height: 'full-200', // 最大高度减去其他容器已占有的高度差
-                    cellMinWidth: 100,
-                    totalRow: true // 开启合计行
-                        ,
-                    page: true, //开启分页
-                    cols: [
-                        [{
-                                type: 'checkbox',
-                                fixed: 'left'
-                            }, {
-                                field: 'id',
-                                fixed: 'left',
-                                width: 120,
-                                title: '图书编号',
-                                sort: true,
-                                align: 'center',
-                                totalRowText: '合计：'
-                            }, {
-                                field: 'name',
-                                width: 120,
-                                title: '图书名称',
-                                align: 'center'
-                            }, {
-                                field: 'price',
-                                title: '价格(单位:元)',
-                                hide: 0,
-                                width: 150,
-                                align: 'center',
-                                sort: true
-                            }, {
-                                field: 'author',
-                                width: 100,
-                                align: 'center',
-                                title: '作者'
-                            },
-                            {
-                                field: 'publisher',
-                                width: 120,
-                                title: '出版社',
-                                align: 'center'
-                            }, {
-                                field: 'type',
-                                width: 100,
-                                title: '图书类别',
-                                align: 'center'
-                            }, {
-                                field: 'number',
-                                title: '库存',
-                                width: 100,
-                                sort: true,
-                                align: 'center'
-                            }, {
-                                field: 'mark',
-                                width: 120,
-                                title: '图书介绍',
-                                edit: 'textarea',
-                                minWidth: 260,
-                                align: 'center',
-                                style: '-moz-box-align: start;'
-                            }, {
-                                fixed: 'right',
-                                title: '操作',
-                                width: 125,
-                                minWidth: 125,
-                                align: 'center',
-                                toolbar: '#barDemo'
-                            }
-                        ]
-                    ],
-                    done: function() {
-                        var id = this.id;
+                        ?>
+                    </a>
+                    <dl class="layui-nav-child layui-nav-child-c">
+                        <!-- <dd><a href="#" style="font-size:14px;">
+                            身份：
+                        </a></dd> -->
+                        <dd><a href="">个人中心</a></dd>
+                        <dd><a href="">修改密码</a></dd>
+                        <dd><a href="../login/logout.php">注销</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
 
-                        // 更多操作
-                        dropdown.render({
-                            elem: '#moreTest' //可绑定在任意元素中，此处以上述按钮为例
-                                ,
-                            data: [{
-                                    id: 'add',
-                                    title: '添加'
-                                }, {
-                                    id: 'update',
-                                    title: '编辑'
-                                }, {
-                                    id: 'delete',
-                                    title: '删除'
-                                }]
-                                //菜单被点击的事件
-                                ,
-                            click: function(obj) {
-                                var checkStatus = table.checkStatus(id)
-                                var data = checkStatus.data; // 获取选中的数据
-                                switch (obj.id) {
-                                    case 'add':
-                                        layer.open({
-                                            title: '添加',
-                                            type: 1,
-                                            area: ['80%', '80%'],
-                                            content: '<div style="padding: 16px;">自定义表单元素</div>'
-                                        });
-                                        break;
-                                    case 'update':
-                                        if (data.length !== 1) return layer.msg('请选择一行');
-                                        layer.open({
-                                            title: '编辑',
-                                            type: 1,
-                                            area: ['80%', '80%'],
-                                            content: '<div style="padding: 16px;">自定义表单元素</div>'
-                                        });
-                                        break;
-                                    case 'delete':
-                                        if (data.length === 0) {
-                                            return layer.msg('请选择一行');
-                                        }
-                                        layer.msg('delete event');
-                                        break;
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">个人中心</a>
+                        <dl class="layui-nav-child">
+                            <!-- 包含注销功能，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
+                            <dd><a href="javascript:;">信息管理</a></dd>
+                            <dd><a href="javascript:;">修改密码</a></dd>
+                        </dl>
+                    </li>
+
+                    <!-- 判断身份为超级管理员时显示 -->
+                    <!-- <li class="layui-nav-item">
+                        <a class="" href="javascript:;">馆员中心</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">馆员档案</a></dd>
+                        </dl>
+                    </li> -->
+
+                    <!-- 根据权限判断是否显示(学生教师不显示) -->
+                    <!-- <li class="layui-nav-item">
+                        <a href="javascript:;">读者中心</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">读者档案</a></dd>
+                            <dd><a href="javascript:;">读者类型</a></dd>
+                        </dl>
+                    </li> -->
+
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">图书信息中心</a>
+                        <dl class="layui-nav-child">
+                            <!-- 图书查询包含编号、书名、ISBN、类别、作者、出版社、图书价格、数量、是否借出状态、书本介绍、添加日期、图书封面、更新日期、存放位置 -->
+                            <dd><a href="../books/books_list.php">馆藏图书</a></dd>
+                            <!-- 包含查询，书库名，编号，位置 -->
+                            <dd><a href="../upload/test.php">书库信息</a></dd>
+                            <!-- 图书点击量 -->
+                            <dd class="layui-this"><a href="../books/books_test.php">人气图书</a></dd>
+                            <dd><a href="javascript:;">图书类别</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">流通管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">图书借阅查询</a></dd>
+                            <dd><a href="javascript:;">图书续借</a></dd>
+                            <dd><a href="javascript:;">图书归还</a></dd>
+                        </dl>
+                    </li>
+
+                    <!-- 评论只允许管理员和超级管理员查看 -->
+                    <!-- <li class="layui-nav-item">
+                        <a href="javascript:;">评论管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">评论中心</a></dd>
+                            <dd><a href="javascript:;">评论风控</a></dd>
+                        </dl>
+                    </li> -->
+
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">系统维护</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">权限管理</a></dd>
+                            <dd><a href="javascript:;">系统信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="https://cupfox.app/" target="_blank">友情链接</a></li>
+                    <li class="layui-nav-item"><a href="https://qinggongju.com/#tab-19-308" target="_blank">小工具</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <table class="layui-hide" id="bookcase" lay-filter="test"></table>
+            <script type="text/html" id="toolbarDemo">
+                <div class="layui-btn-container">
+                    <button class="layui-btn layui-btn-sm" lay-event="exportBook">添加图书</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="multi-row">
+                        多行显示
+                    </button>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="default-row">
+                        单行显示
+                    </button>
+                    <button class="layui-btn layui-btn-sm" lay-event="tip">tips</button>
+                </div>
+            </script>
+
+            <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+            <script type="text/html" id="img"> <img src="{{d.book_cover}}" width="32" height="25" alt=""> </script>
+            <script type="text/html" id="status">
+                <p class="{{d.status == 0 ? 'have' : 'use'}}">{{d.status == 0 ? '在库' : '借出'}}</p>
+            </script>
+            <div id="test">
+                <script>
+
+                </script>
+            </div>
+
+            <?php
+                //定义返回的数据头
+                //$status = array('code' => 0,'msg' => "success");
+                $res = array('code' => 200,'msg' => "success",'count' => mysqli_num_rows($result),'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC));
+                //把两串数据拼起来
+                //$res = array_merge($status,$res);
+                $data = json_encode($res, JSON_UNESCAPED_UNICODE);
+                // 把数据写入json文件
+                file_put_contents('../json/bookListFile.json',$data);
+            ?>
+            <script src="../js/layui.simple.js"></script>
+            <script src="../js/jquery-3.3.1.min.js"></script>
+                <script>
+                    layui.use(['table'], function() {
+                        let table = layui.table;
+
+                        // 创建渲染实例
+                        table.render({
+                            elem: '#bookcase',
+                            type: 'POST',
+                            url: '../json/bookListFile.json', // 此处为静态模拟数据，实际使用时需换成真实接口
+                            parseData: function(res) { //res 即为原始返回的数据
+                                // console.log(res); //打印数据显示
+                                return {
+                                    "code": res.code, //解析接口状态
+                                    "msg": res.msg, //解析提示文本
+                                    "count": res.count, //解析数据长度
+                                    "data": res.data, //解析数据列表
                                 }
+                            },
+                            response: {
+                                statusCode: 200, //规定成功的状态码，默认：0
+                            },
+                            toolbar: '#toolbarDemo',
+                            height: 'full-115', // 最大高度减去其他容器已占有的高度差
+                            cellMinWidth: 100,
+                            totalRow: true, // 开启合计行
+                            page: true, //开启分页
+                            cols: [
+                                [{
+                                    type: 'checkbox',
+                                    fixed: 'left'
+                                }, {
+                                    field: 'book_id',
+                                    fixed: 'left',
+                                    width: 110,
+                                    title: '图书编号',
+                                    sort: true,
+                                    align: 'center',
+                                    totalRowText: '合计：'
+                                }, {
+                                    field: 'book_name',
+                                    width: 200,
+                                    title: '图书名称',
+                                    align: 'center'
+                                }, {
+                                    field: 'author',
+                                    width: 140,
+                                    align: 'center',
+                                    title: '作者'
+                                }, {
+                                    field: 'book_type',
+                                    width: 100,
+                                    title: '图书类别',
+                                    align: 'center'
+                                }, {
+                                    field: 'publisher',
+                                    width: 150,
+                                    title: '出版社',
+                                    align: 'center'
+                                }, {
+                                    field: 'price',
+                                    title: '价格(元)',
+                                    // hide: 0,
+                                    width: 90,
+                                    align: 'center',
+                                    sort: true
+                                }, {
+                                    field: 'number',
+                                    title: '库存',
+                                    width: 100,
+                                    sort: true,
+                                    align: 'center'
+                                }, {
+                                    field: 'book_cover',
+                                    title: '图书封面',
+                                    width: 100,
+                                    align: 'center',
+                                    templet: '#img'
+                                }, {
+                                    field: 'mark',
+                                    width: 150,
+                                    title: '图书简介',
+                                    edit: 'textarea',
+                                    minWidth: 260,
+                                    align: 'left',
+                                    style: '-moz-box-align: start;'
+                                }, {
+                                    field: 'save_position',
+                                    width: 140,
+                                    title: '藏书位置',
+                                    align: 'center',
+                                    style: '-moz-box-align: start;'
+                                }, {
+                                    field: 'status',  //借阅状态判断 0 在库 1 借出
+                                    width: 120,
+                                    title: '借阅状态',
+                                    align: 'center',
+                                    style: '-moz-box-align: start;',
+                                    templet: '#status'
+                                }, {
+                                    field: 'create_date',
+                                    width: 175,
+                                    title: '入库时间',
+                                    align: 'center',
+                                    style: '-moz-box-align: start;'
+                                }, {
+                                    field: 'update_date',
+                                    width: 175,
+                                    title: '更新时间',
+                                    align: 'center',
+                                    style: '-moz-box-align: start;'
+                                }, {
+                                    fixed: 'right',
+                                    title: '操作',
+                                    width: 160,
+                                    minWidth: 170,
+                                    align: 'center',
+                                    toolbar: '#barDemo'
+                                }
+                                ]
+                            ],done: function (){
+                                hoverOpenImg();//显示大图
+                            },
+                            error: function(res, msg) {
+                                console.log(res, msg)
                             }
                         });
-                    },
-                    error: function(res, msg) {
-                        console.log(res, msg)
-                    }
-                });
 
-                // 工具栏事件
-                table.on('toolbar(test)', function(obj) {
-                    var id = obj.config.id;
-                    var checkStatus = table.checkStatus(id);
-                    var othis = lay(this);
-                    switch (obj.event) {
-                        case 'getCheckData':
-                            var data = checkStatus.data;
-                            layer.alert(layui.util.escape(JSON.stringify(data)));
-                            break;
-                        case 'getData':
-                            var getData = table.getData(id);
-                            console.log(getData);
-                            layer.alert(layui.util.escape(JSON.stringify(getData)));
-                            break;
-                        case 'isAll':
-                            layer.msg(checkStatus.isAll ? '全选' : '未全选')
-                            break;
-                        case 'multi-row':
-                            table.reload('bookcase', {
-                                // 设置行样式，此处以设置多行高度为例。若为单行，则没必要设置改参数 - 注：v2.7.0 新增
-                                lineStyle: 'height: 95px;'
-                            });
-                            layer.msg('即通过设置 lineStyle 参数可开启多行');
-                            break;
-                        case 'default-row':
-                            table.reload('bookcase', {
-                                lineStyle: null // 恢复单行
-                            });
-                            layer.msg('已设为单行');
-                            break;
-                        case 'LAYTABLE_TIPS':
-                            layer.alert('Table for layui-v' + layui.v);
-                            break;
-                    };
-                });
-
-                //触发单元格工具事件
-                table.on('tool(test)', function(obj) { // 双击 toolDouble
-                    var data = obj.data;
-                    //console.log(obj)
-                    if (obj.event === 'del') {
-                        layer.confirm('确认删除某本书吗？', function(index) {
-                            obj.del();
-                            layer.close(index);
+                        // 工具栏事件
+                        table.on('toolbar(test)', function(obj) {
+                            let id = obj.config.id;
+                            let checkStatus = table.checkStatus(id);
+                            // 获取选中的数据
+                            let data = checkStatus.data;
+                            switch (obj.event) {
+                                case 'exportBook':
+                                    layer.open({
+                                        title: '新增图书',
+                                        type: 2,
+                                        area: ['50%', '88%'],
+                                        skin: 'layui-layer-molv',
+                                        maxmin: true,
+                                        shadeClose: true,
+                                        content: '../books/add_books.php'
+                                    });
+                                    break;
+                                case 'multi-row':
+                                    table.reload('bookcase', {
+                                        // 设置行样式，此处以设置多行高度为例。若为单行，则没必要设置改参数 - 注：v2.7.0 新增
+                                        lineStyle: 'height: 150px;'
+                                    });
+                                    layer.msg('将显示更多的内容！');
+                                    break;
+                                case 'default-row':
+                                    table.reload('bookcase', {
+                                        lineStyle: null // 恢复单行
+                                    });
+                                    layer.msg('将显示更少的内容！');
+                                    break;
+                                case 'tip':
+                                    layer.msg('表格可以左右滑动查看更多内容噢~');
+                                    break;
+                            };
                         });
-                    } else if (obj.event === 'edit') {
-                        layer.open({
-                            title: '编辑',
-                            type: 1,
-                            area: ['80%', '80%'],
-                            content: '<div style="padding: 16px;">自定义表单元素</div>'
+
+                        //触发单元格工具事件
+                        table.on('tool(test)', function(obj) { // 双击 toolDouble
+                            let data = obj.data;
+                            // console.log(data);
+                            let id = data.book_id;
+                            // 图书详情url
+                            let url = '../books/books_detail.php?id='+id;
+                            // 图书更新信息url
+                            let url1 = '../books/update_books.php?id='+id;
+                            // alert(url);
+                            // console.log(obj);
+                            if (obj.event === 'detail') {
+                                layer.open({
+                                    title: '图书详细信息',
+                                    type: 2,
+                                    area: ['50%', '88%'],
+                                    content: url,
+                                    skin: 'layui-layer-molv',
+                                    maxmin: true,
+                                    shadeClose: true,
+                                });
+                            } else if (obj.event === 'edit') {
+                                layer.open({
+                                    title: '编辑图书信息',
+                                    type: 2,
+                                    area: ['50%', '88%'],
+                                    content: url1,
+                                    // btn: ['确认','取消'],
+                                    skin: 'layui-layer-molv',
+                                    maxmin: true,
+                                    shadeClose: true,
+                                    // success: function (){
+                                    //
+                                    //     layer.close();
+                                    // }
+                                });
+                            }else if(obj.event === 'del'){
+                                layer.confirm('是否确认删除此书？', function() {
+                                    layer.msg('已删除', {
+                                        icon: 1,
+                                        time: 2000
+                                    });
+                                    location.href = "../books/del_book.php?id="+id;
+                                },function (){
+                                    layer.msg('取消操作', {
+                                        time: 1500, //1.5s后自动关闭
+                                    });
+                                });
+                            }
                         });
+
+                        //触发表格复选框选择
+                        table.on('checkbox(test)', function(obj) {
+                            // console.log(obj);
+                        });
+
+                        //触发表格单选框选择
+                        table.on('radio(test)', function(obj) {
+                            // console.log(obj)
+                        });
+
+                        // 行单击事件
+                        table.on('row(test)', function(obj) {
+                            //console.log(obj);
+                            //layer.closeAll('tips');
+                        });
+                        // 行双击事件
+                        table.on('rowDouble(test)', function(obj) {
+                            // console.log(obj);
+                        });
+
+                        // 单元格编辑事件
+                        table.on('edit(test)', function(obj) {
+                            let field = obj.field //得到字段
+                                ,
+                                value = obj.value //得到修改后的值
+                                ,
+                                data = obj.data; //得到所在行所有键值
+
+                            let update = {};
+                            update[field] = value;
+                            obj.update(update);
+                        });
+                    });
+
+                    //大图显示封面
+                    function hoverOpenImg(){
+                        let img_show = null; // tips提示
+                        $('td img').hover(function(){
+                            //alert($(this).attr('src'));
+                            let img = "<img src='"+$(this).attr('src')+"' style='width:130px;' />";
+                            img_show = layer.tips(img, this,{
+                                tips:[2, 'rgba(41,41,41,.3)']
+                                ,area: ['160px']
+                            });
+                        },function(){
+                            layer.close(img_show);
+                        });
+                        $('td img').attr('style','max-width:70px');
                     }
-                });
+                </script>
+        </div>
 
-                //触发表格复选框选择
-                table.on('checkbox(test)', function(obj) {
-                    console.log(obj)
-                });
-
-                //触发表格单选框选择
-                table.on('radio(test)', function(obj) {
-                    console.log(obj)
-                });
-
-                // 行单击事件
-                table.on('row(test)', function(obj) {
-                    //console.log(obj);
-                    //layer.closeAll('tips');
-                });
-                // 行双击事件
-                table.on('rowDouble(test)', function(obj) {
-                    console.log(obj);
-                });
-
-                // 单元格编辑事件
-                table.on('edit(test)', function(obj) {
-                    var field = obj.field //得到字段
-                        ,
-                        value = obj.value //得到修改后的值
-                        ,
-                        data = obj.data; //得到所在行所有键值
-
-                    var update = {};
-                    update[field] = value;
-                    obj.update(update);
-                });
-            });
-        </script>
-    <?php } ?>
-
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            <p style="text-align: center;">
+                小新的主站 Copyright © 2022 by Jason Liu 云ICP备
+            </p>
+        </div>
+    </div>
 </body>
-
 </html>

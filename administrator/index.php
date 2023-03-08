@@ -34,15 +34,8 @@
                     <i class="layui-icon layui-icon-spread-left"></i>
                 </li>
 
-                <li class="layui-nav-item layui-hide-xs layui-this"><a href="../administrator/index.php">首页</a></li>
-                <li class="layui-nav-item">
-                    <a href="../books/books_list.php">图书中心</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">人气图书</a></dd>  <!--点击量界面展示 -->
-                        <dd><a href="">图书类别</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">图书馆首页</a></li>
+                <li class="layui-nav-item layui-hide-xs layui-this"><a href="../administrator/index.php">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">前台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="">帮助中心</a></li>
                 <!-- <li class="layui-nav-item">
                     <a href="javascript:;">更多</a>
@@ -108,12 +101,15 @@
                     </li> -->
 
                     <li class="layui-nav-item">
-                        <a href="javascript:;">图书查询</a>
+                        <a class="" href="javascript:;">图书信息中心</a>
                         <dl class="layui-nav-child">
                             <!-- 图书查询包含编号、书名、ISBN、类别、作者、出版社、图书价格、数量、是否借出状态、书本介绍、添加日期、图书封面、更新日期、存放位置 -->
-                            <dd><a href="javascript:;">馆藏图书查询</a></dd> 
-                            <!-- 包含书库名，编号，位置 -->
-                            <dd><a href="javascript:;">书库查询</a></dd>
+                            <dd><a href="../books/books_list.php">馆藏图书</a></dd>
+                            <!-- 包含查询，书库名，编号，位置 -->
+                            <dd><a href="javascript:;">书库信息</a></dd>
+                            <!-- 图书点击量 -->
+                            <dd><a href="../books/books_test.php">人气图书</a></dd>
+                            <dd><a href="javascript:;">图书类别</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -149,7 +145,7 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px;">考虑布局排版，包含图书封面，九宫格布局</div>
+            <div style="padding: 15px;">欢迎来到小新的图书管理系统中心！</div>
         </div>
 
         <div class="layui-footer">

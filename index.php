@@ -67,22 +67,22 @@
     </header> -->
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="index.html"> <img alt="logo" class="logo" src="./images/logo.png" />
+            <a class="hc-logo" href="./index.php"> <img alt="logo" class="logo" src="./images/logo.png" />
             </a>
             <ul class="layui-nav">
                 <li class="layui-nav-item hc-hide-sm layui-this"> <a href="./index.php">首页</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=1">文学类</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=2">冒险类</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=3">励志类</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort.php?id=4">历史类</a> </li>
+                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=1">文学类</a> </li>
+                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=2">冒险类</a> </li>
+                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=3">励志类</a> </li>
+                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=4">历史类</a> </li>
                 <li class="layui-nav-item hc-show-sm"> <a href="javascript:;">更多</a>
                     <dl class="layui-nav-child">
-                        <dd class=""><a href="books_sort.php?id=5">玄幻类</a></dd>
-                        <dd class=""><a href="books_sort.php?id=6">悬疑类</a></dd>
-                        <dd class=""><a href="books_sort.php?id=7">政治类</a></dd>
-                        <dd class=""><a href="books_sort.php?id=8">经济类</a></dd>
-                        <dd class=""><a href="books_sort.php?id=9">军事类</a></dd>
-                        <dd class=""><a href="books_sort.php?id=10">著作类</a></dd>
+                        <dd class=""><a href="books_sort/books_sort.php?id=5">玄幻类</a></dd>
+                        <dd class=""><a href="books_sort/books_sort.php?id=6">悬疑类</a></dd>
+                        <dd class=""><a href="books_sort/books_sort.php?id=7">政治类</a></dd>
+                        <dd class=""><a href="books_sort/books_sort.php?id=8">经济类</a></dd>
+                        <dd class=""><a href="books_sort/books_sort.php?id=9">军事类</a></dd>
+                        <dd class=""><a href="books_sort/books_sort.php?id=10">著作类</a></dd>
                     </dl>
                 </li>
             </ul>

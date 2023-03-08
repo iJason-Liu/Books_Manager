@@ -9,7 +9,7 @@ if ($_SESSION['is_flag'] != 2) {
 header("Content-Type:text/html;charset=utf-8");
 
 //执行sql语句的查询语句
-$sql1 = "select * from books";
+$sql1 = "select * from book_list";
 $result = mysqli_query($db_connect, $sql1);
 
 mysqli_close($db_connect); //关闭数据库资源
@@ -97,24 +97,18 @@ mysqli_close($db_connect); //关闭数据库资源
                     <i class="layui-icon layui-icon-spread-left"></i>
                 </li>
 
-                <li class="layui-nav-item layui-hide-xs"><a href="../administrator/index.php">首页</a></li>
-                <li class="layui-nav-item layui-this">
-                    <a href="../books/books_list.php">图书中心</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="../books/books_test.php">人气图书</a></dd> <!--点击量界面展示 -->
-                        <dd><a href="">图书类别</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">图书馆首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../administrator/index.php">后台首页</a></li>
+
+                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">前台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="">帮助中心</a></li>
                 <!-- <li class="layui-nav-item">
-                    <a href="javascript:;">更多</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">menu 11</a></dd>
-                        <dd><a href="">menu 22</a></dd>
-                        <dd><a href="">menu 33</a></dd>
-                    </dl>
-                </li> -->
+                <a href="javascript:;">更多</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">menu 11</a></dd>
+                    <dd><a href="">menu 22</a></dd>
+                    <dd><a href="">menu 33</a></dd>
+                </dl>
+            </li> -->
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide layui-show-md-inline-block">
@@ -130,8 +124,8 @@ mysqli_close($db_connect); //关闭数据库资源
                     </a>
                     <dl class="layui-nav-child layui-nav-child-c">
                         <!-- <dd><a href="#" style="font-size:14px;">
-                            身份：
-                        </a></dd> -->
+                        身份：
+                    </a></dd> -->
                         <dd><a href="">个人中心</a></dd>
                         <dd><a href="">修改密码</a></dd>
                         <dd><a href="../login/logout.php">注销</a></dd>
@@ -144,7 +138,7 @@ mysqli_close($db_connect); //关闭数据库资源
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item layui-nav-itemed">
+                    <li class="layui-nav-item">
                         <a class="" href="javascript:;">个人中心</a>
                         <dl class="layui-nav-child">
                             <!-- 包含注销功能，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
@@ -155,30 +149,34 @@ mysqli_close($db_connect); //关闭数据库资源
 
                     <!-- 判断身份为超级管理员时显示 -->
                     <!-- <li class="layui-nav-item">
-                        <a class="" href="javascript:;">馆员中心</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">馆员档案</a></dd>
-                        </dl>
-                    </li> -->
+                    <a class="" href="javascript:;">馆员中心</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">馆员档案</a></dd>
+                    </dl>
+                </li> -->
 
                     <!-- 根据权限判断是否显示(学生教师不显示) -->
                     <!-- <li class="layui-nav-item">
-                        <a href="javascript:;">读者中心</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">读者档案</a></dd>
-                            <dd><a href="javascript:;">读者类型</a></dd>
-                        </dl>
-                    </li> -->
+                    <a href="javascript:;">读者中心</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">读者档案</a></dd>
+                        <dd><a href="javascript:;">读者类型</a></dd>
+                    </dl>
+                </li> -->
 
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">图书查询</a>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">图书信息中心</a>
                         <dl class="layui-nav-child">
                             <!-- 图书查询包含编号、书名、ISBN、类别、作者、出版社、图书价格、数量、是否借出状态、书本介绍、添加日期、图书封面、更新日期、存放位置 -->
-                            <dd><a href="javascript:;">馆藏图书查询</a></dd>
-                            <!-- 包含书库名，编号，位置 -->
-                            <dd><a href="javascript:;">书库查询</a></dd>
+                            <dd class="layui-this"><a href="../books/books_list.php">馆藏图书</a></dd>
+                            <!-- 包含查询，书库名，编号，位置 -->
+                            <dd><a href="javascript:;">书库信息</a></dd>
+                            <!-- 图书点击量 -->
+                            <dd><a href="../books/books_test.php">人气图书</a></dd>
+                            <dd><a href="javascript:;">图书类别</a></dd>
                         </dl>
                     </li>
+
                     <li class="layui-nav-item">
                         <a href="javascript:;">流通管理</a>
                         <dl class="layui-nav-child">
@@ -190,12 +188,12 @@ mysqli_close($db_connect); //关闭数据库资源
 
                     <!-- 评论只允许管理员和超级管理员查看 -->
                     <!-- <li class="layui-nav-item">
-                        <a href="javascript:;">评论管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">评论中心</a></dd>
-                            <dd><a href="javascript:;">评论风控</a></dd>
-                        </dl>
-                    </li> -->
+                    <a href="javascript:;">评论管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">评论中心</a></dd>
+                        <dd><a href="javascript:;">评论风控</a></dd>
+                    </dl>
+                </li> -->
 
                     <li class="layui-nav-item">
                         <a href="javascript:;">系统维护</a>
@@ -335,15 +333,15 @@ mysqli_close($db_connect); //关闭数据库资源
     </script>
     <script type="text/javascript" src="../js/layui.simple.js"></script>
     <script>
-        //JS 
+        //JS
         layui.use(['element', 'layer', 'util'], function() {
             var element = layui.element,
                 layer = layui.layer,
                 util = layui.util,
                 $ = layui.jquery;
 
-                // 删除操作
-                $('.delbtn #del').click(function() {
+            // 删除操作
+            $('.delbtn #del').click(function() {
                 // layer.msg("hello!");  //测试
                 layer.confirm('您是否确认删除此书？', {
                     title: '温馨提示',

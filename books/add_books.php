@@ -7,24 +7,33 @@
     }
 
     // 查询图书类别表
-    $sql1="select * from bookstype";
+    $sql1="select * from book_type";
     $result=mysqli_query($db_connect,$sql1);
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>添加新图书</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../css/layui.css" rel="stylesheet">
 		<style>
 			td {
-				height: 45px;
+				height: 60px;
+
 			}
+            .tab{
+                margin: 20px auto;
+            }
+            input{
+                width: 350px;
+                height: 35px;
+                padding: 4px;
+            }
             textarea{
                 font-size: 16px;
-            }
-            .btn{
-                width:80px;
-                height:25px;
-                background-color:lightseagreen;
-                cursor: pointer;
+                padding: 4px;
             }
             .sel{
 				width: 137px;
@@ -35,24 +44,25 @@
 		</style>
 	</head>
 	<body style='background: url(../images/bg3.jpg) top center no-repeat; background-size:cover'>
-		<h2 align='center' style='margin-top:5%'>添 加 新 图 书</h2>
-		<form action='add_books_check.php' method='post'>
-			<table align='center'>
+		<h1 align="center" style='margin-top:10px'>添加新图书</h1>
+        <hr>
+		<form action='../books/add_books_check.php' method='post'>
+			<table class="tab">
 				<tr>
 					<th style='width:120px'>书本名称:</th>
-					<td><input name='name' required value='' placeholder="请输入图书名称，请手动添加书名号" style='width:300px' /></td>
+					<td><input name='name' required value='' placeholder="请输入图书名称，请手动添加书名号" /></td>
 				</tr>
 				<tr>
 					<th>书本价格:</th>
-					<td><input name='price' type="number" required placeholder="请输入价格" value='' style='width:300px' /></td>
+					<td><input name='price' type="number" required placeholder="请输入价格" value=''  /></td>
 				</tr>
 				<tr>
 					<th>书本作者:</th>
-					<td><input name='author' required value='' placeholder="请输入作者" style='width:300px' /></td>
+					<td><input name='author' required value='' placeholder="请输入作者"  /></td>
 				</tr>
 				<tr>
-					<th>出版社:</th>
-					<td><input name='publisher' required value='' placeholder="请输入图书出版社" style='width:300px' /></td>
+					<th>出 版 社:</th>
+					<td><input name='publisher' required value='' placeholder="请输入图书出版社"  /></td>
 				</tr>
 				<tr>
 					<th>图书类别:</th>
@@ -69,8 +79,8 @@
                     </td>
 				</tr>
 				<tr>
-					<th>数量:</th>
-					<td><input name='number' required type="number" value='' placeholder="请输入数量" style='width:300px' /></td>
+					<th>数 量:</th>
+					<td><input name='number' required type="number" value='' placeholder="单位：本"  /></td>
 				</tr>
 				<tr style='height:145px'>
 					<th>书本介绍:</th>
@@ -78,11 +88,8 @@
 				</tr>
 				<tr>
 					<td colspan='2' align='center'>
-						<input type='submit' name="add" value='确 认' class="btn"/>
-						<input type='reset' value='重  置' class="btn"/>
-                        <a href='#'>
-                            <input type='button' value='返 回' onclick='window.location.href="../books/books_list.php"' class="btn"/>
-                        </a>
+                        <button type='submit' name="add" value='确 认' class="layui-btn layui-btn-sm">确 认</button>
+                        <button type='reset' value='重  置' class="layui-btn layui-btn-sm">重 置</button>
 					</td>
 				</tr>
 			</table>

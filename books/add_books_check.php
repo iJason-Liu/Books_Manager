@@ -14,8 +14,8 @@
 	echo $number = $_POST['number'];
 	echo $mark = $_POST['mark'];
 
-    $sql = "select * from books";
-    $add_sql="insert into books(book_name,price,author,publisher,book_type,number,mark)"."values('$name','$price','$author','$publisher','$type','$number','$mark')";
+    $sql = "select * from book_list";
+    $add_sql="insert into book_list(book_name,price,author,publisher,book_type,number,mark)"."values('$name','$price','$author','$publisher','$type','$number','$mark')";
     $is_book_name_equal=0;  //判断图书是否存在
     $result=mysqli_query($db_connect,$sql);
     // 判断用户名是否存在
@@ -29,6 +29,6 @@
         echo "<script>alert('所添加图书已经存在！！！');history.back();</script>";
     }else if(isset($_POST['add']) && $name!=''){
         mysqli_query($db_connect,$add_sql);
-        echo "<script>alert('添加成功！');location.href='../books/books_list.php'</script>";
+        echo "<script>alert('添加成功！');location.href='../books/books_test.php'</script>";
     }
 ?>

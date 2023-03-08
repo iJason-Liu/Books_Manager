@@ -7,8 +7,8 @@
 		<meta charset="utf-8" />
 		<title>注册中心</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<script type="text/javascript" src="/Books_Manager/js/jquery-3.3.1.min.js" ></script>
-		<link rel="stylesheet" href="/Books_Manager/live2d/css/live2d.css" />
+		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
+		<link rel="stylesheet" href="../live2d/css/live2d.css" />
 		
 		<script type="text/javascript">
 			//验证码刷新
@@ -108,18 +108,20 @@
 						</tr>
 						<tr>
 							<td>密 码：</td>
-							<td><input type="password" id="userpwd" name="password" value="" placeholder="请输入密码" required style="width: 243px;height: 27px" /></td>
+							<td>
+                                <input type="password" id="userpwd" name="password" value="" placeholder="请输入密码" maxlength="16" required style="width: 243px;height: 27px" />
+                            </td>
 						</tr>
 						<tr>
 							<td>身 份：</td>
 							<td align="left">
 								<select class="sel" name="usertype" size="1">
 								<?php
-									$sql1="select * from usertype";
+									$sql1="select * from user_type limit 2";
 									$result=mysqli_query($db_connect,$sql1);
 									while($row=mysqli_fetch_array($result)){
 								?>
-								<option value="<?php echo $row['usertypename']?>"><?php echo $row['usertypename']?></option>
+								<option value="<?php echo $row['usertype_name']?>"><?php echo $row['usertype_name']?></option>
 								<?php
 									}
 								?>
@@ -150,7 +152,7 @@
 				已有账号：<br /><br />
 				<a href="../login/login.php" style="text-decoration: none;"><font color="lightseagreen">直接登录 ☞</font></a><br /><br /><br />
 				扫二维码进行访问：
-					<img src="../images/code3.png" width="110px" height="110px" style="margin-left: 18px;margin-top: 18px;"/>
+					<a href="https://www.crayon.vip"><img src="../images/qrcode_www.crayon.vip.png" width="110px" height="110px" style="margin-left: 18px;margin-top: 18px;"/></a>
 			</div>
 			
 		</div>

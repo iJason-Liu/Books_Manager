@@ -1,5 +1,9 @@
 <?php
   include '../config/conn.php';
+    // 设置文档类型：，utf-8支持中文文档
+    header("Content-Type:text/html;charset=utf-8");
+    $username = $_GET['username'];
+//    echo $username;
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,7 +70,7 @@
 	</head>
 	<body style="background: url(../images/bg.png) top center no-repeat; background-size:cover">
 		<div id="main">
-			<form action="login_check.php" method="post">
+			<form action="../login/login_check.php" method="post">
 				<table class="tab" cellspacing="0">
 					<tr>
 						<th colspan="2"><font size="5" color="lightseagreen">用户登录</font></th>
@@ -74,7 +78,7 @@
 					<tr>
 						<td><label>用户名：</label></td>
 						<td>
-							<input type="text" id="username" name="username" placeholder="请输入用户名" required style="width: 210px;height: 27px" />
+							<input type="text" id="username" name="username" placeholder="请输入用户名" required style="width: 210px;height: 27px" value="<?php echo $username ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -86,11 +90,11 @@
 						<td>
 							<select class="sel" name="usertype" size="1">
 							<?php
-								$sql1="select * from usertype";
+								$sql1="select * from user_type";
 								$result=mysqli_query($db_connect,$sql1);
 								while($row=mysqli_fetch_array($result)){
 							?>
-							<option value="<?php echo $row['usertypename']?>"><?php echo $row['usertypename']?></option>
+							<option value="<?php echo $row['usertype_name']?>"><?php echo $row['usertype_name']?></option>
 							<?php
 								}
 							?>

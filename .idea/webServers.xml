@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3f2a553b-917a-4b38-ae64-57022a38fd0a" name="腾讯云-宝塔Linux" url="http://localhost">
+        <fileTransfer rootFolder="/www/wwwroot/crayon.vip" accessType="SFTP" host="43.139.94.135" port="22" sshConfigId="b43219ae-3949-452a-8169-504d4c0d6f5a" sshConfig="root@43.139.94.135:22 password">
+          <advancedOptions>
+            <advancedOptions keepAliveTimeout="0" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
