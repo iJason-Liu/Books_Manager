@@ -29,6 +29,6 @@
         echo "<script>alert('所添加图书已经存在！！！');history.back();</script>";
     }else if(isset($_POST['add']) && $name!=''){
         mysqli_query($db_connect,$add_sql);
-        echo "<script>alert('添加成功！');location.href='../books/books_test.php'</script>";
+        echo "<script>alert('添加成功！');parent.location.replace('../books/books_test.php');</script>";
     }
 ?>

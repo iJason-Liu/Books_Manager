@@ -4,14 +4,15 @@
     background-color: #fff;
     box-shadow: 0 3px 10px #ddd;
     position: fixed;
-    top: 0;
+    top: 35px;
 }
 
 .hc-header .layui-nav {
     position: absolute;
-    right: 32px;
-    top: 17px;
+    right: 45px;
+    top: 0;
     padding: 0;
+    line-height: 95px;
     background: none;
     height: 100%;
 }
@@ -80,7 +81,7 @@ body {
 }
 
 .banner {
-    height: 550px;
+    height: 100%;
     width: 100%;
 }
 

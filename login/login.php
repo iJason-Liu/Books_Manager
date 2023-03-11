@@ -10,7 +10,9 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>用户登录</title>
+        <link rel="shortcut icon" href="../images/favicon.png" />
 		<meta http-equiv="pragma" content="no-cache">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
 		<link rel="stylesheet" href="../live2d/css/live2d.css" />
 		
@@ -68,7 +70,7 @@
 			}
 		</style>
 	</head>
-	<body style="background: url(../images/bg.png) top center no-repeat; background-size:cover">
+	<body style="background: url(../images/bg.png) top center no-repeat; background-size:cover;width: 100%;height: 100%">
 		<div id="main">
 			<form action="../login/login_check.php" method="post">
 				<table class="tab" cellspacing="0">
@@ -83,7 +85,7 @@
 					</tr>
 					<tr>
 						<td>密 码：</td>
-						<td><input type="password" id="userpwd" name="password" placeholder="请输入密码" required style="width: 210px;height: 27px" /></td>
+						<td><input type="password" id="userpwd" name="password" placeholder="请输入密码" required style="width: 210px;height: 27px" value="" /></td>
 					</tr>
 					<tr>
 						<td>身 份：</td>
@@ -117,7 +119,8 @@
 					<tr>
 						<td colspan="2">
 							<hr />
-							<a href="../register/register.php"><font size="2" color="darkcyan">没有账号？去注册</font></a>
+<!--							<a href="../register/register.php"><font size="2" color="darkcyan">没有账号？去注册</font></a>-->
+							<a href="../index.php"><font size="2" color="darkcyan">返回首页</font></a>
 						</td>
 					</tr>
 				</table>	
@@ -132,7 +135,7 @@
 		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 		<script type="text/javascript">
 		    var message_Path = '../live2d/'
-		    var home_Path = 'http://localhost/Books_Manager/register.php'
+		    var home_Path = 'https://www.crayon.vip/Books_Manager'
 		</script>
 		<script type="text/javascript" src="../live2d/js/live2d.js"></script>
 		<script type="text/javascript" src="../live2d/js/message.js"></script>

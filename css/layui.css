@@ -3741,8 +3741,8 @@ a cite {
 }
 
 .layui-table-cell {
-    height: 38px;
-    line-height: 28px;
+    height: 46px;
+    line-height: 36px;
     padding: 6px 15px;
     position: relative;
     overflow: hidden;
@@ -4394,7 +4394,8 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav-bar {
-    z-index: 1000
+    z-index: 1000;
+    border-radius: 5px;
 }
 
 .layui-nav[lay-bar=disabled] .layui-nav-bar {
@@ -4409,7 +4410,8 @@ body .layui-table-tips .layui-layer-content {
 .layui-nav .layui-this:after {
     top: auto;
     bottom: 0;
-    width: 100%
+    width: 100%;
+    border-radius: 5px
 }
 
 .layui-nav-img {
@@ -4440,7 +4442,7 @@ body .layui-table-tips .layui-layer-content {
     display: none;
     position: absolute;
     left: 0;
-    top: 60px;
+    top: 55px;
     min-width: 75%;
     line-height: 36px;
     padding: 5px 0;
@@ -4931,7 +4933,7 @@ body .layui-table-tips .layui-layer-content {
 .layui-carousel {
     position: relative;
     left: 0;
-    top: 0;
+    top: 35px;
     background-color: #f8f8f8
 }
 

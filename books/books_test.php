@@ -51,7 +51,7 @@ mysqli_close($db_connect); //关闭数据库资源
                 </li>
 
                 <li class="layui-nav-item layui-hide-xs"><a href="../administrator/index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index.php?user=<?php echo $_SESSION['user'] ?>">前台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="">帮助中心</a></li>
                 <!-- <li class="layui-nav-item">
                     <a href="javascript:;">更多</a>
@@ -65,7 +65,7 @@ mysqli_close($db_connect); //关闭数据库资源
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <img src="https://xn--gmqz83awjh.org/images/ico/tututu.jpg" class="layui-nav-img">
+                        <img src="../images/avatar.png" class="layui-nav-img">
                         <?php
                         if ($_SESSION['is_flag'] != 2) {
                             echo "<script>alert('您没有权限访问！');location.href='../login/login.php'</script>";
@@ -78,8 +78,8 @@ mysqli_close($db_connect); //关闭数据库资源
                         <!-- <dd><a href="#" style="font-size:14px;">
                             身份：
                         </a></dd> -->
-                        <dd><a href="">个人中心</a></dd>
-                        <dd><a href="">修改密码</a></dd>
+                        <dd><a href="../info/myInfo.php">个人中心</a></dd>
+                        <dd><a href="../info/update_info.php">修改密码</a></dd>
                         <dd><a href="../login/logout.php">注销</a></dd>
                     </dl>
                 </li>
@@ -94,57 +94,57 @@ mysqli_close($db_connect); //关闭数据库资源
                         <a class="" href="javascript:;">个人中心</a>
                         <dl class="layui-nav-child">
                             <!-- 包含注销功能，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
-                            <dd><a href="javascript:;">信息管理</a></dd>
-                            <dd><a href="javascript:;">修改密码</a></dd>
+                            <dd><a href="../info/myInfo.php">信息管理</a></dd>
+                            <dd><a href="../info/update_info.php">修改密码</a></dd>
                         </dl>
                     </li>
 
                     <!-- 判断身份为超级管理员时显示 -->
-                    <!-- <li class="layui-nav-item">
-                        <a class="" href="javascript:;">馆员中心</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">馆员档案</a></dd>
-                        </dl>
-                    </li> -->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a class="" href="javascript:;">馆员中心</a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd><a href="javascript:;">馆员档案</a></dd>-->
+<!--                        </dl>-->
+<!--                    </li>-->
 
                     <!-- 根据权限判断是否显示(学生教师不显示) -->
-                    <!-- <li class="layui-nav-item">
-                        <a href="javascript:;">读者中心</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">读者档案</a></dd>
-                            <dd><a href="javascript:;">读者类型</a></dd>
-                        </dl>
-                    </li> -->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="javascript:;">读者中心</a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd><a href="javascript:;">读者档案</a></dd>-->
+<!--                            <dd><a href="javascript:;">读者类型</a></dd>-->
+<!--                        </dl>-->
+<!--                    </li>-->
 
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">图书信息中心</a>
+                        <a class="" href="javascript:;">图书管理 </a>
                         <dl class="layui-nav-child">
                             <!-- 图书查询包含编号、书名、ISBN、类别、作者、出版社、图书价格、数量、是否借出状态、书本介绍、添加日期、图书封面、更新日期、存放位置 -->
-                            <dd><a href="../books/books_list.php">馆藏图书</a></dd>
+                            <dd class="layui-this"><a href="../books/books_test.php">馆藏图书</a></dd>
                             <!-- 包含查询，书库名，编号，位置 -->
                             <dd><a href="../upload/test.php">书库信息</a></dd>
                             <!-- 图书点击量 -->
-                            <dd class="layui-this"><a href="../books/books_test.php">人气图书</a></dd>
+                            <dd><a href="../books/books_list.php">人气图书</a></dd>
                             <dd><a href="javascript:;">图书类别</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:;">流通管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">图书借阅查询</a></dd>
+                            <dd><a href="../books_usage/borrow_stau.php">图书借阅查询</a></dd>
                             <dd><a href="javascript:;">图书续借</a></dd>
                             <dd><a href="javascript:;">图书归还</a></dd>
                         </dl>
                     </li>
 
                     <!-- 评论只允许管理员和超级管理员查看 -->
-                    <!-- <li class="layui-nav-item">
-                        <a href="javascript:;">评论管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">评论中心</a></dd>
-                            <dd><a href="javascript:;">评论风控</a></dd>
-                        </dl>
-                    </li> -->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="javascript:;">评论管理</a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd><a href="javascript:;">评论中心</a></dd>-->
+<!--                            <dd><a href="javascript:;">评论风控</a></dd>-->
+<!--                        </dl>-->
+<!--                    </li>-->
 
                     <li class="layui-nav-item">
                         <a href="javascript:;">系统维护</a>
@@ -180,10 +180,11 @@ mysqli_close($db_connect); //关闭数据库资源
                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
             </script>
-            <script type="text/html" id="img"> <img src="{{d.book_cover}}" width="32" height="25" alt=""> </script>
+            <script type="text/html" id="img"> <img src="{{d.book_cover}}" width="32" height="30" alt=""> </script>
             <script type="text/html" id="status">
-                <p class="{{d.status == 0 ? 'have' : 'use'}}">{{d.status == 0 ? '在库' : '借出'}}</p>
+                <p class="{{d.status == 0 ? 'have' : 'use'}}">{{d.status == 0 ? '在库' : '已借出'}}</p>
             </script>
+            <div id="laypage" style="position: fixed;bottom: 42px;border-style: solid;border-color: #eee;z-index:999;width: 100%;background: #fff;"></div>
             <div id="test">
                 <script>
 
@@ -192,25 +193,28 @@ mysqli_close($db_connect); //关闭数据库资源
 
             <?php
                 //定义返回的数据头
-                //$status = array('code' => 0,'msg' => "success");
-                $res = array('code' => 200,'msg' => "success",'count' => mysqli_num_rows($result),'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC));
+                //$status = array('code' => 200,'msg' => "success");
+//                $res = array('code' => 200,'msg' => "success",'count' => mysqli_num_rows($result),'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC));
                 //把两串数据拼起来
                 //$res = array_merge($status,$res);
-                $data = json_encode($res, JSON_UNESCAPED_UNICODE);
+//                $data = json_encode($res, JSON_UNESCAPED_UNICODE);
                 // 把数据写入json文件
-                file_put_contents('../json/bookListFile.json',$data);
+//                file_put_contents('../json/bookListFile.json',$data);
             ?>
             <script src="../js/layui.simple.js"></script>
             <script src="../js/jquery-3.3.1.min.js"></script>
                 <script>
-                    layui.use(['table'], function() {
-                        let table = layui.table;
+                    layui.use(['table','laypage'], function() {
+                        let table = layui.table,
+                        laypage = layui.laypage,
+                        pageNo = 1,
+                        limit = 5;
 
                         // 创建渲染实例
                         table.render({
                             elem: '#bookcase',
                             type: 'POST',
-                            url: '../json/bookListFile.json', // 此处为静态模拟数据，实际使用时需换成真实接口
+                            url: '../books/booksData.php',
                             parseData: function(res) { //res 即为原始返回的数据
                                 // console.log(res); //打印数据显示
                                 return {
@@ -223,11 +227,24 @@ mysqli_close($db_connect); //关闭数据库资源
                             response: {
                                 statusCode: 200, //规定成功的状态码，默认：0
                             },
+                            where: { //接口参数，page为分页参数
+                                page: pageNo
+                            },
+                            // page: !0 || { //详细参数可参考 laypage 组件文档
+                            //     curr: 1,
+                            //     layout: ['prev', 'page', 'next', 'skip', 'count', 'limit'] //自定义分页布局
+                            // },
+                            // even: true,
+                            // limit: limit,
+                            // limits: [5,10,15],
                             toolbar: '#toolbarDemo',
-                            height: 'full-115', // 最大高度减去其他容器已占有的高度差
+                            height: 'full-170', // 最大高度减去其他容器已占有的高度差
                             cellMinWidth: 100,
-                            totalRow: true, // 开启合计行
-                            page: true, //开启分页
+                            // totalRow: true, // 开启合计行
+                            page: false, //开启分页
+                            text: {
+                                none: '暂无数据'
+                            },
                             cols: [
                                 [{
                                     type: 'checkbox',
@@ -238,8 +255,7 @@ mysqli_close($db_connect); //关闭数据库资源
                                     width: 110,
                                     title: '图书编号',
                                     sort: true,
-                                    align: 'center',
-                                    totalRowText: '合计：'
+                                    align: 'center'
                                 }, {
                                     field: 'book_name',
                                     width: 200,
@@ -267,13 +283,15 @@ mysqli_close($db_connect); //关闭数据库资源
                                     width: 90,
                                     align: 'center',
                                     sort: true
-                                }, {
-                                    field: 'number',
-                                    title: '库存',
-                                    width: 100,
-                                    sort: true,
-                                    align: 'center'
-                                }, {
+                                },
+                                //     {
+                                //     field: 'number',
+                                //     title: '库存',
+                                //     width: 100,
+                                //     sort: true,
+                                //     align: 'center'
+                                // },
+                                    {
                                     field: 'book_cover',
                                     title: '图书封面',
                                     width: 100,
@@ -282,8 +300,8 @@ mysqli_close($db_connect); //关闭数据库资源
                                 }, {
                                     field: 'mark',
                                     width: 150,
-                                    title: '图书简介',
-                                    edit: 'textarea',
+                                    title: '图书简介（可编辑）',
+                                    edit: 'textarea', //后续修改单独更新值到数据库中update book_list set mark='修改后的值' where id=''
                                     minWidth: 260,
                                     align: 'left',
                                     style: '-moz-box-align: start;'
@@ -321,8 +339,36 @@ mysqli_close($db_connect); //关闭数据库资源
                                     toolbar: '#barDemo'
                                 }
                                 ]
-                            ],done: function (){
+                            ],
+                            initSort:{   //按编号升序排序
+                                field: 'book_id',
+                                type: 'asc',
+                            },
+                            done: function (res, curr, count){
                                 hoverOpenImg();//显示大图
+                                // fillTable(res.data, (pageNo - 1) * limit); //页面
+                                // console.log(res);
+                                //在获取到表格数据后加载分页组件，点击分页时调用table的reload方法重新加载表格数据达到分页效果
+                                laypage.render({
+                                    elem: 'laypage', //分页容器ID
+                                    count: res.count, //设置分页数据总数
+                                    curr: pageNo, //当前页码
+                                    limit: limit, //分页大小
+                                    limits: [5,10,15,20],
+                                    layout: ['prev', 'page', 'next', 'skip', 'count', 'limit'],
+                                    jump: function (obj, first) {//跳转方法
+                                        // console.log(obj);
+                                        if (!first) {  //若不为第一页
+                                            pageNo = obj.curr;//设置全局变量page 为当前选择页码
+                                            limit = obj.limit;//设置全局变量limit 为当前选择分页大小
+                                            table.reload('bookcase', {//重新加载表格
+                                                where: { //接口参数，page为分页参数
+                                                    page: pageNo
+                                                }
+                                            });
+                                        }
+                                    }
+                                })
                             },
                             error: function(res, msg) {
                                 console.log(res, msg)
@@ -350,7 +396,7 @@ mysqli_close($db_connect); //关闭数据库资源
                                 case 'multi-row':
                                     table.reload('bookcase', {
                                         // 设置行样式，此处以设置多行高度为例。若为单行，则没必要设置改参数 - 注：v2.7.0 新增
-                                        lineStyle: 'height: 150px;'
+                                        lineStyle: 'height: 120px;'
                                     });
                                     layer.msg('将显示更多的内容！');
                                     break;
@@ -439,15 +485,24 @@ mysqli_close($db_connect); //关闭数据库资源
 
                         // 单元格编辑事件
                         table.on('edit(test)', function(obj) {
-                            let field = obj.field //得到字段
-                                ,
-                                value = obj.value //得到修改后的值
-                                ,
+                            let field = obj.field, //得到字段
+                                value = obj.value, //得到修改后的值
                                 data = obj.data; //得到所在行所有键值
+                            $.ajax({
+                                type : "POST",
+                                url : '../books/test.php',
+                                data:{
+                                    'id': data.book_id ,
+                                    'mark': value
+                                },
+                                success : function(data) {
+                                    console.log('success');
+                                }
+                            });
 
-                            let update = {};
-                            update[field] = value;
-                            obj.update(update);
+                            // let update = {};
+                            // update[field] = value;
+                            // obj.update(update);
                         });
                     });
 
@@ -464,7 +519,7 @@ mysqli_close($db_connect); //关闭数据库资源
                         },function(){
                             layer.close(img_show);
                         });
-                        $('td img').attr('style','max-width:70px');
+                        $('td img').attr('style','max-width: 100px');
                     }
                 </script>
         </div>
@@ -472,7 +527,7 @@ mysqli_close($db_connect); //关闭数据库资源
         <div class="layui-footer">
             <!-- 底部固定区域 -->
             <p style="text-align: center;">
-                小新的主站 Copyright © 2022 by Jason Liu 云ICP备
+                <a href="https://beian.miit.gov.cn/" target="_blank"><img src="../images/beian.png">滇ICP备2023001154号-1</a>
             </p>
         </div>
     </div>
