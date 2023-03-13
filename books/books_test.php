@@ -24,7 +24,7 @@ mysqli_close($db_connect); //关闭数据库资源
     <link rel="shortcut icon" href="../images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <link href="../css/layui.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/modules/layer/layer.css">
     <style>
@@ -63,7 +63,7 @@ mysqli_close($db_connect); //关闭数据库资源
                 </li> -->
             </ul>
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                     <a href="javascript:;">
                         <img src="../images/avatar.png" class="layui-nav-img">
                         <?php
@@ -490,7 +490,7 @@ mysqli_close($db_connect); //关闭数据库资源
                                 data = obj.data; //得到所在行所有键值
                             $.ajax({
                                 type : "POST",
-                                url : '../books/test.php',
+                                url : '../books/editUnit.php',
                                 data:{
                                     'id': data.book_id ,
                                     'mark': value
@@ -527,7 +527,9 @@ mysqli_close($db_connect); //关闭数据库资源
         <div class="layui-footer">
             <!-- 底部固定区域 -->
             <p style="text-align: center;">
-                <a href="https://beian.miit.gov.cn/" target="_blank"><img src="../images/beian.png">滇ICP备2023001154号-1</a>
+                Copyright © 2023 by Jason Liu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://beian.miit.gov.cn/" target="_blank"><img src="../images/beian.png" alt=""/>滇ICP备2023001154号-1</a>
+<!--                <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>-->
             </p>
         </div>
     </div>

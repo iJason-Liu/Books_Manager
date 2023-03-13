@@ -24,7 +24,7 @@ mysqli_close($db_connect); //关闭数据库资源
     <link rel="shortcut icon" href="../images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -111,7 +111,7 @@ mysqli_close($db_connect); //关闭数据库资源
             </li> -->
             </ul>
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                     <a href="javascript:;">
                         <img src="../images/avatar.png" class="layui-nav-img">
                         <?php
@@ -170,7 +170,7 @@ mysqli_close($db_connect); //关闭数据库资源
                             <!-- 图书查询包含编号、书名、ISBN、类别、作者、出版社、图书价格、数量、是否借出状态、书本介绍、添加日期、图书封面、更新日期、存放位置 -->
                             <dd><a href="../books/books_test.php">馆藏图书</a></dd>
                             <!-- 包含查询，书库名，编号，位置 -->
-                            <dd><a href="javascript:;">书库信息</a></dd>
+                            <dd><a href="../upload/test.php">书库信息</a></dd>
                             <!-- 图书点击量 -->
                             <dd class="layui-this"><a href="../books/books_list.php">人气图书</a></dd>
                             <dd><a href="javascript:;">图书类别</a></dd>
@@ -301,7 +301,7 @@ mysqli_close($db_connect); //关闭数据库资源
         <div class="layui-footer">
             <!-- 底部固定区域 -->
             <p style="text-align: center;">
-                Copyright © 2022 by Jason Liu
+                Copyright © 2023 by Jason Liu
             </p>
         </div>
     </div>

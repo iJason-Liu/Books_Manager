@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>注册中心</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!--		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
 		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
 		<link rel="stylesheet" href="../live2d/css/live2d.css" />
 		

@@ -13,7 +13,7 @@ include '../config/conn.php';
     <link rel="shortcut icon" href="../images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -47,7 +47,7 @@ include '../config/conn.php';
             </li> -->
         </ul>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+            <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                 <a href="javascript:;">
                     <img src="../images/avatar.png" class="layui-nav-img">
                     <?php

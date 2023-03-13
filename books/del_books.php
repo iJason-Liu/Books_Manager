@@ -14,4 +14,3 @@
 	}
 
     mysqli_close($db_connect); //关闭数据库资源
-?>

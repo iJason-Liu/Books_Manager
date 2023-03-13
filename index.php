@@ -14,7 +14,10 @@
     <link rel="shortcut icon" href="./images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+<!--        仅pc访问设置上一行代码，手机端显示设置下面两行代码-->
+    <!--    <meta name="viewport" content="width=device-width">-->
+<!--    <meta name="viewport" content="width=750px,user-scalable=no">-->
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -149,13 +152,16 @@
         <img style="width: 100%" src="./images/前端示意图.png">
     </div>
 
-    <div class="layui-footer" style="width: 100%;height: 50px;margin: 300px 0 0 0;text-align: center;background: #9f9f9f;padding: 30px auto">
+    <div class="layui-footer" style="width: 100%;height: 70px;margin: 300px 0 0 0;text-align: center;background: #9f9f9f;padding: 30px auto">
         <p>
 <!--           Copyright © 2023 Jason Liu-->
             小新的主站
         </p>
         <p>
-            <a href="https://beian.miit.gov.cn/" target="_blank"><img src="../images/beian.png">备案号：滇ICP备2023001154号-1</a>
+            网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>
+        </p>
+        <p>
+            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="./images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>
         </p>
     </div>
 
