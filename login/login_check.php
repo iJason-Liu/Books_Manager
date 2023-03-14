@@ -22,4 +22,5 @@
         $_SESSION['usertype'] = $usertype;
         echo "<script>alert('登录成功！');location.href='../administrator/index.php';</script>";
     }
-?>
+
+    mysqli_close($db_connect); //关闭数据库资源

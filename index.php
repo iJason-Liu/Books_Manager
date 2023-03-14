@@ -3,13 +3,14 @@
 
     //获取后台页面传过来的用户名参数
     $user = $_GET['user'];
+//    echo $user.'11';
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>数字图书馆中心</title>
+    <title>小新的主站</title>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="./images/favicon.png" />
     <meta name="renderer" content="webkit">
@@ -86,12 +87,12 @@
 
 <body>
     <header>
-        <span>欢迎访问数字图书馆！</span>
+        <span>欢迎访问小新的主站！</span>
         <div class='top_right'>
 <!--            <a href='./login/login.php'>登录 </a> &nbsp; | &nbsp; <a href='./register/register.php'> 注册</a>-->
             <?php
                 if($user != ''){
-                    echo "您好！<a href='javascript:history.back(-1);'>$user </a> &nbsp; | &nbsp; <a href='./login/logout.php'> 注销登录</a>";
+                    echo "您好！<a href='./administrator/index.php'>$user </a> &nbsp; | &nbsp; <a href='./login/logout.php'> 注销登录</a>";
                 }else{
                     echo "<a href='./login/login.php'>读者登录入口</a>";
                 }
@@ -104,26 +105,23 @@
             </a>
             <ul class="layui-nav">
                 <li class="layui-nav-item hc-hide-sm layui-this"> <a href="./index.php">首页</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="./index.php">资讯中心</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="./index.php">图书中心</a> </li>
-                <li class="layui-nav-item hc-hide-sm "> <a href="./index.php">关于系统</a> </li>
-
-<!--                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=1">文学类</a> </li>-->
-<!--                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=2">冒险类</a> </li>-->
-<!--                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=3">励志类</a> </li>-->
-<!--                <li class="layui-nav-item hc-hide-sm "> <a href="books_sort/books_sort.php?id=4">历史类</a> </li>-->
+                <li class="layui-nav-item hc-hide-sm"> <a href="./views/book_center.php">图书中心</a> </li>
+                <li class="layui-nav-item hc-hide-sm"> <a href="./views/notice_list.php">图书资讯</a> </li>
+                <li class="layui-nav-item hc-hide-sm"> <a href="./views/about.php">关于项目</a> </li>
                 <li class="layui-nav-item hc-show-sm"> <a href="javascript:;">更多</a>
                     <dl class="layui-nav-child">
-                        <dd class=""><a href="books_sort/books_sort.php?id=1001">政治、法律</a></dd>
-                        <dd class=""><a href="books_sort/books_sort.php?id=1002">文学</a></dd>
-                        <dd class=""><a href="books_sort/books_sort.php?id=1006">历史、地理</a></dd>
-                        <dd class=""><a href="books_sort/books_sort.php?id=8">经济</a></dd>
-                        <dd class=""><a href="books_sort/books_sort.php?id=9">更多...</a></dd>
-<!--                        <dd class=""><a href="books_sort/books_sort.php?id=10">著作类</a></dd>-->
+                        <dd><a href="./index.php">首页</a></dd>
+                        <dd><a href="./views/book_center.php">图书中心</a></dd>
+                        <dd><a href="./views/notice_list.php">图书资讯</a></dd>
+                        <dd><a href="./views/about.php">关于项目</a></dd>
+<!--                        <dd class=""><a href="">政治、法律</a></dd>-->
+<!--                        <dd class=""><a href="">文学</a></dd>-->
+<!--                        <dd class=""><a href="">历史、地理</a></dd>-->
+<!--                        <dd class=""><a href="">经济</a></dd>-->
+<!--                        <dd class=""><a href="">更多...</a></dd>-->
                     </dl>
                 </li>
             </ul>
-
         </div>
     </nav>
 
@@ -152,15 +150,13 @@
         <img style="width: 100%" src="./images/前端示意图.png">
     </div>
 
-    <div class="layui-footer" style="width: 100%;height: 70px;margin: 300px 0 0 0;text-align: center;background: #9f9f9f;padding: 30px auto">
+    <div class="layui-footer" style="margin: 20px 0 0 0;text-align: center;background: #fafafa;padding: 10px;box-shadow: -1px 0 4px rgb(0 0 0 / 12%);">
         <p>
-<!--           Copyright © 2023 Jason Liu-->
-            小新的主站
+            Copyright © 2023 &nbsp;&nbsp;<a href="https://www.crayon.vip">https://www.crayon.vip</a>
         </p>
+        <br>
         <p>
-            网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>
-        </p>
-        <p>
+            网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="./images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>
         </p>
     </div>

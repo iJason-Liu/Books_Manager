@@ -4,6 +4,7 @@
     header("Content-Type:text/html;charset=utf-8");
 //    echo $page = $_POST['page'];
 //    echo $limit = $_POST['limit'];
+//图书列表的方法页面
     //执行sql语句的查询语句
     $sql1 = "select * from book_list";
     $result = mysqli_query($db_connect, $sql1);

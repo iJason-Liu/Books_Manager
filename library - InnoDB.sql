@@ -11,7 +11,7 @@
  Target Server Version : 50728 (5.7.28)
  File Encoding         : 65001
 
- Date: 12/03/2023 13:41:07
+ Date: 13/03/2023 23:50:42
 */
 
 SET NAMES utf8mb4;
@@ -23,14 +23,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `access_user`;
 CREATE TABLE `access_user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `user_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '加密的密码',
-  `user_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '角色',
-  PRIMARY KEY (`user_id`) USING BTREE,
-  KEY `user_type` (`user_type`),
-  KEY `user_name` (`user_name`),
-  KEY `user_name_2` (`user_name`,`user_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户注册信息记录';
+  `user_name` varchar(255) NOT NULL COMMENT '用户名',
+  `password` varchar(255) NOT NULL COMMENT '加密的密码',
+  `user_type` varchar(255) NOT NULL COMMENT '角色',
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户注册信息记录';
 
 -- ----------------------------
 -- Records of access_user
