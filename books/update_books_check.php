@@ -22,8 +22,6 @@
 	}else{
 		echo "<script>alert('更新失败！请检查内容是否合理！');history.back();</script>";
 	}
-//	if(isset($_POST['submit'])){
-//
-//	}
+
     mysqli_close($db_connect); //关闭数据库资源
-?>
+

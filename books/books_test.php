@@ -1,18 +1,19 @@
 <?php
-session_save_path('../session/');
-session_start();
-include '../config/conn.php';
-if ($_SESSION['is_flag'] != 2) {
-    echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
-}
-// 设置文档类型：，utf-8支持中文文档
-header("Content-Type:text/html;charset=utf-8");
+    //原图书列表页面
+    session_save_path('../session/');
+    session_start();
+    include '../config/conn.php';
+    if ($_SESSION['is_flag'] != 2) {
+        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+    }
+    // 设置文档类型：，utf-8支持中文文档
+    header("Content-Type:text/html;charset=utf-8");
 
-//执行sql语句的查询语句
-$sql1 = "select * from book_list";
-$result = mysqli_query($db_connect, $sql1);
+    //执行sql语句的查询语句
+    $sql1 = "select * from book_list";
+    $result = mysqli_query($db_connect, $sql1);
 
-mysqli_close($db_connect); //关闭数据库资源
+    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>

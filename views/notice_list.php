@@ -1,10 +1,14 @@
 <?php
-session_start(); //开启session
-//公告列表页面
+    session_save_path('../session/');
+    session_start(); //开启session
+    /*
+     * 公告模块
+     * 可以是关于一些图书的资讯，
+     * 也可以是某本图书的评论（格式：书名-热评-点赞数或者阅读数）
+     */
 
-//获取后台页面传过来的用户名参数
-$user = $_GET['user'];
-//    echo $user.'11';
+    //获取全局变量用户名参数
+    $user = $_SESSION['user'];
 
 ?>
 <!DOCTYPE html>
@@ -30,14 +34,14 @@ $user = $_GET['user'];
 
         header {
             height: 35px;
-            width: 99%;
+            width: 100%;
             line-height: 35px;
-            padding: 0 10px;
+            padding: 0 20px;
             background: #393d49;
             color: #ffffff;
             position: fixed;
             top: 0;
-            z-index: 999;
+            z-index: 9;
         }
 
         header a {
@@ -47,7 +51,7 @@ $user = $_GET['user'];
 
         .top_right {
             float: right;
-            margin-right: 10px;
+            margin-right: 40px;
         }
 
         .logo {
@@ -61,8 +65,14 @@ $user = $_GET['user'];
         }
 
         .books_recomend {
-            margin-top: 75px;
-            padding: 0 80px;
+            width: 100%;
+            height: 200px;
+            border: 1px solid #000;
+        }
+
+        .content{
+            margin-top: 120px;
+            padding: 0 120px 80px 120px;
         }
 
         .back {
@@ -84,7 +94,7 @@ $user = $_GET['user'];
         <div class='top_right'>
             <?php
             if($user != ''){
-                echo "您好！<a href='../administrator/index.php'>$user </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 注销登录</a>";
+                echo "您好！<a href='../administrator/index.php'>$user </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 退出登录</a>";
             }else{
                 echo "<a href='../login/login.php'>读者登录入口</a>";
             }
@@ -100,13 +110,12 @@ $user = $_GET['user'];
                 <li class="layui-nav-item hc-hide-sm"><a href="../views/book_center.php">图书中心</a></li>
                 <li class="layui-nav-item hc-hide-sm layui-this"><a href="../views/notice_list.php">图书资讯</a></li>
                 <li class="layui-nav-item hc-hide-sm "><a href="../views/about.php">关于项目</a></li>
-                <li class="layui-nav-item hc-show-sm"><a href="javascript:;">更多</a>
+                <li class="layui-nav-item hc-show-sm"> <a href="javascript:;">更多</a>
                     <dl class="layui-nav-child">
-                        <dd class=""><a href="">政治、法律</a></dd>
-                        <dd class=""><a href="">文学</a></dd>
-                        <dd class=""><a href="">历史、地理</a></dd>
-                        <dd class=""><a href="">经济</a></dd>
-                        <dd class=""><a href="">更多...</a></dd>
+                        <dd><a href="./index.php">首页</a></dd>
+                        <dd><a href="./views/book_center.php">图书中心</a></dd>
+                        <dd><a href="./views/notice_list.php">图书资讯</a></dd>
+                        <dd><a href="./views/about.php">关于项目</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -120,24 +129,27 @@ $user = $_GET['user'];
             </div>
         </div>
     </div>
-
-    <div class="books_recomend">
-        <div>
-            文学类图书书架
+    <div class="content">
+        <div class="books_recomend">
+            <div>
+                图书资讯板块
+            </div>
+        </div>
+        <div class="books_recomend">
+            <div>
+                图书热评展示板块
+            </div>
         </div>
     </div>
-    <div style="width: 80%;padding: 45px;margin: 40px auto;border: 1px dashed;">
-        <img style="width: 100%" src="../images/前端示意图.png">
-    </div>
 
-    <div class="layui-footer" style="margin: 20px 0 0 0;text-align: center;background: #fafafa;padding: 10px;box-shadow: -1px 0 4px rgb(0 0 0 / 12%);">
+    <div class="layui-footer" style="text-align: center;background: #9f9f9f;padding: 10px;box-shadow: -1px 0 4px rgb(0 0 0 / 12%);">
         <p>
             Copyright © 2023 &nbsp;&nbsp;<a href="https://www.crayon.vip">https://www.crayon.vip</a>
         </p>
         <br>
         <p>
             网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>
+            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
         </p>
     </div>
 

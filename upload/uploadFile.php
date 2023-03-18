@@ -4,13 +4,13 @@
     include '../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
-    $file = $_FILES["file"]["tmp_name"];
-    $filename = $_FILES["file"]["name"];
+    $file = $_FILES["file"];
+    $filename = $file["name"];
     $path = "../upload/bookCover/";
 
     //上传的文件路径，可用于存入数据库的book_cover字段
     echo $filepath = $path.$filename;
-    $res = move_uploaded_file($file,$path.$filename);
+    $res = move_uploaded_file($file["tmp_name"],$filepath);
     if($res){
        echo "<script>alert('文件上传成功！')</script>";
         //执行sql更新语句

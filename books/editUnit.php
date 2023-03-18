@@ -2,7 +2,9 @@
     include '../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
-    //单元格编辑事件的方法
+    /*
+     * 单元格编辑事件的方法
+     */
     $id = $_POST['id'];
     $value = $_POST['mark'];
     //echo $id;

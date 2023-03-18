@@ -1,4 +1,7 @@
 <?php
+    /*
+     * 图书删除确认页面
+     */
     include '../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
 	header("Content-Type:text/html;charset=utf-8");

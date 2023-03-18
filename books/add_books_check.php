@@ -1,9 +1,8 @@
 <?php
-  session_save_path('../session/');
-  session_start();
-  include '../config/conn.php';
-?>
-<?php
+    session_save_path('../session/');
+    session_start();
+    include '../config/conn.php';
+
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 	echo $name = $_POST['name'];
@@ -13,6 +12,7 @@
 	echo $type = $_POST['bookstype'];
 	echo $number = $_POST['number'];
 	echo $mark = $_POST['mark'];
+    $create_time = date('Y-m-d h:i:s', time()); //添加时间
 
     $sql = "select * from book_list";
     $add_sql="insert into book_list(book_name,price,author,publisher,book_type,number,mark)"."values('$name','$price','$author','$publisher','$type','$number','$mark')";
@@ -31,4 +31,3 @@
         mysqli_query($db_connect,$add_sql);
         echo "<script>alert('添加成功！');parent.location.replace('../books/books_test.php');</script>";
     }
-?>

@@ -1,9 +1,9 @@
 <?php
+    session_save_path('./session/');
     session_start(); //开启session
 
-    //获取后台页面传过来的用户名参数
-    $user = $_GET['user'];
-//    echo $user.'11';
+    //获取全局变量-用户名参数
+    $user = $_SESSION['user'];
 ?>
 
 <!DOCTYPE html>
@@ -34,14 +34,14 @@
 
         header {
             height: 35px;
-            width: 99%;
+            width: 100%;
             line-height: 35px;
-            padding: 0 10px;
+            padding: 0 20px;
             background: #393d49;
             color: #ffffff;
             position: fixed;
             top: 0;
-            z-index: 999;
+            z-index: 9;
         }
 
         header a {
@@ -51,7 +51,7 @@
 
         .top_right {
             float: right;
-            margin-right: 10px;
+            margin-right: 40px;
         }
 
         .logo {
@@ -65,8 +65,14 @@
         }
 
         .books_recomend {
-            margin-top: 75px;
-            padding: 0 80px;
+            width: 100%;
+            height: 200px;
+            border: 1px solid #000;
+        }
+
+        .content{
+            margin-top: 120px;
+            padding: 0 120px 80px 120px;
         }
 
         .r_title {
@@ -92,7 +98,7 @@
 <!--            <a href='./login/login.php'>登录 </a> &nbsp; | &nbsp; <a href='./register/register.php'> 注册</a>-->
             <?php
                 if($user != ''){
-                    echo "您好！<a href='./administrator/index.php'>$user </a> &nbsp; | &nbsp; <a href='./login/logout.php'> 注销登录</a>";
+                    echo "您好！<a href='./administrator/index.php'>$user </a> &nbsp; | &nbsp; <a href='./login/logout.php'> 退出登录</a>";
                 }else{
                     echo "<a href='./login/login.php'>读者登录入口</a>";
                 }
@@ -139,25 +145,30 @@
         </div>
     </div>
 
-    <div class="books_recomend">
-        <div class="r_title">推荐图书</div>
-        <div>
-            图书数据
+    <div class="content">
+        <div class="books_recomend">
+            <div class="r_title">推荐图书</div>
+            <div>
+                图书数据
+            </div>
+            <br>
+            <p>
+                <audio controls src="https://crayon.vip/audio/谁(Live版) - 廖俊涛.mp3"></audio>
+            </p>
         </div>
-        <p>未完待续...</p>
-    </div>
-    <div style="width: 80%;padding: 45px;margin: 40px auto;border: 1px dashed;">
-        <img style="width: 100%" src="./images/前端示意图.png">
+        <div style="width: 100%;margin-top: 30px;border: 1px dashed;">
+            <img style="width: 100%" src="./images/前端示意图.png">
+        </div>
     </div>
 
-    <div class="layui-footer" style="margin: 20px 0 0 0;text-align: center;background: #fafafa;padding: 10px;box-shadow: -1px 0 4px rgb(0 0 0 / 12%);">
+    <div class="layui-footer" style="text-align: center;background: #9f9f9f;padding: 10px;box-shadow: -1px 0 4px rgb(0 0 0 / 12%);">
         <p>
             Copyright © 2023 &nbsp;&nbsp;<a href="https://www.crayon.vip">https://www.crayon.vip</a>
         </p>
         <br>
         <p>
             网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="./images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>
+            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="./images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
         </p>
     </div>
 
