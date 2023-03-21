@@ -1,5 +1,10 @@
 <?php
+    session_save_path('../session/');
+    session_start();
     include '../config/conn.php';
+    if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
+        echo "<script>alert('sorry，您暂无权限操作！');history.back();</script>";
+    }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
     /*
@@ -7,8 +12,6 @@
      */
     $id = $_POST['id'];
     $value = $_POST['mark'];
-    //echo $id;
-    //echo $value;
     //echo $_SERVER["QUERY_STRING"];
 
     //更新对应id的图书简介

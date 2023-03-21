@@ -225,6 +225,11 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">显示系统的基本信息，ip，版本，，，！</div>
+            <?php
+                echo '服务器名称：'.$_SERVER['SERVER_NAME']; //服务器名称
+                echo '<br>用户IP地址：'.$_SERVER['REMOTE_ADDR'];  //用户ip地址
+                echo '<br>用户的主机名：'.$_SERVER['REMOTE_HOST'];  //用户主机名
+            ?>
         </div>
 
         <div class="layui-footer">

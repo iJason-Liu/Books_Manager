@@ -4,13 +4,23 @@
     include '../config/conn.php';
     if ($_SESSION['is_flag'] != 2) {
         echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
+        echo "<script>alert('sorry，您暂无权限操作！');parent.location.reload();</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
+
     $id = $_GET['id'];
     //执行sql语句的查询语句
     $sql1 = "select * from book_list where book_id=$id";
-    $result = mysqli_query($db_connect, $sql1);
+    $result = mysqli_query($db_connect,$sql1);
+
+    // 查询图书类别
+    $type_sql="select * from book_type";
+    $result_type = mysqli_query($db_connect,$type_sql);
+    // 查询图书书库
+    $stack_sql="select * from book_stack";
+    $result_stack = mysqli_query($db_connect,$stack_sql);
 
     mysqli_close($db_connect); //关闭数据库资源
 ?>
@@ -18,106 +28,191 @@
 <html>
 
 <head>
-    <title>图书详情信息</title>
+    <title>图书详细信息</title>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="https://ymck.me/wp-content/uploads/2022/12/head-removebg-preview-1-1.png" />
+    <link rel="shortcut icon" href="../images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../css/layui.css">
-    <script type="text/javascript" src="../js/layui.simple.js"></script>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <link rel="stylesheet" type="text/css" href="../css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/modules/layer/layer.css" />
     <style>
-        td {
-            height: 60px
+        #form_tab{
+            width: 72%;
+            padding: 10px 40px 40px 20px;
+            margin: 30px auto;
         }
-        .tab{
-            margin: 20px auto;
+
+        #mark{
+            width: 100%;
+            border: 1px solid #eee;
+            padding: 8px;
+            display: block;
+            min-height: 150px;
+            resize: vertical;
         }
-        textarea {
-            font-size: 16px;
-            resize:none;
-            padding: 4px;
-            text-overflow: ellipsis;
+
+        .layui-btn{
+            width: 120px;
         }
+
     </style>
+    <script type="text/javascript">
+        //禁用复制
+        document.oncopy = function(){ return false;}
+        //禁用浏览器右键点击事件
+        document.oncontextmenu = function(){return false;}
+        //禁止拖拽
+        document.ondragstart=function(){return false}
+        //禁止用户选中网页上的内容
+        document.onselectstart=function(){return false}
+        //禁用复制、剪贴版
+        document.onbeforecopy=function(){return false}
+        //禁用文本框或者文本域中的文字被选中
+        document.onselect=function(){return false;}
+    </script>
 </head>
+	<body style="background: url('../images/bg3.jpg') top center no-repeat; background-size:cover">
+        <form class="layui-form" action="#" method="post" enctype="multipart/form-data">
+        <?php
+            while($row = mysqli_fetch_array($result)){
+                $type = $row['book_type'];
+                $stack = $row['save_position'];
+                $desc = $row['mark'];
+                $src = $row['book_cover'];
+                $status = $row['status'];
+                $create_time = $row['create_date'];
+        ?>
+        <div id="form_tab">
+            <fieldset class="layui-elem-field layui-field-title" name="file" id="file">
+                <legend>图书封面</legend>
+                <div class="layui-form-item" style="text-align: center;margin-top: 30px;">
+                    <div class="layui-upload-drag" id="bookcover">
+                          <div id="uploadView">
+                            <img src="<?php echo $src ?>" alt="图书封面" style="max-width: 196px">
+                          </div>
+                    </div>
+                </div>
+            </fieldset>
 
-<body style='background: url(../images/bg3.jpg) top center no-repeat; background-size:cover'>
-    <h1 align='center' style='margin-top:10px'>图书详细信息</h1>
-    <hr>
-    <form action='../books/update_books.php?id=<?php echo $id; ?>' method='post'>
-        <table class="tab">
+            <div class="layui-form-item">
+                <label class="layui-form-label">ISBN:</label>
+                <div class="layui-input-block">
+                    <input disabled type="text" name="ISBN" id="ISBN" value="<?php echo $row['ISBN'] ?>" placeholder="ISBN" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">*图书名称:</label>
+                <div class="layui-input-block">
+                    <input disabled type="text" name="bookname" id="bookname" value="<?php echo $row['book_name'] ?>" placeholder="图书名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">作 者:</label>
+                <div class="layui-input-block">
+                    <input disabled type="text" name="author" id="author" placeholder="作者" value="<?php echo $row['author'] ?>" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出 版 社:</label>
+                <div class="layui-input-block">
+                    <input disabled type="text" name="publisher" id="publisher" value="<?php echo $row['publisher'] ?>" placeholder="出版社" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">定 价:</label>
+                <div class="layui-input-inline">
+                    <input disabled type="number" name="bookprice" id="bookprice" value="<?php echo $row['price'] ?>" placeholder="单位：元" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">单位：元</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">图书类别：</label>
+                <div class="layui-input-inline">
+                  <select disabled name="booktype" id="booktype">
+                        <option value="<?php echo $type ?>"><?php echo $type ?></option>
+                      <?php
+                            while($row=mysqli_fetch_array($result_type)){
+                        ?>
+                        <option value="<?php echo $row['type_name']?>"><?php echo $row['type_name']?></option>
+                        <?php
+                            }
+                        ?>
+                  </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">保存书库：</label>
+                <div class="layui-input-inline">
+                    <select disabled name="saveplace" id="saveplace">
+                        <option value="<?php echo $stack ?>"><?php echo $stack ?></option>
+                        <?php
+                            while($row=mysqli_fetch_array($result_stack)){
+                        ?>
+                        <option value="<?php echo $row['stack_name'].'_'.$row['stack_position']?>"><?php echo $row['stack_name'].'_'.$row['stack_position']?></option>
+                        <?php
+                            }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">借阅状态:</label>
+                <div class="layui-input-inline">
+                    <?php
+                        if($status == 0) {
+                            echo "<input disabled type='text' name='status' id='status' value='在库' class='layui-input'>";
+                        }else{
+                            echo "<input disabled type='text' name='status' id='status' style='color: #ff5722' value='已借出' class='layui-input'>";
+                        }
+                    ?>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">入库时间:</label>
+                <div class="layui-input-inline">
+                    <input disabled type="text" name="create_time" id="create_time" value="<?php echo $create_time ?>" placeholder="1999-10-11 00:00:00" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">图书简介:</label>
+                <div class="layui-input-block">
+                    <textarea disabled name="mark" id="mark" placeholder="图书简介" class="layui-textarea"><?php echo $desc ?></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-top: 45px;">
+                    <button type="button" class="layui-btn layui-btn-primary" id="back"  value="返回">返 回</button>
+                    <button type="button" class="layui-btn" name="go" id="go" value="去修改">去 修 改</button>
+                </div>
+            </div>
+        </div>
             <?php
-            while ($row = mysqli_fetch_array($result)) {
+                }
             ?>
-                <tr>
-                    <th style='width:120px'>书本名称:</th>
-                    <td>
-                        <?php
-                        echo $row["book_name"];
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th>书本价格:</th>
-                    <td>
-                        <?php
-                        echo $row["price"];
-                        ?>元
-                    </td>
-                </tr>
-                <tr>
-                    <th>书本作者:</th>
-                    <td>
-                        <?php
-                        echo $row["author"];
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th>出 版 社:</th>
-                    <td>
-                        <?php
-                        echo $row["publisher"];
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th>图书类别:</th>
-                    <td>
-                        <?php
-                        echo $row["book_type"];
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th>库 存:</th>
-                    <td>
-                        <?php
-                        echo $row["number"];
-                        ?>本
-                    </td>
-                </tr>
-                <tr style='height:145px'>
-                    <th>书本介绍:</th>
-                    <td>
-                        <textarea rows='8' cols='40' readonly><?php echo $row["mark"]; ?></textarea>
-                    </td>
-                </tr>
-<!--                        <tr>-->
-<!--                            <td colspan='2' align='center'>-->
-<!--                                <input type='submit' value='修 改' class="layui-btn layui-btn-radius" />-->
-<!--                                <input type='button' value='返 回' onclick='window.location.href="../books/books_list.php"' class="layui-btn layui-btn-radius" />-->
-<!--                            </td>-->
-<!--                        </tr>-->
-            <?php
-            }
-            ?>
-        </table>
-    </form>
-</body>
+        </form>
 
+        <script src="../js/layui.simple.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script>
+            layui.use(['layer'], function() {
+                var layer = layui.layer;
+                // 返回操作，关闭窗口
+                $('#back').click(function (){
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                })
+                $('#go').click(function (){
+                    layer.load({
+                        icon: 2,
+                        time: 1000
+                    });
+                    setTimeout("location.href = '../books/update_books.php?id=<?php echo $id ?>'",1000)
+                })
+            })
+        </script>
+    </body>
 </html>

@@ -17,7 +17,7 @@
     }else if($flag == 0){
         echo "<script>alert('用户名或密码错误,权限不匹配！');history.back();</script>";
     }else{
-        $_SESSION['is_flag'] = 2;
+        $_SESSION['is_flag'] = 2; //登录状态
         $_SESSION['user'] = $username;
         $_SESSION['usertype'] = $usertype;
         echo "<script>alert('登录成功！');location.href='../administrator/index.php';</script>";

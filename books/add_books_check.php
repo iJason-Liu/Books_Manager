@@ -2,32 +2,50 @@
     session_save_path('../session/');
     session_start();
     include '../config/conn.php';
+    include '../books/upload_bookCover.php';  //上传的封面文件
 
+    // 阻止非登录用户和登录用户身份不符 进行操作
+    if ($_SESSION['is_flag'] != 2) {
+        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
+        echo "<script>alert('sorry，您暂无权限操作！');parent.location.reload();</script>";
+    }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
-	echo $name = $_POST['name'];
-	echo $price = $_POST['price'];
-	echo $author = $_POST['author'];
-	echo $publisher = $_POST['publisher'];
-	echo $type = $_POST['bookstype'];
-	echo $number = $_POST['number'];
-	echo $mark = $_POST['mark'];
-    $create_time = date('Y-m-d h:i:s', time()); //添加时间
+    $isbn = $_POST['ISBN'];  //ISBN
+	$name = $_POST['bookname']; //书名
+    $author = $_POST['author']; //作者
+    $publisher = $_POST['publisher']; //出版社
+	$price = $_POST['bookprice']; //定价
+	$type = $_POST['booktype']; //图书类别
+    $place = $_POST['saveplace']; //保存书库
+	$mark = $_POST['mark']; //简介
+    $file = $_POST['file'];  //获取上传的文件名
+    $create_time = date('Y-m-d H:i:s', time()); //添加时间
+    $status = '0'; //图书状态 0在库，1借出
 
     $sql = "select * from book_list";
-    $add_sql="insert into book_list(book_name,price,author,publisher,book_type,number,mark)"."values('$name','$price','$author','$publisher','$type','$number','$mark')";
-    $is_book_name_equal=0;  //判断图书是否存在
-    $result=mysqli_query($db_connect,$sql);
-    // 判断用户名是否存在
-    while($row=mysqli_fetch_array($result)){
-        if($name==$row[book_name]){
-            $is_book_name_equal=1;
+    $add_sql = "insert into book_list(ISBN,book_name,author,book_type,publisher,price,book_cover,mark,status,create_date,save_position)"."values('$isbn','$name','$author','$type','$publisher','$price','$filepath','$mark','$status','$create_time','$place')";
+    $is_book_name_equal = 0;  //判断图书是否存在
+    $result = mysqli_query($db_connect,$sql);
+    // 判断图书是否存在
+    while($row = mysqli_fetch_array($result)){
+        if($name == $row['book_name']){
+            $is_book_name_equal = 1;
             break;
         }
     }
-    if($is_book_name_equal==1){
-        echo "<script>alert('所添加图书已经存在！！！');history.back();</script>";
-    }else if(isset($_POST['add']) && $name!=''){
-        mysqli_query($db_connect,$add_sql);
-        echo "<script>alert('添加成功！');parent.location.replace('../books/books_test.php');</script>";
+
+    if($is_book_name_equal == 1){
+        echo "<script>alert('您所添加的图书已经存在，无需重复添加！');history.back();</script>";
+    }else if(isset($_POST['addition'])){
+        $flag = mysqli_query($db_connect,$add_sql); //判断添加图书是否成功
+        if($flag){
+            echo 'success';
+            echo "<script>alert('图书添加成功！');parent.location.replace('../books/books_list.php');</script>";
+        }else{
+            echo "<script>alert('图书添加失败！');parent.location.replace('../books/books_list.php');</script>";
+        }
     }
+
+    mysqli_close($db_connect); //关闭数据库资源

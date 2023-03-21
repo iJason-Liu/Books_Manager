@@ -2,6 +2,9 @@
     session_save_path('../session/');
     session_start();
     include '../config/conn.php';
+    if ($_SESSION['is_flag'] != 2) {
+        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+    }
 
     /*
      * 查询用户类型id用来判断显示功能

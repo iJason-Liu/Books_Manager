@@ -2476,7 +2476,7 @@ a cite {
 
 .layui-input:hover,
 .layui-textarea:hover {
-    border-color: #eee !important
+    border-color: #429488 !important
 }
 
 .layui-input:focus,
@@ -3741,7 +3741,7 @@ a cite {
 }
 
 .layui-table-cell {
-    height: 46px;
+    height: 54px;
     line-height: 36px;
     padding: 6px 15px;
     position: relative;
@@ -4061,10 +4061,11 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-upload-choose {
-    max-width: 200px;
+    max-width: 300px;
     padding: 0 10px;
     color: #999;
     font-size: 14px;
+    margin: 10px 0 0 100px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap
@@ -4921,7 +4922,7 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav .layui-badge {
-    margin-top: -9px
+    margin-top: -9px;
 }
 
 .layui-tab-title .layui-badge,

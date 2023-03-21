@@ -236,13 +236,10 @@
             <table class="layui-hide" id="bookcase" lay-filter="test"></table>
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
-                    <button class="layui-btn layui-btn-sm" lay-event="exportBook">添加图书</button>
-                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="multi-row">
-                        多行显示
-                    </button>
-                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="default-row">
-                        单行显示
-                    </button>
+                    <button class="layui-btn layui-btn-sm" lay-event="exportBook"><i class="layui-icon layui-icon-addition"></i>添加图书</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="delBooks"><i class="layui-icon layui-icon-delete"></i>批量删除</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="multi-row">多行显示</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="default-row">单行显示</button>
                     <button class="layui-btn layui-btn-sm" lay-event="tip">tips</button>
                 </div>
             </script>
@@ -279,8 +276,8 @@
                     layui.use(['table','laypage'], function() {
                         let table = layui.table,
                         laypage = layui.laypage,
-                        pageNo = 1,
-                        limit = 5;
+                        pageNo = 1,  //当前页码
+                        pageSize = 10;  //每页条数
 
                         // 创建渲染实例
                         table.render({
@@ -300,18 +297,12 @@
                                 statusCode: 200, //规定成功的状态码，默认：0
                             },
                             where: { //接口参数，page为分页参数
-                                page: pageNo
+                                page: pageNo,
+                                limit: pageSize
                             },
-                            // page: !0 || { //详细参数可参考 laypage 组件文档
-                            //     curr: 1,
-                            //     layout: ['prev', 'page', 'next', 'skip', 'count', 'limit'] //自定义分页布局
-                            // },
-                            // even: true,
-                            // limit: limit,
-                            // limits: [5,10,15],
                             toolbar: '#toolbarDemo',
                             height: 'full-170', // 最大高度减去其他容器已占有的高度差
-                            cellMinWidth: 100,
+                            cellMinWidth: 120,
                             // totalRow: true, // 开启合计行
                             page: false, //开启分页
                             text: {
@@ -324,13 +315,20 @@
                                 }, {
                                     field: 'book_id',
                                     fixed: 'left',
-                                    width: 110,
+                                    width: 105,
                                     title: '图书编号',
                                     sort: true,
+                                    hide: false,  //隐藏
                                     align: 'center'
-                                }, {
+                                },{
+                                    field: 'ISBN',
+                                    width: 170,
+                                    title: 'ISBN',
+                                    sort: true,
+                                    align: 'center'
+                                },{
                                     field: 'book_name',
-                                    width: 200,
+                                    width: 270,
                                     title: '图书名称',
                                     align: 'center'
                                 }, {
@@ -340,7 +338,7 @@
                                     title: '作者'
                                 }, {
                                     field: 'book_type',
-                                    width: 100,
+                                    width: 150,
                                     title: '图书类别',
                                     align: 'center'
                                 }, {
@@ -355,15 +353,7 @@
                                     width: 90,
                                     align: 'center',
                                     sort: true
-                                },
-                                //     {
-                                //     field: 'number',
-                                //     title: '库存',
-                                //     width: 100,
-                                //     sort: true,
-                                //     align: 'center'
-                                // },
-                                    {
+                                },{
                                     field: 'book_cover',
                                     title: '图书封面',
                                     width: 100,
@@ -371,7 +361,7 @@
                                     templet: '#img'
                                 }, {
                                     field: 'mark',
-                                    width: 150,
+                                    width: 170,
                                     title: '图书简介（可编辑）',
                                     edit: 'textarea', //后续修改单独更新值到数据库中update book_list set mark='修改后的值' where id=''
                                     minWidth: 260,
@@ -379,7 +369,7 @@
                                     style: '-moz-box-align: start;'
                                 }, {
                                     field: 'save_position',
-                                    width: 140,
+                                    width: 190,
                                     title: '藏书位置',
                                     align: 'center',
                                     style: '-moz-box-align: start;'
@@ -412,30 +402,30 @@
                                 }
                                 ]
                             ],
-                            initSort:{   //按编号升序排序
-                                field: 'book_id',
-                                type: 'asc',
-                            },
+                            // initSort:{   //按编号升序排序
+                            //     field: 'book_id',
+                            //     type: 'asc',
+                            // },
                             done: function (res, curr, count){
                                 hoverOpenImg();//显示大图
-                                // fillTable(res.data, (pageNo - 1) * limit); //页面
                                 // console.log(res);
                                 //在获取到表格数据后加载分页组件，点击分页时调用table的reload方法重新加载表格数据达到分页效果
                                 laypage.render({
                                     elem: 'laypage', //分页容器ID
-                                    count: res.count, //设置分页数据总数
+                                    count: res.count, //通过后台拿到总页数
                                     curr: pageNo, //当前页码
-                                    limit: limit, //分页大小
-                                    limits: [5,10,15,20],
+                                    limit: pageSize, //分页大小
+                                    limits: [10,15,20,30],
                                     layout: ['prev', 'page', 'next', 'skip', 'count', 'limit'],
                                     jump: function (obj, first) {//跳转方法
                                         // console.log(obj);
                                         if (!first) {  //若不为第一页
                                             pageNo = obj.curr;//设置全局变量page 为当前选择页码
-                                            limit = obj.limit;//设置全局变量limit 为当前选择分页大小
+                                            pageSize = obj.limit;//设置全局变量limit 为当前选择分页大小
                                             table.reload('bookcase', {//重新加载表格
                                                 where: { //接口参数，page为分页参数
-                                                    page: pageNo
+                                                    page: pageNo,
+                                                    limit: pageSize
                                                 }
                                             });
                                         }
@@ -453,15 +443,65 @@
                             let checkStatus = table.checkStatus(id);
                             // 获取选中的数据
                             let data = checkStatus.data;
+                            let arr_id = [];  //选中的图书id
+                            let arr_status =[] //选中的图书对应的借阅状态
+                            let num = data.length; //选中的数量
+                            //把选中的图书id添加在一个数组中
+                            data.map(function (item){
+                                arr_id.push(item.book_id);
+                                arr_status.push(item.status);
+                            })
+                            //两个数组拼成对象
+                            let dataArr = arr_id.map((book_id, i) => ({book_id, status: arr_status[i]}))
+                            // console.log(dataArr); //打印选中的图书id数组
                             switch (obj.event) {
+                                case 'delBooks':
+                                    if(data.length === 0){
+                                        layer.msg('请至少选择一项');
+                                    }else {
+                                        layer.confirm('确认删除这 '+num+' 本图书吗？', function () {
+                                            $.post('../books/delete_books.php',{dataArr},function (result){
+                                                if(result === '200'){
+                                                    layer.msg('删除成功！', {
+                                                        icon: 1,
+                                                        time: 2000
+                                                    });
+                                                    window.location.reload();
+                                                }else if(result === '402'){
+                                                    layer.msg('在借的图书无法删除！', {
+                                                        icon: 2,
+                                                        time: 2000
+                                                    })
+                                                }else if(result === '403'){
+                                                    layer.msg('您暂无权限操作！', {
+                                                        icon: 2,
+                                                        time: 2000
+                                                    })
+                                                }else if(result === '401'){
+                                                    layer.msg('删除失败！', {
+                                                        icon: 2,
+                                                        time: 2000
+                                                    })
+                                                }
+                                            })
+                                            layer.closeAll('dialog'); //点击确认后关闭窗口
+                                            // location.href = "../books/delete_books.php?dataArr="+dataArr;
+                                        }, function () {
+                                            layer.msg('取消操作', {
+                                                icon: 7,
+                                                time: 1500, //1.5s后自动关闭
+                                            })
+                                        })
+                                    }
+                                    break;
                                 case 'exportBook':
                                     layer.open({
-                                        title: '新增图书',
+                                        title: '<i class="layui-icon layui-icon-addition"></i>新增图书',
                                         type: 2,
-                                        area: ['50%', '88%'],
+                                        area: ['48%', '88%'],
                                         skin: 'layui-layer-molv',
                                         maxmin: true,
-                                        shadeClose: true,
+                                        // shadeClose: true, //点击遮罩关闭=窗口
                                         content: '../books/add_books.php'
                                     });
                                     break;
@@ -481,7 +521,7 @@
                                 case 'tip':
                                     layer.msg('表格可以左右滑动查看更多内容噢~');
                                     break;
-                            };
+                            }
                         });
 
                         //触发单元格工具事件
@@ -497,9 +537,9 @@
                             // console.log(obj);
                             if (obj.event === 'detail') {
                                 layer.open({
-                                    title: '图书详细信息',
+                                    title: '<i class="layui-icon layui-icon-search"></i> 图书详情',
                                     type: 2,
-                                    area: ['50%', '88%'],
+                                    area: ['48%', '88%'],
                                     content: url,
                                     skin: 'layui-layer-molv',
                                     maxmin: true,
@@ -507,33 +547,55 @@
                                 });
                             } else if (obj.event === 'edit') {
                                 layer.open({
-                                    title: '编辑图书信息',
+                                    title: '<i class="layui-icon layui-icon-edit"></i> 编辑图书信息',
                                     type: 2,
-                                    area: ['50%', '88%'],
+                                    area: ['48%', '88%'],
                                     content: url1,
                                     // btn: ['确认','取消'],
                                     skin: 'layui-layer-molv',
                                     maxmin: true,
-                                    shadeClose: true,
+                                    // shadeClose: true,
                                     // success: function (){
-                                    //
                                     //     layer.close();
                                     // }
                                 });
                             }else if(obj.event === 'del'){
-                                layer.confirm('是否确认删除此书？', function() {
-                                    layer.msg('已删除', {
-                                        icon: 1,
-                                        time: 2000
-                                    });
-                                    location.href = "../books/delete_book.php?id="+id;
+                                layer.confirm('确认删除这本书吗？', function() {
+                                    $.post('../books/delete_book.php',{id}, function(result){
+                                        // console.log(result);
+                                        if(result === '200'){
+                                            layer.msg('删除成功！', {
+                                                icon: 1,
+                                                time: 2000
+                                            });
+                                            window.location.reload();
+                                        }else if(result === '402'){
+                                            layer.msg('在借的图书无法删除！', {
+                                                icon: 2,
+                                                time: 2000
+                                            })
+                                        }else if(result === '403'){
+                                            layer.msg('您暂无权限操作！', {
+                                                icon: 2,
+                                                time: 2000
+                                            })
+                                        }else if(result === '401'){
+                                            layer.msg('删除失败！', {
+                                                icon: 2,
+                                                time: 2000
+                                            })
+                                        }
+                                    })
+                                    layer.closeAll('dialog'); //点击确认后关闭窗口
+                                    // location.href = "../books/delete_book.php?id="+id;
                                 },function (){
                                     layer.msg('取消操作', {
+                                        icon: 7,
                                         time: 1500, //1.5s后自动关闭
-                                    });
-                                });
+                                    })
+                                })
                             }
-                        });
+                        })
 
                         //触发表格复选框选择
                         table.on('checkbox(test)', function(obj) {
