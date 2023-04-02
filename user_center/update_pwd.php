@@ -2,8 +2,9 @@
     session_save_path('../session/');
     session_start();
     include '../config/conn.php';
-    if ($_SESSION['is_flag'] != 2) {
-        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+    include '../login/session_time.php';
+    if ($_SESSION['is_login'] != 2) {
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login.php'</script>";
     }
 
     /*
@@ -13,9 +14,23 @@
      * 1003图书管理员
      * 1004超级管理员
      */
-    $type = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$type'";
+    $usertype = $_SESSION['usertype']; //用户登录时的身份
+    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
     $res = mysqli_query($db_connect, $check_sql);
+
+    $id = $_SESSION['cardNo']; //借阅卡号也是id
+    $username = $_SESSION['user']; //用户名、姓名
+    //执行sql语句的查询语句
+    if($usertype == '学生'){
+        $check_sql = "select * from student where cardNo=$id";
+    }else if($usertype == '教师'){
+        $check_sql = "select * from teacher where cardNo=$id";
+    }else if($usertype == '图书管理员'){
+        $check_sql = "select * from lib_worker where id=$id";
+    }else if($usertype == '超级管理员'){
+        $check_sql = "select * from super_admin where id=$id";
+    }
+    $result = mysqli_query($db_connect,$check_sql);
 
     mysqli_close($db_connect); //关闭数据库资源
 ?>
@@ -34,7 +49,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../css/layui.css">
-    <script type="text/javascript" src="../js/layui.simple.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/modules/layer/layer.css" />
     <style>
         /*隐藏功能*/
         .show {
@@ -43,6 +58,20 @@
 
         .hide {
             display: none !important;
+        }
+
+        #form_tab{
+            width: 40%;
+            padding: 10px;
+            margin: 45px 90px;
+        }
+
+        .color{
+            background-color: #f5f5f5;
+        }
+
+        .layui-btn{
+            width: 120px;
         }
     </style>
     <script type="text/javascript">
@@ -73,7 +102,7 @@
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
             <a href="../administrator/index.php">
-                <div class="layui-logo layui-hide-xs layui-bg-black">Library</div>
+                <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
@@ -84,17 +113,17 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <img src="../images/avatar.png" class="layui-nav-img">
+                        <img src="<?php echo $_SESSION['src'] ?>" class="layui-nav-img">
                         <?php
-                        if ($_SESSION['is_flag'] != 2) {
-                            echo "<script>alert('您没有权限访问！');location.href='../login/login.php'</script>";
-                        } else {
-                            echo "您好！" . $_SESSION['user'];
-                        }
+                            echo "您好！". $_SESSION['user'];
                         ?>
                     </a>
                     <dl class="layui-nav-child layui-nav-child-c">
-                        <dd><a href="../user_center/user_Info.php">个人中心</a></dd>
+                        <?php
+                            if($usertype != '超级管理员'){
+                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                            }
+                        ?>
                         <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
                         <dd><a href="../login/logout.php">注销</a></dd>
                     </dl>
@@ -114,7 +143,11 @@
                             <a class="" href="javascript:;"><i class="layui-icon layui-icon-username"></i>&nbsp;个人中心</a>
                             <dl class="layui-nav-child">
                                 <!-- 包含注销功能(方便用户删除关于自己的信息)，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
-                                <dd><a href="../user_center/user_Info.php"><i class="layui-icon layui-icon-username"></i>&nbsp;我的信息</a></dd>
+                                <?php
+                                    if($type_id != 1004){
+                                        echo "<dd><a href='../user_center/user_Info.php'><i class='layui-icon layui-icon-username'></i>&nbsp;我的信息</a></dd>";
+                                    }
+                                ?>
                                 <dd class="layui-this"><a href="../user_center/update_pwd.php"><i class="layui-icon layui-icon-password"></i>&nbsp;修改密码</a></dd>
                                 <dd><a href="../user_center/account_del.php"><i class="layui-icon layui-icon-logout"></i>&nbsp;账号注销</a></dd>
                             </dl>
@@ -146,15 +179,7 @@
                         ?>">
                             <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;读者中心</a>
                             <dl class="layui-nav-child">
-                                <dd>
-                                    <li class="layui-nav-item">
-                                        <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;读者档案</a>
-                                        <dl class="layui-nav-child layui-nav-child-c">
-                                            <dd><a href="../reader/reader_info_student.php"><i class="layui-icon layui-icon-username"></i>&nbsp;学生档案</a></dd>
-                                            <dd><a href="../reader/reader_info_teacher.php"><i class="layui-icon layui-icon-username"></i>&nbsp;教师档案</a></dd>
-                                        </dl>
-                                    </li>
-                                </dd>
+                                <dd><a href="../reader/reader_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;读者档案</a></dd>
                                 <dd><a href="../reader/reader_kind.php"><i class="layui-icon layui-icon-cols"></i>&nbsp;&nbsp;读者类型</a></dd>
                             </dl>
                         </li>
@@ -167,7 +192,11 @@
                                 <dd><a href="../books/books_search.php"><i class="layui-icon layui-icon-search"></i>&nbsp;图书查询</a></dd>
                                 <!-- 图书点击量，借阅次数 -->
                                 <dd><a href="../books/popular_books.php"><i class="layui-icon layui-icon-praise"></i>&nbsp;人气图书</a></dd>
-                                <dd><a href="../books/books_kind.php"><i class="layui-icon layui-icon-form"></i>&nbsp;图书类别</a></dd>
+                                <?php
+                                    if ($type_id == 1003 || $type_id == 1004) {
+                                        echo "<dd><a href='../books/books_kind.php'><i class='layui-icon layui-icon-form'></i>&nbsp;图书类别</a></dd>";
+                                    }
+                                ?>
                                 <!-- 包含查询，书库名，编号，位置 -->
                                 <dd><a href="../books/books_stack.php"><i class="layui-icon layui-icon-diamond"></i>&nbsp;书库信息</a></dd>
                             </dl>
@@ -223,7 +252,55 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px;">这里修改读者账号密码和注销账号！</div>
+            <form class="layui-form" lay-filter="form_data">
+            <?php
+                while($row = mysqli_fetch_array($result)){
+            ?>
+            <div id="form_tab">
+                <div class="layui-form-item <?php if ($usertype == '图书管理员' || $usertype == '超级管理员') echo "show"; else echo "hide";?>">
+                    <label class="layui-form-label">账 号:</label>
+                    <div class="layui-input-inline">
+                        <input disabled type="text" name="id" value="<?php echo $row['id'] ?>" class="layui-input color">
+                    </div>
+                </div>
+                <div class="layui-form-item <?php if ($usertype == '图书管理员' || $usertype == '超级管理员') echo "hide";?>">
+                    <label class="layui-form-label">借阅卡号:</label>
+                    <div class="layui-input-inline">
+                        <input disabled type="text" name="cardNo" value="<?php echo $row['cardNo'] ?>" class="layui-input color">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓 名:</label>
+                    <div class="layui-input-inline">
+                        <input disabled type="text" value="<?php if($usertype == '超级管理员') echo $row['username'];else echo $row['name'] ?>" class="layui-input color">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>密 码:</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="pwd" id="pwd" placeholder="请输入新密码" lay-verType="tips" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>确认密码:</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="pwd2" id="pwd2" placeholder="请再次输入密码"  lay-verType="tips" class="layui-input">
+                    </div>
+<!--                    <div class="layui-form-mid layui-word-aux">-->
+<!--                        <a title="显示" lay-event="showPwd" id="showPwd" href="javascript:;"><img style="width: 26px;height: 18px;" src="../images/seePwd.png" /></a>-->
+<!--                    </div>-->
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="margin-top: 45px;">
+                        <button type="reset" class="layui-btn layui-btn-primary" id="reset"  value="重置">重 置</button>
+                        <button type="button" class="layui-btn" name="submit" id="submit" lay-submit value="确定">确 定</button>
+                    </div>
+                </div>
+            </div>
+                <?php
+                    }
+                ?>
+            </form>
         </div>
 
         <div class="layui-footer">
@@ -235,6 +312,84 @@
             </p>
         </div>
     </div>
+
+    <script type="text/javascript" src="../js/layui.simple.js"></script>
+    <script>
+        layui.use(['layer', 'form'], function() {
+            var $ = layui.jquery
+                ,layer = layui.layer
+                , form = layui.form;
+
+            form.verify({
+                //(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]  特殊字符
+                //[\S]非空白字符
+                //{6,12} 长度
+                //(?=.*[A-Za-z]) 任意字母
+                // reg_pwd: [
+                //     /^(?=.*[A-Za-z])(?=.*\d)[\S]{6,12}$/,'密码必须6至12位，包含字母数字，不能包含空格！'
+                // ]
+            })
+
+            $('#submit').on('click', function () {
+                var data = form.val('form_data'); //获取表格中的所有数据 携带name属性
+                // console.log(data);
+                var pwd = data.pwd;
+                var pwd2 = data.pwd2;
+                var reg = /^(?=.*[A-Za-z])(?=.*\d)[\S]{6,12}$/;
+                if(!reg.test(pwd)){
+                    layer.tips('密码必须6至12位，包含字母数字，不能包含空格！', '#pwd',{
+                        tips: [1,'#666'],
+                        time: 2000
+                    })
+                }else if(pwd2 !== pwd){
+                    layer.msg('两次密码输入不一致！', {
+                        icon: 7,
+                        anim: 6, //抖动提示
+                        time: 1500
+                    })
+                }else{
+                    $.ajax({
+                        url: '../user_center/update_pwd_check.php',
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        success: function (res) {
+                            // console.log(res);
+                            if (res.code === 200) {
+                                //显示自动关闭倒计秒数
+                                layer.alert(res.msg, {
+                                    btn: [],
+                                    offset: '50px',
+                                    time: 3 * 1000,
+                                    success: function(layero, index){
+                                        var timeNum = this.time/1000
+                                            , setText = function(start){
+                                                layer.title((start ? timeNum : --timeNum) + ' 秒后跳转', index);
+                                            };
+                                        setText(!0);
+                                        this.timer = setInterval(setText, 1000);
+                                        if(timeNum <= 0){
+                                            clearInterval(this.timer);
+                                        }
+                                    },
+                                    end: function(){
+                                        clearInterval(this.timer);
+                                        //跳转logout页面
+                                        location.href = "../login/logout.php";
+                                    }
+                                })
+                            } else {
+                                layer.msg(res.msg, {
+                                    icon: 7,
+                                    time: 1500
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

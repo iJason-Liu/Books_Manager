@@ -2,8 +2,9 @@
     session_save_path('../session/');
     session_start();
     include '../config/conn.php';
-    if ($_SESSION['is_flag'] != 2) {
-        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+    include '../login/session_time.php';
+    if ($_SESSION['is_login'] != 2) {
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login.php'</script>";
     }
     //权限管理模块
     // 设置文档类型：，utf-8支持中文文档
@@ -16,8 +17,8 @@
      * 1003图书管理员
      * 1004超级管理员
      */
-    $type = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$type'";
+    $usertype = $_SESSION['usertype']; //用户登录时的身份
+    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
     $res = mysqli_query($db_connect, $check_sql);
 
     mysqli_close($db_connect); //关闭数据库资源
@@ -74,7 +75,7 @@
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
             <a href="../administrator/index.php">
-                <div class="layui-logo layui-hide-xs layui-bg-black">Library</div>
+                <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
@@ -85,17 +86,17 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <img src="../images/avatar.png" class="layui-nav-img">
+                        <img src="<?php echo $_SESSION['src'] ?>" class="layui-nav-img">
                         <?php
-                            if ($_SESSION['is_flag'] != 2) {
-                                echo "<script>alert('您没有权限访问！');location.href='../login/login.php'</script>";
-                            } else {
-                                echo "您好！" . $_SESSION['user'];
-                            }
+                            echo "您好！". $_SESSION['user'];
                         ?>
                     </a>
                     <dl class="layui-nav-child layui-nav-child-c">
-                        <dd><a href="../user_center/user_Info.php">个人中心</a></dd>
+                        <?php
+                            if($usertype != '超级管理员'){
+                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                            }
+                        ?>
                         <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
                         <dd><a href="../login/logout.php">注销</a></dd>
                     </dl>
@@ -115,7 +116,11 @@
                             <a class="" href="javascript:;"><i class="layui-icon layui-icon-username"></i>&nbsp;个人中心</a>
                             <dl class="layui-nav-child">
                                 <!-- 包含注销功能(方便用户删除关于自己的信息)，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
-                                <dd><a href="../user_center/user_Info.php"><i class="layui-icon layui-icon-username"></i>&nbsp;我的信息</a></dd>
+                                <?php
+                                    if($type_id != 1004){
+                                        echo "<dd><a href='../user_center/user_Info.php'><i class='layui-icon layui-icon-username'></i>&nbsp;我的信息</a></dd>";
+                                    }
+                                ?>
                                 <dd><a href="../user_center/update_pwd.php"><i class="layui-icon layui-icon-password"></i>&nbsp;修改密码</a></dd>
                                 <dd><a href="../user_center/account_del.php"><i class="layui-icon layui-icon-logout"></i>&nbsp;账号注销</a></dd>
                             </dl>
@@ -147,15 +152,7 @@
                         ?>">
                             <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;读者中心</a>
                             <dl class="layui-nav-child">
-                                <dd>
-                                    <li class="layui-nav-item">
-                                        <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;读者档案</a>
-                                        <dl class="layui-nav-child layui-nav-child-c">
-                                            <dd><a href="../reader/reader_info_student.php"><i class="layui-icon layui-icon-username"></i>&nbsp;学生档案</a></dd>
-                                            <dd><a href="../reader/reader_info_teacher.php"><i class="layui-icon layui-icon-username"></i>&nbsp;教师档案</a></dd>
-                                        </dl>
-                                    </li>
-                                </dd>
+                                <dd><a href="../reader/reader_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;读者档案</a></dd>
                                 <dd><a href="../reader/reader_kind.php"><i class="layui-icon layui-icon-cols"></i>&nbsp;&nbsp;读者类型</a></dd>
                             </dl>
                         </li>
@@ -168,7 +165,11 @@
                                 <dd><a href="../books/books_search.php"><i class="layui-icon layui-icon-search"></i>&nbsp;图书查询</a></dd>
                                 <!-- 图书点击量，借阅次数 -->
                                 <dd><a href="../books/popular_books.php"><i class="layui-icon layui-icon-praise"></i>&nbsp;人气图书</a></dd>
-                                <dd><a href="../books/books_kind.php"><i class="layui-icon layui-icon-form"></i>&nbsp;图书类别</a></dd>
+                                <?php
+                                    if ($type_id == 1003 || $type_id == 1004) {
+                                        echo "<dd><a href='../books/books_kind.php'><i class='layui-icon layui-icon-form'></i>&nbsp;图书类别</a></dd>";
+                                    }
+                                ?>
                                 <!-- 包含查询，书库名，编号，位置 -->
                                 <dd><a href="../books/books_stack.php"><i class="layui-icon layui-icon-diamond"></i>&nbsp;书库信息</a></dd>
                             </dl>

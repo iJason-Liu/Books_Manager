@@ -2,10 +2,8 @@
     session_save_path('../session/');
     session_start();
     include '../config/conn.php';
-    if ($_SESSION['is_flag'] != 2) {
-        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
-    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
-        echo "<script>alert('sorry，您暂无权限操作！');parent.location.reload();</script>";
+    if ($_SESSION['is_login'] != 2) {
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login.php'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -16,7 +14,7 @@
     $result = mysqli_query($db_connect,$sql1);
 
     // 查询图书类别
-    $type_sql="select * from book_type";
+    $type_sql="select * from book_kind";
     $result_type = mysqli_query($db_connect,$type_sql);
     // 查询图书书库
     $stack_sql="select * from book_stack";
@@ -51,12 +49,16 @@
             border: 1px solid #eee;
             padding: 8px;
             display: block;
-            min-height: 150px;
+            min-height: 180px;
             resize: vertical;
         }
 
         .layui-btn{
             width: 120px;
+        }
+
+        .color{
+            background-color: #f5f5f5;
         }
 
     </style>
@@ -87,13 +89,19 @@
             </fieldset>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">图书编号:</label>
+                <div class="layui-input-block">
+                    <input disabled type="text" name="id" id="id" value="<?php echo $row['book_id'] ?>" class="layui-input color">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">ISBN:</label>
                 <div class="layui-input-block">
                     <input type="text" name="ISBN" id="ISBN" value="<?php echo $row['ISBN'] ?>" placeholder="请输入图书的ISBN编号" lay-verify="required" lay-reqtext="请输入图书ISBN！" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">*图书名称:</label>
+                <label class="layui-form-label"><span style="color: #ff0000;">*</span>图书名称:</label>
                 <div class="layui-input-block">
                     <input type="text" name="bookname" id="bookname" value="<?php echo $row['book_name'] ?>" placeholder="请输入图书名称---手动添加书名号《》" lay-verify="required" lay-reqtext="请输入图书名称！" class="layui-input">
                 </div>
@@ -111,11 +119,18 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">定 价:</label>
+                <label class="layui-form-label">价 格:</label>
                 <div class="layui-input-inline">
                     <input type="number" name="bookprice" id="bookprice" value="<?php echo $row['price'] ?>" placeholder="单位：元" lay-verify="required" lay-reqtext="请输入图书的单价" class="layui-input">
                 </div>
 <!--                <div class="layui-form-mid layui-word-aux">（单位：元）</div>-->
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">库 存:</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="number" id="number" value="<?php echo $row['number'] ?>" placeholder="单位：本" class="layui-input">
+                </div>
+<!--                <div class="layui-form-mid layui-word-aux">单位：本</div>-->
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">图书类别：</label>

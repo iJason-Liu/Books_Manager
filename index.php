@@ -22,6 +22,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="@Jason Liu">
+    <meta name="applicable-device" content="pc,mobile">
     <meta name="keywords" content="小新的主站，图书管理系统，PHP，MySQL">
     <meta name="description" content="基于PHP+MySQL开发的图书管理系统">
     <link rel="stylesheet" type="text/css" href="./css/layui.css" />
@@ -98,9 +100,9 @@
 <!--            <a href='./login/login.php'>登录 </a> &nbsp; | &nbsp; <a href='./register/register.php'> 注册</a>-->
             <?php
                 if($user != ''){
-                    echo "您好！<a href='./administrator/index.php'>$user </a> &nbsp; | &nbsp; <a href='./login/logout.php'> 退出登录</a>";
+                    echo "您好！$user &nbsp; | &nbsp; <a href='./administrator/index.php'>返回后台 </a> &nbsp; | &nbsp; <a href='./login/logout.php'> 注销</a>";
                 }else{
-                    echo "<a href='./login/login.php'>读者登录入口</a>";
+                    echo "您当前身份：游客&nbsp; | <a href='./login/login.php'>登录 </a>";
                 }
             ?>
         </div>
@@ -213,7 +215,7 @@
                     $("#gotoTop").fadeOut(500);
                 };
             });
-        };
+        }
         gotoTop();
     </script>
 </body>

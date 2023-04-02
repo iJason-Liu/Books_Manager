@@ -9,7 +9,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>用户登录</title>
+		<title>读者登录中心</title>
         <link rel="shortcut icon" href="../images/favicon.png" />
 		<meta http-equiv="pragma" content="no-cache">
 <!--        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
@@ -26,29 +26,31 @@
 		
 		<style>
 			#main{
-				border: 1px solid lightseagreen;
+				border: 1px solid #429488;
 				background-color: aliceblue;
-				margin: 15% auto;
-				padding: 10px;
-				width: 350px;
-				opacity:0.90;
+				margin: 12% auto;
+				padding: 20px;
+				width: 360px;
+				opacity: .95;
 				border-radius: 7px;
 			}
 			.tab{
 				text-align: center;
-				width: 100%;
+				/*width: 100%;*/
+                padding-left: 18px;
 				height: 250px;
 				border-spacing: 6px;
 			}
 			.btn{
 				width: 100px;
 				height: 32px;
-				background-color: lightseagreen;
-				border-radius: 5px;
+				background-color: #429488;
+				border-radius: 3px;
 				cursor: pointer;
 				color: white;
 				font-size: 16px;
 				border: none;
+                margin: 10px 0 0 12px;
 			}
 			.yzm{
 				text-indent: 2px;
@@ -70,17 +72,17 @@
 			}
 		</style>
 	</head>
-	<body style="background: url(../images/bg.png) top center no-repeat; background-size:cover;width: 100%;height: 100%">
+	<body style="background: url('../images/bg.png') top center no-repeat;background-size:cover;">
 		<div id="main">
 			<form action="../login/login_check.php" method="post">
 				<table class="tab" cellspacing="0">
-					<tr>
-						<th colspan="2"><font size="5" color="lightseagreen">用户登录</font></th>
+					<tr style="height: 50px;">
+						<th colspan="2"><font size="5" color="#429488">读者登录</font></th>
 					</tr>
 					<tr>
-						<td><label>用户名：</label></td>
+						<td><label>账 号：</label></td>
 						<td>
-							<input type="text" id="username" name="username" placeholder="请输入用户名" required style="width: 210px;height: 27px" value="<?php echo $username ?>" />
+							<input type="text" id="account" name="account" placeholder="请输入借阅卡号" required style="width: 210px;height: 27px" value="<?php echo $username ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -112,15 +114,15 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" name="submit" value="登录" class="btn"/>
-							<input type="reset" name="reset" value="重置" class="btn"/>
+							<input type="submit" name="submit" value="登 录" class="btn"/>
+							<input type="reset" name="reset" value="重 置" class="btn"/>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<hr />
 <!--							<a href="../register/register.php"><font size="2" color="darkcyan">没有账号？去注册</font></a>-->
-							<a href="../index.php"><font size="2" color="darkcyan">返回首页</font></a>
+							<a title="返回首页" href="../index.php"><font size="2" color="darkcyan">返回首页</font></a>
 						</td>
 					</tr>
 				</table>	
@@ -132,7 +134,7 @@
     		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
    			 <div class="hide-button">隐藏</div>
 		</div>
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
 		    var message_Path = '../live2d/'
 		    var home_Path = 'https://www.crayon.vip/Books_Manager'
@@ -149,7 +151,7 @@
 				$.fn.snow = function(options) {
 					var $flake = $('<div id="snowbox" />').css({
 							'position': 'absolute',
-							'z-index': '9999',
+							'z-index': '999',
 							'top': '-50px'
 						}).html('&#10052;'),
 						documentHeight = $(document).height(),

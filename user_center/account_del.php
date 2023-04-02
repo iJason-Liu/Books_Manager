@@ -3,8 +3,9 @@
     session_start();
     include '../config/conn.php';
     //用户注销板块
-    if ($_SESSION['is_flag'] != 2) {
-        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
+    include '../login/session_time.php';
+    if ($_SESSION['is_login'] != 2) {
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login.php'</script>";
     }
     /*
      * 查询用户类型id用来判断显示功能
@@ -13,9 +14,23 @@
      * 1003图书管理员
      * 1004超级管理员
      */
-    $type = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$type'";
+    $usertype = $_SESSION['usertype']; //用户登录时的身份 = $_SESSION['usertype']; //用户登录时的身份
+    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
     $res = mysqli_query($db_connect, $check_sql);
+
+    $id = $_SESSION['cardNo']; //借阅卡号也是id
+    $username = $_SESSION['user']; //用户名、姓名
+    //执行sql语句的查询语句
+    if($usertype == '学生'){
+        $check_sql = "select * from student where cardNo=$id";
+    }else if($usertype == '教师'){
+        $check_sql = "select * from teacher where cardNo=$id";
+    }else if($usertype == '图书管理员'){
+        $check_sql = "select * from lib_worker where id=$id";
+    }else if($usertype == '超级管理员'){
+        $check_sql = "select * from super_admin where id=$id";
+    }
+    $result = mysqli_query($db_connect,$check_sql);
 
     mysqli_close($db_connect); //关闭数据库资源
 ?>
@@ -34,7 +49,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../css/layui.css">
-    <script type="text/javascript" src="../js/layui.simple.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/modules/layer/layer.css" />
     <style>
         /*隐藏功能*/
         .show {
@@ -43,6 +58,26 @@
 
         .hide {
             display: none !important;
+        }
+
+        #form_tab{
+            font-size: 15px;
+            width: 32%;
+            padding: 10px;
+            margin: 70px 90px;
+        }
+
+        .color{
+            background-color: #f5f5f5;
+        }
+
+        .layui-btn{
+            width: 130px;
+        }
+
+        .warning{
+            padding: 10px 10px 10px 58px;
+            font-size: 14px;
         }
     </style>
     <script type="text/javascript">
@@ -70,10 +105,10 @@
 </head>
 
 <body>
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
         <a href="../administrator/index.php">
-            <div class="layui-logo layui-hide-xs layui-bg-black">Library</div>
+            <div class="layui-logo layui-bg-black">Library</div>
         </a>
         <!-- 头部区域（可配合layui 已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
@@ -84,17 +119,17 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                 <a href="javascript:;">
-                    <img src="../images/avatar.png" class="layui-nav-img">
+                    <img src="<?php echo $_SESSION['src'] ?>" class="layui-nav-img">
                     <?php
-                    if ($_SESSION['is_flag'] != 2) {
-                        echo "<script>alert('您没有权限访问！');location.href='../login/login.php'</script>";
-                    } else {
-                        echo "您好！" . $_SESSION['user'];
-                    }
+                        echo "您好！". $_SESSION['user'];
                     ?>
                 </a>
                 <dl class="layui-nav-child layui-nav-child-c">
-                    <dd><a href="../user_center/user_Info.php">个人中心</a></dd>
+                    <?php
+                        if($usertype != '超级管理员'){
+                            echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                        }
+                    ?>
                     <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
                     <dd><a href="../login/logout.php">注销</a></dd>
                 </dl>
@@ -114,7 +149,11 @@
                         <a class="" href="javascript:;"><i class="layui-icon layui-icon-username"></i>&nbsp;个人中心</a>
                         <dl class="layui-nav-child">
                             <!-- 包含注销功能(方便用户删除关于自己的信息)，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
-                            <dd><a href="../user_center/user_Info.php"><i class="layui-icon layui-icon-username"></i>&nbsp;我的信息</a></dd>
+                            <?php
+                                if($type_id != 1004){
+                                    echo "<dd><a href='../user_center/user_Info.php'><i class='layui-icon layui-icon-username'></i>&nbsp;我的信息</a></dd>";
+                                }
+                            ?>
                             <dd><a href="../user_center/update_pwd.php"><i class="layui-icon layui-icon-password"></i>&nbsp;修改密码</a></dd>
                             <dd class="layui-this"><a href="../user_center/account_del.php"><i class="layui-icon layui-icon-logout"></i>&nbsp;账号注销</a></dd>
                         </dl>
@@ -146,17 +185,9 @@
                     ?>">
                         <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;读者中心</a>
                         <dl class="layui-nav-child">
-                            <dd>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-group"></i>&nbsp;读者档案</a>
-                        <dl class="layui-nav-child layui-nav-child-c">
-                            <dd><a href="../reader/reader_info_student.php"><i class="layui-icon layui-icon-username"></i>&nbsp;学生档案</a></dd>
-                            <dd><a href="../reader/reader_info_teacher.php"><i class="layui-icon layui-icon-username"></i>&nbsp;教师档案</a></dd>
+                            <dd><a href="../reader/reader_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;读者档案</a></dd>
+                            <dd><a href="../reader/reader_kind.php"><i class="layui-icon layui-icon-cols"></i>&nbsp;&nbsp;读者类型</a></dd>
                         </dl>
-                    </li>
-                    </dd>
-                    <dd><a href="../reader/reader_kind.php"><i class="layui-icon layui-icon-cols"></i>&nbsp;&nbsp;读者类型</a></dd>
-                    </dl>
                     </li>
 
                     <li class="layui-nav-item">
@@ -167,7 +198,11 @@
                             <dd><a href="../books/books_search.php"><i class="layui-icon layui-icon-search"></i>&nbsp;图书查询</a></dd>
                             <!-- 图书点击量，借阅次数 -->
                             <dd><a href="../books/popular_books.php"><i class="layui-icon layui-icon-praise"></i>&nbsp;人气图书</a></dd>
-                            <dd><a href="../books/books_kind.php"><i class="layui-icon layui-icon-form"></i>&nbsp;图书类别</a></dd>
+                            <?php
+                                if ($type_id == 1003 || $type_id == 1004) {
+                                    echo "<dd><a href='../books/books_kind.php'><i class='layui-icon layui-icon-form'></i>&nbsp;图书类别</a></dd>";
+                                }
+                            ?>
                             <!-- 包含查询，书库名，编号，位置 -->
                             <dd><a href="../books/books_stack.php"><i class="layui-icon layui-icon-diamond"></i>&nbsp;书库信息</a></dd>
                         </dl>
@@ -221,10 +256,48 @@
     }
     ?>
 
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">这里修改读者账号密码和注销账号！</div>
-    </div>
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <form class="layui-form" lay-filter="form_data">
+            <?php
+                while($row = mysqli_fetch_array($result)){
+            ?>
+            <div id="form_tab">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓 名:</label>
+                    <div class="layui-input-inline">
+                        <input disabled type="text" name="name" value="<?php if($usertype == '超级管理员') echo $row['username'];else echo $row['name'] ?>" class="layui-input color">
+                    </div>
+                </div>
+                <div class="layui-form-item <?php if ($usertype == '图书管理员' || $usertype == '超级管理员') echo "show"; else echo "hide";?>">
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>账 号:</label>
+                    <div class="layui-input-inline">
+                        <input disabled type="text" name="id" value="<?php echo $row['id'] ?>" class="layui-input color">
+                    </div>
+                </div>
+                <div class="layui-form-item <?php if ($usertype == '图书管理员' || $usertype == '超级管理员') echo "hide";?>">
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>借阅卡号:</label>
+                    <div class="layui-input-inline">
+                        <input disabled type="text" name="cardNo" value="<?php echo $row['cardNo'] ?>" class="layui-input color">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="warning">
+                        <span style="color: #FF0000FF;">注意：注销该账号之后您将失去本网站的服务，无法再进行借阅，使用在线阅读等功能！</span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="margin-top: 50px;">
+                        <button type="button" class="layui-btn layui-btn-lg layui-btn-danger" name="submit" id="submit" value="注销账号">注销账号</button>
+                    </div>
+                </div>
+            </div>
+                <?php
+                    }
+                ?>
+            </form>
+        </div>
+
 
         <div class="layui-footer">
             <!-- 底部固定区域 -->
@@ -234,7 +307,65 @@
                 <!-- <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>-->
             </p>
         </div>
-</div>
+    </div>
+
+    <script type="text/javascript" src="../js/layui.simple.js"></script>
+    <script>
+        layui.use(['layer', 'form'],function (){
+            var $ = layui.jquery
+                ,layer = layui.layer
+                ,form = layui.form;
+
+            $('#submit').on('click', function () {
+                var data = form.val('form_data'); //获取表格中的所有数据 携带name属性
+                // console.log(data);
+                layer.prompt({
+                    formType: 0,
+                    title: "请输入'我确定'"
+                },function (index){
+                    layer.closeAll(index);
+                    $.ajax({
+                        url: '../user_center/del_check.php',
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        success: function (res) {
+                            // console.log(res);
+                            if (res.code === 200) {
+                                //显示自动关闭倒计秒数
+                                layer.alert(res.msg, {
+                                    btn: [],
+                                    offset: '50px',
+                                    time: 3 * 1000,
+                                    success: function(layero, index){
+                                        var timeNum = this.time/1000
+                                            , setText = function(start){
+                                                layer.title((start ? timeNum : --timeNum) + ' 秒后跳转', index);
+                                            };
+                                        setText(!0);
+                                        this.timer = setInterval(setText, 1000);
+                                        if(timeNum <= 0){
+                                            clearInterval(this.timer);
+                                        }
+                                    },
+                                    end: function(){
+                                        clearInterval(this.timer);
+                                        //跳转logout页面
+                                        location.href = "../login/logout.php";
+                                    }
+                                })
+                            } else {
+                                layer.msg(res.msg, {
+                                    icon: 7,
+                                    time: 1500
+                                })
+                            }
+                        }
+                    })
+                })
+            })
+        })
+    </script>
 </body>
 
 </html>

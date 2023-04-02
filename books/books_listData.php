@@ -1,12 +1,13 @@
 <?php
+    /*
+     * @brief 图书列表的方法页面
+     * @Jason Liu
+     */
     include '../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
     $pageNo = $_GET['page']; //页码
     $pageSize = $_GET['limit']; //每页大小
-    /*
-     * 图书列表的方法页面
-     */
 
     //查询所有的图书数据
     $sql1 = "select * from book_list";

@@ -2,16 +2,16 @@
     session_save_path('../session/');
     session_start();
     include '../config/conn.php';
-    if ($_SESSION['is_flag'] != 2) {
-        echo "<script>alert('对不起，您没有权限操作！');location.href='../login/login.php'</script>";
-    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
-        echo "<script>alert('sorry，您暂无权限操作！');parent.location.reload();</script>";
+    //判断登录状态
+    if($_SESSION['is_login'] != 2) {
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login.php'</script>";
     }
+
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
     // 查询图书类别
-    $type_sql="select * from book_type";
+    $type_sql="select * from book_kind";
     $result_type = mysqli_query($db_connect,$type_sql);
     // 查询图书书库
     $stack_sql="select * from book_stack";
@@ -37,7 +37,7 @@
     <style>
         #form_tab{
             width: 72%;
-            padding: 20px 40px 40px 20px;
+            padding: 20px 50px 40px 20px;
             margin: 30px auto;
         }
 
@@ -46,7 +46,7 @@
             border: 1px solid #eee;
             padding: 8px;
             display: block;
-            min-height: 150px;
+            min-height: 180px;
             resize: vertical;
         }
 
@@ -85,9 +85,15 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">定 价:</label>
+                <label class="layui-form-label">价 格:</label>
                 <div class="layui-input-inline">
                     <input type="number" name="bookprice" id="bookprice" placeholder="单位：元" lay-verify="required" lay-reqtext="请输入图书的单价" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">库 存:</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="number" id="number" placeholder="单位：本" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -157,11 +163,10 @@
                     elem: '#bookcover',
                     url: '../books/upload_bookCover.php', //上传接口
                     accept: 'images', //允许上传的文件类型
-                    acceptMime: 'image/*',
+                    acceptMime: 'image/jpg, image/png, image/jpeg, image/svg, image/bmp, image/gif',
                     size: 1024 * 3,  //单位kb,允许3mb的文件
                     auto: false, //自动上传
-                    // exts: '', //文件后缀
-                    // field: 'cover', //上传文件字段
+                    exts: 'jpg|png|jpeg|svg|bmp|gif', //文件后缀
                     bindAction: '#addition',
                     before: function (){
                         layer.load(); //上传loading
@@ -192,11 +197,10 @@
                 form.on('submit(form_data)', function(data){
                   // console.log(data.field); //打印提交的表单信息
                     // $.ajax({
+                    //     url: '../books/add_books_check.php',
                     //     type: 'POST',
                     //     data: data.field,
                     //     dataType: "json",
-                    //     contentType: "application/x-www-form-urlencoded",
-                    //     url: '../books/add_books_check.php',
                     //     success: function (res) {
                     //         console.log(res);
                     //         alert('提交成功！');
@@ -206,7 +210,6 @@
                     //         alert('提交失败！');
                     //     }
                     // })
-                    // return false;
                 })
             })
         </script>

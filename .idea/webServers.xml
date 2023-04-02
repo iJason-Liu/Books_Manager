@@ -2,10 +2,17 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="3f2a553b-917a-4b38-ae64-57022a38fd0a" name="腾讯云-宝塔Linux" url="http://localhost">
-        <fileTransfer rootFolder="/www/wwwroot/crayon.vip" accessType="SFTP" host="43.139.94.135" port="22" sshConfigId="b43219ae-3949-452a-8169-504d4c0d6f5a" sshConfig="root@43.139.94.135:22 password">
+      <webServer id="b52b10c6-0c00-4d44-bd22-68b5ba4d929d" name="Test Server" url="http://43.139.94.135:1011">
+        <fileTransfer host="43.139.94.135" port="21">
           <advancedOptions>
-            <advancedOptions keepAliveTimeout="0" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="3af3aa9c-8058-4b90-868c-184a06648eb3" name="Books_Manager" url="https://crayon.vip">
+        <fileTransfer rootFolder="/www/wwwroot/crayon.vip" accessType="SFTP" host="43.139.94.135" port="22" sshConfigId="d1ff8ee2-62b9-45ec-9a44-da6ad67505d1" sshConfig="腾讯云-宝塔Linux">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

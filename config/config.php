@@ -6,5 +6,5 @@
     /********** 数据库密码 **********/
     $dbpassword = 'root';
     /********** 数据库名 **********/
-    $dbname = 'library';
+    $dbname = 'test_db';
 ?>

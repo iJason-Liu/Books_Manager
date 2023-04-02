@@ -91,9 +91,9 @@
         <div class='top_right'>
             <?php
                 if($user != ''){
-                    echo "您好！<a href='../administrator/index.php'>$user </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 退出登录</a>";
+                    echo "您好！$user &nbsp; | &nbsp; <a href='../administrator/index.php'>返回后台 </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 注销</a>";
                 }else{
-                    echo "<a href='../login/login.php'>读者登录入口</a>";
+                    echo "您当前身份：游客&nbsp; | <a href='../login/login.php'>登录 </a>";
                 }
             ?>
         </div>
@@ -104,15 +104,15 @@
             </a>
             <ul class="layui-nav">
                 <li class="layui-nav-item hc-hide-sm"><a href="../index.php">首页</a></li>
-                <li class="layui-nav-item hc-hide-sm layui-this"><a href="../views/book_center.php">图书中心</a></li>
-                <li class="layui-nav-item hc-hide-sm "><a href="../views/notice_list.php">图书资讯</a></li>
-                <li class="layui-nav-item hc-hide-sm "><a href="../views/about.php">关于项目</a></li>
+                <li class="layui-nav-item hc-hide-sm layui-this"><a href="./book_center.php">图书中心</a></li>
+                <li class="layui-nav-item hc-hide-sm "><a href="./notice_list.php">图书资讯</a></li>
+                <li class="layui-nav-item hc-hide-sm "><a href="./about.php">关于项目</a></li>
                 <li class="layui-nav-item hc-show-sm"> <a href="javascript:;">更多</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="./index.php">首页</a></dd>
-                        <dd><a href="./views/book_center.php">图书中心</a></dd>
-                        <dd><a href="./views/notice_list.php">图书资讯</a></dd>
-                        <dd><a href="./views/about.php">关于项目</a></dd>
+                        <dd><a href="../index.php">首页</a></dd>
+                        <dd><a href="./book_center.php">图书中心</a></dd>
+                        <dd><a href="./notice_list.php">图书资讯</a></dd>
+                        <dd><a href="./about.php">关于项目</a></dd>
                     </dl>
                 </li>
             </ul>
