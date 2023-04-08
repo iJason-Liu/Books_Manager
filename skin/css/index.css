@@ -1,0 +1,161 @@
+.hc-header {
+    height: 95px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 3px 10px #ddd;
+    position: fixed;
+    top: 40px;
+}
+
+.hc-header .layui-nav {
+    position: absolute;
+    right: 10%;
+    top: 0;
+    padding: 0;
+    line-height: 95px;
+    background: none;
+    height: 100%;
+}
+
+.hc-header .layui-nav .layui-nav-item {
+    margin: 0 25px;
+}
+
+.hc-header .layui-nav .layui-nav-item .layui-nav-child a {
+    font-size: 16px;
+}
+
+.hc-header .layui-nav .layui-nav-more {
+    border-top-color: rgba(0, 0, 0, .7);
+}
+
+.hc-header .layui-nav .layui-nav-mored,
+.hc-header .layui-nav-itemed .layui-nav-more {
+    border-top-color: #fff;
+    border-bottom-color: #000
+}
+
+.hc-header .layui-nav-item a {
+    color: #8a8a8a;
+}
+
+.hc-header .layui-this a,
+.hc-header .layui-nav-item a:hover {
+    color: #333333;
+}
+
+.hc-header .layui-main {
+    height: 100%;
+}
+
+.hc-logo {
+    height: 75px;
+    width: 200px;
+    display: block;
+    /* padding-top: 23px; */
+    text-align: center;
+}
+
+.hc-hide-md {
+    display: none !important;
+}
+
+@media screen and (max-width:968px) {
+    .hc-hide-sm {
+        display: none !important;
+    }
+    .hc-show-sm {
+        display: inline-block !important;
+    }
+}
+
+@media screen and (max-width: 1140px) {
+    .layui-main {
+        width: auto;
+        margin: 0 10px;
+    }
+}
+
+body {
+    margin-top: 95px;
+}
+
+.banner {
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    /*初始状态 透明度为0*/
+    /* 30% {opacity: 0;}/*过渡状态 透明度为0*/
+    100% {
+        opacity: 1;
+    }
+    /*结束状态 透明度为1*/
+}
+
+@-webkit-keyframes fade-in {
+    /*针对webkit内核*/
+    0% {
+        opacity: 0;
+    }
+    /* 30% {opacity: 0;}  */
+    100% {
+        opacity: 1;
+    }
+}
+
+.swiper-button-next-1 {
+    cursor: pointer;
+    position: absolute;
+    left: calc((100% - 1350px) / 2);
+    bottom: 290px;
+    outline: none;
+    z-index: 999;
+}
+
+.swiper-button-prev-1 {
+    cursor: pointer;
+    position: absolute;
+    right: calc((100% - 1350px) / 2);
+    bottom: 290px;
+    outline: none;
+    z-index: 999;
+}
+
+.footer {
+    width: 100%;
+    height: 310px;
+    background-color: #333333;
+    margin-top: 349px;
+    position: relative;
+}
+
+.menu {
+    width: 62px;
+    height: 150px;
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 60%;
+    right: 0;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 1px 6px #DDDDDD;
+    z-index: 999;
+    text-align: center;
+}
+
+.btn {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    background-color: #5FB878;
+    margin-top: 15px;
+}
+
+.back {
+    margin-top: 20px;
+    cursor: pointer;
+}

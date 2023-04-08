@@ -1,5 +1,7 @@
 <?php
-    //下载文件，模板
+    /*
+     * 下载文件，模板
+     */
     $import_type = $_GET['import_type']; //前端传来的模板类型
     //文件路径
     if($import_type == 0){

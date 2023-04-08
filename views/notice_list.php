@@ -1,11 +1,12 @@
 <?php
-    session_save_path('../session/');
-    session_start(); //开启session
     /*
      * 公告模块
      * 可以是关于一些图书的资讯，
      * 也可以是某本图书的评论（格式：书名-热评-点赞数或者阅读数）
      */
+    session_save_path('../session/');
+    session_start(); // 开启session
+    include "../login/session_time.php";
 
     //获取全局变量用户名参数
     $user = $_SESSION['user'];
@@ -15,17 +16,17 @@
 <html>
 
 <head>
-    <title>图书资讯</title>
+    <title>图书资讯中心</title>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="../images/favicon.png"/>
+    <link rel="shortcut icon" href="../skin/images/favicon.png"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" type="text/css" href="../css/layui.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="../skin/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../skin/css/index.css"/>
     <style>
         * {
             margin: 0;
@@ -33,9 +34,9 @@
         }
 
         header {
-            height: 35px;
+            height: 40px;
             width: 100%;
-            line-height: 35px;
+            line-height: 40px;
             padding: 0 20px;
             background: #393d49;
             color: #ffffff;
@@ -94,16 +95,16 @@
         <div class='top_right'>
             <?php
             if($user != ''){
-                echo "您好！$user &nbsp; | &nbsp; <a href='../administrator/index.php'>返回后台 </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 注销</a>";
+                echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index.php'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 注销</a>";
             }else{
-                echo "您当前身份：游客&nbsp; | <a href='../login/login.php'>登录 </a>";
+                echo "<a href='../login/login.php'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
             }
             ?>
         </div>
     </header>
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="../index.php"> <img alt="logo" class="logo" src="../images/logo.png"/>
+            <a class="hc-logo" href="../index.php"> <img alt="logo" class="logo" src="../skin/images/logo.png"/>
             </a>
             <ul class="layui-nav">
                 <li class="layui-nav-item hc-hide-sm"><a href="../index.php">首页</a></li>
@@ -125,7 +126,7 @@
     <div class="layui-carousel" id="carousel">
         <div carousel-item>
             <div>
-                <img class="banner" src="../images/banner-2.png"/>
+                <img class="banner" src="../skin/images/banner/banner_3.png" />
             </div>
         </div>
     </div>
@@ -149,14 +150,14 @@
         <br>
         <p>
             网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
+            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../skin/images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
         </p>
     </div>
 
-    <img id="gotoTop" title="返回顶部" class="back" src="../images/gotop.png" alt=""/>
+    <img id="gotoTop" title="返回顶部" class="back" src="../skin/images/gotop.png" alt=""/>
 
-    <script src="../js/layui.simple.js"></script>
-    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../skin/js/layui.simple.js"></script>
+    <script src="../skin/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
         layui.use(['carousel'], function() {
             let carousel = layui.carousel;
@@ -175,26 +176,25 @@
     <script type="text/javascript">
         function gotoTop(minHeight) {
             // 定义点击返回顶部图标后向上滚动的动画
-            $("#gotoTop").click(
-                function() {
-                    $('html,body').animate({
-                        scrollTop: '0px'
-                    }, 'slow');
-                })
+            $("#gotoTop").click( function() {
+                $('html,body').animate({
+                    scrollTop: '0px'
+                }, 'slow');
+            })
             // 获取页面的最小高度
             minHeight ? minHeight = minHeight : minHeight = 100;
             // 为窗口的scroll事件绑定处理函数
             $(window).scroll(function() {
                 // 获取窗口的滚动条的垂直滚动距离
-                var s = $(window).scrollTop();
+                let s = $(window).scrollTop();
                 // 当窗口的滚动条的垂直距离大于页面的最小高度时，让返回顶部图标渐现，否则渐隐
                 if (s > minHeight) {
                     $("#gotoTop").fadeIn(500);
                 } else {
                     $("#gotoTop").fadeOut(500);
-                };
+                }
             });
-        };
+        }
         gotoTop();
     </script>
 </body>

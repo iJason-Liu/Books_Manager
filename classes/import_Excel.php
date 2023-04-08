@@ -1,6 +1,6 @@
 <?php
     /*
-     * 文件上传 导入数据库
+     * 通过上传的Excel文件批量导入数据
      * @author Jason Liu
      */
     include '../config/conn.php';

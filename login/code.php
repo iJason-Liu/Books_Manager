@@ -1,4 +1,7 @@
 <?php
+    /*
+     * 验证码
+     */
 	session_save_path('../session/'); //保存session
 	ob_end_flush();  // 清理缓存
 	session_start();   //启动session

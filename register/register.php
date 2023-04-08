@@ -1,27 +1,30 @@
 <?php
+    /*
+     * 读者注册模块
+     */
   include '../config/conn.php';
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>读者注册中心</title>
-<!--		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
-		<link rel="stylesheet" href="../live2d/css/live2d.css" />
+		<title>读者注册</title>
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+		<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js" ></script>
+		<link rel="stylesheet" href="../skin/live2d/css/live2d.css" />
 		
 		<script type="text/javascript">
 			//验证码刷新
 			function code(){
-				var code = document.getElementById('img_yzm');
+				let code = document.getElementById('img_yzm');
 				code.src='../login/code.php';
 			}
 		</script>
 		
 		<style>
 			#main{
-				border: 1px solid darkgreen;
-				background-color: whitesmoke;
+				border: 1px solid #429488;
+				background-color: aliceblue;
 				margin-top: 9%;
 				margin-left: 30%;
 				width: 600px;
@@ -38,7 +41,7 @@
 			}
 			
 			#right{
-				border: 1px solid whitesmoke;
+				border: 1px solid aliceblue;
 				width: 32.26%;
 				height: 99.6%;
 				float: left;
@@ -71,7 +74,7 @@
 			.btn{
 				width: 210px;
 				height: 41px;
-				background-color: lightseagreen;
+				background-color: #429488;
 				border-radius: 5px;
 				cursor: pointer;
 				color: white;
@@ -86,10 +89,10 @@
 			}
 		</style>
 	</head>
-	<body style="background: url(../images/bg.png) top center no-repeat; background-size:cover">
+	<body style="background: url('../skin/images/bg.png') top center no-repeat; background-size:cover">
 		<div id="main">
 			<div id="left">
-				<form action="../register/register_check.php" method="post">
+				<form action="./register_check.php" method="post">
 					<table class="tab" cellspacing="0">
 						<tr>
 							<td colspan="2"><h2><font color="lightseagreen">新用户注册</font></h2></td>
@@ -150,9 +153,9 @@
 			<div id="right">
 				<br />
 				已有账号：<br /><br />
-				<a href="../login/login.php" style="text-decoration: none;"><font color="lightseagreen">直接登录 ☞</font></a><br /><br /><br />
+				<a href="../login/login.php" style="text-decoration: none;"><font color="#479488">直接登录 ☞</font></a><br /><br /><br />
 				扫二维码进行访问：
-					<a href="https://www.crayon.vip"><img src="../images/qrcode_www.crayon.vip.png" width="110px" height="110px" style="margin-left: 18px;margin-top: 18px;"/></a>
+					<a href="https://www.crayon.vip"><img src="../skin/images/qrcode.png" width="110" height="110" style="margin-left: 18px;margin-top: 18px;"/></a>
 			</div>
 			
 		</div>
@@ -162,13 +165,13 @@
     		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
    			 <div class="hide-button">隐藏</div>
 		</div>
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+		<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
-		    var message_Path = '../live2d/'
-		    var home_Path = 'http://localhost/Books_Manager/register.php'
+		    let message_Path = '../skin/live2d/'
+		    let home_Path = 'http://lib.crayon.vip/'
 		</script>
-		<script type="text/javascript" src="../live2d/js/live2d.js"></script>
-		<script type="text/javascript" src="../live2d/js/message.js"></script>
+		<script type="text/javascript" src="../skin/live2d/js/live2d.js"></script>
+		<script type="text/javascript" src="../skin/live2d/js/message.js"></script>
 		<script type="text/javascript">
    			 loadlive2d("live2d", "../live2d/model/Pio/model.json");
 		</script>
@@ -191,8 +194,8 @@
 							flakeColor: "white" /* 自定义雪花颜色，默认是浅蓝色 */
 						},
 						options = $.extend({}, defaults, options);
-					var interval = setInterval(function() {
-						var startPositionLeft = Math.random() * documentWidth - 100,
+					let interval = setInterval(function() {
+						let startPositionLeft = Math.random() * documentWidth - 100,
 							startOpacity = 0.5 + Math.random(),
 							sizeFlake = options.minSize + Math.random() * options.maxSize,
 							endPositionTop = documentHeight - 200,

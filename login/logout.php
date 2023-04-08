@@ -1,5 +1,5 @@
 <?php
-    //注销session
+    //用户退出登录，注销session
     //1、开启session
     session_start();
     
@@ -15,6 +15,5 @@
     session_destroy();
 
     header('content-type:text/html;charset=uft-8');
-    //重定向页面
+    //5、重定向页面
     header('location:../login/login.php');
-?>

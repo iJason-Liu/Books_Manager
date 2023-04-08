@@ -2,10 +2,10 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="b52b10c6-0c00-4d44-bd22-68b5ba4d929d" name="Test Server" url="http://43.139.94.135:1011">
+      <webServer id="b52b10c6-0c00-4d44-bd22-68b5ba4d929d" name="Test Server" url="https://lib.crayon.vip">
         <fileTransfer host="43.139.94.135" port="21">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="600000" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

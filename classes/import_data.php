@@ -1,4 +1,7 @@
 <?php
+    /*
+     * 上传Excel文件
+     */
     session_save_path('../session/');
     session_start();
     if ($_SESSION['is_login'] != 2) {
@@ -17,15 +20,15 @@
 <head>
     <title>批量导入数据</title>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="../images/favicon.png" />
+    <link rel="shortcut icon" href="../skin/images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 <!--    <meta name="referrer" content="never"/>-->
-    <link rel="stylesheet" type="text/css" href="../css/layui.css" />
-    <link rel="stylesheet" type="text/css" href="../css/modules/layer/layer.css" />
+    <link rel="stylesheet" type="text/css" href="../skin/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../skin/css/modules/layer/layer.css" />
     <script type="text/javascript">
         //禁用复制
         document.oncopy = function(){ return false;}
@@ -106,8 +109,8 @@
             </div>
         </div>
     </div>
-    <script src="../js/layui.simple.js"></script>
-    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../skin/js/layui.simple.js"></script>
+    <script src="../skin/js/jquery-3.3.1.min.js"></script>
     <script>
         let files = {};
          let import_type = <?php echo $import_type ?>;

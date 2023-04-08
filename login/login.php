@@ -1,25 +1,28 @@
 <?php
-  include '../config/conn.php';
+    /*
+     * 用户登录页面
+     */
+    include '../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
     $username = $_GET['username'];
-//    echo $username;
+    // echo $username;
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>读者登录中心</title>
-        <link rel="shortcut icon" href="../images/favicon.png" />
+		<title>读者登录</title>
+        <link rel="shortcut icon" href="../skin/images/favicon.png" />
 		<meta http-equiv="pragma" content="no-cache">
-<!--        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-		<script type="text/javascript" src="../js/jquery-3.3.1.min.js" ></script>
-		<link rel="stylesheet" href="../live2d/css/live2d.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<!--<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js" ></script>-->
+		<link rel="stylesheet" href="../skin/live2d/css/live2d.css" />
 		
 		<script type="text/javascript">
-			//验证码刷新
+			// 验证码刷新
 			function code(){
-				var code = document.getElementById('img_yzm');
+				let code = document.getElementById('img_yzm');
 				code.src='../login/code.php';
 			}
 		</script>
@@ -72,9 +75,9 @@
 			}
 		</style>
 	</head>
-	<body style="background: url('../images/bg.png') top center no-repeat;background-size:cover;">
+	<body style="background: url('../skin/images/bg.png') top center no-repeat;background-size:cover;">
 		<div id="main">
-			<form action="../login/login_check.php" method="post">
+			<form action="./login_check.php" method="post">
 				<table class="tab" cellspacing="0">
 					<tr style="height: 50px;">
 						<th colspan="2"><font size="5" color="#429488">读者登录</font></th>
@@ -114,14 +117,14 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" name="submit" value="登 录" class="btn"/>
 							<input type="reset" name="reset" value="重 置" class="btn"/>
+							<input type="submit" name="submit" value="登 录" class="btn"/>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<hr />
-<!--							<a href="../register/register.php"><font size="2" color="darkcyan">没有账号？去注册</font></a>-->
+							<!--<a href="../register/register.php"><font size="2" color="darkcyan">没有账号？去注册</font></a>-->
 							<a title="返回首页" href="../index.php"><font size="2" color="darkcyan">返回首页</font></a>
 						</td>
 					</tr>
@@ -134,15 +137,15 @@
     		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
    			 <div class="hide-button">隐藏</div>
 		</div>
-		<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
-		    var message_Path = '../live2d/'
-		    var home_Path = 'https://www.crayon.vip/Books_Manager'
+		    let message_Path = '../skin/live2d/'
+		    let home_Path = 'http://lib.crayon.vip/'
 		</script>
-		<script type="text/javascript" src="../live2d/js/live2d.js"></script>
-		<script type="text/javascript" src="../live2d/js/message.js"></script>
+		<script type="text/javascript" src="../skin/live2d/js/live2d.js"></script>
+		<script type="text/javascript" src="../skin/live2d/js/message.js"></script>
 		<script type="text/javascript">
-   			 loadlive2d("live2d", "../live2d/model/Pio/model.json");
+   			 loadlive2d("live2d", "../skin/live2d/model/Pio/model.json");
 		</script>
 		
 		<script type="text/javascript">
@@ -163,8 +166,8 @@
 							flakeColor: "white" /* 自定义雪花颜色，默认是浅蓝色 */
 						},
 						options = $.extend({}, defaults, options);
-					var interval = setInterval(function() {
-						var startPositionLeft = Math.random() * documentWidth - 100,
+					let interval = setInterval(function() {
+						let startPositionLeft = Math.random() * documentWidth - 100,
 							startOpacity = 0.5 + Math.random(),
 							sizeFlake = options.minSize + Math.random() * options.maxSize,
 							endPositionTop = documentHeight - 200,
@@ -199,7 +202,7 @@
 		<script type="text/javascript">
 			//鼠标点击出现爱心特效
 			(function(window, document, undefined) {
-				var hearts = [];
+				let hearts = [];
 				window.requestAnimationFrame = (function() {
 					return window.requestAnimationFrame ||
 						window.webkitRequestAnimationFrame ||
@@ -219,7 +222,7 @@
 				}
 
 				function gameloop() {
-					for(var i = 0; i < hearts.length; i++) {
+					for(let i = 0; i < hearts.length; i++) {
 						if(hearts[i].alpha <= 0) {
 							document.body.removeChild(hearts[i].el);
 							hearts.splice(i, 1);
@@ -234,7 +237,7 @@
 				}
 
 				function attachEvent() {
-					var old = typeof window.οnclick === "function" && window.onclick;
+					let old = typeof window.οnclick === "function" && window.onclick;
 					window.onclick = function(event) {
 						old && old();
 						createHeart(event);
@@ -242,7 +245,7 @@
 				}
 
 				function createHeart(event) {
-					var d = document.createElement("div");
+					let d = document.createElement("div");
 					d.className = "heart";
 					hearts.push({
 						el: d,
@@ -256,7 +259,7 @@
 				}
 
 				function css(css) {
-					var style = document.createElement("style");
+					let style = document.createElement("style");
 					style.type = "text/css";
 					try {
 						style.appendChild(document.createTextNode(css));
