@@ -18,7 +18,7 @@
 云游君的aircondition：https://ac.yunyoujun.cn <br>
 
 2023年4月1日后的文件结构：
-<img width="864" alt="文件夹示意图 v2 0" src="https://user-images.githubusercontent.com/84162698/230719236-05064485-70ef-45e6-8974-8d72d50eff33.png">  
+<img width="864" alt="文件夹示意图 v2" src="https://user-images.githubusercontent.com/84162698/230719236-05064485-70ef-45e6-8974-8d72d50eff33.png">
 
 2023年4月1日前的文件结构：
-<img width="858" alt="image" src="https://user-images.githubusercontent.com/84162698/225050237-b8a24486-702d-4c6c-a5fa-bf4e8233ff7e.png">
+<img width="858" alt="文件夹示意图" src="https://user-images.githubusercontent.com/84162698/225050237-b8a24486-702d-4c6c-a5fa-bf4e8233ff7e.png">
