@@ -27,7 +27,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 <!--    <meta name="referrer" content="never"/>-->
-    <link rel="stylesheet" type="text/css" href="../skin/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../skin/css/modules/layer/layer.css" />
     <script type="text/javascript">
         //禁用复制
@@ -109,7 +109,7 @@
             </div>
         </div>
     </div>
-    <script src="../skin/js/layui.simple.js"></script>
+    <script src="../skin/js/layui.min.js"></script>
     <script src="../skin/js/jquery-3.3.1.min.js"></script>
     <script>
         let files = {};

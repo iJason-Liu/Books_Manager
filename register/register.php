@@ -9,6 +9,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>读者注册</title>
+        <link rel="shortcut icon" href="../skin/images/favicon.png" />
+		<meta http-equiv="pragma" content="no-cache">
 		<!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
 		<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js" ></script>
 		<link rel="stylesheet" href="../skin/live2d/css/live2d.css" />
@@ -141,7 +143,7 @@
 						<tr>
 							<td colspan="2" align="left">
 								<input type="checkbox" checked="checked" class="chek">
-								<font size="2">阅读并接受《<font color="green">数字图书馆协议</font>》</font>
+								<font size="2">阅读并接受《<font color="green">本图书馆协议</font>》</font>
 							</td>
 						</tr>
 						<tr>
@@ -168,12 +170,12 @@
 		<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
 		    let message_Path = '../skin/live2d/'
-		    let home_Path = 'http://lib.crayon.vip/'
+		    let home_Path = 'https://lib.crayon.vip/'
 		</script>
 		<script type="text/javascript" src="../skin/live2d/js/live2d.js"></script>
 		<script type="text/javascript" src="../skin/live2d/js/message.js"></script>
 		<script type="text/javascript">
-   			 loadlive2d("live2d", "../live2d/model/Pio/model.json");
+   			 loadlive2d("live2d", "../skin/live2d/model/Pio/model.json");
 		</script>
 		
 		<script type="text/javascript">

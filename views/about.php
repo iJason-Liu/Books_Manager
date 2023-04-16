@@ -23,14 +23,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" type="text/css" href="../skin/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../skin/css/layui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../skin/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="../skin/css/swiper-bundle.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
         header {
             height: 40px;
             width: 100%;
@@ -56,33 +52,71 @@
         .logo {
             height: 80px;
             width: 200px;
-            padding-top: 5px;
+            padding-top: 7px;
+        }
+
+        .layui-main{
+            width: 100%;
+        }
+
+        .layui-carousel{
+            margin-top: 135px;
         }
 
         .layui-nav * {
-            font-size: 16px !important;
+            font-size: 18px !important;
         }
 
-        .books_recomend {
+        .layui-nav .layui-nav-more{
+            right: -12px;
+        }
+        .layui-nav .layui-nav-item a{
+            padding: 0 10px;
+        }
+        .layui-nav-child dd a{
+            padding: 0 20px !important;
+            color: #8a8a8a !important;
+        }
+        .layui-nav-child dd a:hover{
+            color: #333 !important;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+        }
+
+        .swiper-slide img {
+            display: block;
             width: 100%;
-            height: 200px;
-            border: 1px solid #000;
+            height: 450px;
         }
 
         .content{
-            margin-top: 120px;
-            padding: 0 120px 80px 120px;
+            padding: 100px 120px 80px 120px;
         }
 
-        .back {
-            width: 50px;
-            height: 50px;
-            position: fixed;
-            z-index: 999;
-            bottom: 60px;
-            right: 20px;
-            cursor: pointer;
-            display: none;
+        /*背景色 #808080  #736F6E #837E7C  */
+        .layui-footer{
+            text-align: center;
+            /*background: linear-gradient(#999999,#808080);*/
+            background: linear-gradient(#9D9D9D,#8E8E8E);
+            color: #444;
+            padding: 20px 150px;
+            /*box-shadow: 0 3px 10px #ddd;*/
+        }
+        .layui-footer a{
+            color: #444;
+        }
+        .layui-footer a:hover{
+            color: #222;
+        }
+
+        .footer_hr{
+            margin: 20px 0;
+            color: #f8f8f8;
         }
     </style>
 </head>
@@ -102,19 +136,53 @@
     </header>
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="../index.php"> <img alt="logo" class="logo" src="../skin/images/logo.png"/>
-            </a>
+            <a class="hc-logo" href="../index.php"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
             <ul class="layui-nav">
-                <li class="layui-nav-item hc-hide-sm"><a href="../index.php">首页</a></li>
-                <li class="layui-nav-item hc-hide-sm"><a href="./book_center.php">图书中心</a></li>
-                <li class="layui-nav-item hc-hide-sm "><a href="./notice_list.php">图书资讯</a></li>
-                <li class="layui-nav-item hc-hide-sm layui-this"><a href="./about.php">关于项目</a></li>
-                <li class="layui-nav-item hc-show-sm"> <a href="javascript:;">更多</a>
+                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index.php">首页</a> </li>
+                <li class="layui-nav-item hc-hide-sm">
+                    <a href="javascript:;">资源</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="../views/search_bookData.php" target="_blank">馆藏搜索</a></dd>
+                        <dd><a href="../views/new_book.php">新书通报</a></dd>
+                        <dd><a href="../views/book_center.php#hot">热门图书</a></dd>
+                        <dd><a href="../views/books_recommend.php">推荐图书</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item hc-hide-sm">
+                    <a href="javascript:;">服务</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="../views/reader_center.php">借阅卡服务</a></dd>
+                        <dd><a href="javascript:;">自助打印</a></dd>
+                        <dd><a href="javascript:;">借阅指南</a></dd>
+                        <dd><a href="javascript:;">图书捐赠</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item hc-hide-sm">
+                    <a href="javascript:;">动态</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="../views/notice_list.php#news">新闻资讯</a></dd>
+                        <dd><a href="../views/notice_list.php#notice">通知公告</a></dd>
+                        <dd><a href="javascript:;">活动信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item hc-hide-sm layui-this">
+                    <a href="javascript:;">关于</a>
+                    <dl class="layui-nav-child">
+                        <dd class="layui-this"><a href="../views/about.php">项目介绍</a></dd>
+                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆介绍</a></dd>
+                        <dd><a href="https://mp.weixin.qq.com/s/eMThZAwR6I7PA-wPmRj8KQ">馆藏分布</a></dd>
+                        <dd><a href="javascript:;">开放时间</a></dd>
+                        <dd><a href="javascript:;">常见问题</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item hc-hide-md hc-show-sm"> <a href="javascript:;">菜单</a>
                     <dl class="layui-nav-child">
                         <dd><a href="../index.php">首页</a></dd>
-                        <dd><a href="./book_center.php">图书中心</a></dd>
-                        <dd><a href="./notice_list.php">图书资讯</a></dd>
-                        <dd><a href="./about.php">关于项目</a></dd>
+                        <dd><a href="../views/book_center.php">资源</a></dd>
+                        <dd><a href="../views/reader_center.php">服务</a></dd>
+                        <dd><a href="../views/notice_list.php">动态</a></dd>
+                        <dd><a href="../views/about.php">关于</a></dd>
+                        <dd><a href="../register/register.php" target="_blank">Register</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -130,28 +198,95 @@
     </div>
 
     <div class="content">
-        <div class="books_recomend">
-            <div>
-                书写关于我自己的项目经历，开一个关于保山风景点滴的照片墙
+        <div class="swiper photo_wall" style="width: 100%;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../skin/images/photo_wall/IMG_0223.png">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../skin/images/photo_wall/IMG_0223.png">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../skin/images/photo_wall/IMG_0223.png">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../skin/images/photo_wall/IMG_0223.png">
+                </div>
+                <div class="swiper-slide">
+                    <img src="../skin/images/photo_wall/IMG_0223.png">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <div class="layui-row layui-col-space25">
+            <!--<div class="layui-col-md3 hc-hide-sm">-->
+            <!--    <img width="210" height="110" src="./skin/images/logo.png">-->
+            <!--</div>-->
+            <div class="layui-col-md5 layui-col-sm6" style="text-align: left;">
+                <div class="layui-row">
+                    <div class="layui-col-md12">
+                        <h2>联系我们</h2>
+                    </div>
+                    <div class="layui-col-md12" style="margin-top: 10px;">
+                        联系方式：18987319503
+                    </div>
+                    <div class="layui-col-md12">
+                        邮箱：crayon996@gmail.com
+                    </div>
+                    <div class="layui-col-md12">
+                        邮编：678000
+                    </div>
+                    <div class="layui-col-md12">
+                        地址：云南省保山市隆阳区远征路16号
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm4" style="text-align: left;">
+                <div class="layui-row">
+                    <div class="layui-col-md12">
+                        <h2>友情链接</h2>
+                    </div>
+                    <div class="layui-col-md12" style="margin-top: 10px;">
+                        <a href="https://www.bsnc.cn" target="_blank">保山学院</a>
+                    </div>
+                    <div class="layui-col-md12">
+                        <a href="https://tsg.bsnc.cn/" target="_blank">保山学院图书馆</a>
+                    </div>
+                    <div class="layui-col-md12">
+                        <a href="http://share.zjlib.cn/area/35594/2120" target="_blank">浙江图书馆</a>
+                    </div>
+                    <div class="layui-col-md12">
+                        <a href="https://lib.nankai.edu.cn/main.htm" target="_blank">南开大学图书馆</a>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm2">
+                <a href="https://lib.crayon.vip"><img width="98" height="98" src="../skin/images/qrcode.png"></a>
+            </div>
+        </div>
+        <hr class="footer_hr">
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                Copyright ©  2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
+            </div>
+            <div class="layui-col-md12" style="margin-top: 10px;">
+                网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../skin/images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
+            </div>
+            <div class="layui-col-md12" style="margin-top: 15px;">
+                <i class="layui-icon layui-icon-group layui-font-26"></i>您是第 <span class="visitor"></span> 位访客
             </div>
         </div>
     </div>
 
-    <div class="layui-footer" style="text-align: center;background: #9f9f9f;padding: 10px;box-shadow: -1px 0 4px rgb(0 0 0 / 12%);">
-        <p>
-            Copyright © 2023 &nbsp;&nbsp;<a href="https://www.crayon.vip">https://www.crayon.vip</a>
-        </p>
-        <br>
-        <p>
-            网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../skin/images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
-        </p>
-    </div>
-
     <img id="gotoTop" title="返回顶部" class="back" src="../skin/images/gotop.png"/>
 
-    <script src="../skin/js/layui.simple.js"></script>
+    <script src="../skin/js/layui.min.js"></script>
     <script src="../skin/js/jquery-3.3.1.min.js"></script>
+    <script src="../skin/js/swiper-bundle.min.js"></script>
     <script type="text/javascript">
         layui.use(['carousel'], function() {
             let carousel = layui.carousel;
@@ -168,6 +303,28 @@
         });
     </script>
     <script type="text/javascript">
+        //照片墙
+        new Swiper(".photo_wall", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+        })
+
+        //pv
+        let i = 0;
+        $('.visitor').text('1011');
+
         function gotoTop(minHeight) {
             // 定义点击返回顶部图标后向上滚动的动画
             $("#gotoTop").click( function() {

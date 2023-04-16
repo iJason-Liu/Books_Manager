@@ -20,18 +20,19 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link rel="stylesheet" type="text/css" href="../skin/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../skin/css/modules/layer/layer.css" />
     <style>
         #form_tab{
-            width: 90%;
-            padding: 0 55px 0 0;
-            margin: 35px auto;
+            width: 94%;
+            /*padding: 0 55px 0 0;*/
+            margin: 10px auto;
         }
 
         #desc{
             width: 100%;
             border: 1px solid #eee;
+            border-radius: 3px;
             padding: 8px;
             min-height: 260px;
             resize: vertical;
@@ -46,13 +47,13 @@
         <form class="layui-form" lay-filter="form_data">
             <div id="form_tab">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">意见建议:</label>
-                    <div class="layui-input-block">
+                    <!--<label class="layui-form-label">意见建议:</label>-->
+                    <!--<div class="layui-input-block">-->
                         <textarea name="desc" id="desc" placeholder="请输入您的宝贵意见或建议..." class="layui-textarea"></textarea>
-                    </div>
+                    <!--</div>-->
                 </div>
                 <div class="layui-form-item">
-                    <div class="layui-input-block" style="margin-top: 50px;text-align: right;">
+                    <div class="layui-input-block" style="margin-top: 10px;text-align: right;">
                         <button type="reset" class="layui-btn layui-btn-primary" value="清空">清 空</button>
                         <button type="button" class="layui-btn" name="submit" id="submit" lay-submit value="提交">提 交</button>
                     </div>
@@ -60,7 +61,7 @@
             </div>
         </form>
 
-        <script src="../skin/js/layui.simple.js"></script>
+        <script src="../skin/js/layui.min.js"></script>
         <script>
             layui.use(['layer', 'form'], function() {
                 let $ = layui.jquery

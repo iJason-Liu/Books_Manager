@@ -39,7 +39,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../../skin/css/layui.css">
+    <link rel="stylesheet" href="../../skin/css/layui.min.css">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
         /*隐藏功能*/
@@ -233,7 +233,7 @@
             <table class="layui-hide" id="dataList" lay-filter="tab"></table>
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
-                    <button class='layui-btn layui-btn-sm' lay-event='add'><i class='layui-icon layui-icon-addition'></i>添加</button>
+                    <button class='layui-btn layui-btn-sm' lay-event='add'><i class='layui-icon layui-icon-add-1'></i>添加</button>
                     <button class='layui-btn layui-btn-sm layui-btn-danger' lay-event='del'><i class='layui-icon layui-icon-delete'></i>删除</button>
                 </div>
             </script>
@@ -249,7 +249,7 @@
         </div>
     </div>
 
-    <script src="../../skin/js/layui.simple.js"></script>
+    <script src="../../skin/js/layui.min.js"></script>
     <script>
         let usertype = '<?php echo $usertype ?>'; //用户身份
         layui.use(['table', 'layer'], function() {
@@ -274,7 +274,7 @@
                     statusCode: 200, //规定成功的状态码，默认：0
                 },
                 toolbar: '#toolbarDemo',
-                height: 'full-116', // 最大高度减去其他容器已占有的高度差
+                height: 'full-106', // 最大高度减去其他容器已占有的高度差
                 even: true, //隔行换色
                 loading: true,
                 defaultToolbar: false,
@@ -366,7 +366,7 @@
                         break;
                     case 'add':
                         layer.open({
-                            title: '<i class="layui-icon layui-icon-addition"></i>添加读者类型',
+                            title: '<i class="layui-icon layui-icon-add-1"></i>添加读者类型',
                             type: 2,
                             area: ['35%', '60%'],
                             skin: 'layui-layer-molv',

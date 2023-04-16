@@ -38,7 +38,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../skin/css/layui.css">
+    <link rel="stylesheet" href="../skin/css/layui.min.css">
     <link rel="stylesheet" href="../skin/css/modules/layer/layer.css">
     <style>
         /*
@@ -50,6 +50,40 @@
         .hide{
             display: none !important;
         }
+
+        .layui-laydate{
+            font-size: 15px;
+        }
+        .laydate-set-ym span{
+            font-size: 18px;
+        }
+        .laydate-theme-molv .layui-laydate-main{
+            width: 620px;
+            height: 410px;
+        }
+        .layui-laydate-content table{
+            width: 600px;
+            height: 345px;
+        }
+        .laydate-theme-grid .layui-laydate-content td>div {
+            height: 52px;
+            line-height: 40px;
+        }
+        .laydate-theme-grid .layui-laydate-content td .laydate-day-mark{
+            height: 52px;
+            line-height: 52px;
+        }
+        .laydate-theme-grid .layui-laydate-content td .laydate-day-mark::after {
+            right: 6px;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+        }
+        .laydate-theme-grid .laydate-year-list > li {
+            height: 57px;
+            line-height: 57px;
+        }
+
     </style>
     <script type="text/javascript">
         //禁用复制
@@ -75,17 +109,66 @@
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
+                <!--<li class="layui-nav-item">-->
+                <!--    <a href="javascript:;">天气</a>-->
+                <!--    <dl class="layui-nav-child">-->
+                <!--        <dd>-->
+                <!--        <div id="he-plugin-simple" style="width: 200px"></div>-->
+                <!--            <script>-->
+                <!--            WIDGET = {-->
+                <!--              "CONFIG": {-->
+                <!--                "modules": "01234",-->
+                <!--                "background": "1",-->
+                <!--                "tmpColor": "FFFFFF",-->
+                <!--                "tmpSize": "16",-->
+                <!--                "cityColor": "FFFFFF",-->
+                <!--                "citySize": "16",-->
+                <!--                "aqiColor": "B6D7A8",-->
+                <!--                "aqiSize": "16",-->
+                <!--                "weatherIconSize": "24",-->
+                <!--                "alertIconSize": "0",-->
+                <!--                "padding": "10px 10px 10px 10px",-->
+                <!--                "shadow": "0",-->
+                <!--                "language": "auto",-->
+                <!--                "borderRadius": "2",-->
+                <!--                "fixed": "false",-->
+                <!--                "vertical": "center",-->
+                <!--                "horizontal": "left",-->
+                <!--                "key": "94c3f678025b4922a6b1ae124a356253"-->
+                <!--              }-->
+                <!--            }-->
+                <!--        </script>-->
+                <!--        <script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>-->
+                <!---->
+                <!--        </dd>-->
+                <!--    </dl>-->
+                <!--</li>-->
                 <li class="layui-nav-item layui-hide-xs layui-this"><a href="../administrator/index.php">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../index.php">前台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../administrator/system/help_guide.php">帮助中心</a></li>
-                <!-- <li class="layui-nav-item">
-                    <a href="javascript:;">更多</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">menu 11</a></dd>
-                        <dd><a href="">menu 22</a></dd>
-                        <dd><a href="">menu 33</a></dd>
-                    </dl>
-                </li> -->
+                <!--<li class="layui-nav-item">-->
+                <!--    <a href="javascript:;">天气</a>-->
+                <!--    <dl class="layui-nav-child">-->
+                <!--        <dd>-->
+                            <!--<div id="he-plugin-standard"></div>-->
+                            <!--<script>-->
+                            <!--    WIDGET = {-->
+                            <!--      "CONFIG": {-->
+                            <!--        "layout": "2",-->
+                            <!--        "width": "240",-->
+                            <!--        "height": "270",-->
+                            <!--        "background": "1",-->
+                            <!--        "dataColor": "FFFFFF",-->
+                            <!--        "borderRadius": "3",-->
+                            <!--        "key": "173d26df4bc74850906280d98d6dfd8d"-->
+                            <!--      }-->
+                            <!--    }-->
+                            <!--</script>-->
+                            <!--<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>-->
+                            <!---->
+                <!--        </dd>-->
+                <!--    </dl>-->
+                <!--</li>-->
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <!-- 右侧消息 -->
@@ -259,6 +342,26 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">欢迎来到小新的主站，这里是图书管理系统后台！</div>
+            <div style="width: 620px;">
+                <div id="MyCalendar"></div>
+
+                <div id="he-plugin-standard"></div>
+                <script>
+                    WIDGET = {
+                      "CONFIG": {
+                        "layout": "2",
+                        "width": "260",
+                        "height": "280",
+                        "background": "1",
+                        "dataColor": "FFFFFF",
+                        "borderRadius": "3",
+                        "key": "173d26df4bc74850906280d98d6dfd8d"
+                      }
+                    }
+                </script>
+                <script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
             <pre>
                 <!--<img src="../skin/images/gif/IMG_0278.GIF">-->
             </pre>
@@ -275,12 +378,13 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../skin/js/layui.simple.js"></script>
+    <script type="text/javascript" src="../skin/js/layui.min.js"></script>
     <script>
-        layui.use(['layer', 'util'], function() {
+        layui.use(['layer', 'util', 'laydate'], function() {
             let $ = layui.jquery
-                ,layer = layui.layer,
-                util = layui.util;
+                ,layer = layui.layer
+                ,laydate = layui.laydate
+                ,util = layui.util;
 
             let state;
             let msg = '';  //消息列表html元素
@@ -337,6 +441,7 @@
                         // shadeClose: true,
                         // closeBtn: 2,
                         move: false,  //禁止拖动
+                        // scrollbar: false, //禁用滚动条
                         content: msg,
                         success: function (){
 
@@ -381,6 +486,38 @@
                     content: "https://ac.yunyoujun.cn"
                 })
             })
+
+            //日期面板
+            laydate.render({
+                elem: '#MyCalendar',
+                theme: ['#429488', 'grid'],
+                position: 'static',
+                calendar: true,
+                format: 'yyyy年MM月dd日',
+                show: true,
+                btns: ['now'],
+                mark: {
+                    '0-0-10': '读书日',  //每月某天
+                },
+                done: function(value, date, endDate){
+                    if(date.month === 5 && date.date === 1){
+                        layer.msg('今天是五一劳动节噢~')
+                    }
+                    if(date.month === 7 && date.date === 1){
+                        layer.msg('今天是七一建党节噢~')
+                    }
+                    if(date.month === 10 && date.date === 1){
+                        layer.msg('今天是十一国庆节噢~')
+                    }
+                    if(date.date === 10){
+                        layer.msg('今天是图书馆的读书日~')
+                    }
+                },
+                change: function(value, date, endDate){
+                  // layer.msg(value)
+                }
+            })
+
         })
     </script>
 </body>

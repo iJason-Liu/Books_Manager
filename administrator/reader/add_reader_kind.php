@@ -23,7 +23,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link rel="stylesheet" type="text/css" href="../../skin/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../skin/css/modules/layer/layer.css" />
     <style>
         #form_tab{
@@ -54,7 +54,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">借书数量:</label>
                     <div class="layui-input-block">
-                        <input type="number" name="num" id="num" placeholder="请输入借书数量(本)" class="layui-input">
+                        <input type="number" name="num" id="num" placeholder="请输入借书数量（本）" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -66,7 +66,7 @@
             </div>
         </form>
 
-        <script src="../../skin/js/layui.simple.js"></script>
+        <script src="../../skin/js/layui.min.js"></script>
         <script>
             layui.use(['layer', 'form'], function() {
                 let $ = layui.jquery

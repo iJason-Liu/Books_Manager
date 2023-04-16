@@ -140,7 +140,7 @@
 		<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
 		    let message_Path = '../skin/live2d/'
-		    let home_Path = 'http://lib.crayon.vip/'
+		    let home_Path = 'https://lib.crayon.vip/'
 		</script>
 		<script type="text/javascript" src="../skin/live2d/js/live2d.js"></script>
 		<script type="text/javascript" src="../skin/live2d/js/message.js"></script>

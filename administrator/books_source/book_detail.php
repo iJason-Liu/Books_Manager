@@ -39,12 +39,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link rel="stylesheet" type="text/css" href="../../skin/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../skin/css/modules/layer/layer.css" />
     <style>
         #form_tab{
             width: 72%;
-            padding: 10px 40px 40px 20px;
+            padding: 10px 40px 40px 5px;
             margin: 30px auto;
         }
 
@@ -179,7 +179,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><span style="color: #ff0000;">*</span>借阅状态:</label>
+                <label class="layui-form-label"><span style="color: #ff0000;">*</span>图书状态:</label>
                 <div class="layui-input-inline">
                     <?php
                         if($status == 0) {
@@ -214,7 +214,7 @@
             ?>
         </form>
 
-        <script src="../../skin/js/layui.simple.js"></script>
+        <script src="../../skin/js/layui.min.js"></script>
         <script src="../../skin/js/jquery-3.3.1.min.js"></script>
         <script>
             let usertype = '<?php echo $usertype ?>'; //用户身份

@@ -37,7 +37,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="pragma" content="no-cache">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link href="../../skin/css/layui.css" rel="stylesheet">
+    <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
         /*隐藏功能*/
@@ -246,7 +246,7 @@
         </div>
     </div>
 
-    <script src="../../skin/js/layui.simple.js"></script>
+    <script src="../../skin/js/layui.min.js"></script>
     <script>
         let usertype = '<?php echo $usertype ?>'; //用户身份
         layui.use(['table', 'layer'], function() {
@@ -271,7 +271,7 @@
                     statusCode: 200, //规定成功的状态码，默认：0
                 },
                 toolbar: '#toolbarDemo',
-                height: 'full-117', // 最大高度减去其他容器已占有的高度差
+                height: 'full-107', // 最大高度减去其他容器已占有的高度差
                 even: true, //隔行换色
                 loading: true,
                 defaultToolbar: ['exports'],

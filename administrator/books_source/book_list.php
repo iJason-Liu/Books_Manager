@@ -43,7 +43,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="pragma" content="no-cache">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link href="../../skin/css/layui.css" rel="stylesheet">
+    <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
         .have{
@@ -246,8 +246,8 @@
                 <div class="layui-btn-container">
                     <?php
                         if($usertype == '图书管理员'||$usertype == '超级管理员') {
-                            echo "<button class='layui-btn layui-btn-sm' lay-event='addBook'><i class='layui-icon layui-icon-addition'></i>新增图书</button>";
-                            echo "<button class='layui-btn layui-btn-sm' lay-event='importBooks'><i class='layui-icon layui-icon-addition'></i>批量导入</button>";
+                            echo "<button class='layui-btn layui-btn-sm' lay-event='addBook'><i class='layui-icon layui-icon-add-1'></i>新增图书</button>";
+                            echo "<button class='layui-btn layui-btn-sm' lay-event='importBooks'><i class='layui-icon layui-icon-add-1'></i>批量导入</button>";
                             echo "<button class='layui-btn layui-btn-sm layui-btn-danger' lay-event='delBooks'><i class='layui-icon layui-icon-delete'></i>批量删除</button>";
                         }else{
                             echo "<button class='layui-btn layui-btn-sm layui-btn-primary' lay-event='sunshine' id='sunshine'><i class='layui-icon layui-icon-diamond'></i></button>";
@@ -271,7 +271,7 @@
                 ?>
             </script>
             <script type="text/html" id="book_name">
-                <p style="font-weight: bold;">{{d.book_name}}</p>
+                <p style="color: #333;font-weight: 400;">{{d.book_name}}</p>
 <!--                <p style="font-weight: bold;">《{{d.book_name}}》</p>  可以在模板中手动添加书名号-->
             </script>
             <script type="text/html" id="img"> <img src="{{d.book_cover}}" width="30" height="32" alt=""> </script>
@@ -295,7 +295,7 @@
                 // 把数据写入json文件
 //                file_put_contents('../json/bookListFile.json',$data);
             ?>
-            <script src="../../skin/js/layui.simple.js"></script>
+            <script src="../../skin/js/layui.min.js"></script>
             <script src="../../skin/js/jquery-3.3.1.min.js"></script>
             <script>
                 let usertype = '<?php echo $usertype ?>'; //用户身份
@@ -332,7 +332,7 @@
                             limit: pageSize
                         },
                         toolbar: '#toolbarDemo',
-                        height: 'full-170', // 最大高度减去其他容器已占有的高度差
+                        height: 'full-160', // 最大高度减去其他容器已占有的高度差
                         cellMinWidth: 100,
                         // totalRow: true, // 开启合计行
                         page: false, //开启分页
@@ -415,7 +415,7 @@
                             }, {
                                 field: 'status',  //借阅状态判断 0 在库 1 借出
                                 width: 120,
-                                title: '借阅状态',
+                                title: '图书状态',
                                 align: 'center',
                                 style: '-moz-box-align: start;',
                                 templet: '#status'
@@ -552,9 +552,9 @@
                                 break;
                             case 'addBook':
                                 layer.open({
-                                    title: '<i class="layui-icon layui-icon-addition"></i>新增图书',
+                                    title: '<i class="layui-icon layui-icon-add-1"></i>新增图书',
                                     type: 2,
-                                    area: ['48%', '88%'],
+                                    area: ['45%', '88%'],
                                     skin: 'layui-layer-molv',
                                     maxmin: true,
                                     // shadeClose: true, //点击遮罩关闭=窗口
@@ -563,7 +563,7 @@
                                 break;
                             case 'importBooks':
                                 layer.open({
-                                    title: '<i class="layui-icon layui-icon-addition"></i>批量导入图书',
+                                    title: '<i class="layui-icon layui-icon-add-1"></i>批量导入图书',
                                     type: 2,
                                     area: ['48%', '88%'],
                                     skin: 'layui-layer-molv',
@@ -613,7 +613,7 @@
                             layer.open({
                                 title: '<i class="layui-icon layui-icon-search"></i> 图书详情',
                                 type: 2,
-                                area: ['48%', '88%'],
+                                area: ['45%', '88%'],
                                 content: url,
                                 skin: 'layui-layer-molv',
                                 maxmin: true,
@@ -624,7 +624,7 @@
                             layer.open({
                                 title: '<i class="layui-icon layui-icon-edit"></i> 编辑图书信息',
                                 type: 2,
-                                area: ['48%', '88%'],
+                                area: ['45%', '88%'],
                                 content: url1,
                                 // btn: ['确认','取消'],
                                 skin: 'layui-layer-molv',

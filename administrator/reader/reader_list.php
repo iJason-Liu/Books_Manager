@@ -37,7 +37,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../../skin/css/layui.css">
+    <link rel="stylesheet" href="../../skin/css/layui.min.css">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
         .have{
@@ -250,7 +250,7 @@
             <table class="layui-hide" id="dataList" lay-filter="test"></table>
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
-                    <button class='layui-btn layui-btn-sm' lay-event='addReader'><i class='layui-icon layui-icon-addition'></i>新增</button>
+                    <button class='layui-btn layui-btn-sm' lay-event='addReader'><i class='layui-icon layui-icon-add-1'></i>新增</button>
                     <button class='layui-btn layui-btn-sm' lay-event="moreImport">批量导入 <i class='layui-icon layui-icon-down layui-font-12'></i></button>
                     <button class='layui-btn layui-btn-sm layui-btn-danger' lay-event='del'><i class='layui-icon layui-icon-delete'></i>删除</button>
                 </div>
@@ -278,7 +278,7 @@
         </div>
     </div>
 
-    <script src="../../skin/js/layui.simple.js"></script>
+    <script src="../../skin/js/layui.min.js"></script>
     <script>
         layui.use(['table', 'laypage', 'form'], function() {
             let $ = layui.jquery
@@ -318,7 +318,7 @@
                     keywords_type: keywords_type
                 },
                 toolbar: '#toolbarDemo',
-                height: 'full-299', // 最大高度减去其他容器已占有的高度差
+                height: 'full-289', // 最大高度减去其他容器已占有的高度差
                 cellMinWidth: 100,
                 // totalRow: true, // 开启合计行
                 page: false, //开启分页
@@ -525,7 +525,7 @@
                         break;
                     case 'addReader':
                         layer.open({
-                            title: '<i class="layui-icon layui-icon-addition"></i>新增读者信息',
+                            title: '<i class="layui-icon layui-icon-add-1"></i>新增读者信息',
                             type: 2,
                             area: ['48%', '88%'],
                             skin: 'layui-layer-molv',
@@ -551,7 +551,7 @@
                                 // console.log(obj);
                                 if(obj.id === 'importStudent'){
                                     layer.open({
-                                        title: '<i class="layui-icon layui-icon-addition"></i>批量导入学生',
+                                        title: '<i class="layui-icon layui-icon-add-1"></i>批量导入学生',
                                         type: 2,
                                         area: ['48%', '88%'],
                                         skin: 'layui-layer-molv',
@@ -559,7 +559,7 @@
                                     })
                                 }else if(obj.id === 'importTeacher'){
                                     layer.open({
-                                        title: '<i class="layui-icon layui-icon-addition"></i>批量导入教师',
+                                        title: '<i class="layui-icon layui-icon-add-1"></i>批量导入教师',
                                         type: 2,
                                         area: ['48%', '88%'],
                                         skin: 'layui-layer-molv',

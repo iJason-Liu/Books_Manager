@@ -35,12 +35,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link rel="stylesheet" type="text/css" href="../../skin/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../skin/css/modules/layer/layer.css" />
     <style>
         #form_tab{
             width: 72%;
-            padding: 20px 50px 40px 20px;
+            padding: 20px 50px 40px 5px;
             margin: 30px auto;
         }
 
@@ -63,13 +63,25 @@
         <form class="layui-form" action="../../controllers/books_source/add_book_check.php" method="post" enctype="multipart/form-data">
         <div id="form_tab">
             <div class="layui-form-item">
+                <label class="layui-form-label">图书封面:</label>
+                <div class="layui-upload-drag" id="bookcover">
+                    <div id="tip">
+                        <i class="layui-icon"></i>
+                        <p>点击上传，或将图片拖拽到此处</p>
+                    </div>
+                      <div class="layui-hide" id="uploadView">
+                        <img src="" alt="图书封面" style="max-width: 196px">
+                      </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">ISBN:</label>
                 <div class="layui-input-block">
                     <input type="text" name="ISBN" id="ISBN" placeholder="请输入图书的ISBN编号" lay-verify="required" lay-reqtext="请输入图书ISBN！" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">*图书名称:</label>
+                <label class="layui-form-label"><span style="color: #ff0000;">*</span>图书名称:</label>
                 <div class="layui-input-block">
                     <input type="text" name="bookname" id="bookname" placeholder="请输入图书名称---手动添加书名号《》" lay-verify="required" lay-reqtext="请输入图书名称！" class="layui-input">
                 </div>
@@ -136,18 +148,6 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">图书封面:</label>
-                <div class="layui-upload-drag" id="bookcover">
-                    <div id="tip">
-                        <i class="layui-icon"></i>
-                        <p>点击上传，或将图片拖拽到此处</p>
-                    </div>
-                      <div class="layui-hide" id="uploadView">
-                        <img src="" alt="图书封面" style="max-width: 196px">
-                      </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <div class="layui-input-block" style="margin-top: 45px;">
                     <button type="reset" class="layui-btn layui-btn-primary" value="重置">重 置</button>
                     <button type="submit" class="layui-btn" name="addition" id="addition" lay-submit lay-filter="form_data" value="提交">提 交</button>
@@ -155,7 +155,7 @@
             </div>
         </form>
 
-        <script src="../../skin/js/layui.simple.js"></script>
+        <script src="../../skin/js/layui.min.js"></script>
 <!--        <script src="../../skin/js/jquery-3.3.1.min.js"></script>-->
         <script>
             layui.use(['upload', 'form', 'layer'], function() {

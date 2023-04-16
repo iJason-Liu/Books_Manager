@@ -40,7 +40,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link href="../../skin/css/layui.css" rel="stylesheet">
+    <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
         /*隐藏功能*/
@@ -297,7 +297,7 @@
         </div>
     </div>
 
-    <script src="../../skin/js/layui.simple.js"></script>
+    <script src="../../skin/js/layui.min.js"></script>
     <script>
         layui.use(['table', 'laypage', 'form'], function() {
             let $ = layui.jquery
@@ -338,7 +338,7 @@
                     keywords_type: keywords_type
                 },
                 toolbar: '#toolbarDemo',
-                height: 'full-315', // 最大高度减去其他容器已占有的高度差
+                height: 'full-305', // 最大高度减去其他容器已占有的高度差
                 cellMinWidth: 100,
                 // totalRow: true, // 开启合计行
                 page: false, //开启分页
@@ -420,7 +420,7 @@
                     }, {
                         field: 'status',  //借阅状态判断 0 在库 1 借出
                         width: 120,
-                        title: '借阅状态',
+                        title: '图书状态',
                         align: 'center',
                         style: '-moz-box-align: start;',
                         templet: '#status'

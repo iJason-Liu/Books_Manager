@@ -12,7 +12,7 @@
     $password = md5($_POST['password']);  //密码
     $usertype = $_POST['usertype'];  //用户类型
     $yzm = $_POST['yzm'];  //验证码
-    $log_time = date('Y:m:d H:i:s', time());  //登录时间，消息添加时间
+    $log_time = date('Y-m-d H:i:s', time());  //登录时间，消息添加时间
 
     //把session_id存入本地session
     $session_id = session_id();
@@ -58,10 +58,13 @@
         }
         $_SESSION['src'] = $logo; //把随机头像存入session
 
-        $sender = "系统消息";  //消息发送者
-        $content = "Hello！".$username."，您于".$log_time."成功登录系统，登录IP：".$realip;  //消息内容
+        //归属地
+        $address = getip($realip);
+        // var_dump($address);
+        $sender = "登录提醒";  //消息类型  发送者
+        $content = "Hello！".$username."，您于".$log_time."成功登录系统，登录IP：".$realip."，归属地：".$address;  //消息内容
         //登录成功添加一条系统消息
-        $msg_sql = "insert into sys_msg(user_id,sender,content,createtime) values ('$account','$sender','$content','$add_time')";
+        $msg_sql = "insert into sys_msg(user_id,sender,content,createtime) values ('$account','$sender','$content','$log_time')";
         $msg_res = mysqli_query($db_connect, $msg_sql);
         if($msg_res){
             // echo "发送消息成功！";

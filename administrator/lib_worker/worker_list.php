@@ -37,7 +37,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../../skin/css/layui.css">
+    <link rel="stylesheet" href="../../skin/css/layui.min.css">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
         /*隐藏功能*/
@@ -244,8 +244,8 @@
             <table class="layui-hide" id="dataList" lay-filter="test"></table>
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
-                    <button class='layui-btn layui-btn-sm' lay-event='addPerson'><i class='layui-icon layui-icon-addition'></i>新增</button>
-                    <button class='layui-btn layui-btn-sm' lay-event='importPerson'><i class='layui-icon layui-icon-addition'></i>批量导入</button>
+                    <button class='layui-btn layui-btn-sm' lay-event='addPerson'><i class='layui-icon layui-icon-add-1'></i>新增</button>
+                    <button class='layui-btn layui-btn-sm' lay-event='importPerson'><i class='layui-icon layui-icon-add-1'></i>批量导入</button>
                     <button class='layui-btn layui-btn-sm layui-btn-danger' lay-event='delPerson'><i class='layui-icon layui-icon-delete'></i>删除</button>
                 </div>
             </script>
@@ -271,7 +271,7 @@
         </div>
     </div>
 
-    <script src="../../skin/js/layui.simple.js"></script>
+    <script src="../../skin/js/layui.min.js"></script>
     <script>
         layui.use(['table', 'laypage', 'form'], function() {
             let $ = layui.jquery
@@ -310,7 +310,7 @@
                     keywords_type: keywords_type
                 },
                 toolbar: '#toolbarDemo',
-                height: 'full-299', // 最大高度减去其他容器已占有的高度差
+                height: 'full-289', // 最大高度减去其他容器已占有的高度差
                 cellMinWidth: 100,
                 // totalRow: true, // 开启合计行
                 page: false, //开启分页
@@ -494,7 +494,7 @@
                         break;
                     case 'addPerson':
                         layer.open({
-                            title: '<i class="layui-icon layui-icon-addition"></i>新增馆员',
+                            title: '<i class="layui-icon layui-icon-add-1"></i>新增馆员',
                             type: 2,
                             area: ['48%', '88%'],
                             skin: 'layui-layer-molv',
@@ -505,7 +505,7 @@
                         break;
                     case 'importPerson':
                         layer.open({
-                            title: '<i class="layui-icon layui-icon-addition"></i>批量导入',
+                            title: '<i class="layui-icon layui-icon-add-1"></i>批量导入馆员',
                             type: 2,
                             area: ['48%', '88%'],
                             skin: 'layui-layer-molv',
