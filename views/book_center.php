@@ -212,12 +212,11 @@
             <ul class="layui-nav">
                 <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index.php">首页</a> </li>
                 <li class="layui-nav-item hc-hide-sm layui-this">
-                    <a href="../views/book_center.php">资源</a>
+                    <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
                         <dd><a href="../views/search_bookData.php" target="_blank">馆藏查询</a></dd>
+                        <dd class="layui-this"><a href="../views/book_center.php" target="_blank">馆藏资源</a></dd>
                         <dd><a href="../views/new_book.php">新书通报</a></dd>
-                        <dd class="layui-this"><a href="../views/book_center.php#hot">热门图书</a></dd>
-                        <dd><a href="../views/books_recommend.php">推荐图书</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
@@ -407,7 +406,7 @@
             </div>
             <div class="layui-col-md4 layui-col-sm4 right_content">
                 <div class="layui-col-md12 right_title">
-                    <span class="title_dot"></span><a href="javascript:;" style="cursor: default;" name="hot">热门图书 TOP10</a>
+                    <span class="title_dot"></span>热门图书 TOP10
                 </div>
                 <div class="layui-col-md12 layui-elip" style="margin-top: 18px;">
                     <span class="layui-badge">1</span>&emsp;图书名称图书名称图书名称图书名称图书名称

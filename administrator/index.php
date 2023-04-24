@@ -34,7 +34,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="applicable-device" content="pc,mobile">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -53,16 +53,17 @@
 
         .layui-laydate{
             font-size: 15px;
+            margin-top: 25px;
         }
         .laydate-set-ym span{
             font-size: 18px;
         }
         .laydate-theme-molv .layui-laydate-main{
-            width: 620px;
+            width: 720px;
             height: 410px;
         }
         .layui-laydate-content table{
-            width: 600px;
+            width: 700px;
             height: 345px;
         }
         .laydate-theme-grid .layui-laydate-content td>div {
@@ -83,7 +84,13 @@
             height: 57px;
             line-height: 57px;
         }
+        #he-plugin-simple div{
+            z-index: 9;
+        }
 
+        .captitle{
+            line-height: 30px;
+        }
     </style>
     <script type="text/javascript">
         //禁用复制
@@ -104,83 +111,26 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../administrator/index.php">
+            <a href="./index.php">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <!--<li class="layui-nav-item">-->
-                <!--    <a href="javascript:;">天气</a>-->
-                <!--    <dl class="layui-nav-child">-->
-                <!--        <dd>-->
-                <!--        <div id="he-plugin-simple" style="width: 200px"></div>-->
-                <!--            <script>-->
-                <!--            WIDGET = {-->
-                <!--              "CONFIG": {-->
-                <!--                "modules": "01234",-->
-                <!--                "background": "1",-->
-                <!--                "tmpColor": "FFFFFF",-->
-                <!--                "tmpSize": "16",-->
-                <!--                "cityColor": "FFFFFF",-->
-                <!--                "citySize": "16",-->
-                <!--                "aqiColor": "B6D7A8",-->
-                <!--                "aqiSize": "16",-->
-                <!--                "weatherIconSize": "24",-->
-                <!--                "alertIconSize": "0",-->
-                <!--                "padding": "10px 10px 10px 10px",-->
-                <!--                "shadow": "0",-->
-                <!--                "language": "auto",-->
-                <!--                "borderRadius": "2",-->
-                <!--                "fixed": "false",-->
-                <!--                "vertical": "center",-->
-                <!--                "horizontal": "left",-->
-                <!--                "key": "94c3f678025b4922a6b1ae124a356253"-->
-                <!--              }-->
-                <!--            }-->
-                <!--        </script>-->
-                <!--        <script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>-->
-                <!---->
-                <!--        </dd>-->
-                <!--    </dl>-->
-                <!--</li>-->
-                <li class="layui-nav-item layui-hide-xs layui-this"><a href="../administrator/index.php">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs layui-this"><a href="./index.php">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../administrator/system/help_guide.php">帮助中心</a></li>
-                <!--<li class="layui-nav-item">-->
-                <!--    <a href="javascript:;">天气</a>-->
-                <!--    <dl class="layui-nav-child">-->
-                <!--        <dd>-->
-                            <!--<div id="he-plugin-standard"></div>-->
-                            <!--<script>-->
-                            <!--    WIDGET = {-->
-                            <!--      "CONFIG": {-->
-                            <!--        "layout": "2",-->
-                            <!--        "width": "240",-->
-                            <!--        "height": "270",-->
-                            <!--        "background": "1",-->
-                            <!--        "dataColor": "FFFFFF",-->
-                            <!--        "borderRadius": "3",-->
-                            <!--        "key": "173d26df4bc74850906280d98d6dfd8d"-->
-                            <!--      }-->
-                            <!--    }-->
-                            <!--</script>-->
-                            <!--<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>-->
-                            <!---->
-                <!--        </dd>-->
-                <!--    </dl>-->
-                <!--</li>-->
+                <li class="layui-nav-item layui-hide-xs"><a href="./system/help_guide.php">帮助中心</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <!-- 右侧消息 -->
                 <li class="layui-nav-item" lay-header-event="msg" lay-unselect>
                     <a href="javascript:;">
-<!--                        <i class="layui-icon layui-icon-notice layui-font-18"></i><span class="layui-badge layui-badge-dot"></span>-->
-                        通知消息<span class="layui-badge layui-badge-dot layui-hide"></span>
+                        <!--<i class="layui-icon layui-icon-notice layui-font-18"></i><span class="layui-badge layui-badge-dot"></span>-->
+                        通知消息<span class="layui-badge layui-hide"></span>
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <img src="<?php echo $_SESSION['src'] ?>" class="layui-nav-img">
+                        <img src="<?php echo $_SESSION['avatar'] ?>" class="layui-nav-img">
                         <?php
                             echo "您好！". $_SESSION['user'];
                         ?>
@@ -191,10 +141,10 @@
                         </a></dd> -->
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../administrator/user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='./user_center/user_Info.php'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../administrator/user_center/update_pwd.php">修改密码</a></dd>
+                        <dd><a href="./user_center/update_pwd.php">修改密码</a></dd>
                         <hr>
                         <dd><a href="../login/logout.php">注销</a></dd>
                     </dl>
@@ -209,18 +159,18 @@
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <ul class="layui-nav layui-nav-tree">
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-username"></i>&nbsp;个人中心</a>
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-username"></i>&nbsp;&nbsp;个人中心</a>
                         <dl class="layui-nav-child">
                             <!-- 包含注销功能(方便用户删除关于自己的信息)，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
                             <?php
                                 if($type_id != 1004){
-                                    echo "<dd><a href='../administrator/user_center/user_Info.php'><i class='layui-icon layui-icon-username'></i>&nbsp;我的信息</a></dd>";
+                                    echo "<dd><a href='./user_center/user_Info.php'><i class='layui-icon layui-icon-username'></i>&nbsp;&nbsp;我的信息</a></dd>";
                                 }
                             ?>
-                            <dd><a href="../administrator/user_center/update_pwd.php"><i class="layui-icon layui-icon-password"></i>&nbsp;修改密码</a></dd>
-                            <dd><a href="../administrator/user_center/account_del.php"><i class="layui-icon layui-icon-logout"></i>&nbsp;账号注销</a></dd>
+                            <dd><a href="./user_center/update_pwd.php"><i class="layui-icon layui-icon-password"></i>&nbsp;&nbsp;修改密码</a></dd>
+                            <dd><a href="./user_center/account_del.php"><i class="layui-icon layui-icon-logout"></i>&nbsp;&nbsp;账号注销</a></dd>
                         </dl>
                     </li>
 
@@ -233,9 +183,9 @@
                             echo "hide";
                         }
                     ?>">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;馆员中心</a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;&nbsp;馆员中心</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="../administrator/lib_worker/worker_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;馆员档案</a></dd>
+                            <dd><a href="./lib_worker/worker_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;馆员档案</a></dd>
                         </dl>
                     </li>
 
@@ -248,37 +198,43 @@
                             echo "hide";
                         }
                     ?>">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;读者中心</a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;&nbsp;读者中心</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="../administrator/reader/reader_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;读者档案</a></dd>
-                            <dd><a href="../administrator/reader/reader_kind.php"><i class="layui-icon layui-icon-cols"></i>&nbsp;&nbsp;读者类型</a></dd>
+                            <dd><a href="./reader/reader_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;读者档案</a></dd>
+                            <dd><a href="./reader/reader_kind.php"><i class="layui-icon layui-icon-cols"></i>&nbsp;&nbsp;&nbsp;读者类型</a></dd>
                         </dl>
                     </li>
 
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-read"></i>&nbsp;图书管理</a>
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;图书管理</a>
                         <dl class="layui-nav-child">
                             <!-- 图书查询包含id、书名、ISBN、类别、作者、出版社、图书价格、数量、是否借出状态、书本介绍、添加日期、图书封面、更新日期、存放位置 -->
-                            <dd><a href="../administrator/books_source/book_list.php"><i class="layui-icon layui-icon-read"></i>&nbsp;馆藏图书</a></dd>
-                            <dd><a href="../administrator/books_source/book_search.php"><i class="layui-icon layui-icon-search"></i>&nbsp;图书查询</a></dd>
+                            <dd><a href="./books_center/book_list.php"><i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;馆藏图书</a></dd>
+                            <dd><a href="./books_center/book_search.php"><i class="layui-icon layui-icon-search"></i>&nbsp;&nbsp;图书查询</a></dd>
                             <!-- 图书点击量，借阅次数 -->
-                            <dd><a href="../administrator/books_source/rank_book.php"><i class="layui-icon layui-icon-praise"></i>&nbsp;人气图书</a></dd>
+                            <dd><a href="./books_center/rank_book.php"><i class="layui-icon layui-icon-praise"></i>&nbsp;&nbsp;人气图书</a></dd>
                             <?php
                                 if ($type_id == 1003 || $type_id == 1004) {
-                                    echo "<dd><a href='../administrator/books_source/book_kind.php'><i class='layui-icon layui-icon-form'></i>&nbsp;图书类别</a></dd>";
+                                    echo "<dd><a href='./books_center/book_kind.php'><i class='layui-icon layui-icon-form'></i>&nbsp;&nbsp;图书类别</a></dd>";
                                 }
                             ?>
                             <!-- 包含查询，书库名，编号，位置 -->
-                            <dd><a href="../administrator/books_source/book_stack.php"><i class="layui-icon layui-icon-diamond"></i>&nbsp;书库信息</a></dd>
+                            <dd><a href="./books_center/book_stack.php"><i class="layui-icon layui-icon-diamond"></i>&nbsp;&nbsp;书库信息</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;流通管理</a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;流通管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="../administrator/books_borrow/borrow_status.php"><i class="layui-icon layui-icon-release"></i>&nbsp;图书借阅</a></dd>
+                            <dd><a href="./books_circulation/borrowBook.php"><i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;图书借阅</a></dd>
                             <!-- 续借操作，每次完成续借时间推迟7天  -->
-                            <dd><a href="../administrator/books_borrow/renewBook.php"><i class="layui-icon layui-icon-refresh"></i>&nbsp;图书续借</a></dd>
-                            <dd><a href="../administrator/books_borrow/returnBook.php"><i class="layui-icon layui-icon-prev-circle"></i>&nbsp;图书归还</a></dd>
+                            <dd><a href="./books_circulation/renewBook.php"><i class="layui-icon layui-icon-refresh"></i>&nbsp;&nbsp;图书续借</a></dd>
+                            <dd><a href="./books_circulation/returnBook.php"><i class="layui-icon layui-icon-prev-circle"></i>&nbsp;&nbsp;图书归还</a></dd>
+                            <?php
+                                if($type_id == 1003 || $type_id == 1004){
+                                    echo "<dd><a href='./books_circulation/record_search.php'><i class='layui-icon layui-icon-search'></i>&nbsp;&nbsp;记录查询</a></dd>";
+                                }
+                            ?>
+                            <dd><a href="javascript:;"><i class="layui-icon layui-icon-edit"></i>&nbsp;&nbsp;丢失登记</a></dd>
                         </dl>
                     </li>
 
@@ -291,24 +247,25 @@
                             echo "hide";
                         }
                     ?>">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-dialogue"></i>&nbsp;评论管理</a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-dialogue"></i>&nbsp;&nbsp;评论管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="../administrator/comment/comment_center.php"><i class="layui-icon layui-icon-reply-fill"></i>&nbsp;评论中心</a></dd>
-                            <dd><a href="../administrator/comment/comment_control.php"><i class="layui-icon layui-icon-set-fill"></i>&nbsp;评论风控</a></dd>
+                            <dd><a href="./comment/comment_center.php"><i class="layui-icon layui-icon-reply-fill"></i>&nbsp;&nbsp;评论中心</a></dd>
+                            <dd><a href="./comment/comment_control.php"><i class="layui-icon layui-icon-set-fill"></i>&nbsp;&nbsp;评论风控</a></dd>
+                            <dd><a href='./comment/news_notice.php'><i class='layui-icon layui-icon-speaker'></i>&nbsp;&nbsp;新闻公告</a></dd>
                         </dl>
                     </li>
 
                     <!-- 仅超级管理员显示权限管理 -->
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-console"></i>&nbsp;系统维护</a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-console"></i>&nbsp;&nbsp;系统维护</a>
                         <dl class="layui-nav-child">
                             <?php
                                 if($type_id == 1004){
-                                    echo "<dd><a href='../administrator/system/rights_center.php'><i class='layui-icon layui-icon-tabs'></i>&nbsp;权限管理</a></dd>";
-                                    echo "<dd><a href='../administrator/system/feedBack.php'><i class='layui-icon layui-icon-survey'></i>&nbsp;意见反馈</a></dd>";
+                                    echo "<dd><a href='./system/rights_center.php'><i class='layui-icon layui-icon-tabs'></i>&nbsp;&nbsp;权限管理</a></dd>";
                                 }
                             ?>
-                            <dd><a href="../administrator/system/sysInfo.php"><i class="layui-icon layui-icon-about"></i>&nbsp;系统信息</a></dd>
+                            <dd><a href='./system/feedBack.php'><i class='layui-icon layui-icon-survey'></i>&nbsp;&nbsp;意见反馈</a></dd>
+                            <dd><a href="./system/sysInfo.php"><i class="layui-icon layui-icon-about"></i>&nbsp;&nbsp;系统信息</a></dd>
                         </dl>
                     </li>
 
@@ -320,18 +277,18 @@
                             echo "hide";
                         }
                     ?>">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-link"></i>&nbsp;调试链接</a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-link"></i>&nbsp;&nbsp;调试链接</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="http://swz.crayon.vip/" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;书丸子官网PC</a></dd>
-                            <dd><a href="http://m.swz.crayon.vip/" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;书丸子官网WAP</a></dd>
-                            <dd><a href="http://43.139.94.135:1011/" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;服务器root</a></dd>
-                            <dd><a href="http://chat.crayon.vip" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;WebScoketChat</a></dd>
+                            <dd><a href="http://swz.crayon.vip/" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网PC</a></dd>
+                            <dd><a href="http://m.swz.crayon.vip/" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网WAP</a></dd>
+                            <dd><a href="http://43.139.94.135:1011/" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;&nbsp;服务器root</a></dd>
+                            <dd><a href="http://chat.crayon.vip" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;&nbsp;WebScoketChat</a></dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item"><a href="https://ymck.me" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;友情链接</a></li>
-                    <li class="layui-nav-item"><a href="https://ruancang.net" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;友情链接</a></li>
-                    <li class="layui-nav-item"><a href="https://www.qijishow.com" target="_blank"><i class="layui-icon layui-icon-util"></i>&nbsp;小工具</a></li>
-                    <li class="layui-nav-item"><a href="javascript:;" id="aircondition"><i class="layui-icon layui-icon-util"></i>&nbsp;便携小空调</a></li>
+                    <li class="layui-nav-item"><a href="https://ymck.me" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;&nbsp;友情链接</a></li>
+                    <li class="layui-nav-item"><a href="https://ruancang.net" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;&nbsp;友情链接</a></li>
+                    <li class="layui-nav-item"><a href="https://www.qijishow.com" target="_blank"><i class="layui-icon layui-icon-util"></i>&nbsp;&nbsp;小工具</a></li>
+                    <li class="layui-nav-item"><a href="javascript:;" id="aircondition"><i class="layui-icon layui-icon-util"></i>&nbsp;&nbsp;便携小空调</a></li>
                 </ul>
             </div>
         </div>
@@ -341,31 +298,80 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px;">欢迎来到小新的主站，这里是图书管理系统后台！</div>
-            <div style="width: 620px;">
-                <div id="MyCalendar"></div>
-
-                <div id="he-plugin-standard"></div>
-                <script>
-                    WIDGET = {
-                      "CONFIG": {
-                        "layout": "2",
-                        "width": "260",
-                        "height": "280",
-                        "background": "1",
-                        "dataColor": "FFFFFF",
-                        "borderRadius": "3",
-                        "key": "173d26df4bc74850906280d98d6dfd8d"
-                      }
-                    }
-                </script>
-                <script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
-
+            <div class="container" style="display: flex;padding: 20px 20px 100px 20px;">
+                <div style="width: 720px;">
+                    <img width="730" height="170" src="../skin/images/banner.png" >
+                    <div id="MyCalendar"></div>
+                </div>
+                <div style="width: 100%;border: 1px solid #9f9f9f;margin-left: 50px;border-radius: 4px;">
+                    <div style="height: 50px;border-bottom: 1px solid #9f9f9f;padding: 5px 5px 5px 10px;">
+                        <div style="float: left;line-height: 50px;"><h3>常用功能&nbsp;<i class="layui-icon layui-icon-triangle-r"></i></h3></div>
+                        <div style="float: right;margin-top: 4px;">
+                            <div id="he-plugin-simple"></div>
+                        </div>
+                        <script>
+                            WIDGET = {
+                              "CONFIG": {
+                                "modules": "01234",
+                                "background": "3",
+                                "tmpColor": "FFFFFF",
+                                "tmpSize": "16",
+                                "cityColor": "FFFFFF",
+                                "citySize": "16",
+                                "aqiColor": "B6D7A8",
+                                "aqiSize": "16",
+                                "weatherIconSize": "24",
+                                "alertIconSize": "0",
+                                "padding": "10px 10px 10px 10px",
+                                "shadow": "0",
+                                "language": "auto",
+                                "borderRadius": "3",
+                                "fixed": "false",
+                                "vertical": "center",
+                                "horizontal": "left",
+                                "key": "94c3f678025b4922a6b1ae124a356253"
+                              }
+                            }
+                        </script>
+                        <script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script>
+                    </div>
+                    <div class="layui-row" style="padding: 7px;border-bottom: 1px solid #eee;">
+                        <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                            <a href="books_center/book_search.php">
+                                <img width="48" height="48" src="../skin/images/other/book_search.png">
+                                <div class="captitle">馆藏查询</div>
+                            </a>
+                        </div>
+                        <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                            <a href="./books_circulation/borrowBook.php">
+                                <img width="48" height="48" src="../skin/images/other/add_book.png">
+                                <div class="captitle">图书借阅</div>
+                            </a>
+                        </div>
+                        <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                            <a href="./books_circulation/renewBook.php">
+                                <img width="48" height="48" src="../skin/images/other/book_4.png">
+                                <div class="captitle">图书续借</div>
+                            </a>
+                        </div>
+                        <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                            <a href="./books_circulation/returnBook.php">
+                                <img width="48" height="48" src="../skin/images/other/return_book.png">
+                                <div class="captitle">图书归还</div>
+                            </a>
+                        </div>
+                        <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                            <a href="./books_circulation/record_search.php">
+                                <img width="48" height="48" src="../skin/images/other/book.png">
+                                <div class="captitle">记录查询</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div style="padding: 7px;">
+                        <h3>未读消息&nbsp;<i class="layui-icon layui-icon-triangle-r"></i></h3>
+                    </div>
+                </div>
             </div>
-            <pre>
-                <!--<img src="../skin/images/gif/IMG_0278.GIF">-->
-            </pre>
-            <!--<p>这里还应该放一个搜索框进行搜索书库中的书籍，使用二级页面显示查询的信息。</p>-->
         </div>
 
         <div class="layui-footer">
@@ -373,7 +379,7 @@
             <p style="text-align: center;">
                 Copyright © 2023 by Jason Liu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.crayon.vip">https://www.crayon.vip</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="https://beian.miit.gov.cn/" target="_blank"><img src="../skin/images/beian.png" alt=""/>滇ICP备2023001154号-1</a>
-                <!--                <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>-->
+                <!--<a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>-->
             </p>
         </div>
     </div>
@@ -388,6 +394,7 @@
 
             let state;
             let msg = '';  //消息列表html元素
+            let user_id = <?php echo $_SESSION['user_id']; ?>;  //用户id
 
             //页面加载时加载消息列表
             $(function (){
@@ -400,23 +407,28 @@
                     type: "POST",
                     url: '../../controllers/system/getMsg.php',
                     data: {
-                        user_id: <?php echo $_SESSION['user_id']; ?>
+                        user_id: user_id
                     },
                     dataType: 'json',
                     success: function (res) {
                         // console.log(res);
                         state = res.state;  //未读消息的条数
                         let data = res.data;
-                        //$('.layui-badge').text(res.count); //动态获取消息数量
-                        for(let i in data){
-                            let color = data[i].state === '0' ? '#333' : '#999';  //定义已读未读的状态颜色
-                            msg += "<div class='msg' style='padding: 15px;border-bottom: 1px solid #ddd;cursor: pointer;'>" +
-                                    // "<div>"+data[i].sender+"</div>" +
-                                    "<div style='color: "+color+";font-weight: 500;font-size: 15px;'>"+data[i].content+"</div>" +
-                                    "<div style='margin-top: 15px;'>" +
-                                    "<span style='color: #777;font-size: 12px;padding: 5px;background: #f3f4f7;border-radius: 4px;'>"+data[i].sender+"</span>" +
-                                    "<span style='color: #999;position: absolute;right: 15px;'>"+data[i].createtime+"</span></div>" +
-                                    "</div>";
+                        $('.layui-badge').text(res.count); //动态获取消息数量
+                        msg = '';
+                        if(data.length === 0){
+                            msg += "<div style='margin: 50px auto;text-align: center;color: #999;'><img src='../skin/images/no_msg.png' style='width: 180px;height: 150px;'><p>暂无消息</p></div>";
+                        }else {
+                            for (let i in data) {
+                                let color = data[i].state === '0' ? '#333' : '#999';  //定义已读未读的状态颜色
+                                msg += "<div class='msg' style='padding: 15px;border-bottom: 1px solid #ddd;cursor: pointer;'>" +
+                                        // "<div>"+data[i].sender+"</div>" +
+                                        "<div style='color: " + color + ";font-weight: 500;font-size: 15px;'>" + data[i].content + "</div>" +
+                                        "<div style='margin-top: 15px;'>" +
+                                        "<span style='color: #777;font-size: 12px;padding: 5px;background: #f3f4f7;border-radius: 4px;'>" + data[i].sender + "</span>" +
+                                        "<span style='color: #999;position: absolute;right: 15px;'>" + data[i].createtime + "</span></div>" +
+                                        "</div>";
+                            }
                         }
                         //有未读消息时显示
                         if(state !== 0){
@@ -428,20 +440,20 @@
 
             //头部事件
             util.event('lay-header-event', {
-                //左侧菜单事件
+                //右侧通知消息事件
                 msg: function(){
-                    layer.open({
-                        title: "<i class='layui-icon layui-icon-notice'></i> 通知消息",
+                    let index = layer.open({
+                        title: "<i class='layui-icon layui-icon-notice'></i> 通知消息 <span style='font-size: 12px;margin-left: 10px;color: #999;cursor:pointer;' title='删除所有消息' class='clearMsg'>清空消息</span>",
                         type: 1,
                         area: ['28%', '92.7%'],
                         offset: ['7.3%', '72%'], //自定义右上角
                         // offset: 'rt', //右上角
                         // anim: 5,
-                        shade: false,  //.1
+                        shade: .1,  //.1
                         // shadeClose: true,
                         // closeBtn: 2,
                         move: false,  //禁止拖动
-                        // scrollbar: false, //禁用滚动条
+                        scrollbar: false, //禁用滚动条
                         content: msg,
                         success: function (){
 
@@ -452,7 +464,7 @@
                                 type: "POST",
                                 url: '../../controllers/system/setMsgState.php',
                                 data: {
-                                    user_id: <?php echo $_SESSION['user_id']; ?>,
+                                    user_id: user_id,
                                     // msg_id: 1   //单条消息id
                                 },
                                 dataType: 'json',
@@ -462,9 +474,10 @@
                             })
                             //关闭窗口已读消息，再次添加隐藏样式
                             $('.layui-badge').addClass('layui-hide');
-                            if(state !== 0){  //不等于0时刷新也就是第一次打开时关闭刷新，以后无新消息不刷新
-                                location.reload();
-                            }
+                            getMsg();  //重新获取消息列表
+                            // if(state !== 0){  //不等于0时刷新也就是第一次打开时关闭刷新，以后无新消息不刷新
+                            //     location.reload();
+                            // }
                         }
                     })
                     //鼠标移上变色
@@ -472,6 +485,25 @@
                         $(this).css('background-color', '#eaeaee');
                     }).mouseout(function (){
                         $(this).css('background-color', '#fff');
+                    })
+
+                    //清空所有消息
+                    $('.clearMsg').on('click', function () {
+                        $.ajax({
+                            type: "POST",
+                            url: '../../controllers/system/clearMsg.php',
+                            data: {
+                                user_id: user_id
+                            },
+                            success: function (res) {
+                                layer.msg('消息已清空！', {
+                                    time: 2000
+                                }, function () {
+                                    getMsg();
+                                })
+                                layer.close(index); //关闭窗口
+                            }
+                        })
                     })
                 }
             })
@@ -497,7 +529,7 @@
                 show: true,
                 btns: ['now'],
                 mark: {
-                    '0-0-10': '读书日',  //每月某天
+                    '0-4-23': '读书日',  //每月某天
                 },
                 done: function(value, date, endDate){
                     if(date.month === 5 && date.date === 1){
@@ -509,8 +541,8 @@
                     if(date.month === 10 && date.date === 1){
                         layer.msg('今天是十一国庆节噢~')
                     }
-                    if(date.date === 10){
-                        layer.msg('今天是图书馆的读书日~')
+                    if(date.month === 4 && date.date === 23){
+                        layer.msg('今天是世界读书日~')
                     }
                 },
                 change: function(value, date, endDate){

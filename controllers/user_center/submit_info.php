@@ -14,7 +14,7 @@
     $usertype = $_SESSION['usertype']; //身份
     $json = file_get_contents('php://input');
     $data = json_decode($json,true);
-//    print_r($data);
+    // print_r($data);
     $id = $data['id'];
     $cardNo = $data['cardNo'];
     $name = $data['name'];
@@ -22,7 +22,7 @@
     $department = $data['department'];
     $class = $data['class'];
     $mobile = $data['mobile'];
-//    die();
+    // die();
 
     if($usertype == '学生'){
         //这一操作其实就是同时更新两个表id相同的唯一的一条数据，暂时不用

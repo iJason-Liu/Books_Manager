@@ -13,7 +13,7 @@
 
     $id = $_GET['id'];
     //执行sql语句的查询语句
-    $sql1 = "select * from lib_worker where id=$id";
+    $sql1 = "select * from lib_worker where id='$id'";
     $result = mysqli_query($db_connect,$sql1);
 
     mysqli_close($db_connect); //关闭数据库资源

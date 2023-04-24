@@ -15,9 +15,9 @@
     $user_type = $_GET['user_type'];
     //执行sql语句的查询语句
     if ($user_type == '学生'){
-        $sql1 = "select * from student where cardNo=$id";
+        $sql1 = "select * from student where cardNo='$id'";
     }else if($user_type == '教师'){
-        $sql1 = "select * from teacher where cardNo=$id";
+        $sql1 = "select * from teacher where cardNo='$id'";
     }
     $result = mysqli_query($db_connect,$sql1);
 

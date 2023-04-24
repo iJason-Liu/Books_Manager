@@ -14,7 +14,7 @@
     $usertype = $_SESSION['usertype']; //身份
     $json = file_get_contents('php://input');
     $data = json_decode($json,true);
-//    print_r($data);
+    // print_r($data);
     $id = $data['id'];
     $cardNo = $data['cardNo'];
 

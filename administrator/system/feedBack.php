@@ -83,12 +83,12 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心<span class="layui-badge">1</span></a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <img src="<?php echo $_SESSION['src'] ?>" class="layui-nav-img">
+                        <img src="<?php echo $_SESSION['avatar'] ?>" class="layui-nav-img">
                         <?php
                             echo "您好！". $_SESSION['user'];
                         ?>
@@ -106,125 +106,7 @@
             </ul>
         </div>
 
-        <?php
-        while ($row = mysqli_fetch_array($res)) {
-            $type_id = $row['type_id'];
-            ?>
-            <div class="layui-side layui-bg-black">
-                <div class="layui-side-scroll">
-                    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                    <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                        <li class="layui-nav-item">
-                            <a class="" href="javascript:;"><i class="layui-icon layui-icon-username"></i>&nbsp;个人中心</a>
-                            <dl class="layui-nav-child">
-                                <!-- 包含注销功能(方便用户删除关于自己的信息)，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
-                                <?php
-                                    if($type_id != 1004){
-                                        echo "<dd><a href='../user_center/user_Info.php'><i class='layui-icon layui-icon-username'></i>&nbsp;我的信息</a></dd>";
-                                    }
-                                ?>
-                                <dd><a href="../user_center/update_pwd.php"><i class="layui-icon layui-icon-password"></i>&nbsp;修改密码</a></dd>
-                                <dd><a href="../user_center/account_del.php"><i class="layui-icon layui-icon-logout"></i>&nbsp;账号注销</a></dd>
-                            </dl>
-                        </li>
-
-                        <!-- 判断身份为超级管理员时显示 -->
-                        <li class="layui-nav-item
-                        <?php
-                            if ($type_id == 1004) {
-                                echo "show";
-                            } else {
-                                echo "hide";
-                            }
-                        ?>">
-                            <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;馆员中心</a>
-                            <dl class="layui-nav-child">
-                                <dd><a href="../lib_worker/worker_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;馆员档案</a></dd>
-                            </dl>
-                        </li>
-
-                        <!-- 学生、教师不显示 -->
-                        <li class="layui-nav-item
-                        <?php
-                            if ($type_id == 1003 || $type_id == 1004) {
-                                echo "show";
-                            } else {
-                                echo "hide";
-                            }
-                        ?>">
-                            <a href="javascript:;"><i class="layui-icon layui-icon-user"></i>&nbsp;读者中心</a>
-                            <dl class="layui-nav-child">
-                                <dd><a href="../reader/reader_list.php"><i class="layui-icon layui-icon-group"></i>&nbsp;&nbsp;读者档案</a></dd>
-                                <dd><a href="../reader/reader_kind.php"><i class="layui-icon layui-icon-cols"></i>&nbsp;&nbsp;读者类型</a></dd>
-                            </dl>
-                        </li>
-
-                        <li class="layui-nav-item">
-                            <a class="" href="javascript:;"><i class="layui-icon layui-icon-read"></i>&nbsp;图书管理</a>
-                            <dl class="layui-nav-child">
-                                <!-- 图书查询包含id、书名、ISBN、类别、作者、出版社、图书价格、数量、是否借出状态、书本介绍、添加日期、图书封面、更新日期、存放位置 -->
-                                <dd><a href="../books_source/book_list.php"><i class="layui-icon layui-icon-read"></i>&nbsp;馆藏图书</a></dd>
-                                <dd><a href="../books_source/book_search.php"><i class="layui-icon layui-icon-search"></i>&nbsp;图书查询</a></dd>
-                                <!-- 图书点击量，借阅次数 -->
-                                <dd><a href="../books_source/rank_book.php"><i class="layui-icon layui-icon-praise"></i>&nbsp;人气图书</a></dd>
-                                <?php
-                                    if ($type_id == 1003 || $type_id == 1004) {
-                                        echo "<dd><a href='../books_source/book_kind.php'><i class='layui-icon layui-icon-form'></i>&nbsp;图书类别</a></dd>";
-                                    }
-                                ?>
-                                <!-- 包含查询，书库名，编号，位置 -->
-                                <dd><a href="../books_source/book_stack.php"><i class="layui-icon layui-icon-diamond"></i>&nbsp;书库信息</a></dd>
-                            </dl>
-                        </li>
-                        <li class="layui-nav-item">
-                            <a href="javascript:;"><i class="layui-icon layui-icon-template-1"></i>&nbsp;流通管理</a>
-                            <dl class="layui-nav-child">
-                                <dd><a href="../books_borrow/borrow_status.php"><i class="layui-icon layui-icon-release"></i>&nbsp;图书借阅</a></dd>
-                                <!-- 续借操作，每次完成续借时间推迟7天  -->
-                                <dd><a href="../books_borrow/renewBook.php"><i class="layui-icon layui-icon-refresh"></i>&nbsp;图书续借</a></dd>
-                                <dd><a href="../books_borrow/returnBook.php"><i class="layui-icon layui-icon-prev-circle"></i>&nbsp;图书归还</a></dd>
-                            </dl>
-                        </li>
-
-                        <!-- 评论只允许管理员和超级管理员查看 -->
-                        <li class="layui-nav-item
-                        <?php
-                            if ($type_id == 1003 || $type_id == 1004) {
-                                echo "show";
-                            } else {
-                                echo "hide";
-                            }
-                        ?>">
-                            <a href="javascript:;"><i class="layui-icon layui-icon-dialogue"></i>&nbsp;评论管理</a>
-                            <dl class="layui-nav-child">
-                                <dd><a href="../comment/comment_center.php"><i class="layui-icon layui-icon-reply-fill"></i>&nbsp;评论中心</a></dd>
-                                <dd><a href="../comment/comment_control.php"><i class="layui-icon layui-icon-set-fill"></i>&nbsp;评论风控</a></dd>
-                            </dl>
-                        </li>
-
-                        <!-- 仅超级管理员显示权限管理 -->
-                        <li class="layui-nav-item layui-nav-itemed">
-                            <a href="javascript:;"><i class="layui-icon layui-icon-console"></i>&nbsp;系统维护</a>
-                            <dl class="layui-nav-child">
-                                <?php
-                                    if ($type_id == 1004) {
-                                        echo "<dd><a href='../system/rights_center.php'><i class='layui-icon layui-icon-tabs'></i>&nbsp;权限管理</a></dd>";
-                                        echo "<dd class='layui-this'><a href='../system/feedBack.php'><i class='layui-icon layui-icon-survey'></i>&nbsp;意见反馈</a></dd>";
-                                    }
-                                ?>
-                                <dd><a href="../system/sysInfo.php"><i class="layui-icon layui-icon-about"></i>&nbsp;系统信息</a></dd>
-                            </dl>
-                        </li>
-
-                        <li class="layui-nav-item"><a href="https://ymck.me" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;友情链接</a></li>
-                    <li class="layui-nav-item"><a href="https://ruancang.net" target="_blank"><i class="layui-icon layui-icon-link"></i>&nbsp;友情链接</a></li>
-                    <li class="layui-nav-item"><a href="https://www.qijishow.com" target="_blank"><i class="layui-icon layui-icon-util"></i>&nbsp;小工具</a></li>
-                    </ul>
-                </div>
-            </div>
-            <?php
-        }
-        ?>
+        <?php include "../layouts/layout_side.php"; ?>
 
         <div class="layui-body">
             <!-- 内容主体区域 -->

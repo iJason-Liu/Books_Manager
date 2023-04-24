@@ -4911,15 +4911,16 @@ body .layui-table-tips .layui-layer-content {
 .layui-badge, .layui-badge-dot, .layui-badge-rim {
     position: relative;
     display: inline-block;
-    padding: 0 6px;
+    /*padding: 0 5px;*/
     font-size: 12px;
     text-align: center;
     background-color: #ff5722;
     color: #fff;
-    border-radius: 2px
+    border-radius: 50%
 }
 
 .layui-badge {
+    width: 19px;
     height: 18px;
     line-height: 18px
 }
@@ -4951,7 +4952,8 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav .layui-badge {
-    margin-top: -10px
+    margin-top: -21px;
+    margin-left: -2px;
 }
 
 .layui-tab-title .layui-badge, .layui-tab-title .layui-badge-dot {

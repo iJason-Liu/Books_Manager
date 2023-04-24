@@ -15,7 +15,7 @@
     // state是判断未读消息的条数状态
 
     if($result){
-        echo json_encode(array('code' => 200, 'msg' => 'success', 'state' => mysqli_num_rows($result2), 'count' => mysqli_num_rows($result), 'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC)),JSON_UNESCAPED_UNICODE);
+        echo json_encode(array('code' => 200, 'msg' => 'success', 'state' => mysqli_num_rows($result2), 'count' => mysqli_num_rows($result2), 'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC)),JSON_UNESCAPED_UNICODE);
     }else{
         echo json_encode(array('code' => 0, 'msg' => '获取数据失败！'),JSON_UNESCAPED_UNICODE);
     }

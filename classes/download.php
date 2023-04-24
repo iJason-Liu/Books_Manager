@@ -5,16 +5,16 @@
     $import_type = $_GET['import_type']; //前端传来的模板类型
     //文件路径
     if($import_type == 0){
-        $fileurl = "../template/图书信息表（模板）.xlsx";
+        $fileurl = "../skin/model/图书信息表（模板）.xlsx";
         $filename = "图书信息表（模板）.xlsx";
     }else if($import_type == 1){
-        $fileurl = "../template/馆员信息表（模板）.xlsx";
+        $fileurl = "../skin/model/馆员信息表（模板）.xlsx";
         $filename = "馆员信息表（模板）.xlsx";
     }else if($import_type == 2){
-        $fileurl = "../template/学生信息表（模板）.xlsx";
+        $fileurl = "../skin/model/学生信息表（模板）.xlsx";
         $filename = "学生信息表（模板）.xlsx";
     }else if($import_type == 3){
-        $fileurl = "../template/教师信息表（模板）.xlsx";
+        $fileurl = "../skin/model/教师信息表（模板）.xlsx";
         $filename = "教师信息表（模板）.xlsx";
     }
 

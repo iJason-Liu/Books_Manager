@@ -223,6 +223,7 @@
             } else {
                 layer.msg('请选择文件后再上传!',{
                     icon: 7,
+                    shade: .2,
                     time: 1500
                 })
             }

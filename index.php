@@ -425,12 +425,11 @@
             <ul class="layui-nav">
                 <li class="layui-nav-item hc-hide-sm hc-hide-xs layui-this"> <a href="./index.php">首页</a> </li>
                 <li class="layui-nav-item hc-hide-sm">
-                    <a href="./views/book_center.php">资源</a>
+                    <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
+                        <dd><a href="./views/book_center.php">馆藏资源</a></dd>
                         <dd><a href="./views/search_bookData.php" target="_blank">馆藏查询</a></dd>
                         <dd><a href="./views/new_book.php">新书通报</a></dd>
-                        <dd><a href="./views/book_center.php#hot">热门图书</a></dd>
-                        <dd><a href="./views/books_recommend.php">推荐图书</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
@@ -1013,7 +1012,7 @@
         <hr class="footer_hr">
         <div class="layui-row">
             <div class="layui-col-md12">
-                Copyright ©  2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
+                Copyright &copy; 2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
             </div>
             <div class="layui-col-md12" style="margin-top: 10px;">
                 网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
