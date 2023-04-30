@@ -7,6 +7,12 @@
     header("Content-Type:text/html;charset=utf-8");
     $username = $_GET['username'];
     // echo $username;
+
+    //输出URL中无后缀的路径
+    // $filname = basename($_SERVER['REQUEST_URI'],'.php');
+    // $url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    // $path = dirname($url);
+    // echo $path.'/'.$filname;
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,14 +22,13 @@
         <link rel="shortcut icon" href="../skin/images/favicon.png" />
 		<meta http-equiv="pragma" content="no-cache">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<!--<script type="text/javascript" src="../skin/js/jquery-3.3.1.min.js" ></script>-->
 		<link rel="stylesheet" href="../skin/live2d/css/live2d.css" />
 		
 		<script type="text/javascript">
 			// 验证码刷新
 			function code(){
 				let code = document.getElementById('img_yzm');
-				code.src='../login/code.php';
+				code.src='./code.php?v='+Date.now();   //刷新  防止缓存
 			}
 		</script>
 		
@@ -77,7 +82,7 @@
 	</head>
 	<body style="background: url('../skin/images/bg.png') top center no-repeat;background-size:cover;">
 		<div id="main">
-			<form action="./login_check.php" method="post">
+			<form action="./login_check" method="post">
 				<table class="tab" cellspacing="0">
 					<tr style="height: 50px;">
 						<th colspan="2"><font size="5" color="#429488">读者登录</font></th>
@@ -85,7 +90,7 @@
 					<tr>
 						<td><label>账 号：</label></td>
 						<td>
-							<input type="text" id="account" name="account" placeholder="请输入借阅卡号" required style="width: 210px;height: 27px" value="<?php echo $username ?>" />
+							<input type="text" id="account" name="account" placeholder="请输入借阅卡号或账号" required style="width: 210px;height: 27px" value="<?php echo $username ?>" />
 						</td>
 					</tr>
 					<tr>
@@ -97,13 +102,11 @@
 						<td>
 							<select class="sel" name="usertype" size="1">
 							<?php
-								$sql1="select * from user_type";
-								$result=mysqli_query($db_connect,$sql1);
-								while($row=mysqli_fetch_array($result)){
-							?>
-							<option value="<?php echo $row['usertype_name']?>"><?php echo $row['usertype_name']?></option>
-							<?php
-								}
+								$sql1 = "select * from user_type";
+								$result = mysqli_query($db_connect,$sql1);
+								while($row = mysqli_fetch_array($result)) {
+                                    echo "<option value=" . $row['usertype_name'] . ">" . $row['usertype_name'] . "</option>";
+                                }
 							?>
 							</select>
 						</td>
@@ -112,7 +115,7 @@
 						<td>验证码：</td>
 						<td>
 							<input class="yzm" name="yzm" type="text" required size="4" maxlength="4" placeholder="请输入验证码" />
-							<img src="code.php" border="0" id="img_yzm" class="img_yzm" title="点击刷新验证码" onclick="code()" />
+							<img src="./code.php" border="0" id="img_yzm" class="img_yzm" title="点击刷新验证码" onclick="code()" />
 						</td>
 					</tr>
 					<tr>
@@ -124,8 +127,8 @@
 					<tr>
 						<td colspan="2">
 							<hr />
-							<!--<a href="../register/register.php"><font size="2" color="darkcyan">没有账号？去注册</font></a>-->
-							<a title="返回首页" href="../index.php"><font size="2" color="darkcyan">返回首页</font></a>
+							<!--<a href="../register/register"><font size="2" color="darkcyan">没有账号？去注册</font></a>-->
+							<a title="返回首页" href="../index"><font size="2" color="darkcyan">返回首页</font></a>
 						</td>
 					</tr>
 				</table>	
@@ -274,6 +277,5 @@
 				}
 			})(window, document);
 		</script>
-		
 	</body>
 </html>

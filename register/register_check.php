@@ -7,10 +7,13 @@
     include '../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
+
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $usertype = $_POST['usertype'];
     $yzm = $_POST['yzm'];
+
+    //根据usertype类型判断插入哪一个数据表
     $sql = "select * from access_user";
     $reg_sql = "insert into access_user(user_name,password,user_type)" . "values('$username','$password','$usertype')";
     $is_username_equal = 0;
@@ -30,8 +33,5 @@
         echo "<script>alert('用户密码位数不得小于6位！');history.back();</script>";
     } else if (isset($_POST['submit']) && $username != '') {
         mysqli_query($db_connect, $reg_sql);
-        echo "<script>
-                alert('恭喜您注册成功！去登录...');
-                location.href='../login/login.php?username=$username';
-            </script>";
+        echo "<script>alert('恭喜您注册成功！去登录...');location.href='../login/login?username=$username';</script>";
     }

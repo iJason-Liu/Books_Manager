@@ -5,23 +5,16 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
+    include '../../classes/check_rights.php';
     include '../../login/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
+
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    /*
-     * 查询用户类型id用来判断显示功能
-     * 1001学生
-     * 1002教师
-     * 1003图书管理员
-     * 1004超级管理员
-     */
     $usertype = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
-    $res = mysqli_query($db_connect, $check_sql);
 
     $id = $_SESSION['user_id'];
     if($usertype == '学生'){
@@ -32,6 +25,8 @@
         $sql = "select * from lib_worker where id = '$id'";
     }else if($usertype == '超级管理员'){
         $sql = "select * from super_admin where id = '$id'";
+    }else{
+        $sql = "select * from other_user where id = '$id'";
     }
     $info_res = mysqli_query($db_connect, $sql);
 
@@ -47,20 +42,12 @@
     <link rel="shortcut icon" href="../../skin/images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
-        /*隐藏功能*/
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
-        }
-
         /*大于10天*/
         .have{
             color: #009688;
@@ -140,14 +127,14 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../index.php">
+            <a href="../index">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <!-- 右侧消息 -->
@@ -167,11 +154,11 @@
                     <dl class="layui-nav-child layui-nav-child-c">
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='../user_center/user_Info'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
-                        <dd><a href="../../login/logout.php">注销</a></dd>
+                        <dd><a href="../user_center/update_pwd">修改密码</a></dd>
+                        <dd><a href="../../login/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -191,15 +178,7 @@
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md3 layui-col-sm4">
                         <label><span style="color: #ff0000;">*</span>借阅卡号：</label>
-                        <?php
-                            $card = $item['cardNo'];   //学生  教师
-                            $card1 = $item['id'];  //管理员
-                            if($usertype == '学生' || $usertype == '教师'){
-                                echo "<input disabled type='text' placeholder='读者借阅卡号' value='$card' class='info-input'>";
-                            }else{
-                                echo "<input disabled type='text' placeholder='读者借阅卡号' value='$card1' class='info-input'>";
-                            }
-                        ?>
+                        <input disabled type='text' placeholder='读者借阅卡号' value='<?php echo $item['cardNo']=='' ? $item['id'] : $item['cardNo'] ?>' class='info-input'>
                     </div>
                     <div class="layui-col-md3 layui-col-sm4">
                         <label><span style="color: #ff0000;">*</span>姓名：</label><input disabled type="text" placeholder="读者姓名" value="<?php if($usertype == '超级管理员') echo $item['username'];else echo $item['name'] ?>" class="info-input">
@@ -295,7 +274,7 @@
             table.render({
                 elem: '#dataList',
                 type: 'POST',
-                url: '../../controllers/books_circulation/borrow_listData.php',
+                url: '../../controllers/books_circulation/borrow_listData',
                 parseData: function(res) { //res 即为原始返回的数据
                     // console.log(res); //打印数据显示
                     return {
@@ -308,13 +287,13 @@
                 response: {
                     statusCode: 200, //规定成功的状态码，默认：0
                 },
-                height: 'full-386', // 最大高度减去其他容器已占有的高度差
+                height: 'full-389', // 最大高度减去其他容器已占有的高度差
                 cellMinWidth: 100,
                 page: false, //开启分页
                 even: true, //隔行换色
                 loading: true,
                 text: {
-                    none: '暂无数据'
+                    none: '您还没有借过图书呢~'
                 },
                 cols: [
                     [{
@@ -326,17 +305,17 @@
                         align: 'center'
                     }, {
                         field: 'book_name',
-                        width: 300,
+                        width: 360,
                         title: '图书名称',
                         align: 'center'
                     }, {
                         field: 'book_price',
                         title: '价格（元）',
-                        width: 100,
+                        width: 110,
                         align: 'center'
                     }, {
                         field: 'borrow_limitDay',
-                        width: 100,
+                        width: 110,
                         title: "借阅期限",
                         align: 'center',
                         templet: '#limit'
@@ -373,6 +352,11 @@
                         sort: true,
                         align: 'center'
                     }, {
+                        field: 'mark',
+                        minwidth: 120,
+                        title: '备注',
+                        align: 'center'
+                    }, {
                         fixed: 'right',
                         title: '操作',
                         width: 120,
@@ -400,22 +384,21 @@
                 // console.log(data);
                 let book_id = data.book_id;
                 let is_back = data.is_back; //图书状态 是否归还
-                let url = '../books_circulation/fast_renew.php?book_id='+book_id;
+                let url = '../books_circulation/fast_renew?book_id='+book_id;
                 // console.log(obj);
                 if (obj.event === 'renew') {
-                    if(card_status === 1){
-                        layer.msg('您的借阅卡状态异常，请前往通知消息查看详情或联系管理员查看！', {
-                            time: 3000,
-                            anim: 6,
-                            shade: .2,
-                            icon: 7
-                        })
-                    }else if(is_back == 1){
+                    if(is_back == 1){
                         layer.msg('该图书已经归还，如有需要，请重新借阅！', {
                             time: 2500,
                             // anim: 6,
                             shade: .2,
                             icon: 7
+                        })
+                    }else if(card_status == 1){
+                        layer.msg('您的借阅卡状态异常，无法完成续借！', {
+                            time: 2500,
+                            icon: 5,
+                            shade: .2,
                         })
                     }else{
                         layer.open({
@@ -442,7 +425,7 @@
                     }else {
                         layer.confirm('是否确认归还图书《'+data.book_name+'》？',{title: '温馨提示',icon :7}, function (index) {
                             $.ajax({
-                                url: '../../controllers/books_circulation/return_book.php',
+                                url: '../../controllers/books_circulation/return_book',
                                 type: 'POST',
                                 data: JSON.stringify(data),
                                 dataType: 'json',
@@ -490,17 +473,18 @@
                 let keywords = $.trim(data.keywords);
                 let keywords_type = data.keywords_type;
                 let borrow_num = <?php echo $borrow_num;?>;  //借阅数量
-                let url = '../books_circulation/search_book.php?keywords='+keywords+'&keywords_type='+keywords_type;
+                let url = '../books_circulation/search_book?keywords='+keywords+'&keywords_type='+keywords_type;
                 if(keywords === ''){
-                    layer.msg('请输入搜索关键词！', {
+                    layer.msg('请输入搜索关键词', {
                         time: 2000
                     })
+                    $('#key').focus();
                 }else if(card_status === 1){
                     layer.msg('您的借阅卡状态异常，请前往通知消息查看详情或联系管理员查看！', {
                         time: 3000,
                         anim: 6,
                         shade: .2,
-                        icon: 7
+                        icon: 5
                     }, function (){
                         $('#key').val('');
                     })
@@ -509,7 +493,7 @@
                         time: 3000,
                         anim: 6,
                         shade: .2,
-                        icon: 7
+                        icon: 5
                     }, function (){
                         $('#key').val(''); //清空输入框
                     })
@@ -559,7 +543,7 @@
             function getMsg(){
                 $.ajax({
                     type: "POST",
-                    url: '../../controllers/system/getMsg.php',
+                    url: '../../controllers/system/getMsg',
                     data: {
                         user_id: user_id
                     },
@@ -616,7 +600,7 @@
                             //把消息全部设置成已读，上传ajax设置
                             $.ajax({
                                 type: "POST",
-                                url: '../../controllers/system/setMsgState.php',
+                                url: '../../controllers/system/setMsgState',
                                 data: {
                                     user_id: user_id,
                                     // msg_id: 1   //单条消息id
@@ -645,7 +629,7 @@
                     $('.clearMsg').on('click', function () {
                         $.ajax({
                             type: "POST",
-                            url: '../../controllers/system/clearMsg.php',
+                            url: '../../controllers/system/clearMsg',
                             data: {
                                 user_id: user_id
                             },

@@ -7,23 +7,13 @@
     include '../../config/conn.php';
     include '../../login/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    /*
-     * 查询用户类型id用来判断显示功能
-     * 1001学生
-     * 1002教师
-     * 1003图书管理员
-     * 1004超级管理员
-     */
     $usertype = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
-    $res = mysqli_query($db_connect, $check_sql);
 
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -36,18 +26,10 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="pragma" content="no-cache">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
-        /*隐藏功能*/
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
-        }
         /*大于3次*/
         .strong{
             color: #ff5722;
@@ -81,14 +63,14 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../index.php">
+            <a href="../index">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -101,11 +83,11 @@
                     <dl class="layui-nav-child layui-nav-child-c">
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='../user_center/user_Info'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
-                        <dd><a href="../../login/logout.php">注销</a></dd>
+                        <dd><a href="../user_center/update_pwd">修改密码</a></dd>
+                        <dd><a href="../../login/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -119,11 +101,14 @@
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
                     <button class='layui-btn layui-btn-sm layui-btn-primary' lay-event='sunshine' id='sunshine'><i class='layui-icon layui-icon-diamond'></i></button>
-                    <button class='layui-btn layui-btn-sm'><?php echo date('Y-m-d') ?></button>
+                    <button class='layui-btn layui-btn-sm'>日期：<?php echo date('Y-m-d') ?></button>
                 </div>
             </script>
+            <script type="text/html" id="c_num">
+                <span class="{{d.click_num >= 5 ? 'strong' : ''}}">{{d.click_num}}</span>
+            </script>
             <script type="text/html" id="b_num">
-                <span class="{{d.borrow_num >= 3 ? 'strong' : ''}}">{{d.borrow_num}}</span>
+                <span class="{{d.borrow_num >= 5 ? 'strong' : ''}}">{{d.borrow_num}}</span>
             </script>
         </div>
 
@@ -149,7 +134,7 @@
             table.render({
                 elem: '#dataList',
                 type: 'POST',
-                url: '../../controllers/books_center/rank_booksData.php',
+                url: '../../controllers/books_center/rank_booksData',
                 parseData: function(res) { //res 即为原始返回的数据
                     // console.log(res); //打印数据显示
                     return {
@@ -182,11 +167,22 @@
                         title: "图书名称",
                         align: 'center'
                     }, {
+                        field: 'author',
+                        width: 140,
+                        align: 'center',
+                        title: '作者'
+                    }, {
+                        field: 'publisher',
+                        width: 150,
+                        title: '出版社',
+                        align: 'center'
+                    }, {
                         field: 'click_num',
                         width: 160,
                         title: "浏览次数",
                         sort: true,
-                        align: 'center'
+                        align: 'center',
+                        templet: '#c_num'
                     }, {
                         field: 'borrow_num',
                         width: 160,

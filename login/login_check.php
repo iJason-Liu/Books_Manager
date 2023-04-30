@@ -35,6 +35,10 @@
         $yz_sql = "select * from super_admin where id='$account' and password='$password' and user_type='$usertype'";
         $set_sid = "update super_admin set session_id='$session_id',log_time='$log_time' where id='$account'";
         $avatar_sql = "select avatar from super_admin where id='$account'";
+    }else{
+        $yz_sql = "select * from other_user where id='$account' and password='$password' and user_type='$usertype'";
+        $set_sid = "update other_user set session_id='$session_id',log_time='$log_time' where id='$account'";
+        $avatar_sql = "select avatar from other_user where id='$account'";
     }
     $result = mysqli_query($db_connect, $yz_sql);
     $flag = mysqli_num_rows($result);
@@ -75,6 +79,8 @@
                 mysqli_query($db_connect, "update lib_worker set avatar='$logo' where id='$account'");
             }else if($usertype == '超级管理员'){
                 mysqli_query($db_connect, "update super_admin set avatar='$logo' where id='$account'");
+            }else{
+                mysqli_query($db_connect, "update other_user set avatar='$logo' where id='$account'");
             }
             //头像不为空
             $_SESSION['avatar'] = $logo; //把头像存入session
@@ -99,7 +105,5 @@
         //登录成功设置session过期时间为3个小时
         $_SESSION['expiretime'] = time() + 10800;
 
-        echo "<script>alert('登录成功！');location.href='../administrator/index.php';</script>";
+        echo "<script>alert('登录成功！');location.href='../administrator/index';</script>";
     }
-
-    mysqli_close($db_connect); //关闭数据库资源

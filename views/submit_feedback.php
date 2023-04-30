@@ -19,7 +19,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../skin/css/modules/layer/layer.css" />
     <style>
@@ -77,7 +77,7 @@
                         })
                     }else {
                         $.ajax({
-                            url: '../../controllers/views/submit_feedback.php',
+                            url: '../../controllers/views/submit_feedback',
                             type: 'POST',
                             data: JSON.stringify(data),
                             dataType: 'json',
@@ -88,6 +88,7 @@
                                 if (res.code === 200) {
                                     layer.msg(res.msg, {
                                         icon: 6,
+                                        shade: .2,
                                         time: 1800
                                     }, function () {
                                         parent.layer.close(index); //再执行关闭
@@ -95,7 +96,7 @@
                                 }else {
                                     layer.msg(res.msg, {
                                         icon: 7,
-                                        anim: 6,
+                                        shade: .2,
                                         time: 1500
                                     }, function () {
                                         parent.layer.close(index); //再执行关闭

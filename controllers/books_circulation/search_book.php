@@ -1,6 +1,6 @@
 <?php
     /*
-     * 搜索图书信息模块
+     * 搜索图书进行借阅
      * 关键词类型如下：
      * 0 书名
      * 1 ISBN
@@ -24,14 +24,18 @@
         }else if ($keywords_type == 2) {
             $sql1 = "select * from book_list where book_id like '$keywords'";
         }
-
         $result_data = mysqli_query($db_connect, $sql1);
-        echo mysqli_error($db_connect); //sql执行错误描述
 
         //定义返回的数据头
-        $res = array('code' => 200, 'msg' => "success", 'data' => mysqli_fetch_all($result_data, MYSQLI_ASSOC));
+        $res = array(
+            'code' => 200,
+            'msg' => "success",
+            'data' => mysqli_fetch_all($result_data, MYSQLI_ASSOC)
+        );
         //输出结果
         echo json_encode($res, JSON_UNESCAPED_UNICODE);
     }
+
+    // echo mysqli_error($db_connect); //sql执行错误描述
 
     mysqli_close($db_connect); //关闭数据库资源

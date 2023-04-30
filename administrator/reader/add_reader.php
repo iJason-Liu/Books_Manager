@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
 
 ?>
@@ -22,13 +22,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="../../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../skin/css/modules/layer/layer.css" />
     <style>
         #form_tab{
             width: 72%;
-            padding: 10px 50px 40px 20px;
+            padding: 0 50px 0 20px;
             margin: 35px auto;
         }
 
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">性 别:</label>
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>性 别:</label>
                     <div class="layui-input-block">
                         <input type='radio' name='sex' value='男' title='男' checked>
                         <input type='radio' name='sex' value='女' title='女'>
@@ -76,29 +76,36 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">身 份:</label>
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>身 份:</label>
                     <div class="layui-input-inline">
                         <select name="user_type">
-                            <option value="学生">学生</option>
-                            <option value="教师">教师</option>
+                            <?php
+                                $user_type = mysqli_query($db_connect, "select * from user_type");
+                                while ($row = mysqli_fetch_array($user_type)){
+                                    if($row['usertype_name'] == '图书管理员' || $row['usertype_name'] == '超级管理员'){
+                                        continue;
+                                    }
+                                    echo "<option value=".$row['usertype_name'].">".$row['usertype_name']."</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">密 码:</label>
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>密 码:</label>
                     <div class="layui-input-block">
                         <input type="password" name="pwd" id="pwd" placeholder="请输入密码" class="layui-input">
                         <img title="隐藏" class="img" src="../../skin/images/showPwd.png">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">联系电话:</label>
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>联系电话:</label>
                     <div class="layui-input-block">
                         <input type="tel" name="mobile" id="mobile" placeholder="请输入联系电话" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <div class="layui-input-block" style="margin-top: 50px;">
+                    <div class="layui-input-block" style="margin-top: 50px;text-align: center;">
                         <button type="reset" class="layui-btn layui-btn-primary" value="重置">重 置</button>
                         <button type="button" class="layui-btn" name="submit" id="submit" lay-submit value="提交">提 交</button>
                     </div>
@@ -107,7 +114,7 @@
         </form>
 
         <script src="../../skin/js/layui.min.js"></script>
-        <script>
+        <script type="text/javascript">
             layui.use(['layer', 'form'], function() {
                 let $ = layui.jquery
                     ,layer = layui.layer
@@ -123,18 +130,20 @@
                             tips: [1,'#666'],
                             time: 2000
                         })
+                    }else if(data.user_type == '学生' || data.user_type == '教师'){
+                        if(data.department === ''){
+                            layer.tips('请输入学院！', '#department',{
+                                tips: [1,'#666'],
+                                time: 2000
+                            })
+                        }else if(data.class === ''){
+                            layer.tips('请输入班级！', '#class',{
+                                tips: [1,'#666'],
+                                time: 2000
+                            })
+                        }
                     }else if(!reg.test(data.pwd)){
                         layer.tips('密码必须6至12位，包含字母数字，不能包含空格！', '#pwd',{
-                            tips: [1,'#666'],
-                            time: 2000
-                        })
-                    }else if(data.department === ''){
-                        layer.tips('请输入学院！', '#department',{
-                            tips: [1,'#666'],
-                            time: 2000
-                        })
-                    }else if(data.class === ''){
-                        layer.tips('请输入班级！', '#class',{
                             tips: [1,'#666'],
                             time: 2000
                         })
@@ -145,30 +154,33 @@
                         })
                     }else {
                         $.ajax({
-                            url: '../../controllers/reader/add_reader_check.php',
+                            url: '../../controllers/reader/add_reader_check',
                             type: 'POST',
                             data: JSON.stringify(data),
                             dataType: 'json',
                             success: function (res) {
                                 // console.log(res);
+                                //得到当前iframe层的索引
+                                let index = parent.layer.getFrameIndex(window.name);
                                 if (res.code === 200) {
                                     layer.msg(res.msg, {
-                                        // icon: 1,
-                                        time: 1500
+                                        icon: 6,
+                                        shade: .2,
+                                        time: 2000
                                     }, function () {
-                                        parent.layui.table.reload('dataList'); //刷新父级窗口的table数据
-                                        //关闭当前的iframe窗口
-                                        let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                        parent.layer.close(index); //再执行关闭
+                                        //刷新父级窗口的table数据
+                                        parent.layui.table.reload('dataList');
+                                        //执行关闭
+                                        parent.layer.close(index);
                                     })
                                 } else {
                                     layer.msg(res.msg, {
                                         icon: 7,
+                                        shade: .2,
                                         time: 1500
                                     }, function () {
-                                        //关闭当前的iframe窗口
-                                        let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                        parent.layer.close(index); //再执行关闭
+                                        //执行关闭
+                                        parent.layer.close(index);
                                     })
                                 }
                             }

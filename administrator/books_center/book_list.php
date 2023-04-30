@@ -7,28 +7,13 @@
     include '../../config/conn.php';
     include '../../login/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
-    $usertype = $_SESSION['usertype'];
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    //执行sql语句的查询语句
-    $sql1 = "select * from book_list";
-    $result = mysqli_query($db_connect, $sql1);
+    $usertype = $_SESSION['usertype'];
 
-    /*
-     * 查询用户类型id用来判断显示功能
-     * 1001学生
-     * 1002教师
-     * 1003图书管理员
-     * 1004超级管理员
-     */
-    $type = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$type'";
-    $res = mysqli_query($db_connect, $check_sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +27,7 @@
     <meta name="applicable-device" content="pc,mobile">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="pragma" content="no-cache">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
@@ -52,14 +37,14 @@
         .use{
             color: #ff5722;
         }
-
-        /*隐藏功能*/
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
+        #laypage{
+            position: fixed;
+            bottom: 42px;
+            border-style: solid;
+            border-color: #eee;
+            z-index:999;
+            width: 100%;
+            background: #fff;
         }
     </style>
     <script type="text/javascript">
@@ -85,18 +70,17 @@
         // document.onselect=function(){return false;}
     </script>
 </head>
-
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../index.php">
+            <a href="../index">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -109,11 +93,11 @@
                     <dl class="layui-nav-child layui-nav-child-c">
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='../user_center/user_Info'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
-                        <dd><a href="../../login/logout.php">注销</a></dd>
+                        <dd><a href="../user_center/update_pwd">修改密码</a></dd>
+                        <dd><a href="../../login/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -127,7 +111,7 @@
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
                     <?php
-                        if($usertype == '图书管理员'||$usertype == '超级管理员') {
+                        if($item['book_manager'] == 1) {
                             echo "<button class='layui-btn layui-btn-sm' lay-event='addBook'><i class='layui-icon layui-icon-add-1'></i>新增图书</button>";
                             echo "<button class='layui-btn layui-btn-sm' lay-event='importBooks'><i class='layui-icon layui-icon-add-1'></i>批量导入</button>";
                             echo "<button class='layui-btn layui-btn-sm layui-btn-danger' lay-event='delBooks'><i class='layui-icon layui-icon-delete'></i>批量删除</button>";
@@ -143,7 +127,7 @@
 
             <script type="text/html" id="barDemo">
                 <?php
-                    if($usertype == '图书管理员'||$usertype == '超级管理员') {
+                    if($item['book_manager'] == 1) {
                         echo "<a class='layui-btn layui-btn-xs' lay-event='detail'>查看</a>";
                         echo "<a class='layui-btn layui-btn-xs' lay-event='edit'>编辑</a>";
                         echo "<a class='layui-btn layui-btn-xs layui-btn-danger' lay-event='del'>删除</a>";
@@ -160,7 +144,7 @@
             <script type="text/html" id="status">
                 <p class="{{d.status == 0 ? 'have' : 'use'}}">{{d.status == 0 ? '在库' : '已借出'}}</p>
             </script>
-            <div id="laypage" style="position: fixed;bottom: 42px;border-style: solid;border-color: #eee;z-index:999;width: 100%;background: #fff;"></div>
+            <div id="laypage"></div>
             <div id="test">
                 <script>
 
@@ -178,16 +162,6 @@
         </div>
     </div>
 
-    <?php
-            //定义返回的数据头
-            //$status = array('code' => 200,'msg' => "success");
-            //    $res = array('code' => 200,'msg' => "success",'count' => mysqli_num_rows($result),'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC));
-            //把两串数据拼起来
-            //$res = array_merge($status,$res);
-            //    $data = json_encode($res, JSON_UNESCAPED_UNICODE);
-            // 把数据写入json文件
-            //    file_put_contents('../json/bookListFile.json',$data);
-    ?>
     <script src="../../skin/js/layui.min.js"></script>
     <script src="../../skin/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
@@ -206,7 +180,7 @@
             table.render({
                 elem: '#bookcase',
                 type: 'POST',
-                url: '../../controllers/books_center/book_listData.php',
+                url: '../../controllers/books_center/book_listData',
                 parseData: function(res) { //res 即为原始返回的数据
                     // console.log(res); //打印数据显示
                     return {
@@ -229,6 +203,7 @@
                 // totalRow: true, // 开启合计行
                 page: false, //开启分页
                 even: true, //隔行换色
+                title: '图书清单表', //表格名称
                 loading: true,
                 text: {
                     none: '暂无数据'
@@ -400,9 +375,9 @@
                                 time: 1500
                             });
                         }else {
-                            layer.confirm('确认删除这 ' + num + ' 本图书吗？',{title: '温馨提示'}, function (index) {
+                            layer.confirm('是否确认删除这 ' + num + ' 本图书？',{title: '温馨提示'}, function (index) {
                                 $.ajax({
-                                    url: '../../controllers/books_center/delete_books.php',
+                                    url: '../../controllers/books_center/delete_books',
                                     type: 'POST',
                                     data: JSON.stringify(dataArr),
                                     dataType: 'json',
@@ -419,7 +394,7 @@
                                                     current = 0;
                                                 }
                                                 table.reload('bookcase',{
-                                                    url: '../../controllers/books_center/book_listData.php',
+                                                    url: '../../controllers/books_center/book_listData',
                                                     where: {   //接口参数，page为分页参数
                                                         page: pageNo-current, //删除整页的时候页面-1
                                                         limit: pageSize
@@ -447,26 +422,27 @@
                         layer.open({
                             title: '<i class="layui-icon layui-icon-add-1"></i>新增图书',
                             type: 2,
-                            area: ['45%', '88%'],
+                            area: ['50%', '90%'],
                             skin: 'layui-layer-molv',
                             maxmin: true,
                             // shadeClose: true, //点击遮罩关闭=窗口
-                            content: '../books_center/add_book.php'
+                            content: '../books_center/add_book'
                         })
                         break;
                     case 'importBooks':
                         layer.open({
                             title: '<i class="layui-icon layui-icon-add-1"></i>批量导入图书',
                             type: 2,
-                            area: ['48%', '88%'],
+                            area: ['48%', '85%'],
                             skin: 'layui-layer-molv',
-                            content: '../../classes/import_data.php?import_type=0' //type 0 图书
+                            move: false,
+                            content: '../../classes/import_data?import_type=0' //type 0 图书
                         })
                         break;
                     case 'multi-row':
                         table.reload('bookcase', {
                             // 设置行样式，此处以设置多行高度为例。若为单行，则没必要设置改参数 - 注：v2.7.0 新增
-                            lineStyle: 'height: 120px;'
+                            lineStyle: 'height: 100px;'
                         });
                         layer.msg('显示更多内容！');
                         break;
@@ -497,9 +473,9 @@
                 // console.log(data);
                 let id = data.book_id;
                 // 图书详情url
-                let url = '../books_center/book_detail.php?id='+id;
+                let url = '../books_center/book_detail?id='+id;
                 // 图书更新信息url
-                let url1 = '../books_center/update_book.php?id='+id;
+                let url1 = '../books_center/update_book?id='+id;
                 // alert(url);
                 // console.log(obj);
                 if (obj.event === 'detail') {
@@ -529,9 +505,9 @@
                     })
                 }else if(obj.event === 'del'){
                     let bookName = obj.data.book_name; //获取选中的图书名称
-                    layer.confirm('确认删除图书《' + bookName + '》吗？', function (index) {
+                    layer.confirm('确认删除图书《' + bookName + '》吗？',{title: '温馨提示'}, function (index) {
                         $.ajax({
-                            url: '../../controllers/books_center/delete_book.php',
+                            url: '../../controllers/books_center/delete_book',
                             type: 'POST',
                             data: id,
                             dataType: 'json',
@@ -589,49 +565,37 @@
                     value = obj.value, //得到修改后的值
                     data = obj.data; //得到所在行所有键值
 
-                if(usertype === '学生' || usertype === '教师'){
-                    //添加disabled
-                    layer.msg('禁止操作',{
-                        time: 1000
-                    }, function (){
-                        table.reload('bookcase');
-                    })
-                    return false;
-                }else {
-                    $.ajax({
-                        type: "POST",
-                        url: '../../controllers/books_center/editUnit.php',
-                        data: {
-                            'id': data.book_id,
-                            'mark': value,
-                            'type': 0  //图书列表单元格
-                        },
-                        dataType: 'json',
-                        success: function (res) {
-                            if(res.code === 200){
-                                layer.msg(res.msg,{
-                                    time: 1000
-                                })
-                            }else{
-                                layer.msg(res.msg,{
-                                    icon: 7,
-                                    anim: 6,
-                                    time: 1000
-                                })
-                            }
+                $.ajax({
+                    type: "POST",
+                    url: '../../controllers/books_center/editUnit',
+                    data: {
+                        'id': data.book_id,
+                        'mark': value,
+                        'type': 0  //图书列表单元格
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        if(res.code === 200){
+                            layer.msg(res.msg,{
+                                time: 1000
+                            })
+                        }else{
+                            layer.msg(res.msg,{
+                                icon: 7,
+                                shade: .2,
+                                time: 1000
+                            },function (){
+                                table.reload('bookcase');
+                            })
                         }
-                    })
-                }
-
-                // let update = {};
-                // update[field] = value;
-                // obj.update(update);
+                    }
+                })
             })
         })
 
         //大图显示封面
         function hoverOpenImg(){
-            let img_show = null; // tips提示
+            let img_show = '暂无封面'; // tips提示
             $('td img').hover(function(){
                 //alert($(this).attr('src'));
                 let img = "<img src='"+$(this).attr('src')+"' style='width:130px;' />";
@@ -642,7 +606,7 @@
             },function(){
                 layer.close(img_show);
             });
-            $('td img').attr('style','max-width: 100px');
+            $('td img').attr('style','max-width: 130px');
         }
     </script>
 </body>

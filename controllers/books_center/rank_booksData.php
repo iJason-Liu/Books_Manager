@@ -12,7 +12,11 @@
     $result = mysqli_query($db_connect, $sql1);
 
     //定义返回的数据头
-    $res = array('code' => 200,'msg' => "success",'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC));
+    $res = array(
+        'code' => 200,
+        'msg' => "success",
+        'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC)
+    );
     //输出结果
     echo json_encode($res,JSON_UNESCAPED_UNICODE);
 

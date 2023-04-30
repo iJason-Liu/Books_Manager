@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="../skin/images/favicon.png"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -127,31 +127,31 @@
         <div class='top_right'>
             <?php
             if($user != ''){
-                echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index.php'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 注销</a>";
+                echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout'> 注销</a>";
             }else{
-                echo "<a href='../login/login.php'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
             }
             ?>
         </div>
     </header>
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="../index.php"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
+            <a class="hc-logo" href="../index"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
             <ul class="layui-nav">
-                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index.php">首页</a> </li>
+                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index">首页</a> </li>
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../views/search_bookData.php" target="_blank">馆藏搜索</a></dd>
-                        <dd><a href="../views/new_book.php">新书通报</a></dd>
-                        <dd><a href="../views/book_center.php#hot">热门图书</a></dd>
-                        <dd><a href="../views/books_recommend.php">推荐图书</a></dd>
+                        <dd><a href="../views/search_bookData" target="_blank">馆藏搜索</a></dd>
+                        <dd><a href="../views/new_book">新书通报</a></dd>
+                        <dd><a href="../views/book_center#hot">热门图书</a></dd>
+                        <dd><a href="../views/books_recommend">推荐图书</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">服务</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../views/reader_center.php">借阅卡服务</a></dd>
+                        <dd><a href="../views/reader_center">借阅卡服务</a></dd>
                         <dd><a href="javascript:;">自助打印</a></dd>
                         <dd><a href="javascript:;">借阅指南</a></dd>
                         <dd><a href="javascript:;">图书捐赠</a></dd>
@@ -160,15 +160,15 @@
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">动态</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../views/notice_list.php#news">新闻资讯</a></dd>
-                        <dd><a href="../views/notice_list.php#notice">通知公告</a></dd>
+                        <dd><a href="../views/notice_list#news">新闻资讯</a></dd>
+                        <dd><a href="../views/notice_list#notice">通知公告</a></dd>
                         <dd><a href="javascript:;">活动信息</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm layui-this">
                     <a href="javascript:;">关于</a>
                     <dl class="layui-nav-child">
-                        <dd class="layui-this"><a href="../views/about.php">项目介绍</a></dd>
+                        <dd class="layui-this"><a href="../views/about">项目介绍</a></dd>
                         <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆介绍</a></dd>
                         <dd><a href="https://mp.weixin.qq.com/s/eMThZAwR6I7PA-wPmRj8KQ">馆藏分布</a></dd>
                         <dd><a href="javascript:;">开放时间</a></dd>
@@ -177,12 +177,12 @@
                 </li>
                 <li class="layui-nav-item hc-hide-md hc-show-sm"> <a href="javascript:;">菜单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../index.php">首页</a></dd>
-                        <dd><a href="../views/book_center.php">资源</a></dd>
-                        <dd><a href="../views/reader_center.php">服务</a></dd>
-                        <dd><a href="../views/notice_list.php">动态</a></dd>
-                        <dd><a href="../views/about.php">关于</a></dd>
-                        <dd><a href="../register/register.php" target="_blank">Register</a></dd>
+                        <dd><a href="../index">首页</a></dd>
+                        <dd><a href="../views/book_center">资源</a></dd>
+                        <dd><a href="../views/reader_center">服务</a></dd>
+                        <dd><a href="../views/notice_list">动态</a></dd>
+                        <dd><a href="../views/about">关于</a></dd>
+                        <dd><a href="../register/register" target="_blank">Register</a></dd>
                     </dl>
                 </li>
             </ul>

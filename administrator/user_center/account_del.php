@@ -7,18 +7,10 @@
     include '../../config/conn.php';
     include '../../login/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
-    /*
-     * 查询用户类型id用来判断显示功能
-     * 1001学生
-     * 1002教师
-     * 1003图书管理员
-     * 1004超级管理员
-     */
+
     $usertype = $_SESSION['usertype']; //用户登录时的身份 = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
-    $res = mysqli_query($db_connect, $check_sql);
 
     $id = $_SESSION['user_id']; //借阅卡号也是id
     $username = $_SESSION['user']; //用户名、姓名
@@ -31,6 +23,8 @@
         $check_sql = "select * from lib_worker where id=$id";
     }else if($usertype == '超级管理员'){
         $check_sql = "select * from super_admin where id=$id";
+    }else{
+        $check_sql = "select * from other_user where id=$id";
     }
     $result = mysqli_query($db_connect,$check_sql);
 
@@ -46,27 +40,22 @@
     <link rel="shortcut icon" href="../../skin/images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="../../skin/css/layui.min.css">
     <link rel="stylesheet" type="text/css" href="../../skin/css/modules/layer/layer.css" />
     <style>
-        /*隐藏功能*/
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
-        }
-
         #form_tab{
             font-size: 15px;
-            width: 32%;
+            width: 35%;
             padding: 10px;
             margin: 70px 90px;
+        }
+
+        .layui-form-label{
+            width: 90px;
         }
 
         .color{
@@ -78,8 +67,8 @@
         }
 
         .warning{
-            padding: 10px 10px 10px 58px;
-            font-size: 14px;
+            padding: 10px 15px 10px 30px;
+            font-size: 15px;
         }
     </style>
     <script type="text/javascript">
@@ -109,14 +98,14 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../index.php">
+            <a href="../index">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -129,11 +118,11 @@
                     <dl class="layui-nav-child layui-nav-child-c">
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='../user_center/user_Info'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
-                        <dd><a href="../../login/logout.php">注销</a></dd>
+                        <dd><a href="../user_center/update_pwd">修改密码</a></dd>
+                        <dd><a href="../../login/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -151,19 +140,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓 名:</label>
                     <div class="layui-input-inline">
-                        <input disabled type="text" name="name" value="<?php if($usertype == '超级管理员') echo $row['username'];else echo $row['name'] ?>" class="layui-input color">
+                        <input disabled type="text" name="name" value="<?php echo $row['username']=='' ? $row['name'] : $row['username'] ?>" class="layui-input color">
                     </div>
                 </div>
-                <div class="layui-form-item <?php if ($usertype == '图书管理员' || $usertype == '超级管理员') echo "show"; else echo "hide";?>">
-                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>账 号:</label>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: #ff0000;">*</span><?php echo $row['id']=='' ? '借阅卡号：' : '账 号：' ?></label>
                     <div class="layui-input-inline">
-                        <input disabled type="text" name="id" value="<?php echo $row['id'] ?>" class="layui-input color">
-                    </div>
-                </div>
-                <div class="layui-form-item <?php if ($usertype == '图书管理员' || $usertype == '超级管理员') echo "hide";?>">
-                    <label class="layui-form-label"><span style="color: #ff0000;">*</span>借阅卡号:</label>
-                    <div class="layui-input-inline">
-                        <input disabled type="text" name="cardNo" value="<?php echo $row['cardNo'] ?>" class="layui-input color">
+                        <input disabled type="text" name="id" value="<?php echo $row['id']=='' ? $row['cardNo'] : $row['id'] ?>" class="layui-input color">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -183,7 +166,6 @@
             </form>
         </div>
 
-
         <div class="layui-footer">
             <!-- 底部固定区域 -->
             <p style="text-align: center;">
@@ -195,7 +177,7 @@
     </div>
 
     <script type="text/javascript" src="../../skin/js/layui.min.js"></script>
-    <script>
+    <script type="text/javascript">
         layui.use(['layer', 'form'],function (){
             let $ = layui.jquery
                 ,layer = layui.layer
@@ -205,48 +187,56 @@
                 let data = form.val('form_data'); //获取表格中的所有数据 携带name属性
                 // console.log(data);
                 layer.prompt({
-                    formType: 0,
-                    title: "请输入'我确定'"
-                },function (index){
-                    layer.closeAll(index);
-                    $.ajax({
-                        url: '../../controllers/user_center/del_check.php',
-                        type: 'POST',
-                        data: JSON.stringify(data),
-                        dataType: 'json',
-                        success: function (res) {
-                            // console.log(res);
-                            if (res.code === 200) {
-                                //显示自动关闭倒计秒数
-                                layer.alert(res.msg, {
-                                    btn: [],
-                                    offset: '50px',
-                                    time: 3 * 1000,
-                                    success: function(layero, index){
-                                        let timeNum = this.time/1000
-                                            , setText = function(start){
-                                                layer.title((start ? timeNum : --timeNum) + ' 秒后跳转', index);
-                                            };
-                                        setText(!0);
-                                        this.timer = setInterval(setText, 1000);
-                                        if(timeNum <= 0){
+                    title: "<i class='layui-icon layui-icon-face-cry'></i> 请输入<span style='color: red;'>'我确定'</span>",
+                    move: false
+                },function(value, index, elem){
+                    // console.log(value);
+                    if(value == '我确定'){
+                        $.ajax({
+                            url: '../../controllers/user_center/del_check',
+                            type: 'POST',
+                            data: JSON.stringify(data),
+                            dataType: 'json',
+                            success: function (res) {
+                                // console.log(res);
+                                if (res.code === 200) {
+                                    //显示自动关闭倒计秒数
+                                    layer.alert(res.msg, {
+                                        btn: [],
+                                        offset: '50px',
+                                        time: 3000,
+                                        success: function(layero, index){
+                                            let timeNum = this.time/1000
+                                                , setText = function(start){
+                                                    layer.title((start ? timeNum : --timeNum) + ' 秒后跳转', index);
+                                                };
+                                            setText(!0);
+                                            this.timer = setInterval(setText, 1000);
+                                            if(timeNum <= 0){
+                                                clearInterval(this.timer);
+                                            }
+                                        },
+                                        end: function(){
                                             clearInterval(this.timer);
+                                            //跳转logout页面
+                                            location.href = "../../login/logout";
                                         }
-                                    },
-                                    end: function(){
-                                        clearInterval(this.timer);
-                                        //跳转logout页面
-                                        location.href = "../login/logout.php";
-                                    }
-                                })
-                            } else {
-                                layer.msg(res.msg, {
-                                    icon: 7,
-                                    time: 1500
-                                })
+                                    })
+                                } else {
+                                    layer.msg(res.msg, {
+                                        icon: 7,
+                                        shade: .2,
+                                        time: 2000
+                                    })
+                                }
                             }
-                        }
-                    })
+                        })
+                        layer.close(index);
+                    }else{
+                        layer.msg('请输入我确定！',{
+                            time: 1200
+                        });
+                    }
                 })
             })
         })

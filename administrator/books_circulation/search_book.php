@@ -15,7 +15,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="../../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../skin/css/modules/layer/layer.css" />
     <style>
@@ -49,7 +49,7 @@
                 table.render({
                     elem: '#dataList',
                     type: 'POST',
-                    url: '../../controllers/books_circulation/search_book.php?keywords=<?php echo $keywords; ?>&keywords_type=<?php echo $keywords_type; ?>',
+                    url: '../../controllers/books_circulation/search_book?keywords=<?php echo $keywords; ?>&keywords_type=<?php echo $keywords_type; ?>',
                     parseData: function(res) { //res 即为原始返回的数据
                         // console.log(res); //打印数据显示
                         return {
@@ -161,7 +161,7 @@
                     if (obj.event === 'do') {
                         $.ajax({
                             type: 'POST',
-                            url: '../../controllers/books_circulation/do_borrow.php',
+                            url: '../../controllers/books_circulation/do_borrow',
                             data: JSON.stringify(data),
                             dataType: 'json',
                             success: function (res){
@@ -183,7 +183,7 @@
                                     layer.msg(res.msg, {
                                         time: 3000,
                                         shade: .2,
-                                        icon: 7
+                                        icon: 5
                                     }, function (){
                                         //关闭当前的iframe窗口
                                         parent.layer.close(index);

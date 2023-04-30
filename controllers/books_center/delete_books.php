@@ -5,10 +5,8 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
+    include "../../classes/check_rights.php";
 
-    if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
-    }
     // 设置文档类型：，utf-8支持中文文档
 	header("Content-Type:text/html;charset=utf-8");
     $json = file_get_contents('php://input');
@@ -23,7 +21,7 @@
         }
     }
 
-    if($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师'){
+    if($item['book_manager'] == 0){
         echo json_encode(array('code' => 403, 'msg' => '您暂无权限操作！'),JSON_UNESCAPED_UNICODE); //无权限
     }else if($status == 1){
         echo json_encode(array('code' => 402, 'msg' => '您选择的图书包含借出图书，暂无法删除！'),JSON_UNESCAPED_UNICODE);
@@ -44,7 +42,7 @@
             }
 
             $result = mysqli_query($db_connect, $sql1);
-//          $rows = mysqli_affected_rows($db_connect);  //删除操作影响的行数
+            // $rows = mysqli_affected_rows($db_connect);  //删除操作影响的行数
             if($coverPath != ''){
                 unlink($coverPath); //删除封面文件
             }

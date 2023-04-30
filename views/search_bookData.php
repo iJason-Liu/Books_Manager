@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="../skin/images/favicon.png"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -115,9 +115,9 @@
         <div class='top_right'>
             <?php
                 if($user != ''){
-                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index.php'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 注销</a>";
+                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout'> 注销</a>";
                 }else{
-                    echo "<a href='../login/login.php'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                    echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
                 }
             ?>
         </div>

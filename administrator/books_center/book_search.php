@@ -7,27 +7,13 @@
     include '../../config/conn.php';
     include '../../login/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    //执行sql语句的查询语句
-//    $sql1 = "select * from book_list";
-//    $result = mysqli_query($db_connect, $sql1);
-
-    /*
-     * 查询用户类型id用来判断显示功能
-     * 1001学生
-     * 1002教师
-     * 1003图书管理员
-     * 1004超级管理员
-     */
     $usertype = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
-    $res = mysqli_query($db_connect, $check_sql);
 
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -39,19 +25,10 @@
     <link rel="shortcut icon" href="../../skin/images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
     <style>
-        /*隐藏功能*/
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
-        }
-
         .have{
             color: #009688;
         }
@@ -95,14 +72,14 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../index.php">
+            <a href="../index">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -115,11 +92,11 @@
                     <dl class="layui-nav-child layui-nav-child-c">
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='../user_center/user_Info'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
-                        <dd><a href="../../login/logout.php">注销</a></dd>
+                        <dd><a href="../user_center/update_pwd">修改密码</a></dd>
+                        <dd><a href="../../login/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -194,7 +171,7 @@
             let keywords = $.trim(data.keywords);
             let keywords_type = data.keywords_type;
 
-            let url = "../../controllers/books_center/search_booksData.php";  //搜索传回数据的url
+            let url = "../../controllers/books_center/search_booksData";  //搜索传回数据的url
 
             // 创建渲染实例
             table.render({
@@ -220,7 +197,7 @@
                     keywords_type: keywords_type
                 },
                 toolbar: '#toolbarDemo',
-                height: 'full-305', // 最大高度减去其他容器已占有的高度差
+                height: 'full-304', // 最大高度减去其他容器已占有的高度差
                 cellMinWidth: 100,
                 // totalRow: true, // 开启合计行
                 page: false, //开启分页
@@ -384,7 +361,7 @@
                 // console.log(data);
                 let id = data.book_id;
                 // 图书详情url
-                let url = '../books_center/book_detail.php?id='+id;
+                let url = '../books_center/book_detail?id='+id;
                 // alert(url);
                 // console.log(obj);
                 if (obj.event === 'detail') {
@@ -409,10 +386,9 @@
                 // console.log(keywords);
                 if(keywords === ''){
                     layer.msg('请输入关键词',{
-                        time: 1500,
-                        shade: .2,
-                        icon: 7
+                        time: 2000
                     })
+                    $('#key').focus();
                 }else {
                     table.reload('dataList', {
                         url: url,

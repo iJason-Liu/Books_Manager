@@ -16,4 +16,4 @@
 
     header('content-type:text/html;charset=uft-8');
     //5、重定向页面
-    header('location:../login/login.php');
+    header('location:../login/login');

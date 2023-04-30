@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="../skin/images/favicon.png"/>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -110,22 +110,22 @@
         <div class='top_right'>
             <?php
                 if($user != ''){
-                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index.php'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout.php'> 注销</a>";
+                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout'> 注销</a>";
                 }else{
-                    echo "<a href='../login/login.php'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                    echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
                 }
             ?>
         </div>
     </header>
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="../index.php"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
+            <a class="hc-logo" href="../index"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
             <ul class="layui-nav">
-                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index.php">首页</a> </li>
-                <li class="layui-nav-item hc-hide-sm layui-this"> <a href="../views/book_center.php">图书资源</a> </li>
-                <li class="layui-nav-item hc-hide-sm"> <a href="../views/notice_list.php">新闻动态</a> </li>
+                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index">首页</a> </li>
+                <li class="layui-nav-item hc-hide-sm layui-this"> <a href="../views/book_center">图书资源</a> </li>
+                <li class="layui-nav-item hc-hide-sm"> <a href="../views/notice_list">新闻动态</a> </li>
                 <li class="layui-nav-item hc-hide-sm">
-                    <a href="../views/reader_center.php">读者服务</a>
+                    <a href="../views/reader_center">读者服务</a>
                     <dl class="layui-nav-child">
                         <dd><a href="">读者导航</a></dd>
                         <dd><a href="">自助打印</a></dd>
@@ -133,15 +133,15 @@
                         <dd><a href="">图书捐赠</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item hc-hide-sm"> <a href="../views/about.php">关于系统</a> </li>
+                <li class="layui-nav-item hc-hide-sm"> <a href="../views/about">关于系统</a> </li>
                 <li class="layui-nav-item hc-hide-md hc-show-sm"> <a href="javascript:;">菜单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../index.php">首页</a></dd>
-                        <dd><a href="../views/book_center.php">图书资源</a></dd>
-                        <dd><a href="../views/notice_list.php">新闻动态</a></dd>
-                        <dd><a href="../views/notice_list.php">读者服务</a></dd>
-                        <dd><a href="../views/about.php">关于系统</a></dd>
-                        <dd><a href="../register/register.php" target="_blank">灰度测试(reg)</a></dd>
+                        <dd><a href="../index">首页</a></dd>
+                        <dd><a href="../views/book_center">图书资源</a></dd>
+                        <dd><a href="../views/notice_list">新闻动态</a></dd>
+                        <dd><a href="../views/notice_list">读者服务</a></dd>
+                        <dd><a href="../views/about">关于系统</a></dd>
+                        <dd><a href="../register/register" target="_blank">灰度测试(reg)</a></dd>
                     </dl>
                 </li>
             </ul>

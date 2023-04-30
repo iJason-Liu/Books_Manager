@@ -19,7 +19,12 @@
 
     //定义返回的数据头
     //$status = array('code' => 200,'msg' => "success");
-    $res = array('code' => 200,'msg' => "success",'count' => mysqli_num_rows($result_data),'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC));
+    $res = array(
+        'code' => 200,
+        'msg' => "success",
+        'count' => mysqli_num_rows($result_data),
+        'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC)
+    );
     //把两串数据拼起来
     //$res = array_merge($status,$res);
     echo json_encode($res,JSON_UNESCAPED_UNICODE);

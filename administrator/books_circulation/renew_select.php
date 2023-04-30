@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -14,7 +14,7 @@
     $book_id = $_GET['book_id'];
     $user_id = $_SESSION['user_id'];
     //执行sql语句的查询语句
-    $sql1 = "select * from book_borrow where card_id='$user_id' and book_id=$book_id";
+    $sql1 = "select * from book_borrow where card_id='$user_id' and book_id='$book_id'";
     $result = mysqli_query($db_connect,$sql1);
 
     mysqli_close($db_connect); //关闭数据库资源
@@ -31,7 +31,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="../../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../skin/css/modules/layer/layer.css" />
     <style>
@@ -196,7 +196,7 @@
                         })
                     }else{
                         $.ajax({
-                            url: '../../controllers/books_circulation/do_renew.php',
+                            url: '../../controllers/books_circulation/do_renew',
                             type: 'POST',
                             data: JSON.stringify(data),
                             dataType: 'json',

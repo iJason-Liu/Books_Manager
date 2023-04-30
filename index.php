@@ -404,38 +404,37 @@
         }
     </style>
 </head>
-
 <body>
     <header>
         <span>欢迎访问小新的主站！</span>
         <div class='top_right'>
-            <!--<a href='./login/login.php'>登录 </a> &nbsp; | &nbsp; <a href='./register/register.php'> 注册</a>-->
+            <!--<a href='./login/login'>登录 </a> &nbsp; | &nbsp; <a href='./register/register'> 注册</a>-->
             <?php
                 if($user != ''){
-                    echo "您好！$user &nbsp; &nbsp; <a href='./administrator/index.php'>后台</a> &nbsp; | &nbsp; <a href='./login/logout.php'>注销</a>";
+                    echo "您好！$user &nbsp; &nbsp; <a href='./administrator/index'>后台</a> &nbsp; | &nbsp; <a href='./login/logout'>注销</a>";
                 }else{
-                    echo "<a href='./login/login.php'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                    echo "<a href='./login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
                 }
             ?>
         </div>
     </header>
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="./index.php"> <img alt="logo" class="logo" src="./skin/images/logo.png" /></a>
+            <a class="hc-logo" href="/"> <img alt="logo" class="logo" src="./skin/images/logo.png" /></a>
             <ul class="layui-nav">
-                <li class="layui-nav-item hc-hide-sm hc-hide-xs layui-this"> <a href="./index.php">首页</a> </li>
+                <li class="layui-nav-item hc-hide-sm hc-hide-xs layui-this"> <a href="/">首页</a> </li>
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="./views/book_center.php">馆藏资源</a></dd>
-                        <dd><a href="./views/search_bookData.php" target="_blank">馆藏查询</a></dd>
-                        <dd><a href="./views/new_book.php">新书通报</a></dd>
+                        <dd><a href="./views/book_center">馆藏资源</a></dd>
+                        <dd><a href="./views/search_bookData" target="_blank">馆藏查询</a></dd>
+                        <dd><a href="./views/new_book">新书通报</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">服务</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="./views/reader_center.php">借阅卡服务</a></dd>
+                        <dd><a href="./views/reader_center">借阅卡服务</a></dd>
                         <dd><a href="javascript:;">自助打印</a></dd>
                         <dd><a href="javascript:;">借阅指南</a></dd>
                         <dd><a href="javascript:;">图书捐赠</a></dd>
@@ -444,15 +443,15 @@
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">动态</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="./views/notice_list.php#news">新闻资讯</a></dd>
-                        <dd><a href="./views/notice_list.php#notice">通知公告</a></dd>
+                        <dd><a href="./views/notice_list#news">新闻资讯</a></dd>
+                        <dd><a href="./views/notice_list#notice">通知公告</a></dd>
                         <dd><a href="javascript:;">活动信息</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">关于</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="./views/about.php">项目介绍</a></dd>
+                        <dd><a href="./views/about">项目介绍</a></dd>
                         <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆介绍</a></dd>
                         <dd><a href="https://mp.weixin.qq.com/s/eMThZAwR6I7PA-wPmRj8KQ">馆藏分布</a></dd>
                         <dd><a href="javascript:;">开放时间</a></dd>
@@ -461,12 +460,12 @@
                 </li>
                 <li class="layui-nav-item hc-hide-md hc-show-sm"> <a href="javascript:;">菜单</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="./index.php">首页</a></dd>
-                        <dd><a href="./views/book_center.php">资源</a></dd>
-                        <dd><a href="./views/reader_center.php">服务</a></dd>
-                        <dd><a href="./views/notice_list.php">动态</a></dd>
-                        <dd><a href="./views/about.php">关于</a></dd>
-                        <dd><a href="./register/register.php" target="_blank">Register</a></dd>
+                        <dd><a href="./index">首页</a></dd>
+                        <dd><a href="./views/book_center">资源</a></dd>
+                        <dd><a href="./views/reader_center">服务</a></dd>
+                        <dd><a href="./views/notice_list">动态</a></dd>
+                        <dd><a href="./views/about">关于</a></dd>
+                        <dd><a href="./register/register" target="_blank">Register</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -525,19 +524,19 @@
                         </a>
                     </div>
                     <div class="layui-col-md2 layui-col-sm2 layui-col-xs2">
-                        <a href="./views/new_book.php" target="_blank">
+                        <a href="./views/new_book" target="_blank">
                             <img width="48" height="48" src="./skin/images/other/book_4.png">
                             <div class="captitle">新书通报</div>
                         </a>
                     </div>
                     <div class="layui-col-md2 layui-col-sm2 layui-col-xs2">
-                        <a href="./views/book_center.php#hot">
+                        <a href="./views/book_center#hot">
                             <img width="48" height="48" src="./skin/images/other/hot_recommend.png">
                             <div class="captitle">热门图书</div>
                         </a>
                     </div>
                     <div class="layui-col-md2 layui-col-sm2 layui-col-xs2">
-                        <a href="./views/notice_list.php">
+                        <a href="./views/notice_list">
                             <img width="48" height="48" src="./skin/images/other/notice_2.png">
                             <div class="captitle">新闻&公告</div>
                         </a>
@@ -567,7 +566,7 @@
             <div class="swiper rec_book" style="width: 90%;">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <a href="./views/book_detail.php?id=10001" title="书名">
+                        <a href="./views/book_detail?id=10001" title="书名">
                             <img class="book_show" src="./upload/bookCover/book-default.gif">
                         </a>
                     </div>
@@ -609,7 +608,7 @@
                     新闻动态
                 </span>
                 <div style="float: right;">
-                    <a href="./views/notice_list.php" target="_blank">查看更多 <i class="layui-icon layui-icon-right"></i></a>
+                    <a href="./views/notice_list" target="_blank">查看更多 <i class="layui-icon layui-icon-right"></i></a>
                 </div>
             </div>
             <div class="layui-row layui-col-space15" style="padding: 40px 30px 10px 30px;">
@@ -617,7 +616,7 @@
                     <div class="swiper news_img" style="width: 100%;height: 420px;">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <a href="./views/notice_detail.php?id=1001" target="_blank">
+                                <a href="./views/notice_detail?id=1001" target="_blank">
                                     <img src="./skin/images/photo_wall/IMG_0217.JPG">
                                 </a>
                                 <span class="news_title layui-elip">
@@ -702,7 +701,7 @@
                           <div class="layui-tab-content" style="height: 339px;padding: 12px 20px;">
                                 <div class="layui-tab-item layui-show">
                                     <div class="news_li layui-row">
-                                        <a href="./views/notice_detail.php?id=1002" target="_blank" title="标题">
+                                        <a href="./views/notice_detail?id=1002" target="_blank" title="标题">
                                             <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
                                                 新闻标题1
                                             </div>
@@ -1066,7 +1065,7 @@
                         success: function (){
                             let a = document.createElement('a');  //创建a标签
                             a.target = '_blank';  //在新页面打开
-                            a.href = "./views/search_bookData.php?keywords="+keywords;
+                            a.href = "./views/search_bookData?keywords="+keywords;
                             setTimeout(function (){
                                 a.click();
                             }, 1650)
@@ -1100,7 +1099,7 @@
                     shadeClose: true,
                     scrollbar: false,
                     move: false,  //禁止拖动
-                    content: './views/submit_feedback.php'
+                    content: './views/submit_feedback'
                 })
             })
         })

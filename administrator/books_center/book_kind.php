@@ -5,12 +5,12 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
+    include '../../classes/check_rights.php';
     include '../../login/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
-    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
-        echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
+
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
@@ -22,10 +22,7 @@
      * 1004超级管理员
      */
     $usertype = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
-    $res = mysqli_query($db_connect, $check_sql);
 
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -38,19 +35,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="pragma" content="no-cache">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
-    <style>
-        /*隐藏功能*/
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
-        }
-    </style>
     <script type="text/javascript">
         //禁用复制
         document.oncopy = function () {
@@ -78,14 +65,14 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../index.php">
+            <a href="../index">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -98,11 +85,11 @@
                     <dl class="layui-nav-child layui-nav-child-c">
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='../user_center/user_Info'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
-                        <dd><a href="../../login/logout.php">注销</a></dd>
+                        <dd><a href="../user_center/update_pwd">修改密码</a></dd>
+                        <dd><a href="../../login/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -132,7 +119,7 @@
     </div>
 
     <script src="../../skin/js/layui.min.js"></script>
-    <script>
+    <script type="text/javascript">
         let usertype = '<?php echo $usertype ?>'; //用户身份
         layui.use(['table', 'layer'], function() {
             let $ = layui.jquery
@@ -143,7 +130,7 @@
             table.render({
                 elem: '#dataList',
                 type: 'POST',
-                url: '../../controllers/books_center/book_kindData.php',
+                url: '../../controllers/books_center/book_kindData',
                 parseData: function(res) { //res 即为原始返回的数据
                     // console.log(res); //打印数据显示
                     return {
@@ -159,6 +146,7 @@
                 height: 'full-106', // 最大高度减去其他容器已占有的高度差
                 even: true, //隔行换色
                 loading: true,
+                title: '图书类别表', //表格名称
                 defaultToolbar: ['exports'],
                 text: {
                     none: '暂无数据'
@@ -218,7 +206,7 @@
                         }else {
                             layer.confirm('确认删除这 ' + num + ' 个分类吗？',{title: '温馨提示'}, function (index) {
                                 $.ajax({
-                                    url: '../../controllers/books_center/delete_book_kind.php',
+                                    url: '../../controllers/books_center/delete_book_kind',
                                     type: 'POST',
                                     data: JSON.stringify(arr_id),
                                     dataType: 'json',
@@ -226,15 +214,16 @@
                                         // console.log(res);
                                         if(res.code === 200){
                                             layer.msg(res.msg, {
-                                                // icon: 1,
-                                                time: 1500
+                                                icon: 6,
+                                                shade: .2,
+                                                time: 2000
                                             },function (){
                                                 table.reload('dataList',{},true) //表格数据重载
                                             })
                                         }else{
                                             layer.msg(res.msg, {
                                                 icon: 7,
-                                                anim: 6,
+                                                shade: .2,
                                                 time: 1500
                                             })
                                         }
@@ -256,7 +245,8 @@
                             area: ['35%', '60%'],
                             skin: 'layui-layer-molv',
                             shadeClose: true, //点击遮罩关闭=窗口
-                            content: '../books_center/add_book_kind.php'
+                            move: false,
+                            content: '../books_center/add_book_kind'
                         })
                         break;
                 }
@@ -269,43 +259,37 @@
                     value = obj.value, //得到修改后的值
                     data = obj.data; //得到所在行所有键值
                 // console.log(field);
-                if(usertype === '学生' || usertype === '教师'){
-                    //添加disabled
-                    layer.msg('禁止操作！',{
-                        time: 1000
-                    }, function (){
-                        table.reload('dataList');
-                    })
-                    return false;
-                }else {
-                    $.ajax({
-                        type: "POST",
-                        url: '../../controllers/books_center/editUnit.php',
-                        data: {
-                            'id': data.type_id,
-                            'type_name': value,  //分类名称
-                            'desc': value,  //备注
-                            'field': field,  //字段名
-                            'type': 1  //图书分类
-                        },
-                        dataType: 'json',
-                        success: function (res) {
-                           if(res.code === 200){
-                                layer.msg(res.msg,{
-                                    time: 1000
-                                })
-                           }else{
-                                layer.msg(res.msg,{
-                                    icon: 7,
-                                    anim: 6,
-                                    time: 1000
-                                })
-                            }
+
+                $.ajax({
+                    type: "POST",
+                    url: '../../controllers/books_center/editUnit',
+                    data: {
+                        'id': data.type_id,
+                        'type_name': value,  //分类名称
+                        'desc': value,  //备注
+                        'field': field,  //字段名
+                        'type': 1  //图书分类
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                       if(res.code === 200){
+                            layer.msg(res.msg,{
+                                time: 1000
+                            })
+                       }else{
+                            layer.msg(res.msg,{
+                            icon: 7,
+                            shade: .2,
+                            time: 1000
+                            },function (){
+                                table.reload('bookcase');
+                            })
                         }
-                    })
-                }
+                    }
+                })
             })
         })
     </script>
 </body>
+
 </html>

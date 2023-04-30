@@ -17,13 +17,15 @@
     $desc = $data['desc'];  //反馈内容
     // print_r($data);die();
 
-    $sql1 = "insert into feedback(user_id,name,content,sub_time) values ('$user_id','$name','$desc','$sub_time')";
+    $sql1 = "insert into feedback(user_id,user_name,content,sub_time) values ('$user_id','$name','$desc','$sub_time')";
     $result = mysqli_query($db_connect, $sql1);
-    echo mysqli_error($db_connect);
     //判断是否执行成功
     if ($result) {
         echo json_encode(array('code' => 200, 'msg' => '提交成功，感谢您提出的宝贵意见！'), JSON_UNESCAPED_UNICODE);  //删除成功
     } else {
         echo json_encode(array('code' => 0, 'msg' => 'error！'), JSON_UNESCAPED_UNICODE);
     }
+
+    // echo mysqli_error($db_connect);
+
     mysqli_close($db_connect); //关闭数据库资源

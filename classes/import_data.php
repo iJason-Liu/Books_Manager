@@ -4,15 +4,14 @@
      */
     session_save_path('../session/');
     session_start();
+    include "../classes/check_rights.php";
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login.php'</script>";
-    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
-        echo "<script>alert('sorry，您暂无权限操作！');history.back();</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login'</script>";
     }
-    //做身份判断 学生教师不允许
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
     $import_type = $_GET['import_type']; //获取模板类型
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +25,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-<!--    <meta name="referrer" content="never"/>-->
+    <!--<meta name="referrer" content="never"/>-->
     <link rel="stylesheet" type="text/css" href="../skin/css/layui.min.css" />
     <link rel="stylesheet" type="text/css" href="../skin/css/modules/layer/layer.css" />
     <script type="text/javascript">
@@ -97,7 +96,7 @@
 <!--                <a href="/template/图书信息表（模板）.xlsx" download="图书信息表（模板）.xlsx">-->
 <!--                    <button type="button" class="layui-btn layui-btn-normal" id="download">下载模板</button>-->
 <!--                </a>-->
-                <a href="../classes/download.php?import_type=<?php echo $import_type ?>" target="_blank">
+                <a href="../classes/download?import_type=<?php echo $import_type ?>" target="_blank">
                     <button type="button" class="layui-btn layui-btn-normal" id="download">下载模板</button>
                 </a>
                 &nbsp;&nbsp;&nbsp;
@@ -113,18 +112,18 @@
     <script src="../skin/js/jquery-3.3.1.min.js"></script>
     <script>
         let files = {};
-         let import_type = <?php echo $import_type ?>;
+        let import_type = <?php echo $import_type ?>;
          // console.log(import_type);
         layui.use(['upload','element', 'layer'], function() {
-            var $ = layui.jquery
+            let $ = layui.jquery
                 ,upload = layui.upload
                 ,layer = layui.layer
                 ,element = layui.element;
 
-            var uploadListIns = upload.render({
+            let uploadListIns = upload.render({
                 elem : '#import',
                 elemList: $('#fileList'), //列表元素对象
-                url : '../classes/import_Excel.php',
+                url : '../classes/import_Excel',
                 data: {
                   import_type: import_type  //上传的文件类型
                 },
@@ -177,7 +176,7 @@
                         layer.msg(res.msg,{
                             shade: 0.2,
                             icon: 1,
-                            time: 3 * 1000
+                            time: 3000
                         },function (){
                             //关闭当前的iframe窗口
                             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
@@ -193,7 +192,7 @@
                         layer.msg(res.msg,{
                             shade: 0.2,
                             icon: 7,
-                            time: 3 * 1000
+                            time: 3000
                         },function (){
                             var tr = that.elemList.find('tr#upload-'+ index)
                                 ,tds = tr.children();
@@ -230,8 +229,8 @@
         })
 
         //#download
-        $('#a').on('click',function (){
-            var import_type = 1;  //上传的文件类型
+        // $('#a').on('click',function (){
+        //     var import_type = 1;  //上传的文件类型
 
             //第一种方式：创建a标签🏷下载
             // var a = document.createElement('a');
@@ -275,7 +274,8 @@
             //     }
             // }
             //  xhr.send();
-        })
+        // })
     </script>
 </body>
+
 </html>

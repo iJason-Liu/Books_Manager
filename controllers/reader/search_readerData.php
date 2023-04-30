@@ -11,19 +11,25 @@
     $page = ($pageNo-1) * $pageSize; //分页页码
     $keywords = $_GET['keywords']; //关键词
 
-    //查询数据
-    $sql1 = "select * from student where (cardNo='$keywords') or (name='$keywords')";
-    $sql2 = "select * from teacher where (cardNo='$keywords') or (name='$keywords')";
+    //查询关键词数据
+    $sql1 = "select * from student where (cardNo='$keywords') or (name='$keywords')"
+        ." union select * from teacher where (cardNo='$keywords') or (name='$keywords')"
+        ." union select * from other_user where (id='$keywords') or (name='$keywords') limit  $page,$pageSize";
+
+    $sql2 = "select * from student where (cardNo='$keywords') or (name='$keywords') "
+        ."union select * from teacher where (cardNo='$keywords') or (name='$keywords')"
+        ." union select * from other_user where (id='$keywords') or (name='$keywords')";
+
     $result = mysqli_query($db_connect, $sql1);
-    $result2 = mysqli_query($db_connect, $sql2);
-    $row = mysqli_fetch_all($result,MYSQLI_ASSOC);
-    $row2 = mysqli_fetch_all($result2,MYSQLI_ASSOC);
-    $row_data = array_merge($row,$row2);
-//    var_dump($row_data);
-//    die();
+    $result2 = mysqli_query($db_connect, $sql2);  //总行数
 
     //定义返回的数据头
-    $res = array('code' => 200,'msg' => "success",'count' => count($row_data),'data'=> $row_data);
+    $res = array(
+        'code' => 200,
+        'msg' => "success",
+        'count' => mysqli_num_rows($result2),
+        'data'=> mysqli_fetch_all($result,MYSQLI_ASSOC)
+    );
     //输出结果
     echo json_encode($res,JSON_UNESCAPED_UNICODE);
 

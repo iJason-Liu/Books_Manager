@@ -17,3 +17,5 @@
     }else{
         echo json_encode(array('code' => 0, 'msg' => '失败'),JSON_UNESCAPED_UNICODE);
     }
+
+    mysqli_close($db_connect);

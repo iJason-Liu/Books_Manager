@@ -37,23 +37,23 @@
     }else if($num == 0){
         echo json_encode(array('code' => 0, 'msg' => '该图书当前没有库存了，请留意后续更新！'),JSON_UNESCAPED_UNICODE);
     }else if($yz_sql == 1){
-        echo json_encode(array('code' => 0, 'msg' => '抱歉，因目前业务需要，一本图书一位读者只允许借阅一次！'),JSON_UNESCAPED_UNICODE);
+        echo json_encode(array('code' => 0, 'msg' => '抱歉，因目前业务需要，一本图书一位读者暂只允许借阅一次！'),JSON_UNESCAPED_UNICODE);
     }else{
         $insert_sql = "insert into book_borrow(card_id,book_id,book_name,book_price,borrow_limitDay,left_day,borrow_date,back_date) values ('$user_id','$book_id','$book_name','$book_price','$limit','$limit','$borrow_date','$return_date')";
         $insert_res = mysqli_query($db_connect, $insert_sql);
     }
 
-    $usertype = $_SESSION['usertype']; //用户登录时的身份
-    if($usertype == '学生'){
-        $user_sql = "select * from student where cardNo = '$user_id'";
-    }else if($usertype == '教师'){
-        $user_sql = "select * from teacher where cardNo = '$user_id'";
-    }else if($usertype == '图书管理员'){
-        $user_sql = "select * from lib_worker where id = '$user_id'";
-    }else if($usertype == '超级管理员'){
-        $user_sql = "select * from super_admin where id = '$user_id'";
-    }
-    $user_res = mysqli_query($db_connect, $user_sql);
+    // $usertype = $_SESSION['usertype']; //用户登录时的身份
+    // if($usertype == '学生'){
+    //     $user_sql = "select * from student where cardNo = '$user_id'";
+    // }else if($usertype == '教师'){
+    //     $user_sql = "select * from teacher where cardNo = '$user_id'";
+    // }else if($usertype == '图书管理员'){
+    //     $user_sql = "select * from lib_worker where id = '$user_id'";
+    // }else if($usertype == '超级管理员'){
+    //     $user_sql = "select * from super_admin where id = '$user_id'";
+    // }
+    // $user_res = mysqli_query($db_connect, $user_sql);
     // foreach ($user_res as $item) {
     //     $borrow_limit = $item['borrow_limit'];  //读者图书借阅数量
     // }
@@ -72,24 +72,26 @@
     //     mysqli_query($db_connect, $update_userSql);
     // }
 
-    $left_num = $num - 1;
-    $new_borrowNum = $borrow_num + 1;
-    //更新图书列表信息
-    if($num != 0 && $insert_res){
-        $update_sql = "update book_list set number='$left_num', status='1', borrow_num='$new_borrowNum' where book_id = '$book_id'";
-        mysqli_query($db_connect, $update_sql);
+    //防止减到负数
+    if($num > 0){
+        $left_num = $num - 1;  //剩余库存
     }
+    $new_borrowNum = $borrow_num + 1;  //借阅次数
 
     $createtime = date('Y-m-d H:i:s', time());
     $sender = '图书借阅通知';
-    $content = $user.'，恭喜您于'.$createtime.'成功借阅《'.$book_name.'》，借阅期限'.$limit.'天，请在'.$return_date.'前归还或完成续借操作，期间请爱惜图书，祝您阅读愉快！';
-    //发送信息
+    $content = $user.'，恭喜您于'.$createtime.'成功借阅图书《'.$book_name.'》，借阅期限'.$limit.'天，请在'.$return_date.'前归还或完成续借操作，期间请爱惜图书，祝您阅读愉快！';
     if($insert_res){
+        //更新借阅图书的信息
+        $update_sql = "update book_list set number='$left_num', status='1', borrow_num='$new_borrowNum' where book_id = '$book_id'";
+        mysqli_query($db_connect, $update_sql);
+
+        //发送消息
         $msg_sql = "insert into sys_msg(user_id,sender,content,createtime) values ('$user_id','$sender','$content','$createtime')";
         mysqli_query($db_connect, $msg_sql);
         echo json_encode(array('code' => 200, 'msg' => '图书借阅成功！'),JSON_UNESCAPED_UNICODE);
     }
 
-    echo mysqli_error($db_connect);  //输出sql执行错误信息
+    // echo mysqli_error($db_connect);  //输出sql执行错误信息
 
     mysqli_close($db_connect);  //关闭资源

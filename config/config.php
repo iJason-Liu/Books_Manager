@@ -9,4 +9,4 @@
     /********** 数据库密码 **********/
     $dbpassword = 'root';
     /********** 数据库名 **********/
-    $dbname = 'test_db';
+    $dbname = 'test_library';

@@ -6,20 +6,18 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
+    include "../../classes/check_rights.php";
 
-    if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
-    }
     // 设置文档类型：，utf-8支持中文文档
 	header("Content-Type:text/html;charset=utf-8");
     $json = file_get_contents('php://input');
     //直接放参数得到的是 object 上面的数据类型，添加了true得到的则是数组
     $data = json_decode($json,true);
-//    print_r($data);die();
+    // print_r($data);die();
 
-    if($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师'){
+    if($item['book_kind'] == 0){
         echo json_encode(array('code' => 403, 'msg' => '您暂无权限操作！'),JSON_UNESCAPED_UNICODE); //无权限
-    }else{
+    }else {
         //遍历删除操作
         foreach($data as $key) {
 

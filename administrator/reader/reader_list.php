@@ -5,25 +5,14 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
+    include '../../classes/check_rights.php';
     include '../../login/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
-    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
-        echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
     }
 
-    /*
-     * 查询用户类型id用来判断显示功能
-     * 1001学生
-     * 1002教师
-     * 1003图书管理员
-     * 1004超级管理员
-     */
     $usertype = $_SESSION['usertype']; //用户登录时的身份
-    $check_sql = "select type_id from user_type where usertype_name='$usertype'";
-    $res = mysqli_query($db_connect, $check_sql);
 
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +24,7 @@
     <link rel="shortcut icon" href="../../skin/images/favicon.png" />
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
@@ -45,24 +34,26 @@
         .have{
             color: #009688;
         }
+
         .use{
             color: #ff5722;
         }
 
-        /*隐藏功能*/
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
+        #laypage{
+            position: fixed;
+            bottom: 42px;
+            border-style: solid;
+            border-color: #eee;
+            z-index:999;
+            width: 100%;
+            background: #fff;
         }
     </style>
     <script type="text/javascript">
         //禁用复制
-        document.oncopy = function () {
-            return false;
-        }
+        // document.oncopy = function () {
+        //     return false;
+        // }
         //禁用浏览器右键点击事件
         document.oncontextmenu = function () {
             return false;
@@ -85,14 +76,14 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="../index.php">
+            <a href="../index">
                 <div class="layui-logo layui-bg-black">Library</div>
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-hide-xs"><a href="../index.php">后台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../../index.php">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide.php">帮助中心</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -105,11 +96,11 @@
                     <dl class="layui-nav-child layui-nav-child-c">
                         <?php
                             if($usertype != '超级管理员'){
-                                echo "<dd><a href='../user_center/user_Info.php'>个人中心</a></dd>";
+                                echo "<dd><a href='../user_center/user_Info'>个人中心</a></dd>";
                             }
                         ?>
-                        <dd><a href="../user_center/update_pwd.php">修改密码</a></dd>
-                        <dd><a href="../../login/logout.php">注销</a></dd>
+                        <dd><a href="../user_center/update_pwd">修改密码</a></dd>
+                        <dd><a href="../../login/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -120,7 +111,7 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <fieldset class="layui-elem-field layui-field-title" style="border: 1px solid #C9C9C9;margin: 15px 20px 0 20px;">
-                <legend>读者检索</legend>
+                <legend>读者查询</legend>
                 <div class="layui-form layui-form-pane" lay-filter="form_data" style="margin: 20px;">
                     <div class="layui-form-item">
                         <div class="layui-input-inline" style="margin-top: -1px;width: 360px;margin-right: 10px;">
@@ -147,9 +138,9 @@
                 <i class='layui-icon layui-icon-password'></i> <input disabled style="border: none;background: none;" type="password" class="pwdType" value="{{d.password}}" />
             </script>
             <script type="text/html" id="status">
-                <p class="{{d.card_status == 0 ? 'have' : 'use'}}">{{d.card_status == 0 ? '正常' : '异常'}}</p>
+                <span class="{{d.card_status == 0 ? 'have' : 'use'}}">{{d.card_status == 0 ? '正常' : '异常'}}</span>
             </script>
-            <div id="laypage" style="position: fixed;bottom: 42px;border-style: solid;border-color: #eee;z-index:999;width: 100%;background: #fff;"></div>
+            <div id="laypage"></div>
         </div>
 
         <div class="layui-footer">
@@ -163,7 +154,7 @@
     </div>
 
     <script src="../../skin/js/layui.min.js"></script>
-    <script>
+    <script type="text/javascript">
         layui.use(['table', 'laypage', 'form'], function() {
             let $ = layui.jquery
                 ,layer = layui.layer
@@ -182,7 +173,7 @@
             table.render({
                 elem: '#dataList',
                 type: 'POST',
-                url: '../../controllers/reader/reader_listData.php',
+                url: '../../controllers/reader/reader_listData',
                 parseData: function(res) { //res 即为原始返回的数据
                     // console.log(res); //打印数据显示
                     return {
@@ -299,7 +290,7 @@
                         count: res.count, //通过后台拿到总页数
                         curr: pageNo, //当前页码
                         limit: pageSize, //分页大小
-                        limits: [10,15,20,30],
+                        limits: [10,20,30,50],
                         groups: 3,  //连续出现的页码数
                         layout: ['prev', 'page', 'next', 'skip', 'count', 'limit'],
                         jump: function (obj, first) {  //跳转方法
@@ -363,9 +354,9 @@
                                 time: 1500
                             });
                         }else {
-                            layer.confirm('确认删除这 ' + num + ' 个读者吗？',{title: '温馨提示'}, function (index) {
+                            layer.confirm('是否确认删除这 ' + num + ' 个读者？',{title: '温馨提示'}, function (index) {
                                 $.ajax({
-                                    url: '../../controllers/reader/delete_readers.php',
+                                    url: '../../controllers/reader/delete_readers',
                                     type: 'POST',
                                     data: JSON.stringify(dataArr),
                                     dataType: 'json',
@@ -373,18 +364,20 @@
                                         // console.log(res);
                                         if(res.code === 200){
                                             layer.msg(res.msg, {
-                                                // icon: 1,
-                                                time: 1500
+                                                icon: 6,
+                                                shade: .2,
+                                                time: 2000
                                             },function (){
+                                                let current = 0;  //初始化
                                                 if(pageSize - num === 0){
-                                                    let current = 1;
+                                                    current = 1;
                                                 }else {
                                                     current = 0;
                                                 }
                                                 table.reload('dataList',{
-                                                    url: '../../controllers/reader/reader_listData.php',
+                                                    url: '../../controllers/reader/reader_listData',
                                                     where: {   //接口参数，page为分页参数
-                                                        page: pageNo-current, //删除整页的时候页面-1
+                                                        page: pageNo - current, //删除整页的时候页面-1
                                                         limit: pageSize
                                                     }
                                                 },true) //表格数据重载
@@ -392,8 +385,8 @@
                                         }else{
                                             layer.msg(res.msg, {
                                                 icon: 7,
-                                                anim: 6,
-                                                time: 1500
+                                                shade: .2,
+                                                time: 2000
                                             })
                                         }
                                     }
@@ -411,11 +404,12 @@
                         layer.open({
                             title: '<i class="layui-icon layui-icon-add-1"></i>新增读者信息',
                             type: 2,
-                            area: ['48%', '88%'],
+                            area: ['640px', '590px'],
                             skin: 'layui-layer-molv',
                             maxmin: true,
+                            move: false,
                             // shadeClose: true, //点击遮罩关闭=窗口
-                            content: '../reader/add_reader.php'
+                            content: '../reader/add_reader'
                         })
                         break;
                     case 'moreImport':
@@ -437,17 +431,17 @@
                                     layer.open({
                                         title: '<i class="layui-icon layui-icon-add-1"></i>批量导入学生',
                                         type: 2,
-                                        area: ['48%', '88%'],
+                                        area: ['48%', '85%'],
                                         skin: 'layui-layer-molv',
-                                        content: '../../classes/import_data.php?import_type=2'  //type 2 学生
+                                        content: '../../classes/import_data?import_type=2'  //type 2 学生
                                     })
                                 }else if(obj.id === 'importTeacher'){
                                     layer.open({
                                         title: '<i class="layui-icon layui-icon-add-1"></i>批量导入教师',
                                         type: 2,
-                                        area: ['48%', '88%'],
+                                        area: ['48%', '85%'],
                                         skin: 'layui-layer-molv',
-                                        content: '../../classes/import_data.php?import_type=3'  //type 3 教师
+                                        content: '../../classes/import_data?import_type=3'  //type 3 教师
                                     })
                                 }
                             }
@@ -463,7 +457,7 @@
                 let id = data.cardNo;
                 let user_type = data.user_type;
                 // 编辑内容url
-                let url = '../reader/update_reader.php?id='+id+'&user_type='+user_type;
+                let url = '../reader/update_reader?id='+id+'&user_type='+user_type;
                 // console.log(obj);
                 if (obj.event === 'edit') {
                     layer.open({
@@ -474,6 +468,7 @@
                         // btn: ['确认','取消'],
                         skin: 'layui-layer-molv',
                         maxmin: true,
+                        move: false,
                         scrollbar: false,
                         // shadeClose: true,
                         success: function (){
@@ -490,13 +485,12 @@
                 // console.log(keywords);
                 if(keywords === ''){
                     layer.msg('请输入关键词',{
-                        time: 1500,
-                        anim: 6,
-                        icon: 7
+                        time: 2000
                     })
+                    $('#key').focus();
                 }else {
                     table.reload('dataList', {
-                        url: '../../controllers/reader/search_readerData.php',
+                        url: '../../controllers/reader/search_readerData',
                         page: false, //开启分页
                         where: {
                             keywords: keywords,
@@ -523,7 +517,7 @@
                 let keywords = data.keywords;
                 if(keywords === ''){
                     table.reload('dataList',{
-                        url: '../../controllers/reader/reader_listData.php',
+                        url: '../../controllers/reader/reader_listData',
                         page: false, //开启分页
                         where: {
                             keywords: keywords

@@ -12,7 +12,13 @@
     $result = mysqli_query($db_connect, $sql);
 
     if($result){
-        echo json_encode(array('code' => 200, 'msg' => '消息已清空！', 'count' => mysqli_num_rows($result)),JSON_UNESCAPED_UNICODE);
+        echo json_encode(array(
+            'code' => 200,
+            'msg' => '消息已清空！',
+            'count' => mysqli_num_rows($result)
+        ),JSON_UNESCAPED_UNICODE);
     }else{
-        echo json_encode(array('code' => 0, 'msg' => '操作失败！'),JSON_UNESCAPED_UNICODE);
+        echo json_encode(array('code' => 0, 'msg' => 'error！'),JSON_UNESCAPED_UNICODE);
     }
+
+    mysqli_close($db_connect);

@@ -5,9 +5,7 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
-    }
+
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
     $json = file_get_contents('php://input');
@@ -35,14 +33,36 @@
             //当续借后的应还日期大于原还书日期，说明该书被续借过，则用操作还书的日期和续借后的应还日期比较，大于则是逾期归还，小于则相反
             if($do_backDate > $renew_backDate){
                 $mark = '逾期归还';
-            }else{
-                $mark = '非逾期归还';
+                //更新逾期读者的借阅卡状态
+                $usertype = $_SESSION['usertype']; //用户登录时的身份
+                if($usertype == '学生'){
+                    $reset_sql = "update student set card_status='0' where cardNo = '$card_id'";
+                }else if($usertype == '教师'){
+                    $reset_sql = "update teacher set card_status='0' where cardNo = '$card_id'";
+                }else if($usertype == '图书管理员'){
+                    $reset_sql = "update lib_worker set card_status='0' where id = '$card_id'";
+                }else if($usertype == '超级管理员'){
+                    $reset_sql = "update super_admin set card_status='0' where id = '$card_id'";
+                }
+                //更想借阅卡状态
+                mysqli_query($db_connect, $reset_sql);
             }
         }else{
             if($do_backDate > $back_date){
                 $mark = '逾期归还';
-            }else{
-                $mark = '非逾期归还';
+                //更新逾期读者的借阅卡状态
+                $usertype = $_SESSION['usertype']; //用户登录时的身份
+                if($usertype == '学生'){
+                    $reset_sql = "update student set card_status='0' where cardNo = '$card_id'";
+                }else if($usertype == '教师'){
+                    $reset_sql = "update teacher set card_status='0' where cardNo = '$card_id'";
+                }else if($usertype == '图书管理员'){
+                    $reset_sql = "update lib_worker set card_status='0' where id = '$card_id'";
+                }else if($usertype == '超级管理员'){
+                    $reset_sql = "update super_admin set card_status='0' where id = '$card_id'";
+                }
+                //更想借阅卡状态
+                mysqli_query($db_connect, $reset_sql);
             }
         }
 
@@ -55,22 +75,22 @@
             $new_sql = "update book_list set number='$new_num', status='0' where book_id = '$book_id';";
             $msg_sql = "insert into sys_msg(user_id,sender,content,createtime) values ('$card_id','$sender','$content','$createtime');";
             $result = mysqli_multi_query($db_connect, $return_sql);
+            // print_r($return_sql);
             mysqli_query($db_connect, $new_sql);
             mysqli_query($db_connect, $msg_sql);
         }
-        // print_r($return_sql);
     }
     // echo mysqli_store_result($db_connect);  //查询语句才执行
     // $ok_num = mysqli_num_rows($result);  // 获取还书成功的条数
     //判断是否执行成功
     if($result){
-        echo json_encode(array('code' => 200, 'msg' => '一键归还成功！'), JSON_UNESCAPED_UNICODE);  //删除成功
+        echo json_encode(array('code' => 200, 'msg' => '一键归还成功！'), JSON_UNESCAPED_UNICODE);
     }else{
-        echo json_encode(array('code' => 0, 'msg' => '归还失败，所选择的图书已全部归还！'), JSON_UNESCAPED_UNICODE);
+        echo json_encode(array('code' => 0, 'msg' => '归还失败，所选择的图书已归还！'), JSON_UNESCAPED_UNICODE);
     }
 
     // echo mysqli_num_rows($result);  //执行成功的条数
 
-    echo mysqli_error($db_connect);  //如果sql执行错误输出错误信息
+    // echo mysqli_error($db_connect);  //如果sql执行错误输出错误信息
 
     mysqli_close($db_connect); //关闭数据库资源

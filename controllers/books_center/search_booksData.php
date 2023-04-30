@@ -20,9 +20,14 @@
     $keywords_type = $_GET['keywords_type']; //关键词类型
 
     if($keywords == ''){
-//        $randSql = "select * from book_list order by rand() limit 1";  //随机查询一条数据
-//        $randData = mysqli_query($db_connect, $randSql);
-        echo json_encode(array('code' => 200, 'msg' => '随机数据', 'count' => 0, 'data' => ''),JSON_UNESCAPED_UNICODE);
+       // $randSql = "select * from book_list order by rand() limit 1";  //随机查询一条数据
+       // $randData = mysqli_query($db_connect, $randSql);
+        echo json_encode(array(
+            'code' => 200,
+            'msg' => '随机数据',
+            'count' => 0,
+            'data' => ''
+        ),JSON_UNESCAPED_UNICODE);
     }else {
         //查询数据
         if ($keywords_type == 0) {
@@ -53,7 +58,12 @@
         echo mysqli_error($db_connect); //sql执行错误描述
 
         //定义返回的数据头
-        $res = array('code' => 200, 'msg' => "success", 'count' => mysqli_num_rows($result), 'data' => mysqli_fetch_all($result_data, MYSQLI_ASSOC));
+        $res = array(
+            'code' => 200,
+            'msg' => "success",
+            'count' => mysqli_num_rows($result),
+            'data' => mysqli_fetch_all($result_data, MYSQLI_ASSOC)
+        );
         //输出结果
         echo json_encode($res, JSON_UNESCAPED_UNICODE);
     }

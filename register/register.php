@@ -19,7 +19,7 @@
 			//验证码刷新
 			function code(){
 				let code = document.getElementById('img_yzm');
-				code.src='../login/code.php';
+				code.src='../login/code.php?v='+Date.now();
 			}
 		</script>
 		
@@ -94,7 +94,7 @@
 	<body style="background: url('../skin/images/bg.png') top center no-repeat; background-size:cover">
 		<div id="main">
 			<div id="left">
-				<form action="./register_check.php" method="post">
+				<form action="./register_check" method="post">
 					<table class="tab" cellspacing="0">
 						<tr>
 							<td colspan="2"><h2><font color="lightseagreen">新用户注册</font></h2></td>
@@ -122,14 +122,15 @@
 							<td align="left">
 								<select class="sel" name="usertype" size="1">
 								<?php
-									$sql1="select * from user_type limit 2";
-									$result=mysqli_query($db_connect,$sql1);
-									while($row=mysqli_fetch_array($result)){
-								?>
-								<option value="<?php echo $row['usertype_name']?>"><?php echo $row['usertype_name']?></option>
-								<?php
-									}
-								?>
+                                    $sql1 = "select * from user_type";
+                                    $result = mysqli_query($db_connect,$sql1);
+                                    while($row = mysqli_fetch_array($result)) {
+                                        if($row['usertype_name'] == '图书管理员' || $row['usertype_name'] == '超级管理员'){
+                                            continue;
+                                        }
+                                        echo "<option value=" . $row['usertype_name'] . ">" . $row['usertype_name'] . "</option>";
+                                    }
+                                ?>
 								</select>
 							</td>
 						</tr>
@@ -155,7 +156,7 @@
 			<div id="right">
 				<br />
 				已有账号：<br /><br />
-				<a href="../login/login.php" style="text-decoration: none;"><font color="#479488">直接登录 ☞</font></a><br /><br /><br />
+				<a href="../login/login" style="text-decoration: none;"><font color="#479488">直接登录 ☞</font></a><br /><br /><br />
 				扫二维码进行访问：
 					<a href="https://www.crayon.vip"><img src="../skin/images/qrcode.png" width="110" height="110" style="margin-left: 18px;margin-top: 18px;"/></a>
 			</div>

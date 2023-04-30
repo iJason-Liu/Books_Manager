@@ -1,20 +1,16 @@
 <?php
     /*
-     * 添加图书
+     * 添加单本图书
      */
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
+    include "../../classes/check_rights.php";
     include './upload_bookCover.php';  //上传的封面文件
 
-    // 阻止非登录用户和登录用户身份不符 进行操作
-    if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login.php'</script>";
-    }else if ($_SESSION['usertype'] === '学生' || $_SESSION['usertype'] === '教师') {
-        echo "<script>alert('sorry，您暂无权限操作！');parent.location.reload();</script>";
-    }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
+
     $isbn = $_POST['ISBN'];  //ISBN
 	$name = $_POST['bookname']; //书名
     $author = $_POST['author']; //作者
@@ -40,17 +36,22 @@
         }
     }
 
-    if($is_book_name_equal == 1){
-        echo "<script>alert('您所添加的图书已经在库，请检查后重试！');history.back();</script>";
-    }else if(isset($_POST['addition'])){
-        $flag = mysqli_query($db_connect,$add_sql); //判断添加图书是否成功
-        if($flag){
-            echo 'success';
-            echo "<script>alert('图书添加成功！');parent.location.replace('../../books_center/book_list.php');</script>";
-        }else{
-            echo mysqli_error($db_connect);  //执行错误的描述
-            echo "<script>alert('图书添加失败！');parent.location.replace('../../books_center/book_list.php');</script>";
+    if($item['book_manager'] == 0){
+        echo json_encode(array('code' => 403, 'msg' => '您暂无权限操作！'),JSON_UNESCAPED_UNICODE); //无权限
+    }else {
+        if ($is_book_name_equal == 1) {
+            echo "<script>alert('您所添加的图书已经存在，请检查后重新提交！');history.back();</script>";
+        } else if (isset($_POST['addition'])) {
+            $flag = mysqli_query($db_connect, $add_sql); //判断添加图书是否成功
+            if ($flag) {
+                // echo 'success';
+                echo "<script>alert('图书添加成功！');parent.location.href = '../../administrator/books_center/book_list';</script>";
+            } else {
+                echo "<script>alert('图书添加失败！');parent.location.href = '../../administrator/books_center/book_list';</script>";
+            }
         }
     }
+
+    // echo mysqli_error($db_connect);  //执行错误的描述
 
     mysqli_close($db_connect); //关闭数据库资源
