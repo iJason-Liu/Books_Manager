@@ -313,7 +313,7 @@
                         maxmin: true,
                         move: false,
                         scrollbar: false,
-                        shadeClose: true,
+                        // shadeClose: true,
                         success: function (){
                             // layer.close();
                         }

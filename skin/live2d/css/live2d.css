@@ -1,11 +1,11 @@
 #landlord {
     user-select: none;
     position: fixed;
-    left: 79%;
-    bottom: 2px;
+    right: 20px;
+    bottom: 0;
     width: 280px;
     height: 250px;
-    z-index: 10000;
+    z-index: 99;
     font-size: 0;
     transition: all .3s ease-in-out;
 }
@@ -20,8 +20,8 @@
     height: 70px;
     margin: auto;
     padding: 7px;
-    top: -40px;
-    left: -10px;
+    top: -50px;
+    right: -15px;
     text-align: center;
     border: 1px solid rgba(255,137,255,.4);
     border-radius: 12px;
@@ -42,14 +42,15 @@
 
 .hide-button {
     position: absolute;
-    top: 10px;
-    right: 0;
+    top: 8px;
+    right: -8px;
     /* bottom: 30px; */
     display: none;
     overflow: hidden;
     /* padding: 4px; */
     width: 60px;
     height: 20px;
+    line-height: 20px;
     border: 1px solid rgba(255,137,255,.4);
     border-radius: 12px;
     background: rgba(255,137,255,.2);

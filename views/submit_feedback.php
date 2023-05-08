@@ -43,70 +43,71 @@
         }
     </style>
 </head>
-	<body>
-        <form class="layui-form" lay-filter="form_data">
-            <div id="form_tab">
-                <div class="layui-form-item">
-                    <!--<label class="layui-form-label">意见建议:</label>-->
-                    <!--<div class="layui-input-block">-->
-                        <textarea name="desc" id="desc" placeholder="请输入您的宝贵意见或建议..." class="layui-textarea"></textarea>
-                    <!--</div>-->
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block" style="margin-top: 10px;text-align: right;">
-                        <button type="reset" class="layui-btn layui-btn-primary" value="清空">清 空</button>
-                        <button type="button" class="layui-btn" name="submit" id="submit" lay-submit value="提交">提 交</button>
-                    </div>
+<body>
+    <form class="layui-form" lay-filter="form_data">
+        <div id="form_tab">
+            <div class="layui-form-item">
+                <!--<label class="layui-form-label">意见建议:</label>-->
+                <!--<div class="layui-input-block">-->
+                    <textarea name="desc" id="desc" placeholder="请输入您的宝贵意见或建议..." class="layui-textarea"></textarea>
+                <!--</div>-->
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-top: 10px;text-align: right;">
+                    <button type="reset" class="layui-btn layui-btn-primary" value="清空">清 空</button>
+                    <button type="button" class="layui-btn" name="submit" id="submit" lay-submit value="提交">提 交</button>
                 </div>
             </div>
-        </form>
+        </div>
+    </form>
 
-        <script src="../skin/js/layui.min.js"></script>
-        <script>
-            layui.use(['layer', 'form'], function() {
-                let $ = layui.jquery
-                    ,layer = layui.layer
-                    ,form = layui.form;
+    <script src="../skin/js/layui.min.js"></script>
+    <script>
+        layui.use(['layer', 'form'], function() {
+            let $ = layui.jquery
+                ,layer = layui.layer
+                ,form = layui.form;
 
-                $('#submit').on('click',function (){
-                    let data = form.val('form_data'); //获取表格中的所有数据 携带name属性
-                    // console.log(data);
-                    if(data.desc === ''){
-                        layer.msg('请输入内容后再提交！', {
-                            time: 1200
-                        })
-                    }else {
-                        $.ajax({
-                            url: '../../controllers/views/submit_feedback',
-                            type: 'POST',
-                            data: JSON.stringify(data),
-                            dataType: 'json',
-                            success: function (res) {
-                                // console.log(res);
-                                //关闭当前的iframe窗口
-                                let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                if (res.code === 200) {
-                                    layer.msg(res.msg, {
-                                        icon: 6,
-                                        shade: .2,
-                                        time: 1800
-                                    }, function () {
-                                        parent.layer.close(index); //再执行关闭
-                                    })
-                                }else {
-                                    layer.msg(res.msg, {
-                                        icon: 7,
-                                        shade: .2,
-                                        time: 1500
-                                    }, function () {
-                                        parent.layer.close(index); //再执行关闭
-                                    })
-                                }
+            $('#submit').on('click',function (){
+                let data = form.val('form_data'); //获取表格中的所有数据 携带name属性
+                // console.log(data);
+                if(data.desc === ''){
+                    layer.msg('请输入内容后再提交！', {
+                        time: 1500
+                    })
+                }else {
+                    $.ajax({
+                        url: '../../controllers/views/submit_feedback',
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        success: function (res) {
+                            // console.log(res);
+                            //关闭当前的iframe窗口
+                            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            if (res.code === 200) {
+                                layer.msg(res.msg, {
+                                    icon: 6,
+                                    shade: .2,
+                                    time: 2000
+                                }, function () {
+                                    parent.layer.close(index); //再执行关闭
+                                })
+                            }else {
+                                layer.msg(res.msg, {
+                                    icon: 7,
+                                    shade: .2,
+                                    time: 1500
+                                }, function () {
+                                    parent.layer.close(index); //再执行关闭
+                                })
                             }
-                        })
-                    }
-                })
+                        }
+                    })
+                }
             })
-        </script>
-    </body>
+        })
+    </script>
+</body>
+
 </html>

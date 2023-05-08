@@ -99,7 +99,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block" style="margin-top: 60px;text-align: center;">
-                    <button type="button" class="layui-btn" name="back" id="back" lay-submit value="返回">返 回</button>
+                    <button type="button" class="layui-btn layui-btn-primary" name="back" id="back" lay-submit value="返回">返 回</button>
                     <button type="button" class="layui-btn layui-btn-danger" name="submit" id="submit" lay-submit value="删除">删 除</button>
                 </div>
             </div>

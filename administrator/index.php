@@ -31,6 +31,9 @@
     $rights_res = mysqli_query($db_connect, $rights_sql);
     $item = mysqli_fetch_array($rights_res);
 
+    // 获取未读消息
+    $msg_res = mysqli_query($db_connect, "select * from sys_msg where user_id = '$user_id' and state = '0' order by createtime limit 6");
+
     // echo mysqli_error($db_connect);
     mysqli_close($db_connect); //关闭数据库资源
 ?>
@@ -52,16 +55,6 @@
     <link rel="stylesheet" href="../skin/css/layui.min.css">
     <link rel="stylesheet" href="../skin/css/modules/layer/layer.css">
     <style>
-        /*
-        * 隐藏功能
-         */
-        .show{
-            display: block !important;
-        }
-        .hide{
-            display: none !important;
-        }
-
         .layui-laydate{
             font-size: 15px;
             margin-top: 25px;
@@ -101,6 +94,15 @@
 
         .captitle{
             line-height: 30px;
+        }
+
+        .msg1{
+            width: 95%;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            padding: 2%;
+            margin-top: 7px;
+            border-radius: 4px;
         }
     </style>
     <script type="text/javascript">
@@ -333,6 +335,12 @@
                     </div>
                     <div class="layui-row" style="padding: 7px;border-bottom: 1px solid #eee;">
                         <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                            <a href="./books_center/book_list.php">
+                                <img style="margin-top: 5px" width="42" height="42" src="../skin/images/other/book_3.png">
+                                <div class="captitle">馆藏资源</div>
+                            </a>
+                        </div>
+                        <div class="layui-col-md3" style="text-align: center;width: 100px;">
                             <a href="books_center/book_search">
                                 <img width="48" height="48" src="../skin/images/other/book_search.png">
                                 <div class="captitle">馆藏查询</div>
@@ -346,7 +354,7 @@
                         </div>
                         <div class="layui-col-md3" style="text-align: center;width: 100px;">
                             <a href="./books_circulation/renewBook">
-                                <img width="48" height="48" src="../skin/images/other/book_4.png">
+                                <img width="48" height="48" src="../skin/images/other/renew.png">
                                 <div class="captitle">图书续借</div>
                             </a>
                         </div>
@@ -356,15 +364,57 @@
                                 <div class="captitle">图书归还</div>
                             </a>
                         </div>
-                        <div class="layui-col-md3" style="text-align: center;width: 100px;">
-                            <a href="./books_circulation/record_search">
-                                <img width="48" height="48" src="../skin/images/other/book.png">
-                                <div class="captitle">记录查询</div>
-                            </a>
-                        </div>
+                        <?php
+                            if ($item['record_search'] == 1) {
+                                echo '
+                                    <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                                        <a href="./books_circulation/record_search">
+                                            <img style="margin-top: 5px" width="42" height="42" src="../skin/images/other/record_search.png">
+                                            <div class="captitle">记录查询</div>
+                                        </a>
+                                    </div>
+                                ';
+                            }
+
+                            if ($item['comment_center'] == 1) {
+                                echo '
+                                    <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                                        <a href="./comment/comment_center">
+                                            <img width="48" height="48" src="../skin/images/other/comment_1.png">
+                                            <div class="captitle">评论中心</div>
+                                        </a>
+                                    </div>
+                                ';
+                            }
+
+                            if ($item['news_notice'] == 1) {
+                                echo '
+                                    <div class="layui-col-md3" style="text-align: center;width: 100px;">
+                                        <a href="./comment/news_notice">
+                                            <img width="48" height="48" src="../skin/images/other/notice_2.png">
+                                            <div class="captitle">新闻公告</div>
+                                        </a>
+                                    </div>
+                                ';
+                            }
+                        ?>
                     </div>
                     <div style="padding: 7px;">
                         <h3>未读消息&nbsp;<i class="layui-icon layui-icon-triangle-r"></i></h3>
+                        <?php
+                            $num = mysqli_num_rows($msg_res);
+                            if($num == 0){
+                                echo "<div style='margin: 50px auto;text-align: center;color: #999;'><img src='../skin/images/no_msg.png' style='width: 180px;height: 150px;'><p>暂无未读消息</p></div>";
+                            }
+                            while ($msg = mysqli_fetch_array($msg_res)){
+
+                        ?>
+                        <div class="msg1">
+                            <?php echo $msg['content']; ?>
+                        </div>
+                        <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -485,20 +535,26 @@
 
                     //清空所有消息
                     $('.clearMsg').on('click', function () {
-                        $.ajax({
-                            type: "POST",
-                            url: '../../controllers/system/clearMsg',
-                            data: {
-                                user_id: user_id
-                            },
-                            success: function (res) {
-                                layer.msg('消息已清空！', {
-                                    time: 2000
-                                }, function () {
-                                    getMsg();
-                                })
-                                layer.close(index); //关闭窗口
-                            }
+                        layer.confirm('确认删除所有消息吗？',{title: '温馨提示'}, function (index) {
+                            $.ajax({
+                                type: "POST",
+                                url: '../../controllers/system/clearMsg',
+                                data: {
+                                    user_id: user_id
+                                },
+                                success: function (res) {
+                                    layer.msg('消息已清空！', {
+                                        time: 2000
+                                    }, function () {
+                                        getMsg();
+                                        location.reload();
+                                    })
+                                    layer.close(index); //关闭窗口
+                                }
+                            })
+                            layer.closeAll();
+                        }, function (){
+                            layer.close(index); //关闭窗口
                         })
                     })
                 }

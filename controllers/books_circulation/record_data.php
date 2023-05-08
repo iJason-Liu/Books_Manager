@@ -4,6 +4,7 @@
      * 关键词类型如下：
      * 0 借阅卡号
      * 1 图书编号
+     * 3 日期范围
      */
     include '../../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
@@ -11,12 +12,16 @@
 
     $keywords = $_GET['keywords']; //关键词
     $keywords_type = $_GET['keywords_type']; //关键词类型
+    $startDate = $_GET['startDate']; //开始日期
+    $endDate = $_GET['endDate']; //结束日期
 
     //查询数据
     if ($keywords_type == 0) {
         $sql1 = "select * from book_borrow where card_id = '$keywords' order by is_back";
     } else if ($keywords_type == 1) {
         $sql1 = "select * from book_borrow where book_id = '$keywords' order by is_back";
+    }else{
+        $sql1 = "select * from book_borrow where borrow_date between '$startDate' and '$endDate' order by is_back";
     }
     $result_data = mysqli_query($db_connect, $sql1);
 

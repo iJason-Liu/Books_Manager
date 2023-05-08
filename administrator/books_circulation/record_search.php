@@ -63,6 +63,7 @@
             padding-left: 0;
             height: 45px;
         }
+
         .statusBar{
             position: fixed;
             bottom: 44px;
@@ -76,12 +77,22 @@
             color: #ff0000;
             padding-left: 30px;
         }
+
+        #rangDate input{
+            height: 45px;
+        }
+
+        .layui-form-label{
+            height: 45px !important;
+            line-height: 27px !important;
+            margin-left: 50px;
+        }
     </style>
     <script type="text/javascript">
         //禁用复制
-        document.oncopy = function () {
-            return false;
-        }
+        // document.oncopy = function () {
+        //     return false;
+        // }
         //禁用浏览器右键点击事件
         document.oncontextmenu = function () {
             return false;
@@ -154,6 +165,18 @@
                         </div>
                         <button class="layui-btn" style="height: 43px;" id="search"><i class='layui-icon layui-icon-search'></i> 查询</button>
                     </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">日期范围</label>
+                        <div class="layui-input-block" id="rangDate" style="width: 350px;">
+                            <div class="layui-input-inline" style="width: 120px;">
+                                <input type="text" autocomplete="off" name="startDate" id="startDate" class="layui-input" placeholder="开始日期">
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 120px;">
+                                <input type="text" autocomplete="off" name="endDate" id="endDate" class="layui-input" placeholder="结束日期">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
             <!--显示查询结果-->
@@ -188,10 +211,11 @@
 
     <script src="../../skin/js/layui.min.js"></script>
     <script type="text/javascript">
-        layui.use(['table', 'form', 'util'], function() {
+        layui.use(['table', 'form', 'util', 'laydate'], function() {
             let $ = layui.jquery
                 ,layer = layui.layer
                 ,table = layui.table
+                ,laydate = layui.laydate
                 ,form = layui.form;
 
             // 创建渲染实例
@@ -359,7 +383,7 @@
                             // console.log(res);
                             if (res.code === 200) {
                                 if(res.count === 0){
-                                    layer.msg('没有搜索到记录', {
+                                    layer.msg('无记录', {
                                         icon: 7,
                                         shade: .2,
                                         time: 2000
@@ -409,6 +433,96 @@
                         keywords_type: ''
                     }
                 })
+            })
+
+            //获取当前日期
+            let nowDate = new Date();
+            let year = nowDate.getFullYear(); //获取当前年
+            let month = nowDate.getMonth() + 1; //获取当前月
+            let day = nowDate.getDate(); //
+            if(month < 10){
+                month = '0'+month;
+            }
+            if(day < 10){
+                day = '0'+day;
+            }
+            let today = year+'-'+month+'-'+day;
+
+            let startDate = '';
+            let endDate = '';
+            //选择日期范围
+            laydate.render({
+                elem: '#startDate',
+                min: -365,  //过去一年内
+                max: today,  //最大日期不能大于当天，也就是不能查询未来的数据
+                value: today, //赋予初始值，当前日期
+                done: function(value) {
+                    startDate = value;
+                    // console.log(value)
+                    laydate.render({
+                        elem: '#endDate',
+                        min: startDate,  //必须始终大于开始时间
+                        max: today,  //最大日期不能大于当天，也就是不能查询未来的数据
+                        done: function (value){
+                            endDate = value;
+                            // console.log(value); //选择的日期
+                            // console.log(startDate);
+                            // console.log(endDate);
+
+                            // 根据选择的日期范围搜索记录
+                            $.ajax({
+                                url: '../../controllers/books_circulation/record_data',
+                                type: 'GET',
+                                data: {
+                                    startDate: startDate, //开始时间
+                                    endDate: endDate,  //结束时间
+                                    keywords_type: 3
+                                },
+                                dataType: 'json',
+                                success: function (res) {
+                                    console.log(res);
+                                    if (res.code === 200) {
+                                        if(res.count === 0){
+                                            layer.msg('该日期范围内无记录', {
+                                                icon: 7,
+                                                shade: .2,
+                                                time: 2000
+                                            }, function (){
+                                                // $('#key').val('');  //搜索不到时清空搜索框
+                                            })
+                                            table.reload('dataList', {
+                                                where: {
+                                                    startDate: '', //开始时间
+                                                    endDate: '',  //结束时间
+                                                    keywords_type: 3
+                                                }
+                                            })
+                                        }else{
+                                            table.reload('dataList', {
+                                                page: false,
+                                                where: {
+                                                    startDate: startDate, //开始时间
+                                                    endDate: endDate,  //结束时间
+                                                    keywords_type: 3
+                                                }
+                                            })
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+
+            // 初始化结束日期
+            laydate.render({
+                elem: '#endDate',
+                min: startDate,  //必须始终大于开始时间
+                max: today,  //最大日期不能大于当天，也就是不能查询未来的数据
+                done: function (value){
+                    // console.log(value); //选择的日期
+                }
             })
         })
     </script>

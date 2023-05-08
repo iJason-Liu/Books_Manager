@@ -28,7 +28,7 @@ re.toString = function() {
 };
 
 $(document).on('copy', function (){
-    showMessage('你都复制了些什么呀，转载要记得加上出处哦~~', 5000);
+    showMessage('你都复制了些什么呀？', 5000);
 });
 
 function initTips(){
@@ -63,7 +63,7 @@ initTips();
     if(document.referrer !== ''){
         var referrer = document.createElement('a');
         referrer.href = document.referrer;
-        text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友！';
+        text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的读者！';
         var domain = referrer.hostname.split('.')[1];
         if (domain == 'baidu') {
             text = '嗨！ 来自 百度搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';

@@ -383,6 +383,7 @@
                             type: 2,
                             area: ['48%', '85%'],
                             skin: 'layui-layer-molv',
+                            move: false,
                             content: '../../classes/import_data?import_type=1'  //type 1 馆员
                         })
                         break;

@@ -978,7 +978,7 @@
                         邮箱：crayon996@gmail.com
                     </div>
                     <div class="layui-col-md12">
-                        邮编：678000
+                        邮政编码：678000
                     </div>
                     <div class="layui-col-md12">
                         地址：云南省保山市隆阳区远征路16号
@@ -1042,7 +1042,7 @@
                 height: '520px',
                 arrow: 'hover', //显示箭头  none
                 interval: 3500,
-                anim: 'fade', //切换动画方式
+                anim: 'default', //切换动画方式 fade
                 indicator: 'none'  //切换指标 inside
             })
 

@@ -433,6 +433,7 @@
                                         type: 2,
                                         area: ['48%', '85%'],
                                         skin: 'layui-layer-molv',
+                                        move: false,
                                         content: '../../classes/import_data?import_type=2'  //type 2 学生
                                     })
                                 }else if(obj.id === 'importTeacher'){
@@ -441,6 +442,7 @@
                                         type: 2,
                                         area: ['48%', '85%'],
                                         skin: 'layui-layer-molv',
+                                        move: false,
                                         content: '../../classes/import_data?import_type=3'  //type 3 教师
                                     })
                                 }

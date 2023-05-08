@@ -25,7 +25,7 @@
             break;
         }
     }
-    if ($yzm != $_SESSION['check_auth']) {
+    if ($yzm != $_SESSION['check_yzm']) {
         echo "<script>alert('验证码错误！');history.back();</script>";
     } else if ($is_username_equal == 1) {
         echo "<script>alert('用户名已存在！');history.back();</script>";

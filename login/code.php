@@ -7,8 +7,8 @@
 	session_start();   //启动session
 	header("Content-Type: image/png");
 	//设置图片对象大小
-	$img_width=90;    
-	$img_height=22;
+	$img_width = 90;
+	$img_height = 22;
 	
 	//生成随机数
 	srand(microtime()*100000);
@@ -16,18 +16,18 @@
 		$new_number .= dechex(rand(0,15));
 	}
 	
-	$_SESSION["check_auth"]=$new_number;   //把验证码写入session中
+	$_SESSION["check_yzm"] = $new_number;   //把验证码写入session中
 	$number_img = imagecreate($img_width, $img_height);
-	imagecolorallocate($number_img, 255, 200, 73);   //图片背景色
+	imagecolorallocate($number_img, 211, 229, 217);   //图片背景色
 	
-	for($i=0; $i<strlen($_SESSION["check_auth"]); $i++){
+	for($i=0; $i<strlen($_SESSION["check_yzm"]); $i++){
 		$font = mt_rand(4, 6);   //随机字体大小
 		$x = mt_rand(1, 8) + $img_width * $i / 4;   //x轴随机位置
 		$y = mt_rand(1, $img_height / 4);           //y轴随机位置
 		//设置字体颜色随机
 		$color = imagecolorallocate($number_img, mt_rand(0,120), mt_rand(10,200), mt_rand(200,210));
 		//将随机字符一次填充进图片
-		imagestring($number_img, $font, $x, $y, $_SESSION["check_auth"][$i], $color);
+		imagestring($number_img, $font, $x, $y, $_SESSION["check_yzm"][$i], $color);
 	}
 	//创建干扰点
     for($i=0;$i<450;$i++){
@@ -42,5 +42,3 @@
 	
 	imagepng($number_img);   //以png格式输出
 	imagedestroy($number_img);    //销毁图片
-	
-?>

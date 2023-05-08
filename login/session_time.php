@@ -23,11 +23,11 @@
             if ($_SESSION['expiretime'] < time()) {
                 // unset($_SESSION['expiretime']);
                 if($url_count == 2){
-                    echo "<script>alert('会话已超时，请重新登录！');location.href='./login/logout'</script>"; //登出
+                    echo "<script>alert('会话已过期，请重新登录！');location.href='./login/logout'</script>"; //登出
                 }else if($url_count == 3){
-                    echo "<script>alert('会话已超时，请重新登录！');location.href='../login/logout'</script>"; //登出
+                    echo "<script>alert('会话已过期，请重新登录！');location.href='../login/logout'</script>"; //登出
                 }if($url_count == 4){
-                    echo "<script>alert('会话已超时，请重新登录！');location.href='../../login/logout'</script>"; //登出
+                    echo "<script>alert('会话已过期，请重新登录！');location.href='../../login/logout'</script>"; //登出
                 }
                 //header('Location: ../login/logout?TIMEOUT'); // 登出
                 // exit();

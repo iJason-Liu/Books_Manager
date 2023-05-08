@@ -558,20 +558,25 @@
 
                     //清空所有消息
                     $('.clearMsg').on('click', function () {
-                        $.ajax({
-                            type: "POST",
-                            url: '../../controllers/system/clearMsg',
-                            data: {
-                                user_id: user_id
-                            },
-                            success: function (res) {
-                                layer.msg('消息已清空！', {
-                                    time: 2000
-                                }, function () {
-                                    getMsg();
-                                })
-                                layer.close(index); //关闭窗口
-                            }
+                        layer.confirm('确认删除所有消息吗？',{title: '温馨提示'}, function (index) {
+                            $.ajax({
+                                type: "POST",
+                                url: '../../controllers/system/clearMsg',
+                                data: {
+                                    user_id: user_id
+                                },
+                                success: function (res) {
+                                    layer.msg('消息已清空！', {
+                                        time: 2000
+                                    }, function () {
+                                        getMsg();
+                                    })
+                                    layer.close(index); //关闭窗口
+                                }
+                            })
+                            layer.closeAll();
+                        }, function (){
+                            layer.close(index); //关闭窗口
                         })
                     })
                 }

@@ -129,7 +129,7 @@
                                 shade: .2,
                                 time: 2000
                             }, function () {
-                                parent.location.reload();  //刷新父级窗口
+                                // parent.location.reload();  //刷新父级窗口
                                 parent.layer.close(frmindex); //再执行关闭
                             })
                         } else {

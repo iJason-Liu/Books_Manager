@@ -185,6 +185,10 @@
             margin: 20px 0;
             color: #f8f8f8;
         }
+
+        .layui-badge{
+            border-radius: 2px;
+        }
     </style>
 </head>
 

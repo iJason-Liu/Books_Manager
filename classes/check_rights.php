@@ -16,7 +16,7 @@
     $item = mysqli_fetch_array($rights_res);
     // die();
 
-    if ($url == 'lib_worker'){
+    if ($url == 'worker_list'){
         if ($item['lib_worker'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
@@ -76,7 +76,7 @@
         }
     }
 
-    //Excel文件导入数据
+    //Excel文件导入数据（判断当用户通过非正常途径进行导入数据时拒绝）
     if ($url == 'import_data') {
-        echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
+        echo "<script>alert('非法访问，请通过正规途径访问网站！');history.back();</script>";
     }

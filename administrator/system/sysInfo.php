@@ -14,6 +14,21 @@
 
     $usertype = $_SESSION['usertype']; //用户登录时的身份
 
+    $id = $_SESSION['user_id'];
+    if($usertype == '学生'){
+        $sql = "select * from student where cardNo = '$id'";
+    }else if($usertype == '教师'){
+        $sql = "select * from teacher where cardNo = '$id'";
+    }else if($usertype == '图书管理员'){
+        $sql = "select * from lib_worker where id = '$id'";
+    }else if($usertype == '超级管理员'){
+        $sql = "select * from super_admin where id = '$id'";
+    }else{
+        $sql = "select * from other_user where id = '$id'";
+    }
+    $info_res = mysqli_query($db_connect, $sql);
+
+    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +43,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="../../skin/css/layui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../skin/css/modules/layer/layer.css">
-    <script src="../../skin/js/layui.min.js"></script>
+    <style>
+        .title{
+            width: 90%;
+            margin: 30px 0 0 60px;
+            font-size: 20px;
+            font-weight: bold;
+            border: 1px solid #eee;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .content{
+            margin: 0 0 30px 60px;
+            width: 90%;
+            border: 1px solid #eee;
+            font-size: 15px;
+            background: #fff;
+            border-radius: 3px;
+        }
+
+        .content .layui-form-item div{
+            line-height: 36px;
+            color: #666;
+            margin-left: 180px;
+        }
+
+        .layui-form-label{
+            width: 110px;
+            background: #fafafa;
+            color: #999;
+        }
+    </style>
     <script type="text/javascript">
         //禁用复制
         document.oncopy = function () {
@@ -52,7 +98,6 @@
         // document.onselect=function(){return false;}
     </script>
 </head>
-
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
@@ -90,11 +135,60 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px;">显示系统的基本信息，ip，版本，，，！</div>
+            <div class="title">&emsp;<i class="layui-icon layui-icon-about layui-font-20"></i> 系统信息</div>
+            <?php while ($row = mysqli_fetch_array($info_res)){
+
+            ?>
+            <div class="layui-form content">
+                <div class="layui-form-item" style="margin-top: 15px;">
+                    <label class="layui-form-label">账 号：</label>
+                    <div class="layui-input-block">
+                        <?php echo $row['id']=='' ? $row['log_time'] : $row['id']; ?>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名：</label>
+                    <div class="layui-input-block">
+                        <?php echo $row['name']=='' ? $row['username'] : $row['name']; ?>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录时间：</label>
+                    <div class="layui-input-block">
+                        <?php echo $row['log_time']; ?>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录IP：</label>
+                    <div class="layui-input-block">
+                        <?php echo $row['log_ip']; ?>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录运营商：</label>
+                    <div class="layui-input-block">
+                        <?php echo $row['log_carrier'];?>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">系统名称：</label>
+                    <div class="layui-input-block">小新图书馆</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">系统版本：</label>
+                    <div class="layui-input-block">
+                        Version 1.0
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">运行环境：</label>
+                    <div class="layui-input-block">
+                        Linux-7.9 &emsp; Apache-2.4 &emsp; php-7.3 &emsp; MySQL-5.7 &emsp; Layui-2.7.6
+                    </div>
+                </div>
+            </div>
             <?php
-                echo '服务器名称：'.$_SERVER['SERVER_NAME']; //服务器名称
-                echo '<br>用户IP地址：'.$_SERVER['REMOTE_ADDR'];  //用户ip地址
-                echo '<br>用户的主机名：'.$_SERVER['REMOTE_HOST'];  //用户主机名
+                }
             ?>
         </div>
 
@@ -107,5 +201,8 @@
             </p>
         </div>
     </div>
+
+    <script src="../../skin/js/layui.min.js"></script>
 </body>
+
 </html>
