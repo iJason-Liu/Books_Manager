@@ -15,7 +15,7 @@
 	$name = $_POST['bookname']; //书名
     $author = $_POST['author']; //作者
     $publisher = $_POST['publisher']; //出版社
-	$price = $_POST['bookprice']; //定价
+	$price = (float)$_POST['bookprice']; //定价
     $number = $_POST['number']; //库存
 	$type = $_POST['booktype']; //图书类别
     $place = $_POST['saveplace']; //保存书库

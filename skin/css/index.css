@@ -55,11 +55,16 @@
 
 .hc-logo {
     height: 95px;
-    width: 200px;
+    width: 240px;
     display: block;
     margin-left: 12%;
-    /* padding-top: 23px; */
     text-align: center;
+    line-height: 95px;
+}
+
+.logo {
+    height: 50px;
+    width: 100%;
 }
 
 .hc-hide-md {

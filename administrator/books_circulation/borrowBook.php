@@ -6,9 +6,9 @@
     session_start();
     include '../../config/conn.php';
     include '../../classes/check_rights.php';
-    include '../../login/session_time.php';
+    include '../../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     // 设置文档类型：，utf-8支持中文文档
@@ -134,7 +134,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../upload/pdf/小新图书馆操作指南.pdf" target="_blank">操作指南</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <!-- 右侧消息 -->
@@ -158,7 +158,7 @@
                             }
                         ?>
                         <dd><a href="../user_center/update_pwd">修改密码</a></dd>
-                        <dd><a href="../../login/logout">注销</a></dd>
+                        <dd><a href="../../oauth/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -169,7 +169,7 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <fieldset class="layui-elem-field layui-field-title" style="border: 1px solid #C9C9C9;margin: 15px 20px 0 20px;padding: 15px;">
-                <legend>读者基本信息</legend>
+                <legend>读者基础信息</legend>
                 <?php
                     while ($item = mysqli_fetch_array($info_res)){
                         $card_status = $item['card_status'];  //借阅卡状态

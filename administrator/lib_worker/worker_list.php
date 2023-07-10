@@ -6,9 +6,9 @@
     session_start();
     include '../../config/conn.php';
     include '../../classes/check_rights.php';
-    include '../../login/session_time.php';
+    include '../../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     $usertype = $_SESSION['usertype']; //用户登录时的身份
@@ -74,7 +74,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../upload/pdf/小新图书馆操作指南.pdf" target="_blank">操作指南</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -91,7 +91,7 @@
                             }
                         ?>
                         <dd><a href="../user_center/update_pwd">修改密码</a></dd>
-                        <dd><a href="../../login/logout">注销</a></dd>
+                        <dd><a href="../../oauth/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>

@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -66,7 +66,7 @@
 
     </style>
 </head>
-	<body style="background: url('../../skin/images/bg3.jpg') top center no-repeat; background-size:cover">
+	<body style="background: url('../../skin/images/bg.jpg') top center no-repeat; background-size:cover">
         <form class="layui-form" action="../../controllers/books_center/update_book_check?id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
             <?php
                 while($row = mysqli_fetch_array($result)){

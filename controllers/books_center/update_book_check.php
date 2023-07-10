@@ -30,6 +30,7 @@
     $filename = $cover["name"];   //封面文件名
     //上传的文件路径，可用于存入数据库的book_cover字段
     $filepath = "../../upload/bookCover/".time().'_'.$filename;
+    $href = 'https://lib.crayon.vip/'.substr($filepath,6);  //把图片地址存为远程路径
     //同时删除对应的图书封面和图书源文件
     $sql_file = "select book_cover,book_source from book_list where book_id='$id'";
     $res_file = mysqli_query($db_connect,$sql_file);
@@ -50,7 +51,7 @@
         echo json_encode(array('code' => 403, 'msg' => '您暂无权限操作！'),JSON_UNESCAPED_UNICODE); //无权限
     }else {
         //执行sql更新语句
-        $sql1 = "update book_list set ISBN='$isbn',book_name='$name',author='$author',publisher='$publisher',price='$price',number='$number',book_type='$type',save_position='$place',mark='$mark',update_date='$update_time',book_cover='$filepath' where book_id='$id'";
+        $sql1 = "update book_list set ISBN='$isbn',book_name='$name',author='$author',publisher='$publisher',price='$price',number='$number',book_type='$type',save_position='$place',mark='$mark',update_date='$update_time',book_cover='$href' where book_id='$id'";
         //当封面文件没有重新上传时不做更新$filePath
         $sql2 = "update book_list set ISBN='$isbn',book_name='$name',author='$author',publisher='$publisher',price='$price',number='$number',book_type='$type',save_position='$place',mark='$mark',update_date='$update_time' where book_id='$id'";
         // echo mysqli_error($db_connect);

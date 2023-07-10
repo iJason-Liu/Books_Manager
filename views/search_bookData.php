@@ -4,10 +4,7 @@
      */
     session_save_path('../session/');
     session_start(); //开启session
-    include "../login/session_time.php";
-
-    //获取全局变量用户名参数
-    $user = $_SESSION['user'];
+    include "../oauth/session_time.php";
 
 ?>
 <!DOCTYPE html>
@@ -50,7 +47,7 @@
         }
 
         .content{
-            padding: 0 150px;
+            padding: 0 180px;
             margin: 75px 0;
         }
 
@@ -69,13 +66,21 @@
         }
 
         .show_list{
-            border: 1px solid;
+            /*border: 1px solid;*/
             margin-top: 20px;
         }
 
         .data_item{
             width: 100%;
             display: flex;
+            cursor: pointer;
+            border: 1px solid #999;
+            border-radius: 3px;
+            margin-top: 20px;
+        }
+
+        .data_item:hover{
+            border: 1px solid #5fb878;
         }
         .data_img{
 
@@ -88,7 +93,7 @@
 
         .data_content{
             width: 100%;
-            padding: 10px 20px;
+            padding: 7px 18px;
         }
 
         /*背景色 #808080  #736F6E #837E7C  */
@@ -98,8 +103,9 @@
             background: linear-gradient(#999999,#808080);
             color: #222222;
             padding: 10px 0;
-            position: absolute;
+            position: relative;
             bottom: 0;
+            display: none;
         }
         .layui-footer a:hover{
             color: #222222;
@@ -113,13 +119,7 @@
             <span>欢迎访问小新的主站！</span>
         </div>
         <div class='top_right'>
-            <?php
-                if($user != ''){
-                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout'> 注销</a>";
-                }else{
-                    echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
-                }
-            ?>
+            <a href="/"><i class='layui-icon layui-icon-home'></i> 首页 </a>
         </div>
     </header>
 
@@ -131,40 +131,22 @@
                         <div class="layui-input-inline" style="margin-left: 0;width: 75%;">
                             <input style="height: 50px;border-radius: 0;" type="text" name="keywords" id="key" autocomplete="off" placeholder="请输入关键词进行检索" class="layui-input">
                         </div>
-                        <button class="layui-btn" id="search"><i class='layui-icon layui-icon-search'></i> 检 索</button>
+                        <button type="button" class="layui-btn" id="search"><i class='layui-icon layui-icon-search'></i> 检 索</button>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block" style="margin-left: 0">
-                            <input type="radio" name="type" value="书名" title="书名" checked="">
-                            <input type="radio" name="type" value="作者" title="作者">
-                            <input type="radio" name="type" value="ISBN" title="ISBN">
-                            <input type="radio" name="type" value="出版社" title="出版社">
-                            <input type="radio" name="type" value="图书类别" title="图书类别">
+                            <input type="radio" name="type" value="0" title="书名" checked="">
+                            <input type="radio" name="type" value="1" title="作者">
+                            <input type="radio" name="type" value="2" title="ISBN">
+                            <input type="radio" name="type" value="3" title="出版社">
+                            <input type="radio" name="type" value="4" title="图书类别">
                         </div>
                     </div>
                 </div>
 
                 <!-- 显示列表 -->
                 <div class="show_list">
-                    <div class="data_item">
-                        <div class="data_img">
-                            <img src="../upload/bookCover/s237622.jpg">
-                        </div>
-                        <div class="data_content">
-                            <div style="width: 100%;height: 20px;">
-                                书名
-                            </div>
-                            <div style="width: 100%;height: 20px;">
-                                简介
-                            </div>
-                            <div style="width: 100%;height: 20px;">
-                                作者
-                            </div>
-                            <div style="width: 100%;height: 20px;">
-                                出版社，出版日期
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -187,9 +169,139 @@
     <script src="../skin/js/layui.min.js"></script>
     <script src="../skin/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
-        layui.use(['layer'], function() {
+        layui.use(['layer', 'form'], function() {
+            let $ = layui.jquery
+                ,layer = layui.layer
+                ,form = layui.form;
 
+            // 获取首页传过来的参数
+            function getUrl(paras){
+                let returl = new Object();
+                if (paras.indexOf("?") != -1) {
+                    let queryString = paras.substr(1);
+                    let queryParams = queryString.split("&");
+                    for (let i = 0; i < queryParams.length; i++) {
+                        let [key, value] = queryParams[i].split("=");
+                        returl [key] = decodeURI(value);
+                        //值需要使用 decodeURI() 函数对通过 escape() 或 url 编码过的字符串进行解码
+                    }
+                }
+                return returl;
+            }
+            //调用方法
+            let paras = window.location.search;   //search获得地址中的参数
+            let returl = getUrl(paras);
+            let returlType = returl['type'];  //类型
+            let returlKey = returl['keywords'];  //关键词
+            $(function (){
+                $.ajax({
+                    url: '../../controllers/views/get_book',
+                    type: 'POST',
+                    data: {
+                        keywords_type: returlType,
+                        keywords: returlKey
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        // console.log(res);
+                        let data = res.data;
+                        if (res.code === 200) {
+                            let str = "";
+                            for(let i = 0; i < data.length; i++){
+                                str += "<div class='data_item' onclick='go("+data[i].book_id+")'>"+
+                                        "<div class='data_img'>"+
+                                        "<img src='"+data[i].book_cover+"'></div>"+
+                                        "<div class='data_content'>"+
+                                         "<div style='width: 100%;'><span style='font-size: 18px;font-weight: 500;'>"+data[i].book_name+"</span><span style='color: #999;margin-left: 10px;'>"+data[i].author+"</span></div>"+
+                                        "<div style='width: 100%;height: 80px;overflow: hidden;text-overflow: ellipsis;color: #999;margin: 5px 0;'>"+data[i].mark+"</div>"+
+                                        "<div style='width: 100%;height: 20px;color: #777;'><span>"+data[i].publisher+"</span></div></div>";
+                            }
+                            $('.show_list').html(str);
+                            if(data.length == 0){
+                                layer.msg('没有搜索到结果！');
+                            }
+                        }else {
+                            layer.msg(res.msg, {
+                                icon: 7,
+                                shade: .2,
+                                time: 1500
+                            })
+                        }
+                    }
+                })
+            })
+
+            function search(){
+                let data = form.val('form_data'); //获取表格中的所有数据 携带name属性
+                // console.log(data);
+                if(data.keywords == ''){
+                    layer.msg('请输入关键词再搜索！');
+                    $('#key').focus();
+                    return false;
+                }
+                $.ajax({
+                    url: '../../controllers/views/get_book',
+                    type: 'POST',
+                    data: {
+                        keywords_type: data.type,
+                        keywords: data.keywords
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        // console.log(res);
+                        let data = res.data;
+                        if (res.code === 200) {
+                            let str = "";
+                            for(let i = 0; i < data.length; i++){
+                                str = "<div class='data_item' onclick='go("+data[i].book_id+")'>"+
+                                        "<div class='data_img'>"+
+                                        "<img src='"+data[i].book_cover+"'></div>"+
+                                        "<div class='data_content'>"+
+                                         "<div style='width: 100%;'><span style='font-size: 18px;font-weight: 500;'>"+data[i].book_name+"</span><span style='color: #999;margin-left: 10px;'>"+data[i].author+"</span></div>"+
+                                        "<div style='width: 100%;height: 80px;overflow: hidden;text-overflow: ellipsis;color: #999;margin: 5px 0;'>"+data[i].mark+"</div>"+
+                                        "<div style='width: 100%;height: 20px;color: #777;'><span>"+data[i].publisher+"</span></div></div>";
+                                $('.show_list').append(str);
+                            }
+                            if(data.length == 0){
+                                layer.msg('没有搜索到结果！');
+                            }
+                        }else {
+                            layer.msg(res.msg, {
+                                icon: 7,
+                                shade: .2,
+                                time: 1500
+                            })
+                        }
+                    }
+                })
+            }
+
+            // 在当前页搜索
+            $('#search').on('click', function (){
+                let data = form.val('form_data'); //获取表格中的所有数据 携带name属性
+                // console.log(data);
+                if(data.keywords == ''){
+                    layer.msg('请输入关键词！');
+                    $('#key').focus();
+                }
+                $('.show_list').empty();
+                search();
+            })
+
+            //绑定enter回车搜索
+            $(document).keyup(function (event) {
+                if (event.keyCode == '13') {
+                    $('.show_list').empty();
+                    search();
+                }
+            })
         })
+
+        // 点击跳转图书详情页
+        function go(id){
+            console.log(id);
+            window.location.href = "./book_detail.php?id="+id;
+        }
     </script>
     <script type="text/javascript">
         function gotoTop(minHeight) {

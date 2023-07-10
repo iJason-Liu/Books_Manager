@@ -7,7 +7,7 @@
     include '../../config/conn.php';
     //判断登录状态
     if($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     // 设置文档类型：，utf-8支持中文文档
@@ -58,7 +58,7 @@
         }
     </style>
 </head>
-<body style="background: url('../../skin/images/bg3.jpg') top center no-repeat; background-size:cover">
+<body style="background: url('../../skin/images/bg.jpg') top center no-repeat; background-size:cover">
     <form class="layui-form" action="../../controllers/books_center/add_book_check" method="post" enctype="multipart/form-data">
         <div id="form_tab">
             <div class="layui-form-item">

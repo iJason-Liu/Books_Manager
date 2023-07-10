@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -90,7 +90,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">借阅卡号:</label>
                 <div class="layui-input-block">
-                    <input disabled type="text" value="<?php echo $row['cardNo']='' ? $row['id'] : $row['cardNo']; ?>" class="layui-input color">
+                    <input disabled type="text" value="<?php echo $row['cardNo']=='' ? $row['id'] : $row['cardNo']; ?>" class="layui-input color">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -108,7 +108,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">姓 名:</label>
                 <div class="layui-input-block">
-                    <input disabled type="text" value="<?php echo $row['name']='' ? $row['username'] : $row['name']; ?>" class="layui-input color">
+                    <input disabled type="text" value="<?php echo $row['name']=='' ? $row['username'] : $row['name']; ?>" class="layui-input color">
                 </div>
             </div>
             <div class="layui-form-item">

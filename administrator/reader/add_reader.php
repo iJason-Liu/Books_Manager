@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
 ?>
@@ -64,18 +64,6 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">学院:</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="department" id="department" placeholder="请输入学院" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">所属班级:</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="class" id="class" placeholder="请输入班级" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: #ff0000;">*</span>身 份:</label>
                     <div class="layui-input-inline">
                         <select name="user_type">
@@ -89,6 +77,18 @@
                                 }
                             ?>
                         </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学院:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="department" id="department" placeholder="请输入学院" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属班级:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="class" id="class" placeholder="请输入班级" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -107,7 +107,7 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block" style="margin-top: 50px;text-align: center;">
                         <button type="reset" class="layui-btn layui-btn-primary" value="重置">重 置</button>
-                        <button type="button" class="layui-btn" name="submit" id="submit" lay-submit value="提交">提 交</button>
+                        <button type="button" class="layui-btn" name="submit" id="submit" value="提交">提 交</button>
                     </div>
                 </div>
             </div>
@@ -130,62 +130,70 @@
                             tips: [1,'#666'],
                             time: 2000
                         })
-                    }else if(data.user_type == '学生' || data.user_type == '教师'){
+                        return false;
+                    }
+                    if(data.user_type === '学生' || data.user_type === '教师'){
                         if(data.department === ''){
                             layer.tips('请输入学院！', '#department',{
-                                tips: [1,'#666'],
+                                tips: [3,'#666'],
                                 time: 2000
                             })
+                            return false;
                         }else if(data.class === ''){
                             layer.tips('请输入班级！', '#class',{
-                                tips: [1,'#666'],
+                                tips: [3,'#666'],
                                 time: 2000
                             })
+                            return false;
                         }
-                    }else if(!reg.test(data.pwd)){
-                        layer.tips('密码必须6至12位，包含字母数字，不能包含空格！', '#pwd',{
-                            tips: [1,'#666'],
-                            time: 2000
-                        })
-                    }else if(!reg2.test(data.mobile)){
-                        layer.tips('手机号码输入不正确！', '#mobile',{
-                            tips: [1,'#666'],
-                            time: 2000
-                        })
-                    }else {
-                        $.ajax({
-                            url: '../../controllers/reader/add_reader_check',
-                            type: 'POST',
-                            data: JSON.stringify(data),
-                            dataType: 'json',
-                            success: function (res) {
-                                // console.log(res);
-                                //得到当前iframe层的索引
-                                let index = parent.layer.getFrameIndex(window.name);
-                                if (res.code === 200) {
-                                    layer.msg(res.msg, {
-                                        icon: 6,
-                                        shade: .2,
-                                        time: 2000
-                                    }, function () {
-                                        //刷新父级窗口的table数据
-                                        parent.layui.table.reload('dataList');
-                                        //执行关闭
-                                        parent.layer.close(index);
-                                    })
-                                } else {
-                                    layer.msg(res.msg, {
-                                        icon: 7,
-                                        shade: .2,
-                                        time: 1500
-                                    }, function () {
-                                        //执行关闭
-                                        parent.layer.close(index);
-                                    })
-                                }
-                            }
-                        })
                     }
+                    if(!reg.test(data.pwd)){
+                        // console.log('11')
+                        layer.tips('密码必须6至12位，包含字母数字且不能包含空格！', '#pwd',{
+                            tips: [3,'#666'],
+                            time: 2000
+                        })
+                        return false;
+                    }
+                    if(!reg2.test(data.mobile)){
+                        layer.tips('手机号码输入不正确！', '#mobile',{
+                            tips: [3,'#666'],
+                            time: 2000
+                        })
+                        return false;
+                    }
+                    $.ajax({
+                        url: '../../controllers/reader/add_reader_check',
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        success: function (res) {
+                            // console.log(res);
+                            //得到当前iframe层的索引
+                            let index = parent.layer.getFrameIndex(window.name);
+                            if (res.code === 200) {
+                                layer.msg(res.msg, {
+                                    icon: 6,
+                                    shade: .2,
+                                    time: 2000
+                                }, function () {
+                                    //刷新父级窗口的table数据
+                                    parent.layui.table.reload('dataList');
+                                    //执行关闭
+                                    parent.layer.close(index);
+                                })
+                            } else {
+                                layer.msg(res.msg, {
+                                    icon: 7,
+                                    shade: .2,
+                                    time: 1500
+                                }, function () {
+                                    //执行关闭
+                                    parent.layer.close(index);
+                                })
+                            }
+                        }
+                    })
                 })
 
                 //显示隐藏密码

@@ -6,7 +6,7 @@
     session_start();
 
     $db_connect = mysqli_connect('localhost', 'root', 'root') or die('数据库服务连接失败！');
-    mysqli_select_db($db_connect, 'test_library');
+    mysqli_select_db($db_connect, 'library');
     mysqli_query($db_connect,"SET NAMES 'UTF8'");
 
     $url = basename($_SERVER['REQUEST_URI']);  //当前访问的文件路径

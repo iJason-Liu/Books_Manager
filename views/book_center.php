@@ -4,11 +4,25 @@
      */
     session_save_path('../session/');
     session_start(); //开启session
-    include "../login/session_time.php";
+    include '../config/conn.php';
+    include "../oauth/session_time.php";
 
     //获取全局变量用户名参数
     $user = $_SESSION['user'];
 
+    //执行sql语句的查询语句
+    $sql1 = "select book_name from book_list order by borrow_num desc limit 10";
+    $result = mysqli_query($db_connect,$sql1);
+
+    $row = json_encode(mysqli_fetch_all($result,MYSQLI_ASSOC),JSON_UNESCAPED_UNICODE);
+    $item = json_decode($row,true);
+    // print_r($item[1]['book_name']);
+
+    //查询馆藏20本
+    $sql2 = "select * from book_list order by rand() limit 20";
+    $result_data = mysqli_query($db_connect,$sql2);
+
+    mysqli_close($db_connect);
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,18 +63,13 @@
             margin-right: 40px;
         }
 
-        .logo {
-            height: 80px;
-            width: 200px;
-            padding-top: 7px;
-        }
-
         .layui-main{
             width: 100%;
         }
 
         .layui-carousel{
             margin-top: 135px;
+            height: 400px !important;
         }
 
         .layui-nav * {
@@ -82,7 +91,7 @@
         }
 
         .content{
-            padding: 80px 150px;
+            padding: 50px 150px 80px 150px;
         }
 
         .list_show{
@@ -206,9 +215,9 @@
         <div class='top_right'>
             <?php
                 if($user != ''){
-                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout'> 注销</a>";
+                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../oauth/logout'> 注销</a>";
                 }else{
-                    echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                    echo "<a href='../oauth/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
                 }
             ?>
         </div>
@@ -221,9 +230,9 @@
                 <li class="layui-nav-item hc-hide-sm layui-this">
                     <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../views/search_bookData" target="_blank">馆藏查询</a></dd>
-                        <dd class="layui-this"><a href="../views/book_center" target="_blank">馆藏资源</a></dd>
-                        <dd><a href="../views/new_book">新书通报</a></dd>
+                        <dd><a href="../views/book_center">馆藏资源</a></dd>
+                        <dd><a href="../views/search_bookData">图书查询</a></dd>
+                        <dd><a href="javascript:;">新书通报</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
@@ -246,10 +255,9 @@
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">关于</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../views/about">项目介绍</a></dd>
-                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆介绍</a></dd>
+                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆简介</a></dd>
                         <dd><a href="https://mp.weixin.qq.com/s/eMThZAwR6I7PA-wPmRj8KQ">馆藏分布</a></dd>
-                        <dd><a href="javascript:;">开放时间</a></dd>
+                        <dd><a href="../views/about">开放时间</a></dd>
                         <dd><a href="javascript:;">常见问题</a></dd>
                     </dl>
                 </li>
@@ -260,7 +268,6 @@
                         <dd><a href="../views/reader_center">服务</a></dd>
                         <dd><a href="../views/notice_list">动态</a></dd>
                         <dd><a href="../views/about">关于</a></dd>
-                        <dd><a href="../register/register" target="_blank">Register</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -270,7 +277,7 @@
     <div class="layui-carousel" id="carousel">
         <div carousel-item>
             <div>
-                <img class="banner" src="../skin/images/banner/banner_9.png" />
+                <img class="banner" src="../skin/images/banner/sourece_banner.jpg" />
             </div>
         </div>
     </div>
@@ -288,127 +295,24 @@
                     </div>
                 </div>
                 <div class="layui-row layui-col-space30 list_container">
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
+                    <?php
+                        while ($col = mysqli_fetch_array($result_data)){
+
+                    ?>
+                    <div class="layui-col-md3 layui-col-sm4 list_item" onclick="go(<?php echo $col['book_id'] ?>)">
                         <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s29260063.jpg">
+                            <img class="list_img" src="<?php echo $col['book_cover'] ?>">
                         </div>
                         <div class="list_name">
-                            三生三世十里桃花加长测试
+                            <?php echo $col['book_name'] ?>
                         </div>
                         <div class="list_author">
-                            作者：唐七
+                            作者：<?php echo $col['author'] ?>
                         </div>
                     </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s123452.jpg">
-                        </div>
-                            <div class="list_name">
-                            人间草木
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/book-default.gif">
-                        </div>
-                            <div class="list_name">
-                            三生三世十里桃花
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s237622.jpg">
-                        </div>
-                            <div class="list_name">
-                            放生羊
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/book-default.gif">
-                        </div>
-                            <div class="list_name">
-                            夜读
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s206577.jpg">
-                        </div>
-                            <div class="list_name">
-                            人间值得
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/sampling.webp">
-                        </div>
-                            <div class="list_name">
-                            三生三世十里桃花,三生三世十里桃花三生三世十里桃花
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s29506438.jpg">
-                        </div>
-                            <div class="list_name">
-                            茶花女
-                        </div>
-                        <div class="list_author">
-                            作者：[法国]小仲马
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s206573.jpg">
-                        </div>
-                        <div class="list_name">
-                            三生三世十里桃花,三生三世十里桃花三生三世十里桃花
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s29260063.jpg">
-                        </div>
-                        <div class="list_name">
-                            三生三世十里桃花,三生三世十里桃花三生三世十里桃花
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
-                    <div class="layui-col-md3 layui-col-sm4 list_item">
-                        <div class="img_box">
-                            <img class="list_img" src="../upload/bookCover/s206578.jpg">
-                        </div>
-                        <div class="list_name">
-                            三生三世十里桃花,三生三世十里桃花三生三世十里桃花
-                        </div>
-                        <div class="list_author">
-                            作者：唐七
-                        </div>
-                    </div>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
             <div class="layui-col-md4 layui-col-sm4 right_content">
@@ -416,34 +320,34 @@
                     <span class="title_dot"></span>热门图书 TOP10
                 </div>
                 <div class="layui-col-md12 layui-elip" style="margin-top: 18px;">
-                    <span class="layui-badge">1</span>&emsp;图书名称图书名称图书名称图书名称图书名称
+                    <span class="layui-badge">1</span>&emsp;<?php echo $item[0]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-orange">2</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-orange">2</span>&emsp;<?php echo $item[1]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-blue">3</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-blue">3</span>&emsp;<?php echo $item[2]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-gray">4</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-gray">4</span>&emsp;<?php echo $item[3]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-gray">5</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-gray">5</span>&emsp;<?php echo $item[4]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-gray">6</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-gray">6</span>&emsp;<?php echo $item[5]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-gray">7</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-gray">7</span>&emsp;<?php echo $item[6]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-gray">8</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-gray">8</span>&emsp;<?php echo $item[7]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-gray">9</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-gray">9</span>&emsp;<?php echo $item[8]['book_name']; ?>
                 </div>
-                <div class="layui-col-md12" style="margin-top: 20px;">
-                    <span class="layui-badge layui-bg-gray">10</span>&emsp;图书名称
+                <div class="layui-col-md12 layui-elip" style="margin-top: 20px;">
+                    <span class="layui-badge layui-bg-gray">10</span>&emsp;<?php echo $item[9]['book_name']; ?>
                 </div>
             </div>
         </div>
@@ -466,7 +370,7 @@
                         邮箱：crayon996@gmail.com
                     </div>
                     <div class="layui-col-md12">
-                        邮编：678000
+                        邮政编码：678000
                     </div>
                     <div class="layui-col-md12">
                         地址：云南省保山市隆阳区远征路16号
@@ -499,7 +403,7 @@
         <hr class="footer_hr">
         <div class="layui-row">
             <div class="layui-col-md12">
-                Copyright ©  2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
+                Copyright &copy; 2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
             </div>
             <div class="layui-col-md12" style="margin-top: 10px;">
                 网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -529,31 +433,14 @@
                 // interval: 3500,
                 // anim: 'fade', //切换动画方式
                 indicator: 'none'
-            });
+            })
+        })
 
-            //和风天气API
-            // $.ajax({
-            //     url: 'https://devapi.qweather.com/v7/weather/now',
-            //     type: 'GET',
-            //     async: false,
-            //     data: {
-            //         key: 'a2199007974e45058c3c3e0ba101ea35',  //认证信息 token
-            //         location: '101010100'  //北京
-            //     },
-            //     // header: 'Access-Control-Allow-Origin:*',  //解决跨域请求
-            //     dataType: 'json',
-            //     success: function (res){
-            //         console.log(res);
-            //         // layer.open({
-            //         //     title: '天气预报',
-            //         //     type: 2,
-            //         //     area: ['48%','88%'],
-            //         //     maxmin: true,
-            //         //     content: res.fxLink,
-            //         // })
-            //     }
-            // })
-        });
+        // 点击跳转图书详情页
+        function go(id){
+            console.log(id);
+            window.location.href = "./book_detail?id="+id;
+        }
     </script>
     <script type="text/javascript">
         //pv

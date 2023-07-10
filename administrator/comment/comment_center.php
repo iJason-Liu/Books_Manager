@@ -6,9 +6,9 @@
     session_start();
     include '../../config/conn.php';
     include '../../classes/check_rights.php';
-    include '../../login/session_time.php';
+    include '../../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -101,7 +101,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../upload/pdf/小新图书馆操作指南.pdf" target="_blank">操作指南</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -118,7 +118,7 @@
                             }
                         ?>
                         <dd><a href="../user_center/update_pwd">修改密码</a></dd>
-                        <dd><a href="../../login/logout">注销</a></dd>
+                        <dd><a href="../../oauth/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -363,6 +363,7 @@
                             let approve_status = data[0].approve_status; //单条评论的审核状态
                             let comment_id = data[0].comment_id; //单条评论id
                             let url = "../comment/check_comment?comment_id="+comment_id;
+                            // console.log(approve_status);
                             if(approve_status == 1 || approve_status == 2){
                                 layer.confirm('该条评论已审核，继续操作将修改审批结果！',{title: '系统提示', icon: 7}, function(index){
                                     layer.open({
@@ -376,6 +377,18 @@
                                         content: url
                                     })
                                     layer.close(index); //点击确认后关闭窗口
+                                })
+                            }else{
+                                // 状态为0直接打开窗口
+                                layer.open({
+                                    title: '<i class="layui-icon layui-icon-survey"></i> 评论审核',
+                                    type: 2,
+                                    area: ['620px', '580px'],
+                                    skin: 'layui-layer-molv',
+                                    // move: false,
+                                    scrollbar: false,
+                                    shadeClose: false, //点击遮罩关闭=窗口
+                                    content: url
                                 })
                             }
                         }

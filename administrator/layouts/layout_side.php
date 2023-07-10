@@ -5,9 +5,9 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    include '../../login/session_time.php';
+    include '../../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     //获取路径中最后一个斜杠后面的文件名，用来判断当前是在哪一个页面，显示状态layui-this
@@ -139,7 +139,7 @@
                                     echo "<dd class=".$f."><a href='../books_circulation/record_search'><i class='layui-icon layui-icon-search'></i>&nbsp;&nbsp;记录查询</a></dd>";
                                 }
                             ?>
-                            <dd><a href = "javascript:;"><i class = "layui-icon layui-icon-edit"></i>&nbsp;&nbsp;丢失登记</a></dd>
+                            <!--<dd><a href = "javascript:;"><i class = "layui-icon layui-icon-edit"></i>&nbsp;&nbsp;丢失登记</a></dd>-->
                         </dl>
                     </li>
 
@@ -183,18 +183,18 @@
                         </dl>
                     </li>
 
-                    <li class = "layui-nav-item
+                    <!--<li class = "layui-nav-item-->
                     <?php
-                        if ($row['type_id'] == 1004)echo "layui-show"; else echo "layui-hide";
-                    ?>">
-                        <a href = "javascript:;"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;调试链接</a>
-                        <dl class = "layui-nav-child">
-                            <dd><a href = "http://swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网PC</a></dd>
-                            <dd><a href = "http://m.swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网WAP</a></dd>
-                            <dd><a href = "http://43.139.94.135:1011/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;服务器root</a></dd>
-                            <dd><a href = "http://chat.crayon.vip" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;WebScoketChat</a></dd>
-                        </dl>
-                    </li>
+                    //     if ($row['type_id'] == 1004)echo "layui-show"; else echo "layui-hide";
+                    // ?><!--">-->
+                    <!--    <a href = "javascript:;"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;调试链接</a>-->
+                    <!--    <dl class = "layui-nav-child">-->
+                    <!--        <dd><a href = "http://swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网PC</a></dd>-->
+                    <!--        <dd><a href = "http://m.swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网WAP</a></dd>-->
+                    <!--        <dd><a href = "http://43.139.94.135:1011/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;服务器root</a></dd>-->
+                    <!--        <dd><a href = "http://chat.crayon.vip" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;WebScoketChat</a></dd>-->
+                    <!--    </dl>-->
+                    <!--</li>-->
                     <li class = "layui-nav-item"><a href = "https://ymck.me" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;友情链接</a></li>
                     <li class = "layui-nav-item"><a href = "https://ruancang.net" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;友情链接</a></li>
                     <li class = "layui-nav-item"><a href = "https://www.qijishow.com" target = "_blank"><i class = "layui-icon layui-icon-util"></i>&nbsp;&nbsp;小工具</a></li>

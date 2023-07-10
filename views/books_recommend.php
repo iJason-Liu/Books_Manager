@@ -4,7 +4,7 @@
     */
     session_save_path('../session/');
     session_start(); //开启session
-    include "../login/session_time.php";
+    include "../oauth/session_time.php";
 
     //获取全局变量用户名参数
     $user = $_SESSION['user'];
@@ -61,6 +61,7 @@
 
         .layui-carousel{
             margin-top: 135px;
+            height: 400px !important;
         }
 
         .layui-nav * {
@@ -82,7 +83,7 @@
         }
 
         .content{
-            padding: 80px 150px;
+            padding: 50px 150px 80px 150px;
         }
 
         /*背景色 #808080  #736F6E #837E7C  */
@@ -119,9 +120,9 @@
         <div class='top_right'>
             <?php
                 if($user != ''){
-                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout'> 注销</a>";
+                    echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../oauth/logout'> 注销</a>";
                 }else{
-                    echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                    echo "<a href='../oauth/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
                 }
             ?>
         </div>
@@ -136,10 +137,10 @@
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="../views/reader_center">读者服务</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">读者导航</a></dd>
-                        <dd><a href="">自助打印</a></dd>
-                        <dd><a href="">借阅服务</a></dd>
-                        <dd><a href="">图书捐赠</a></dd>
+                        <dd><a href="javascript:;">读者导航</a></dd>
+                        <dd><a href="javascript:;">自助打印</a></dd>
+                        <dd><a href="javascript:;">借阅服务</a></dd>
+                        <dd><a href="javascript:;">图书捐赠</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm"> <a href="../views/about">关于系统</a> </li>
@@ -193,7 +194,7 @@
                         邮箱：crayon996@gmail.com
                     </div>
                     <div class="layui-col-md12">
-                        邮编：678000
+                        邮政编码：678000
                     </div>
                     <div class="layui-col-md12">
                         地址：云南省保山市隆阳区远征路16号
@@ -220,17 +221,17 @@
                 </div>
             </div>
             <div class="layui-col-md3 layui-col-sm2">
-                <a href="https://lib.crayon.vip"><img width="98" height="98" src="../skin/images/qrcode.png"></a>
+                <a href="https://lib.crayon.vip"><img width="98" height="98" src="./skin/images/qrcode.png"></a>
             </div>
         </div>
         <hr class="footer_hr">
         <div class="layui-row">
             <div class="layui-col-md12">
-                Copyright ©  2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
+                Copyright &copy; 2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
             </div>
             <div class="layui-col-md12" style="margin-top: 10px;">
                 网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../skin/images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
+                <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="./skin/images/beian.png" alt="" style="margin-top: -3px;"/> 滇公网安备 53252702252753号</a>
             </div>
             <div class="layui-col-md12" style="margin-top: 15px;">
                 <i class="layui-icon layui-icon-group layui-font-26"></i>您是第 <span class="visitor"></span> 位访客

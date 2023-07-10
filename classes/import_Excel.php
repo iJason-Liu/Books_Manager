@@ -89,9 +89,9 @@
              * 如果不存在，则正常插入，如果存在，则忽略
              */
            //sql插入语句（图书数据）
-           // $sql = "insert into book_list(ISBN,book_name,author,book_type,publisher,price,mark,book_cover,create_date,save_position)"
-           //     ."values('$isbn','$name','$author','$type','$publisher','$price','$mark','$cover','$create_time','$place')";
-            $sql = "insert into book_list(ISBN,book_name,author,book_type,publisher,price,mark,book_cover,create_date,save_position) select '$isbn','$name','$author','$type','$publisher','$price','$mark','$cover','$create_time','$place' from book_list where not exists(select book_name,publisher from book_list where book_name='$name' and publisher='$publisher');";
+           $sql = "insert into book_list(ISBN,book_name,author,book_type,publisher,price,mark,book_cover,create_date,save_position)"
+               ."values('$isbn','$name','$author','$type','$publisher','$price','$mark','$cover','$create_time','$place')";
+           //  $sql = "insert into book_list(ISBN,book_name,author,book_type,publisher,price,mark,book_cover,create_date,save_position) select '$isbn','$name','$author','$type','$publisher','$price','$mark','$cover','$create_time','$place' from book_list where not exists(select book_name,publisher from book_list where book_name='$name' and publisher='$publisher');";
             $res = mysqli_query($db_connect, $sql);
         }else if($import_type == 1){
             /*
@@ -156,12 +156,12 @@
             if($filename != ''){
                 unlink($excel_file);
             }
-            // echo mysqli_error($db_connect);  //执行错误的描述
-            echo json_encode(array('code' => 403, 'msg' => '导入失败！'),JSON_UNESCAPED_UNICODE);
+            echo json_encode(array('code' => 403, 'msg' => '导入失败，请稍后再试！'),JSON_UNESCAPED_UNICODE);
         }
     }else{
         echo json_encode(array('code' => 0, 'msg' => '文件上传失败！'),JSON_UNESCAPED_UNICODE);
     }
+    // echo mysqli_error($db_connect);  //执行错误的描述
 
     mysqli_close($db_connect);
 

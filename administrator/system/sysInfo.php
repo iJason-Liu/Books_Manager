@@ -5,9 +5,9 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    include '../../login/session_time.php';
+    include '../../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -108,7 +108,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../upload/pdf/小新图书馆操作指南.pdf" target="_blank">操作指南</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -125,7 +125,7 @@
                             }
                         ?>
                         <dd><a href="../user_center/update_pwd">修改密码</a></dd>
-                        <dd><a href="../../login/logout">注销</a></dd>
+                        <dd><a href="../../oauth/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -183,7 +183,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">运行环境：</label>
                     <div class="layui-input-block">
-                        Linux-7.9 &emsp; Apache-2.4 &emsp; php-7.3 &emsp; MySQL-5.7 &emsp; Layui-2.7.6
+                        Linux-7.9 &emsp; Apache-2.4 &emsp; MySQL-5.7 &emsp; PHP-7.3 &emsp; Layui-2.7.6
                     </div>
                 </div>
             </div>

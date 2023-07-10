@@ -4,11 +4,33 @@
      */
     session_save_path('./session/');
     session_start(); //开启session
-    include './login/session_time.php';
+    include "./config/conn.php";
+    include './oauth/session_time.php';
 
     //获取全局变量-用户名参数
     $user = $_SESSION['user'];
 
+    // 查询图书表中点击数量最多的10本书
+    $book_sql = "select * from book_list order by click_num desc limit 10";
+    $recomend_data = mysqli_query($db_connect, $book_sql);
+
+    // 查询新闻公告表并且有配图的5条数据
+    $news_notice_sql = "select * from news_notice where cover_img is not null order by sub_time desc limit 5";
+    $news_notice_data = mysqli_query($db_connect, $news_notice_sql);
+
+    // 查询新闻数据
+    $news_sql = "select * from news_notice where type='1' order by sub_time desc limit 6";
+    $news_data = mysqli_query($db_connect, $news_sql);
+
+    // 查询公告数据
+    $notice_sql = "select * from news_notice where type='2' order by sub_time desc limit 6";
+    $notice_data = mysqli_query($db_connect, $notice_sql);
+
+    // 查询点赞数最高的20条评论展示
+    $comment_sql = "select * from book_comment order by star desc limit 20";
+    $comment_data = mysqli_query($db_connect, $comment_sql);
+
+    mysqli_close($db_connect);
 ?>
 
 <!DOCTYPE html>
@@ -56,12 +78,6 @@
         .top_right {
             float: right;
             margin-right: 40px;
-        }
-
-        .logo {
-            height: 80px;
-            width: 200px;
-            padding-top: 7px;
         }
 
         .layui-main{
@@ -408,12 +424,12 @@
     <header>
         <span>欢迎访问小新的主站！</span>
         <div class='top_right'>
-            <!--<a href='./login/login'>登录 </a> &nbsp; | &nbsp; <a href='./register/register'> 注册</a>-->
+            <!--<a href='./oauth/login'>登录 </a> &nbsp; | &nbsp; <a href='./register/register'> 注册</a>-->
             <?php
                 if($user != ''){
-                    echo "您好！$user &nbsp; &nbsp; <a href='./administrator/index'>后台</a> &nbsp; | &nbsp; <a href='./login/logout'>注销</a>";
+                    echo "您好！$user &nbsp; &nbsp; <a href='./administrator/index'>后台</a> &nbsp; | &nbsp; <a href='./oauth/logout'>注销</a>";
                 }else{
-                    echo "<a href='./login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                    echo "<a href='./oauth/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
                 }
             ?>
         </div>
@@ -427,8 +443,8 @@
                     <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
                         <dd><a href="./views/book_center">馆藏资源</a></dd>
-                        <dd><a href="./views/search_bookData" target="_blank">馆藏查询</a></dd>
-                        <dd><a href="./views/new_book">新书通报</a></dd>
+                        <dd><a href="./views/search_bookData">图书查询</a></dd>
+                        <dd><a href="javascript:;">新书通报</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
@@ -436,7 +452,7 @@
                     <dl class="layui-nav-child">
                         <dd><a href="./views/reader_center">借阅卡服务</a></dd>
                         <dd><a href="javascript:;">自助打印</a></dd>
-                        <dd><a href="javascript:;">借阅指南</a></dd>
+                        <dd><a href="./upload/pdf/小新图书馆操作指南.pdf" target="_blank">借阅指南</a></dd>
                         <dd><a href="javascript:;">图书捐赠</a></dd>
                     </dl>
                 </li>
@@ -451,11 +467,10 @@
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">关于</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="./views/about">项目介绍</a></dd>
-                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆介绍</a></dd>
+                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆简介</a></dd>
                         <dd><a href="https://mp.weixin.qq.com/s/eMThZAwR6I7PA-wPmRj8KQ">馆藏分布</a></dd>
-                        <dd><a href="javascript:;">开放时间</a></dd>
-                        <dd><a href="javascript:;">常见问题</a></dd>
+                        <dd><a href="./views/about">开放时间</a></dd>
+                        <dd><a href="./views/about">常见问题</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-md hc-show-sm"> <a href="javascript:;">菜单</a>
@@ -465,7 +480,6 @@
                         <dd><a href="./views/reader_center">服务</a></dd>
                         <dd><a href="./views/notice_list">动态</a></dd>
                         <dd><a href="./views/about">关于</a></dd>
-                        <dd><a href="./register/register" target="_blank">Register</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -524,9 +538,9 @@
                         </a>
                     </div>
                     <div class="layui-col-md2 layui-col-sm2 layui-col-xs2">
-                        <a href="./views/new_book" target="_blank">
+                        <a href="./views/book_center">
                             <img width="48" height="48" src="./skin/images/other/book_4.png">
-                            <div class="captitle">新书通报</div>
+                            <div class="captitle">馆藏资源</div>
                         </a>
                     </div>
                     <div class="layui-col-md2 layui-col-sm2 layui-col-xs2">
@@ -557,45 +571,22 @@
             <div class="biaotou" style="line-height: 0;">
                 <span style="position: absolute;left: 0;font-size: 22px;">
                     <img width="64" height="64" src="./skin/images/other/flag.png" >&nbsp;
-                    推荐图书
+                    图书推荐
                 </span>
                 <span style="position: absolute;right: 2px;top: 10%;">
-                    <a href="javascript:;">查看更多 <i class="layui-icon layui-icon-right"></i></a>
+                    <a href="./views/book_center">查看更多 <i class="layui-icon layui-icon-right"></i></a>
                 </span>
             </div>
             <div class="swiper rec_book" style="width: 90%;">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="./views/book_detail?id=10001" title="书名">
-                            <img class="book_show" src="./upload/bookCover/book-default.gif">
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="javascript:;">
-                            <img class="book_show" src="./upload/bookCover/s29506438.jpg">
-                            <!--<p>默认图书</p>-->
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="javascript:;">
-                            <img class="book_show" src="./upload/bookCover/s29260063.jpg">
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="javascript:;">
-                            <img class="book_show" src="./upload/bookCover/sampling.webp">
-                        </a>
-                    </div>
-                     <div class="swiper-slide">
-                        <a href="javascript:;">
-                            <img class="book_show" src="./upload/bookCover/s237622.jpg">
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="javascript:;">
-                            <img class="book_show" src="./upload/bookCover/s123452.jpg">
-                        </a>
-                    </div>
+                    <?php
+                        while($row = mysqli_fetch_array($recomend_data)){
+                            echo "<div class='swiper-slide'>"
+                                ."<a href='./views/book_detail?id=".$row['book_id']."' title='".$row['book_name']."' target='_blank'>"
+                                ."<img class='book_show' src='".$row['book_cover']."'>"
+                                ."</a></div>";
+                        }
+                    ?>
                 </div>
             </div>
             <img class="swiper-button-next" src="./skin/images/next.png" />
@@ -608,84 +599,21 @@
                     新闻动态
                 </span>
                 <div style="float: right;">
-                    <a href="./views/notice_list" target="_blank">查看更多 <i class="layui-icon layui-icon-right"></i></a>
+                    <a href="./views/notice_list">查看更多 <i class="layui-icon layui-icon-right"></i></a>
                 </div>
             </div>
             <div class="layui-row layui-col-space15" style="padding: 40px 30px 10px 30px;">
                 <div class="layui-col-md6">
                     <div class="swiper news_img" style="width: 100%;height: 420px;">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href="./views/notice_detail?id=1001" target="_blank">
-                                    <img src="./skin/images/photo_wall/IMG_0217.JPG">
-                                </a>
-                                <span class="news_title layui-elip">
-                                    这里是新闻公告标题，关于这个问题我们开始讨论
-                                </span>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href="javascript:;">
-                                    <img src="./skin/images/photo_wall/IMG_0218.JPG">
-                                </a>
-                            </div>
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0219.png">-->
-                            <!--    </a>-->
-                            <!--</div>-->
-                            <div class="swiper-slide">
-                                <a href="javascript:;">
-                                    <img src="./skin/images/photo_wall/IMG_0220.JPG">
-                                </a>
-                                <span class="news_title layui-elip">
-                                    新闻公告标题，同上一样开始讨论
-                                </span>
-                            </div>
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0222.png">-->
-                            <!--    </a>-->
-                            <!--</div>-->
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0228.JPG">-->
-                            <!--    </a>-->
-                            <!--</div>-->
-                             <div class="swiper-slide">
-                                <a href="javascript:;">
-                                    <img src="./skin/images/photo_wall/IMG_0223.png">
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href="javascript:;">
-                                    <img src="./skin/images/photo_wall/IMG_0224.png">
-                                </a>
-                            </div>
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0225.png">-->
-                            <!--    </a>-->
-                            <!--</div>-->
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0226.jpg">-->
-                            <!--    </a>-->
-                            <!--</div>-->
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0228.JPG">-->
-                            <!--    </a>-->
-                            <!--</div>-->
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0229.png">-->
-                            <!--    </a>-->
-                            <!--</div>-->
-                            <!--<div class="swiper-slide">-->
-                            <!--    <a href="javascript:;">-->
-                            <!--        <img src="./skin/images/photo_wall/IMG_0234.png">-->
-                            <!--    </a>-->
-                            <!--</div>-->
+                            <?php
+                                while($row = mysqli_fetch_array($news_notice_data)){
+                                    echo "<div class='swiper-slide'>"
+                                        ."<a href='./views/notice_detail?id=".$row['id']."' target='_blank'>"
+                                        ."<img src='".$row['cover_img']."'></a>"
+                                        ."<span class='news_title layui-elip'>".$row['title']."</span></div>";
+                                }
+                            ?>
                         </div>
                         <!--<div class="swiper-button-next"></div>-->
                         <!--<div class="swiper-button-prev"></div>-->
@@ -694,116 +622,32 @@
                 </div>
                 <div class="layui-col-md6">
                     <div class="layui-tab layui-tab-card" style="border-radius: 6px;margin: 0;">
-                          <ul class="layui-tab-title">
-                            <li class="layui-this">新闻资讯</li>
-                            <li>通知公告</li>
-                          </ul>
-                          <div class="layui-tab-content" style="height: 339px;padding: 12px 20px;">
-                                <div class="layui-tab-item layui-show">
-                                    <div class="news_li layui-row">
-                                        <a href="./views/notice_detail?id=1002" target="_blank" title="标题">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                新闻标题1
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-02
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                新闻标题2
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-02
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                新闻标题3
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-02
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                新闻标题4
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-03-16
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                新闻标题5
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-02
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                新闻标题6
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-01
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="layui-tab-item">
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                入馆须知
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-09
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                系统通知
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-08
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                图书馆开馆时间
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-01
-                                        </div>
-                                    </div>
-                                    <div class="news_li layui-row">
-                                        <a href="javascript:;">
-                                            <div class="layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip" style="font-size: 16px;">
-                                                借书指南
-                                            </div>
-                                        </a>
-                                        <div class="layui-col-md4 layui-col-sm4 layui-col-xs8" style="text-align: right;color: #429488;">
-                                            2023-04-03
-                                        </div>
-                                    </div>
-                                </div>
-                          </div>
+                        <ul class="layui-tab-title">
+                        <li class="layui-this">新闻资讯</li>
+                        <li>通知公告</li>
+                        </ul>
+                        <div class="layui-tab-content" style="height: 339px;padding: 12px 20px;">
+                            <div class="layui-tab-item layui-show">
+                                <?php
+                                    while($row = mysqli_fetch_array($news_data)){
+                                        echo "<div class='news_li layui-row'>"
+                                        ."<a href='./views/notice_detail?id=".$row['id']."' target='_blank' title='".$row['title']."'>"
+                                        ."<div class='layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip' style='font-size: 16px;'>".$row['title']."</div></a>"
+                                        ."<div class='layui-col-md4 layui-col-sm4 layui-col-xs8' style='text-align: right;color: #429488;'>".$row['sub_time']."</div></div>";
+                                    }
+                                ?>
+                            </div>
+                            <div class="layui-tab-item">
+                                <?php
+                                    while($row = mysqli_fetch_array($notice_data)){
+                                        echo "<div class='news_li layui-row'>"
+                                        ."<a href='./views/notice_detail?id=".$row['id']."' target='_blank' title='".$row['title']."'>"
+                                        ."<div class='layui-col-md8 layui-col-sm8 layui-col-xs8 layui-elip' style='font-size: 16px;'>".$row['title']."</div></a>"
+                                        ."<div class='layui-col-md4 layui-col-sm4 layui-col-xs8' style='text-align: right;color: #429488;'>".$row['sub_time']."</div></div>";
+                                    }
+                                ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -812,116 +656,36 @@
             <div class="biaotou">
                 <span style="font-size: 22px;">
                     <img width="52" height="52" src="./skin/images/other/comment_2.png" >&nbsp;
-                    精选评论
+                    精选书评
                 </span>
             </div>
             <div class="layui-row layui-col-space30" style="margin-top: 30px;">
                 <div class="layui-col-md8 layui-col-xs8">
                     <div class="swiper hot_comment" style="width: 100%;height: 480px;border-radius: 6px;">
                         <div class="swiper-wrapper">
+                            <?php
+                                while($row = mysqli_fetch_array($comment_data)){
+                            ?>
                             <div class="swiper-slide comment_list">
                                 <div class="layui-row">
                                     <div class="layui-col-md2 layui-col-sm3 comment_logo">
-                                        <img style="" src="./skin/images/avatar/IMG_0201.png">
+                                        <img src="<?php echo $row['avatar']; ?>">
                                     </div>
                                     <div class="layui-col-md8 layui-col-sm7 comment_main">
-                                        <div class="comment_title">读者xx</div>
-                                        <div class="layui-elip comment_content">策划书hi晒回事啊还快i哈卡还上课一看还可上半身啊深V计划获奖噶事。</div>
+                                        <div class="comment_title"><?php echo $row['user_name'] ?></div>
+                                        <div class="layui-elip comment_content"><?php echo $row['content'] ?></div>
                                     </div>
                                     <div class="layui-col-md2 layui-col-sm2 comment_date">
-                                        <img src="./skin/images/zan.png"><span>2236</span>
+                                        <img src="./skin/images/other/zan.png"><span><?php echo $row['star'] ?></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-slide comment_list">
-                                <div class="layui-row">
-                                    <div class="layui-col-md2 layui-col-sm3 comment_logo">
-                                        <img style="" src="./skin/images/avatar.png">
-                                    </div>
-                                    <div class="layui-col-md8 layui-col-sm7 comment_main">
-                                        <div class="comment_title">读者xxx</div>
-                                        <div class="layui-elip comment_content">道阻且长，行则将至。</div>
-                                    </div>
-                                    <div class="layui-col-md2 layui-col-sm2 comment_date">
-                                        <img src="./skin/images/zan.png"><span>82</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide comment_list">
-                                <div class="layui-row">
-                                    <div class="layui-col-md2 layui-col-sm3 comment_logo">
-                                        <img style="" src="./skin/images/avatar/IMG_0208.PNG">
-                                    </div>
-                                    <div class="layui-col-md8 layui-col-sm7 comment_main">
-                                        <div class="comment_title">读者小华</div>
-                                        <div class="layui-elip comment_content">你是人间四月天。</div>
-                                    </div>
-                                    <div class="layui-col-md2 layui-col-sm2 comment_date">
-                                        <img src="./skin/images/zan.png"><span>262</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide comment_list">
-                                <div class="layui-row">
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        <img style="width: 64px;height: 64px;border-radius: 50%;" src="./skin/images/avatar/IMG_0204.PNG">
-                                    </div>
-                                    <div class="layui-col-md8">
-                                        <span>评论者4</span>
-                                        <span>内容</span>
-                                    </div>
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        2023-03-28
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide comment_list">
-                                <div class="layui-row">
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        <img style="width: 64px;height: 64px;border-radius: 50%;" src="./skin/images/avatar/IMG_0206.PNG">
-                                    </div>
-                                    <div class="layui-col-md8">
-                                        <span>评论者3</span>
-                                        <span>内容</span>
-                                    </div>
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        2023-03-28
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide comment_list">
-                                <div class="layui-row">
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        <img style="width: 64px;height: 64px;border-radius: 50%;" src="./skin/images/avatar/IMG_0209.JPG">
-                                    </div>
-                                    <div class="layui-col-md8">
-                                        <span>评论者2</span>
-                                        <span>内容</span>
-                                    </div>
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        2023-03-28
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide comment_list">
-                                <div class="layui-row">
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        <img style="width: 64px;height: 64px;border-radius: 50%;" src="./skin/images/avatar/IMG_0210.PNG">
-                                    </div>
-                                    <div class="layui-col-md8">
-                                        <span>评论者1</span>
-                                        <span>内容</span>
-                                    </div>
-                                    <div class="layui-col-md2" style="text-align: center;">
-                                        2023-03-28
-                                    </div>
-                                </div>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-md4 layui-col-xs4">
-                    <img class="comment_adimg" src="./upload/bookCover/s29506438.jpg">
+                    <img class="comment_adimg" src="./skin/images/comment_img.jpg">
                 </div>
             </div>
         </div>
@@ -1056,19 +820,20 @@
                     layer.msg('请先输入关键词！',{
                         time: 1500
                     })
+                    $('#key').focus();
                 }else {
                     //携带参数跳转
                     layer.load(3,{
                         content: 'loading',
                         shade: 0.2,
-                        time: 1500,
+                        time: 1000,
                         success: function (){
                             let a = document.createElement('a');  //创建a标签
                             a.target = '_blank';  //在新页面打开
-                            a.href = "./views/search_bookData?keywords="+keywords;
+                            a.href = "./views/search_bookData?type="+data.keywords_type+"&keywords="+keywords;
                             setTimeout(function (){
                                 a.click();
-                            }, 1650)
+                            }, 1050)
                         }
                     })
                 }
@@ -1097,7 +862,7 @@
                     type: 2,
                     area: ['32%', '400px'],
                     shadeClose: true,
-                    scrollbar: false,
+                    scrollbar: true,
                     move: false,  //禁止拖动
                     content: './views/submit_feedback'
                 })

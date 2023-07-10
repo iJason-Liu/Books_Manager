@@ -4,7 +4,7 @@
      */
     session_save_path('../session/');
     session_start(); //开启session
-    include "../login/session_time.php";
+    include "../oauth/session_time.php";
 
     //获取全局变量用户名参数
     $user = $_SESSION['user'];
@@ -49,18 +49,13 @@
             margin-right: 40px;
         }
 
-        .logo {
-            height: 80px;
-            width: 200px;
-            padding-top: 7px;
-        }
-
         .layui-main{
             width: 100%;
         }
 
         .layui-carousel{
             margin-top: 135px;
+            height: 400px !important;
         }
 
         .layui-nav * {
@@ -95,7 +90,7 @@
         }
 
         .content{
-            padding: 100px 120px 80px 120px;
+            padding: 50px 150px 80px 150px;
         }
 
         /*背景色 #808080  #736F6E #837E7C  */
@@ -127,25 +122,24 @@
         <div class='top_right'>
             <?php
             if($user != ''){
-                echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../login/logout'> 注销</a>";
+                echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台 </a> &nbsp; | &nbsp; <a href='../oauth/logout'> 注销</a>";
             }else{
-                echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                echo "<a href='../oauth/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
             }
             ?>
         </div>
     </header>
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="../index"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
+            <a class="hc-logo" href="/"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
             <ul class="layui-nav">
-                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index">首页</a> </li>
+                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="/">首页</a> </li>
                 <li class="layui-nav-item hc-hide-sm">
                     <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="../views/search_bookData" target="_blank">馆藏搜索</a></dd>
-                        <dd><a href="../views/new_book">新书通报</a></dd>
-                        <dd><a href="../views/book_center#hot">热门图书</a></dd>
-                        <dd><a href="../views/books_recommend">推荐图书</a></dd>
+                        <dd><a href="../views/book_center">馆藏资源</a></dd>
+                        <dd><a href="../views/search_bookData">图书查询</a></dd>
+                        <dd><a href="javascript:;">新书通报</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item hc-hide-sm">
@@ -168,10 +162,9 @@
                 <li class="layui-nav-item hc-hide-sm layui-this">
                     <a href="javascript:;">关于</a>
                     <dl class="layui-nav-child">
-                        <dd class="layui-this"><a href="../views/about">项目介绍</a></dd>
-                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆介绍</a></dd>
+                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆简介</a></dd>
                         <dd><a href="https://mp.weixin.qq.com/s/eMThZAwR6I7PA-wPmRj8KQ">馆藏分布</a></dd>
-                        <dd><a href="javascript:;">开放时间</a></dd>
+                        <dd><a href="../views/about">开放时间</a></dd>
                         <dd><a href="javascript:;">常见问题</a></dd>
                     </dl>
                 </li>
@@ -182,7 +175,6 @@
                         <dd><a href="../views/reader_center">服务</a></dd>
                         <dd><a href="../views/notice_list">动态</a></dd>
                         <dd><a href="../views/about">关于</a></dd>
-                        <dd><a href="../register/register" target="_blank">Register</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -192,7 +184,7 @@
     <div class="layui-carousel" id="carousel">
         <div carousel-item>
             <div>
-                <img class="banner" src="../skin/images/banner/banner_2.JPG"/>
+                <img class="banner" src="../skin/images/banner/about_banner.jpg"/>
             </div>
         </div>
     </div>
@@ -237,7 +229,7 @@
                         邮箱：crayon996@gmail.com
                     </div>
                     <div class="layui-col-md12">
-                        邮编：678000
+                        邮政编码：678000
                     </div>
                     <div class="layui-col-md12">
                         地址：云南省保山市隆阳区远征路16号
@@ -270,7 +262,7 @@
         <hr class="footer_hr">
         <div class="layui-row">
             <div class="layui-col-md12">
-                Copyright ©  2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
+                Copyright &copy; 2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
             </div>
             <div class="layui-col-md12" style="margin-top: 10px;">
                 网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

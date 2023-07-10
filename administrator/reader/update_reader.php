@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -161,61 +161,68 @@
                         tips: [1,'#666'],
                         time: 2000
                     })
-                }else if(data.user_type == '学生' || data.user_type == '教师'){
+                    return false;
+                }
+                if(data.user_type == '学生' || data.user_type == '教师'){
                     if(data.department === ''){
                         layer.tips('请输入学院！', '#department',{
                             tips: [1,'#666'],
                             time: 2000
                         })
+                        return false;
                     }else if(data.class === ''){
                         layer.tips('请输入班级！', '#class',{
                             tips: [1,'#666'],
                             time: 2000
                         })
+                        return false;
                     }
-                }else if(!reg.test(data.pwd)){
+                }
+                if(!reg.test(data.pwd)){
                     layer.tips('密码必须6至12位，包含字母数字，不能包含空格！', '#pwd',{
                         tips: [1,'#666'],
                         time: 2000
                     })
-                }else if(!reg2.test(data.mobile)){
+                    return false;
+                }
+                if(!reg2.test(data.mobile)){
                     layer.tips('手机号码输入不正确！', '#mobile',{
                         tips: [1,'#666'],
                         time: 2000
                     })
-                }else {
-                    $.ajax({
-                        url: '../../controllers/reader/update_reader_check',
-                        type: 'POST',
-                        data: JSON.stringify(data),
-                        dataType: 'json',
-                        success: function (res) {
-                            // console.log(res);
-                            if (res.code === 200) {
-                                layer.msg(res.msg, {
-                                    icon: 6,
-                                    shade: .2,
-                                    time: 2000
-                                }, function () {
-                                    parent.layui.table.reload('dataList'); //刷新父级窗口的table数据
-                                    //关闭当前的iframe窗口
-                                    let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                    parent.layer.close(index); //再执行关闭
-                                })
-                            } else {
-                                layer.msg(res.msg, {
-                                    icon: 7,
-                                    shade: .2,
-                                    time: 1500
-                                }, function () {
-                                    //关闭当前的iframe窗口
-                                    let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                    parent.layer.close(index); //再执行关闭
-                                })
-                            }
-                        }
-                    })
+                    return false;
                 }
+                $.ajax({
+                    url: '../../controllers/reader/update_reader_check',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (res) {
+                        // console.log(res);
+                        if (res.code === 200) {
+                            layer.msg(res.msg, {
+                                icon: 6,
+                                shade: .2,
+                                time: 2000
+                            }, function () {
+                                parent.layui.table.reload('dataList'); //刷新父级窗口的table数据
+                                //关闭当前的iframe窗口
+                                let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            })
+                        } else {
+                            layer.msg(res.msg, {
+                                icon: 7,
+                                shade: .2,
+                                time: 1500
+                            }, function () {
+                                //关闭当前的iframe窗口
+                                let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            })
+                        }
+                    }
+                })
             })
         })
     </script>

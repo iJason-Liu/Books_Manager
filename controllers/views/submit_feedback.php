@@ -13,7 +13,7 @@
     $data = json_decode($json, true);
     $name = $_SESSION['user'];   //用户名
     $user_id = $_SESSION['user_id'];  //用户id
-    $sub_time = date('Y:m:d H:i:s', time());  //提交时间
+    $sub_time = date('Y-m-d H:i:s', time());  //提交时间
     $desc = $data['desc'];  //反馈内容
     // print_r($data);die();
 

@@ -5,9 +5,9 @@
     session_save_path('../session/');
     session_start();
     include '../config/conn.php';
-    include '../login/session_time.php';
+    include '../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../oauth/login'</script>";
     }
 
     /*
@@ -32,7 +32,7 @@
     $item = mysqli_fetch_array($rights_res);
 
     // 获取未读消息
-    $msg_res = mysqli_query($db_connect, "select * from sys_msg where user_id = '$user_id' and state = '0' order by createtime limit 6");
+    $msg_res = mysqli_query($db_connect, "select * from sys_msg where user_id = '$user_id' and state = '0' order by createtime desc limit 6");
 
     // echo mysqli_error($db_connect);
     mysqli_close($db_connect); //关闭数据库资源
@@ -123,14 +123,15 @@
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <a href="./index">
+            <a href="./index" class="layui-logo layui-bg-black">
                 <div class="layui-logo layui-bg-black">Library</div>
+                <!--<img src="../skin/images/back_logo1.png"/>-->
             </a>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs layui-this"><a href="./index">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../index">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="./system/help_guide">帮助文档</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../upload/pdf/小新图书馆操作指南.pdf" target="_blank">操作指南</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <!-- 右侧消息 -->
@@ -158,7 +159,7 @@
                         ?>
                         <dd><a href="./user_center/update_pwd">修改密码</a></dd>
                         <hr>
-                        <dd><a href="../login/logout">注销</a></dd>
+                        <dd><a href="../oauth/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -238,7 +239,7 @@
                                     echo "<dd><a href='./books_circulation/record_search'><i class='layui-icon layui-icon-search'></i>&nbsp;&nbsp;记录查询</a></dd>";
                                 }
                             ?>
-                            <dd><a href = "javascript:;"><i class = "layui-icon layui-icon-edit"></i>&nbsp;&nbsp;丢失登记</a></dd>
+                            <!--<dd><a href = "javascript:;"><i class = "layui-icon layui-icon-edit"></i>&nbsp;&nbsp;丢失登记</a></dd>-->
                         </dl>
                     </li>
 
@@ -274,18 +275,18 @@
                         </dl>
                     </li>
 
-                    <li class = "layui-nav-item
+                    <!--<li class = "layui-nav-item-->
                     <?php
-                        if ($row['type_id'] == 1004)echo "layui-show"; else echo "layui-hide";
-                    ?>">
-                        <a href = "javascript:;"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;调试链接</a>
-                        <dl class = "layui-nav-child">
-                            <dd><a href = "http://swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网PC</a></dd>
-                            <dd><a href = "http://m.swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网WAP</a></dd>
-                            <dd><a href = "http://43.139.94.135:1011/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;服务器root</a></dd>
-                            <dd><a href = "http://chat.crayon.vip" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;WebScoketChat</a></dd>
-                        </dl>
-                    </li>
+                    //     if ($row['type_id'] == 1004)echo "layui-show"; else echo "layui-hide";
+                    // ?><!--">-->
+                    <!--    <a href = "javascript:;"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;调试链接</a>-->
+                    <!--    <dl class = "layui-nav-child">-->
+                    <!--        <dd><a href = "http://swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网PC</a></dd>-->
+                    <!--        <dd><a href = "http://m.swz.crayon.vip/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;书丸子官网WAP</a></dd>-->
+                    <!--        <dd><a href = "http://43.139.94.135:1011/" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;服务器root</a></dd>-->
+                    <!--        <dd><a href = "http://chat.crayon.vip" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;WebScoketChat</a></dd>-->
+                    <!--    </dl>-->
+                    <!--</li>-->
                     <li class = "layui-nav-item"><a href = "https://ymck.me" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;友情链接</a></li>
                     <li class = "layui-nav-item"><a href = "https://ruancang.net" target = "_blank"><i class = "layui-icon layui-icon-link"></i>&nbsp;&nbsp;友情链接</a></li>
                     <li class = "layui-nav-item"><a href = "https://www.qijishow.com" target = "_blank"><i class = "layui-icon layui-icon-util"></i>&nbsp;&nbsp;小工具</a></li>
@@ -298,7 +299,7 @@
             <!-- 内容主体区域 -->
             <div class="container" style="display: flex;padding: 20px 20px 100px 20px;">
                 <div style="width: 720px;">
-                    <img width="730" height="170" src="../skin/images/banner.png" >
+                    <img width="720" height="170" style="border-radius: 8px;" src="../skin/images/banner/back_banner.jpg" >
                     <div id="MyCalendar"></div>
                 </div>
                 <div style="width: 100%;border: 1px solid #9f9f9f;margin-left: 50px;border-radius: 4px;">
@@ -423,7 +424,7 @@
         <div class="layui-footer">
             <!-- 底部固定区域 -->
             <p style="text-align: center;">
-                Copyright © 2023 by Jason Liu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.crayon.vip">https://www.crayon.vip</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Copyright © 2023 by Jason Liu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://lib.crayon.vip">https://lib.crayon.vip</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="https://beian.miit.gov.cn/" target="_blank"><img src="../skin/images/beian.png" alt=""/>滇ICP备2023001154号-1</a>
                 <!--<a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53252702252753"><img src="../images/beian.png" alt=""/> 滇公网安备 53252702252753号</a>-->
             </p>

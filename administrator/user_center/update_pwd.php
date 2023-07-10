@@ -5,9 +5,9 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    include '../../login/session_time.php';
+    include '../../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     $usertype = $_SESSION['usertype']; //用户登录时的身份
@@ -94,7 +94,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../upload/pdf/小新图书馆操作指南.pdf" target="_blank">操作指南</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -111,7 +111,7 @@
                             }
                         ?>
                         <dd><a href="../user_center/update_pwd">修改密码</a></dd>
-                        <dd><a href="../../login/logout">注销</a></dd>
+                        <dd><a href="../../oauth/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -200,14 +200,15 @@
                 let pwd2 = data.pwd2;
                 let reg = /^(?=.*[A-Za-z])(?=.*\d)[\S]{6,12}$/;
                 if(!reg.test(pwd)){
-                    layer.tips('密码必须6至12位，包含字母数字，不能包含空格！', '#pwd',{
-                        tips: [1,'#666'],
+                    layer.tips('密码必须6至12位，包含字母数字且不能包含空格！', '#pwd',{
+                        tips: [3,'#666'],
                         time: 2000
                     })
                 }else if(pwd2 !== pwd){
                     layer.msg('两次密码输入不一致！', {
                         icon: 7,
-                        anim: 6, //抖动提示
+                        // anim: 6, //抖动提示
+                        shade: .2,
                         time: 1500
                     })
                 }else{
@@ -243,7 +244,7 @@
                                     end: function(){
                                         clearInterval(this.timer);
                                         //跳转logout页面
-                                        location.href = "../../login/logout";
+                                        location.href = "../../oauth/logout";
                                     }
                                 })
                             } else {

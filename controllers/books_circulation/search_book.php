@@ -18,7 +18,7 @@
     }else {
         //查询数据
         if ($keywords_type == 0) {
-            $sql1 = "select * from book_list where book_name like '$keywords'";  //获取
+            $sql1 = "select * from book_list where book_name like '%$keywords%'";  //获取
         }else if ($keywords_type == 1) {
             $sql1 = "select * from book_list where ISBN like '$keywords%'";
         }else if ($keywords_type == 2) {

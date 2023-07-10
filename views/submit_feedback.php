@@ -49,7 +49,7 @@
             <div class="layui-form-item">
                 <!--<label class="layui-form-label">意见建议:</label>-->
                 <!--<div class="layui-input-block">-->
-                    <textarea name="desc" id="desc" placeholder="请输入您的宝贵意见或建议..." class="layui-textarea"></textarea>
+                    <textarea name="desc" id="desc" placeholder="请输入您想对我们说的话..." class="layui-textarea"></textarea>
                 <!--</div>-->
             </div>
             <div class="layui-form-item">

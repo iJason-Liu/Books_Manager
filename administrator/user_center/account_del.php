@@ -5,9 +5,9 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    include '../../login/session_time.php';
+    include '../../oauth/session_time.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     $usertype = $_SESSION['usertype']; //用户登录时的身份 = $_SESSION['usertype']; //用户登录时的身份
@@ -105,7 +105,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-hide-xs"><a href="../index">后台首页</a></li>
                 <li class="layui-nav-item layui-hide-xs"><a href="../../index">前台首页</a></li>
-                <li class="layui-nav-item layui-hide-xs"><a href="../system/help_guide">帮助文档</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="../../upload/pdf/小新图书馆操作指南.pdf" target="_blank">操作指南</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
@@ -122,7 +122,7 @@
                             }
                         ?>
                         <dd><a href="../user_center/update_pwd">修改密码</a></dd>
-                        <dd><a href="../../login/logout">注销</a></dd>
+                        <dd><a href="../../oauth/logout">注销</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="warning">
-                        <span style="color: #FF0000FF;">注意：注销该账号之后您将失去本网站的服务，无法再进行借阅，使用在线阅读等功能！</span>
+                        <span style="color: #FF0000FF;">注意：注销将删除本系统中关联此账号的所有信息和记录，注销成功后您将不能再使用本网站的服务，无法再进行借阅，使用在线阅读等功能！</span>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -219,7 +219,7 @@
                                         end: function(){
                                             clearInterval(this.timer);
                                             //跳转logout页面
-                                            location.href = "../../login/logout";
+                                            location.href = "../../oauth/logout";
                                         }
                                     })
                                 } else {

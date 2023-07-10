@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     if ($_SESSION['is_login'] != 2) {
-        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../login/login'</script>";
+        echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
@@ -132,17 +132,17 @@
                 let reg2 = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/; //电话号码正则
                 if(data.name === ''){
                     layer.tips('姓名不能为空！', '#name',{
-                        tips: [1,'#666'],
+                        tips: [3,'#666'],
                         time: 2000
                     })
                 } else if(!reg.test(data.pwd)){
                     layer.tips('密码必须6至12位，包含字母数字，不能包含空格！', '#pwd',{
-                        tips: [1,'#666'],
+                        tips: [3,'#666'],
                         time: 2000
                     })
                 } else if(!reg2.test(data.mobile)){
                     layer.tips('手机号码输入不正确！', '#mobile',{
-                        tips: [1,'#666'],
+                        tips: [3,'#666'],
                         time: 2000
                     })
                 } else{

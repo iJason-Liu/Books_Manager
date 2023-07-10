@@ -11,7 +11,8 @@
     //上传的文件路径，可用于存入数据库的book_cover字段
     $filepath = "../../upload/bookCover/".time().'_'.$filename;
     $res = move_uploaded_file($cover["tmp_name"],$filepath);
-    $href = substr($filepath,6);  //输出 upload后的所有内容
+    $src = substr($filepath,6);  //输出 upload后的所有内容
+    $href = 'https://lib.crayon.vip/'.substr($filepath,6);  //把图片地址存为远程路径
 
     if($res){
         //前端需要即时反馈的返回值时 输出下列语句
@@ -21,7 +22,7 @@
             'data' => array(
                 'url' => $filepath,
                 'alt' => '封面',  //图片描述文字
-                'href' => 'https://lib.crayon.vip/'.$href, //图片链接
+                'href' => 'https://lib.crayon.vip/'.$src, //图片链接
             )
         ),JSON_UNESCAPED_UNICODE);
     }else{

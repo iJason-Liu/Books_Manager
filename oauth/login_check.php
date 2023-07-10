@@ -16,7 +16,7 @@
     $password = md5($data['password']);  //密码
     $usertype = $data['usertype'];  //用户类型
     $yzm = $data['yzm'];  //验证码
-    $_SESSION['check_yzm'];
+    // $_SESSION['check_yzm'];
 
     $log_time = date('Y-m-d H:i:s', time());  //登录时间，消息添加时间
     $log_carrier = getip($realip);  //获取登录运营商  $realip是登录ip地址
@@ -28,31 +28,39 @@
     //验证账号sql 设置登录session的sql 用户头像sql
     if($usertype == '学生'){
         $yz_sql = "select * from student where cardNo='$account' and password='$password' and user_type='$usertype'";
+        $exits_sql = "select * from student where cardNo='$account'";
         $set_sid = "update student set session_id='$session_id',log_time='$log_time',log_ip='$realip',log_carrier='$log_carrier' where cardNo='$account'";
         $avatar_sql = "select avatar from student where cardNo='$account'";
     }else if($usertype == '教师'){
         $yz_sql = "select * from teacher where cardNo='$account' and password='$password' and user_type='$usertype'";
+        $exits_sql = "select * from teacher where cardNo='$account'";
         $set_sid = "update teacher set session_id='$session_id',log_time='$log_time',log_ip='$realip',log_carrier='$log_carrier' where cardNo='$account'";
         $avatar_sql = "select avatar from teacher where cardNo='$account'";
     }else if($usertype == '图书管理员'){
         $yz_sql = "select * from lib_worker where id='$account' and password='$password' and user_type='$usertype'";
+        $exits_sql = "select * from lib_worker where id='$account'";
         $set_sid = "update lib_worker set session_id='$session_id',log_time='$log_time',log_ip='$realip',log_carrier='$log_carrier' where id='$account'";
         $avatar_sql = "select avatar from lib_worker where id='$account'";
     }else if($usertype == '超级管理员'){
         $yz_sql = "select * from super_admin where id='$account' and password='$password' and user_type='$usertype'";
+        $exits_sql = "select * from super_admin where id='$account'";
         $set_sid = "update super_admin set session_id='$session_id',log_time='$log_time',log_ip='$realip',log_carrier='$log_carrier' where id='$account'";
         $avatar_sql = "select avatar from super_admin where id='$account'";
     }else{
         $yz_sql = "select * from other_user where id='$account' and password='$password' and user_type='$usertype'";
+        $exits_sql = "select * from other_user where id='$account'";
         $set_sid = "update other_user set session_id='$session_id',log_time='$log_time',log_ip='$realip',log_carrier='$log_carrier' where id='$account'";
         $avatar_sql = "select avatar from other_user where id='$account'";
     }
     $result = mysqli_query($db_connect, $yz_sql);
-    $flag = mysqli_num_rows($result);
+    $flag = mysqli_num_rows($result);  //判断账号密码身份是否匹配
+    $flag_exit = mysqli_num_rows(mysqli_query($db_connect, $exits_sql)); //判断账号是否存在
     if($yzm != $_SESSION['check_yzm']){
         echo json_encode(array('code' => 403, 'msg' => '验证码错误！'),JSON_UNESCAPED_UNICODE); //无权限
+    }else if($flag_exit == 0){
+        echo json_encode(array('code' => 403, 'msg' => '该账号不存在，请先注册！'),JSON_UNESCAPED_UNICODE); //无权限
     }else if($flag == 0){
-        echo json_encode(array('code' => 403, 'msg' => '借阅卡号或密码错误,权限不匹配！'),JSON_UNESCAPED_UNICODE); //无权限
+        echo json_encode(array('code' => 403, 'msg' => '借阅卡号或密码错误，身份不匹配！'),JSON_UNESCAPED_UNICODE); //无权限
     }else{
         $_SESSION['is_login'] = 2; //登录状态
         $_SESSION['usertype'] = $usertype; //登录用户身份
@@ -90,7 +98,7 @@
             }else{
                 mysqli_query($db_connect, "update other_user set avatar='$logo' where id='$account'");
             }
-            //头像不为空
+            //头像为空
             $_SESSION['avatar'] = $logo; //把头像存入session
         }else{
             $_SESSION['avatar'] = $avatar; //把头像存入session

@@ -3,14 +3,22 @@
      * 公告模块
      * 可以是关于一些图书的资讯，
      * 也可以是某本图书的评论（格式：书名-热评-点赞数或者阅读数）
+     *
+     * 所有新闻公告做分页或者懒加载
      */
     session_save_path('../session/');
     session_start(); // 开启session
-    include "../login/session_time.php";
+    include "../config/conn.php";
+    include "../oauth/session_time.php";
 
     //获取全局变量用户名参数
     $user = $_SESSION['user'];
 
+    // 查询新闻公告表并且有配图的5条数据
+    $news_notice_sql = "select * from news_notice order by sub_time desc";
+    $news_notice_data = mysqli_query($db_connect, $news_notice_sql);
+
+    mysqli_close($db_connect);
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,12 +58,6 @@
             margin-right: 40px;
         }
 
-        .logo {
-            height: 80px;
-            width: 200px;
-            padding-top: 7px;
-        }
-
         .layui-nav * {
             font-size: 18px !important;
         }
@@ -80,16 +82,25 @@
 
         .layui-carousel{
             margin-top: 135px;
-        }
-
-        .books_recomend {
-            width: 100%;
-            height: 200px;
-            border: 1px solid #000;
+            height: 400px !important;
         }
 
         .content{
-            padding: 110px 120px 80px 120px;
+            padding: 30px 200px 80px 200px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        .item{
+            border-bottom: 1px dashed #999;
+            padding: 15px 10px;
+            cursor: pointer;
+        }
+        
+        .item:hover{
+            border-bottom: 1px dashed #429488;
+            color: #429488;
         }
 
         /*背景色 #808080  #736F6E #837E7C  */
@@ -121,38 +132,59 @@
         <div class='top_right'>
             <?php
             if($user != ''){
-                echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台</a> &nbsp; | &nbsp; <a href='../login/logout'>注销</a>";
+                echo "您好！$user &nbsp; &nbsp; <a href='../administrator/index'>后台</a> &nbsp; | &nbsp; <a href='../oauth/logout'>注销</a>";
             }else{
-                echo "<a href='../login/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
+                echo "<a href='../oauth/login'><i class='layui-icon layui-icon-username'></i> 登录 </a>";
             }
             ?>
         </div>
     </header>
     <nav class="layui-header hc-header">
         <div class="layui-main">
-            <a class="hc-logo" href="../index"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
+            <a class="hc-logo" href="/"> <img alt="logo" class="logo" src="../skin/images/logo.png" /></a>
             <ul class="layui-nav">
-                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="../index">首页</a> </li>
-                <li class="layui-nav-item hc-hide-sm"> <a href="../views/book_center">图书资源</a> </li>
-                <li class="layui-nav-item hc-hide-sm layui-this"> <a href="../views/notice_list">新闻动态</a> </li>
+                <li class="layui-nav-item hc-hide-sm hc-hide-xs"> <a href="/">首页</a> </li>
                 <li class="layui-nav-item hc-hide-sm">
-                    <a href="../views/reader_center">读者服务</a>
+                    <a href="javascript:;">资源</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">读者导航</a></dd>
-                        <dd><a href="">自助打印</a></dd>
-                        <dd><a href="">借阅服务</a></dd>
-                        <dd><a href="">图书捐赠</a></dd>
+                        <dd><a href="../views/book_center">馆藏资源</a></dd>
+                        <dd><a href="../views/search_bookData">图书查询</a></dd>
+                        <dd><a href="javascript:;">新书通报</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item hc-hide-sm"> <a href="../views/about">关于系统</a> </li>
+                <li class="layui-nav-item hc-hide-sm">
+                    <a href="javascript:;">服务</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="../views/reader_center">借阅卡服务</a></dd>
+                        <dd><a href="javascript:;">自助打印</a></dd>
+                        <dd><a href="javascript:;">借阅指南</a></dd>
+                        <dd><a href="javascript:;">图书捐赠</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item hc-hide-sm layui-this">
+                    <a href="javascript:;">动态</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="../views/notice_list#news">新闻资讯</a></dd>
+                        <dd><a href="../views/notice_list#notice">通知公告</a></dd>
+                        <dd><a href="javascript:;">活动信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item hc-hide-sm">
+                    <a href="javascript:;">关于</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="https://mp.weixin.qq.com/s/ccWx9YN5-U2Ut3XDpwYq-w">图书馆简介</a></dd>
+                        <dd><a href="https://mp.weixin.qq.com/s/eMThZAwR6I7PA-wPmRj8KQ">馆藏分布</a></dd>
+                        <dd><a href="../views/about">开放时间</a></dd>
+                        <dd><a href="javascript:;">常见问题</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item hc-hide-md hc-show-sm"> <a href="javascript:;">菜单</a>
                     <dl class="layui-nav-child">
                         <dd><a href="../index">首页</a></dd>
-                        <dd><a href="../views/book_center">图书资源</a></dd>
-                        <dd><a href="../views/notice_list">新闻动态</a></dd>
-                        <dd><a href="../views/notice_list">读者服务</a></dd>
-                        <dd><a href="../views/about">关于系统</a></dd>
-                        <dd><a href="../register/register" target="_blank">灰度测试(reg)</a></dd>
+                        <dd><a href="../views/book_center">资源</a></dd>
+                        <dd><a href="../views/reader_center">服务</a></dd>
+                        <dd><a href="../views/notice_list">动态</a></dd>
+                        <dd><a href="../views/about">关于</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -162,22 +194,23 @@
     <div class="layui-carousel" id="carousel">
         <div carousel-item>
             <div>
-                <img class="banner" src="../skin/images/banner/banner_3.png" />
+                <img class="banner" src="../skin/images/banner/news_banner.jpg" />
             </div>
         </div>
     </div>
     <div class="content">
-        <div class="books_recomend">
-            <div>
-                图书资讯板块
+        <div style="padding: 15px 0;border-bottom: 4px solid #429488;font-size: 20px;margin-bottom: 20px;">新闻公告</div>
+        <?php
+            while ($row = mysqli_fetch_array($news_notice_data)){
 
-            </div>
+        ?>
+        <div class="item" onclick="go(<?php echo $row['id'] ?>)">
+            <div class='layui-col-md9 layui-col-sm9 layui-col-xs8 layui-elip'><?php echo $row['title'] ?></div>
+            <div class='layui-col-md3 layui-col-sm3 layui-col-xs8' style="text-align: right"><?php echo $row['sub_time'] ?></div>
         </div>
-        <div class="books_recomend">
-            <div>
-                图书热评展示板块
-            </div>
-        </div>
+        <?php
+            }
+        ?>
     </div>
 
     <div class="layui-footer">
@@ -197,7 +230,7 @@
                         邮箱：crayon996@gmail.com
                     </div>
                     <div class="layui-col-md12">
-                        邮编：678000
+                        邮政编码：678000
                     </div>
                     <div class="layui-col-md12">
                         地址：云南省保山市隆阳区远征路16号
@@ -230,7 +263,7 @@
         <hr class="footer_hr">
         <div class="layui-row">
             <div class="layui-col-md12">
-                Copyright ©  2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
+                Copyright &copy; 2023.6 Jason Liu<a href="https://lib.crayon.vip" target="_blank" style="margin-left: 30px;">https://lib.crayon.vip</a>
             </div>
             <div class="layui-col-md12" style="margin-top: 10px;">
                 网站ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank">滇ICP备2023001154号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -260,8 +293,13 @@
                 // anim: 'fade', //切换动画方式
                 indicator: 'inside'
             })
-
         })
+
+        // 点击跳转文章详情页
+        function go(id){
+            console.log(id);
+            window.location.href = "./notice_detail?id="+id;
+        }
     </script>
     <script type="text/javascript">
         //pv
