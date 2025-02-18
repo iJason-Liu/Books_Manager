@@ -1,0 +1,33 @@
+ # 设置默认首页
+index index.php index.html index.htm;
+
+# 处理页面请求并去除 .php 后缀
+location / {
+    try_files $uri $uri/ /$uri.php?$args;
+}
+
+# 如果没有 .php 后缀，重定向到 .php 文件
+location ~ ^/([^/]+)/$ {
+    rewrite ^/([^/]+)/$ /$1.php last;
+}
+
+# PHP 处理配置
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_index index.php;
+    fastcgi_pass unix:/tmp/php-cgi-80.sock;  # 适配你的 PHP 版本和 FPM 配置
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+}
+
+# 如果没有 .php 后缀，则尝试查找对应的 .php 文件
+location ~ ^/([^/]+)/$ {
+    try_files $uri.php = 404;
+}
+
+# 处理静态文件
+location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|otf)$ {
+    root /www/wwwroot/lib.crayon.vip;  # 设置你的网站根目录
+    expires 30d;  # 设置缓存过期时间
+    add_header Cache-Control "public";
+}
