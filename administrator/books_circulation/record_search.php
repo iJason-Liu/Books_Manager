@@ -3,35 +3,17 @@
      * 管理员可查询所有人的借阅记录
      * 借阅记录查询模块
      */
-    session_save_path('../../session/');
-    session_start();
-    include '../../config/conn.php';
-    include '../../classes/check_rights.php';
-    include '../../oauth/session_time.php';
-    if ($_SESSION['is_login'] != 2) {
+    require_once __DIR__ . '/_init.php';
+    require_once __DIR__ . '/../../classes/check_rights.php';
+    require_once __DIR__ . '/../../oauth/session_time.php';
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    $usertype = $_SESSION['usertype']; //用户登录时的身份
-
-    $id = $_SESSION['user_id'];
-    if($usertype == '学生'){
-        $sql = "select * from student where cardNo = '$id'";
-    }else if($usertype == '教师'){
-        $sql = "select * from teacher where cardNo = '$id'";
-    }else if($usertype == '图书管理员'){
-        $sql = "select * from lib_worker where id = '$id'";
-    }else if($usertype == '超级管理员'){
-        $sql = "select * from super_admin where id = '$id'";
-    }else{
-        $sql = "select * from other_user where id = '$id'";
-    }
-    $info_res = mysqli_query($db_connect, $sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
+    $usertype = $_SESSION['usertype'] ?? '';
 ?>
 
 <!DOCTYPE html>

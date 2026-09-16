@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     //判断登录状态
-    if($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
@@ -19,8 +19,6 @@
     // 查询图书书库
     $stack_sql="select * from book_stack";
     $result_stack = mysqli_query($db_connect,$stack_sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 <!DOCTYPE html>
 <html>
@@ -140,6 +138,7 @@
                       <div class="layui-hide" id="uploadView">
                         <img src="" alt="图书封面" style="width: 210px;height: 290px;">
                       </div>
+                      <input type="hidden" name="book_cover_url" id="book_cover_url" value="">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -163,10 +162,10 @@
                 elem: '#bookcover',
                 url: '../../controllers/books_center/upload_bookCover', //上传接口
                 accept: 'images', //允许上传的文件类型
-                acceptMime: 'image/jpg, image/png, image/jpeg, image/svg, image/bmp, image/gif',
+                acceptMime: 'image/jpg, image/png, image/jpeg, image/bmp, image/gif, image/webp',
                 size: 1024 * 2,  //单位kb,允许2mb的文件
                 auto: false, //自动上传
-                exts: 'jpg|png|jpeg|svg|bmp|gif', //文件后缀
+                exts: 'jpg|png|jpeg|bmp|gif|webp', //文件后缀
                 field: 'book_cover',
                 bindAction: '#addition',
                 before: function (){
@@ -188,6 +187,7 @@
                         layer.msg('上传成功！');
                         layui.$('#tip').attr('class', 'layui-hide'); //隐藏上传提示
                         layui.$('#uploadView').removeClass('layui-hide').find('img').attr('src', res.data.url);
+                        layui.$('#book_cover_url').val(res.data.href);
                     }
                 },
                 error: function (){

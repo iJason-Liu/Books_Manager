@@ -2,22 +2,18 @@
     /*
      * 图书续借 快速操作，便捷选择
      */
-    session_save_path('../../session/');
-    session_start();
-    include '../../config/conn.php';
-    if ($_SESSION['is_login'] != 2) {
+    require_once __DIR__ . '/_init.php';
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    $book_id = $_GET['book_id'];
-    $user_id = $_SESSION['user_id'];
+    $book_id = $_GET['book_id'] ?? '';
+    $user_id = $_SESSION['user_id'] ?? '';
     //执行sql语句的查询语句
     $sql1 = "select * from book_borrow where card_id='$user_id' and book_id='$book_id'";
     $result = mysqli_query($db_connect,$sql1);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 <!DOCTYPE html>
 <html>

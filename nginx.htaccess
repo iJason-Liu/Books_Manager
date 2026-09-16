@@ -1,33 +1,78 @@
- # 设置默认首页
-index index.php index.html index.htm;
+# ============================================================
+# 宝塔 Nginx 安全配置（直接粘贴，无需 include 外部文件）
+#
+# 操作：宝塔面板 → 网站 → lib.crayon.vip → 设置 → 配置文件
+# 在 server { ... } 内粘贴下方「安全规则」块即可
+# 若与现有 location 重复，保留一份，注释掉旧的
+#
+# PHP 8.3 请确认 fastcgi_pass 为：unix:/tmp/php-cgi-83.sock
+# ============================================================
 
-# 处理页面请求并去除 .php 后缀
-location / {
-    try_files $uri $uri/ /$uri.php?$args;
+
+# ---------- 以下整段复制到 server {} 内 ----------
+
+# 安全响应头
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-XSS-Protection "1; mode=block" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+# 禁止访问敏感目录/文件
+location ~ /\.(git|svn|env|htaccess|user\.ini) {
+    deny all;
 }
 
-# 如果没有 .php 后缀，重定向到 .php 文件
-location ~ ^/([^/]+)/$ {
-    rewrite ^/([^/]+)/$ /$1.php last;
+location ~* \.(sql|bak|log|sh)$ {
+    deny all;
 }
 
-# PHP 处理配置
+location ^~ /config/ {
+    deny all;
+}
+
+location ^~ /session/ {
+    deny all;
+}
+
+location ^~ /scripts/security_reports/ {
+    deny all;
+}
+
+location = /library.sql {
+    deny all;
+}
+
+location ~ ^/library_.*\.sql$ {
+    deny all;
+}
+
+location = /plugins/phpqrcode/index.php {
+    deny all;
+}
+
+# 拦截 WordPress 扫描
+location ~* /wp-includes/|/wp-admin/|wlwmanifest\.xml {
+    return 444;
+}
+
+# upload 目录禁止执行 PHP
+location ^~ /upload/ {
+    location ~ \.(php|phtml|php3|php4|php5|phar|htaccess|user\.ini)$ {
+        deny all;
+    }
+    try_files $uri =404;
+}
+
+# PHP 处理（若站点已有 location ~ \.php$，只需把 upload 兜底规则合并进去）
 location ~ \.php$ {
+    if ($uri ~* "^/upload/.*\.(php|phtml|phar)$") {
+        return 403;
+    }
     include snippets/fastcgi-php.conf;
     fastcgi_index index.php;
-    fastcgi_pass unix:/tmp/php-cgi-80.sock;  # 适配你的 PHP 版本和 FPM 配置
+    fastcgi_pass unix:/tmp/php-cgi-83.sock;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include fastcgi_params;
 }
 
-# 如果没有 .php 后缀，则尝试查找对应的 .php 文件
-location ~ ^/([^/]+)/$ {
-    try_files $uri.php = 404;
-}
-
-# 处理静态文件
-location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|otf)$ {
-    root /www/wwwroot/lib.crayon.vip;  # 设置你的网站根目录
-    expires 30d;  # 设置缓存过期时间
-    add_header Cache-Control "public";
-}
+# ---------- 粘贴结束 ----------

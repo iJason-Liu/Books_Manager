@@ -1,0 +1,7 @@
+# 禁止 upload 目录下执行脚本
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<FilesMatch "\.(php|phtml|php3|php4|php5|phar|htaccess|user\.ini)$">
+    Require all denied
+</FilesMatch>

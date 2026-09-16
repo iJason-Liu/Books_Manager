@@ -5,7 +5,7 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    if ($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
@@ -95,8 +95,6 @@
                     $click_num = $row['click_num'];
                     $new_num = $click_num + 1;
                     mysqli_query($db_connect, "update book_list set click_num='$new_num' where book_id='$id'");
-
-                    mysqli_close($db_connect); //关闭数据库资源
             ?>
             <div id="form_tab">
                 <fieldset class="layui-elem-field layui-field-title" name="file" id="file">

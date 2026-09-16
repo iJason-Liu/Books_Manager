@@ -8,7 +8,7 @@
     include './oauth/session_time.php';
 
     //获取全局变量-用户名参数
-    $user = $_SESSION['user'];
+    $user = $_SESSION['user'] ?? '';
 
     // 查询图书表中点击数量最多的10本书
     $book_sql = "select * from book_list order by click_num desc limit 10";

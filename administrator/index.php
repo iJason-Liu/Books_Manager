@@ -4,38 +4,30 @@
      */
     session_save_path('../session/');
     session_start();
-    include '../config/conn.php';
-    include '../oauth/session_time.php';
-    if ($_SESSION['is_login'] != 2) {
+    require_once __DIR__ . '/../config/conn.php';
+    require_once __DIR__ . '/../oauth/session_time.php';
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../oauth/login'</script>";
+        exit;
     }
 
-    /*
-     * 查询用户类型id用来判断显示功能
-     * 1001学生
-     * 1002教师
-     * 1003图书管理员
-     * 1004超级管理员
-     * 1005 校外人员
-     * 1006 其他
-     */
-    //一级判断
-    $usertype = $_SESSION['usertype']; //用户登录时的身份
+    $usertype = $_SESSION['usertype'] ?? '';
     $check_sql = "select * from user_type where usertype_name='$usertype'";
     $res = mysqli_query($db_connect, $check_sql);
     $row = mysqli_fetch_array($res);
+    if (!is_array($row)) {
+        $row = array('type_id' => 0);
+    }
 
-    // 第二级判断，根据配的权限显示或隐藏功能
-    $user_id = $_SESSION['user_id']; //用户id
+    $user_id = $_SESSION['user_id'] ?? '';
     $rights_sql = "select * from rights where id='$user_id'";
     $rights_res = mysqli_query($db_connect, $rights_sql);
     $item = mysqli_fetch_array($rights_res);
+    if (!is_array($item)) {
+        $item = array();
+    }
 
-    // 获取未读消息
     $msg_res = mysqli_query($db_connect, "select * from sys_msg where user_id = '$user_id' and state = '0' order by createtime desc limit 6");
-
-    // echo mysqli_error($db_connect);
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -174,7 +166,7 @@
                         <dl class = "layui-nav-child">
                             <!-- 包含注销功能(方便用户删除关于自己的信息)，删库数据 身份证，邮箱，电话，姓名，性别，学号  显示用户名（只读） -->
                             <?php
-                                if ($row['type_id'] != 1004) {
+                                if (($row['type_id'] ?? 0) != 1004) {
                                     echo "<dd><a href='./user_center/user_Info'><i class='layui-icon layui-icon-username'></i>&nbsp;&nbsp;我的信息</a></dd>";
                                 }
                             ?>
@@ -184,7 +176,7 @@
                     </li>
 
                     <!-- 超级管理员时显示 -->
-                    <li class = "layui-nav-item <?php if ($item['lib_worker'] == 1)echo "layui-show"; else echo "layui-hide"; ?>">
+                    <li class = "layui-nav-item <?php if (!empty($item['lib_worker'])) echo "layui-show"; else echo "layui-hide"; ?>">
                         <a href = "javascript:;"><i class = "layui-icon layui-icon-user"></i>&nbsp;&nbsp;馆员中心</a>
                         <dl class = "layui-nav-child">
                             <dd><a href = "./lib_worker/worker_list"><i class = "layui-icon layui-icon-group"></i>&nbsp;&nbsp;馆员档案</a></dd>
@@ -192,14 +184,14 @@
                     </li>
 
                     <!-- 学生、教师不显示 -->
-                    <li class = "layui-nav-item <?php if ($item['reader_list'] == 1 || $item['reader_kind'] == 1)echo "layui-show"; else echo "layui-hide"; ?>">
+                    <li class = "layui-nav-item <?php if (!empty($item['reader_list']) || !empty($item['reader_kind'])) echo "layui-show"; else echo "layui-hide"; ?>">
                         <a href = "javascript:;"><i class = "layui-icon layui-icon-user"></i>&nbsp;&nbsp;读者中心</a>
                         <dl class = "layui-nav-child">
                             <?php
-                                if ($item['reader_list'] == 1){
+                                if (!empty($item['reader_list'])){
                                     echo "<dd><a href = './reader/reader_list'><i class = 'layui-icon layui-icon-group'></i>&nbsp;&nbsp;读者档案</a></dd>";
                                 }
-                                if($item['reader_kind'] == 1){
+                                if(!empty($item['reader_kind'])){
                                     echo "<dd><a href = './reader/reader_kind'><i class = 'layui-icon layui-icon-cols'></i>&nbsp;&nbsp;&nbsp;读者类型</a></dd>";
                                 }
                             ?>
@@ -215,7 +207,7 @@
                             <!-- 图书点击量，借阅次数 -->
                             <dd><a href = "./books_center/rank_book"><i class = "layui-icon layui-icon-praise"></i>&nbsp;&nbsp;人气图书</a></dd>
                             <?php
-                                if ($item['book_kind'] == 1) {
+                                if (!empty($item['book_kind'])) {
                                     echo "<dd><a href='./books_center/book_kind'><i class='layui-icon layui-icon-form'></i>&nbsp;&nbsp;图书类别</a></dd>";
                                 }
                             ?>
@@ -227,7 +219,7 @@
                         <a href = "javascript:;"><i class = "layui-icon layui-icon-template-1"></i>&nbsp;&nbsp;流通管理</a>
                         <dl class = "layui-nav-child">
                             <?php
-                                if ($item['borrowBook'] == 1) {
+                                if (!empty($item['borrowBook'])) {
                                     echo "<dd><a href='./books_circulation/borrowBook'><i class='layui-icon layui-icon-release'></i>&nbsp;&nbsp;图书借阅</a></dd>";
                                 }
                             ?>
@@ -235,7 +227,7 @@
                             <dd><a href = "./books_circulation/renewBook"><i class = "layui-icon layui-icon-refresh"></i>&nbsp;&nbsp;图书续借</a></dd>
                             <dd><a href = "./books_circulation/returnBook"><i class = "layui-icon layui-icon-prev-circle"></i>&nbsp;&nbsp;图书归还</a></dd>
                             <?php
-                                if ($item['record_search'] == 1) {
+                                if (!empty($item['record_search'])) {
                                     echo "<dd><a href='./books_circulation/record_search'><i class='layui-icon layui-icon-search'></i>&nbsp;&nbsp;记录查询</a></dd>";
                                 }
                             ?>
@@ -244,14 +236,14 @@
                     </li>
 
                     <!-- 评论只允许管理员和超级管理员查看 -->
-                    <li class = "layui-nav-item <?php if ($item['comment_center'] == 1 || $item['comment_control'] == 1 || $item['news_notice'] == 1)echo "layui-show"; else echo "layui-hide"; ?>">
+                    <li class = "layui-nav-item <?php if (!empty($item['comment_center']) || !empty($item['comment_control']) || !empty($item['news_notice']))echo "layui-show"; else echo "layui-hide"; ?>">
                         <a href = "javascript:;"><i class = "layui-icon layui-icon-dialogue"></i>&nbsp;&nbsp;评论管理</a>
                         <dl class = "layui-nav-child">
                             <?php
-                                if ($item['comment_center'] == 1){
+                                if (!empty($item['comment_center'])){
                                     echo "<dd><a href = './comment/comment_center'><i class = 'layui-icon layui-icon-reply-fill'></i>&nbsp;&nbsp;评论中心</a></dd>";
                                 }
-                                if($item['news_notice'] == 1){
+                                if(!empty($item['news_notice'])){
                                     echo "<dd><a href = './comment/news_notice'><i class = 'layui-icon layui-icon-speaker'></i>&nbsp;&nbsp;新闻公告</a></dd>";
                                 }
                             ?>
@@ -264,10 +256,10 @@
                         <a href = "javascript:;"><i class = "layui-icon layui-icon-console"></i>&nbsp;&nbsp;关于系统</a>
                         <dl class = "layui-nav-child">
                             <?php
-                                if ($item['rights_center'] == 1) {
+                                if (!empty($item['rights_center'])) {
                                     echo "<dd><a href='./system/rights_center'><i class='layui-icon layui-icon-tabs'></i>&nbsp;&nbsp;权限管理</a></dd>";
                                 }
-                                if ($item['feedBack'] == 1) {
+                                if (!empty($item['feedBack'])) {
                                     echo "<dd><a href='./system/feedBack'><i class='layui-icon layui-icon-survey'></i>&nbsp;&nbsp;意见反馈</a></dd>";
                                 }
                             ?>
@@ -366,7 +358,7 @@
                             </a>
                         </div>
                         <?php
-                            if ($item['record_search'] == 1) {
+                            if (!empty($item['record_search'])) {
                                 echo '
                                     <div class="layui-col-md3" style="text-align: center;width: 100px;">
                                         <a href="./books_circulation/record_search">
@@ -377,7 +369,7 @@
                                 ';
                             }
 
-                            if ($item['comment_center'] == 1) {
+                            if (!empty($item['comment_center'])) {
                                 echo '
                                     <div class="layui-col-md3" style="text-align: center;width: 100px;">
                                         <a href="./comment/comment_center">
@@ -388,7 +380,7 @@
                                 ';
                             }
 
-                            if ($item['news_notice'] == 1) {
+                            if (!empty($item['news_notice'])) {
                                 echo '
                                     <div class="layui-col-md3" style="text-align: center;width: 100px;">
                                         <a href="./comment/news_notice">

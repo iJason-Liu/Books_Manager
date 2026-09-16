@@ -8,8 +8,8 @@
     include "../oauth/session_time.php";
 
     //获取全局变量用户名参数
-    $user = $_SESSION['user'];
-    $user_id = $_SESSION['user_id'];  //用户id
+    $user = $_SESSION['user'] ?? '';
+    $user_id = $_SESSION['user_id'] ?? '';
 
     // 获取url传过来的值id  图书编号
     $url = $_SERVER["REQUEST_URI"];

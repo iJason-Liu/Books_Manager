@@ -5,63 +5,59 @@
      *
      * 判断用户异地登录，限制账号多处登录
      */
-    // session_save_path('../session/');
-    //开启session
-    session_start();
+    require_once dirname(__DIR__) . '/classes/session_helper.php';
+    session_safe_start();
 
-    $db_connect = mysqli_connect('localhost', 'root', 'root') or die('数据库服务连接失败！');
-    mysqli_select_db($db_connect, 'library');
-    mysqli_query($db_connect,"SET NAMES 'UTF8'");
+    if (!isset($db_connect)) {
+        require_once dirname(__DIR__) . '/config/conn.php';
+    }
 
-    $user_id = $_SESSION['user_id'];  //用户id
-    $new_sid = $_SESSION['session_id'];  //新登录时的session_id
+    $user_id = session_value('user_id');
+    $new_sid = session_value('session_id');
     $url = explode('/', $_SERVER['REQUEST_URI']); //获取页面路径
     $url_count = count($url);  //获取当前目录级数
+
     if ($user_id != '') {
         if (isset($_SESSION['expiretime'])) {
-            //当天登录成功后$_SESSION['expiretime']会存在当天，次日就被清空了,原因就是unset
             if ($_SESSION['expiretime'] < time()) {
-                // unset($_SESSION['expiretime']);
                 if($url_count == 2){
-                    echo "<script>alert('会话已过期，请重新登录！');location.href='./oauth/logout'</script>"; //登出
+                    echo "<script>alert('会话已过期，请重新登录！');location.href='./oauth/logout'</script>";
                 }else if($url_count == 3){
-                    echo "<script>alert('会话已过期，请重新登录！');location.href='../oauth/logout'</script>"; //登出
-                }if($url_count == 4){
-                    echo "<script>alert('会话已过期，请重新登录！');location.href='../../oauth/logout'</script>"; //登出
+                    echo "<script>alert('会话已过期，请重新登录！');location.href='../oauth/logout'</script>";
+                }else if($url_count == 4){
+                    echo "<script>alert('会话已过期，请重新登录！');location.href='../../oauth/logout'</script>";
                 }
-                //header('Location: ../oauth/logout?TIMEOUT'); // 登出
-                // exit();
             } else {
-                $_SESSION['expiretime'] = time() + 7200; // 刷新时间戳，增加2小时 7200  1小时 3600  3小时 10800
+                $_SESSION['expiretime'] = time() + 7200;
             }
         }
 
-        if($_SESSION['usertype'] == '学生'){
+        $usertype = session_value('usertype');
+        if($usertype == '学生'){
             $sql = "select session_id from student where cardNo='$user_id'";
-        }else if($_SESSION['usertype'] == '教师'){
+        }else if($usertype == '教师'){
             $sql = "select session_id from teacher where cardNo='$user_id'";
-        }else if($_SESSION['usertype'] == '图书管理员'){
+        }else if($usertype == '图书管理员'){
             $sql = "select session_id from lib_worker where id='$user_id'";
-        }else if($_SESSION['usertype'] == '超级管理员'){
+        }else if($usertype == '超级管理员'){
             $sql = "select session_id from super_admin where id='$user_id'";
         }else{
             $sql = "select session_id from other_user where id='$user_id'";
         }
         $res = mysqli_query($db_connect, $sql);
-        foreach ($res as $item){
-            $old_sid = $item['session_id'];  //之前登录的session_id
+        $old_sid = '';
+        if ($res) {
+            foreach ($res as $session_row){
+                $old_sid = $session_row['session_id'];
+            }
         }
-        // echo $old_sid;
-        if($new_sid != $old_sid){
-            // session_destroy();
+        if($new_sid != '' && $old_sid != '' && $new_sid != $old_sid){
             if($url_count == 2){
                 echo "<script>alert('您的账号已在其他地方登录！');location.href='./oauth/logout';</script>";
             }else if($url_count == 3){
                 echo "<script>alert('您的账号已在其他地方登录！');location.href='../oauth/logout';</script>";
-            }if($url_count == 4){
-                echo "<script>alert('您的账号已在其他地方登录！');location.href='/logout';</script>";
+            }else if($url_count == 4){
+                echo "<script>alert('您的账号已在其他地方登录！');location.href='../../oauth/logout';</script>";
             }
-        }else{
-            // echo "正常";
         }
     }

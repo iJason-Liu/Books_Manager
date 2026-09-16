@@ -5,7 +5,7 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    if ($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
@@ -17,8 +17,6 @@
     //执行sql语句的查询语句
     $sql1 = "select * from book_comment where comment_id='$comment_id'";
     $result = mysqli_query($db_connect,$sql1);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 <!DOCTYPE html>
 <html>

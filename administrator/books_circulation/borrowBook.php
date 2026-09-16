@@ -2,35 +2,21 @@
     /*
      * 图书借阅板块，提供搜索，快速续借与归还
      */
-    session_save_path('../../session/');
-    session_start();
-    include '../../config/conn.php';
-    include '../../classes/check_rights.php';
-    include '../../oauth/session_time.php';
-    if ($_SESSION['is_login'] != 2) {
+    require_once __DIR__ . '/_init.php';
+    require_once __DIR__ . '/../../classes/check_rights.php';
+    require_once __DIR__ . '/../../oauth/session_time.php';
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    $usertype = $_SESSION['usertype']; //用户登录时的身份
-
-    $id = $_SESSION['user_id'];
-    if($usertype == '学生'){
-        $sql = "select * from student where cardNo = '$id'";
-    }else if($usertype == '教师'){
-        $sql = "select * from teacher where cardNo = '$id'";
-    }else if($usertype == '图书管理员'){
-        $sql = "select * from lib_worker where id = '$id'";
-    }else if($usertype == '超级管理员'){
-        $sql = "select * from super_admin where id = '$id'";
-    }else{
-        $sql = "select * from other_user where id = '$id'";
-    }
-    $info_res = mysqli_query($db_connect, $sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
+    $usertype = $_SESSION['usertype'] ?? '';
+    $id = $_SESSION['user_id'] ?? '';
+    $reader_row = circulation_fetch_reader($db_connect, $usertype, $id);
+    $card_status = $reader_row['card_status'] ?? 0;
+    $borrow_num = $reader_row['borrow_limit'] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -171,9 +157,8 @@
             <fieldset class="layui-elem-field layui-field-title" style="border: 1px solid #C9C9C9;margin: 15px 20px 0 20px;padding: 15px;">
                 <legend>读者基础信息</legend>
                 <?php
-                    while ($item = mysqli_fetch_array($info_res)){
-                        $card_status = $item['card_status'];  //借阅卡状态
-                        $borrow_num = $item['borrow_limit'];  //借书数量
+                    $item = $reader_row;
+                    if (is_array($item)) {
                 ?>
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md3 layui-col-sm4">

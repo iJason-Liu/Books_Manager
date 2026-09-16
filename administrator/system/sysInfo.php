@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     include '../../oauth/session_time.php';
-    if ($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
@@ -27,8 +27,6 @@
         $sql = "select * from other_user where id = '$id'";
     }
     $info_res = mysqli_query($db_connect, $sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>

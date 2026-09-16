@@ -8,7 +8,7 @@
     include '../../config/conn.php';
     include '../../classes/check_rights.php';
     include '../../oauth/session_time.php';
-    if ($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 

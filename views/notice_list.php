@@ -12,7 +12,7 @@
     include "../oauth/session_time.php";
 
     //获取全局变量用户名参数
-    $user = $_SESSION['user'];
+    $user = $_SESSION['user'] ?? '';
 
     // 查询新闻公告表并且有配图的5条数据
     $news_notice_sql = "select * from news_notice order by sub_time desc";

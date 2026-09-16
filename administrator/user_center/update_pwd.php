@@ -4,16 +4,17 @@
      */
     session_save_path('../../session/');
     session_start();
-    include '../../config/conn.php';
+    require_once __DIR__ . '/../../config/conn.php';
+    $db_connect = get_db_connect();
     include '../../oauth/session_time.php';
-    if ($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
 
-    $usertype = $_SESSION['usertype']; //用户登录时的身份
+    $usertype = $_SESSION['usertype'] ?? '';
 
-    $id = $_SESSION['user_id']; //借阅卡号也是id
-    $username = $_SESSION['user']; //用户名、姓名
+    $id = $_SESSION['user_id'] ?? '';
+    $username = $_SESSION['user'] ?? '';
     //执行sql语句的查询语句
     if($usertype == '学生'){
         $check_sql = "select * from student where cardNo=$id";
@@ -27,8 +28,6 @@
         $check_sql = "select * from other_user where id=$id";
     }
     $result = mysqli_query($db_connect,$check_sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>
@@ -99,9 +98,9 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide-xs layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <img src="<?php echo $_SESSION['avatar'] ?>" class="layui-nav-img">
+                        <img src="<?php echo $_SESSION['avatar'] ?? '' ?>" class="layui-nav-img">
                         <?php
-                            echo "您好！". $_SESSION['user'];
+                            echo "您好！". ($_SESSION['user'] ?? '');
                         ?>
                     </a>
                     <dl class="layui-nav-child layui-nav-child-c">

@@ -4,28 +4,24 @@
      * @author Jason Liu
      * wangEditor上传
      */
-    // 设置文档类型：，utf-8支持中文文档
-    header("Content-Type:text/html;charset=utf-8");
+    header("Content-Type: application/json; charset=utf-8");
+    include '../../classes/upload_helper.php';
+    upload_require_auth('news_notice');
 
-    $file = $_FILES['article_img'];
-    // print_r($file);
-    $filename = $file["name"];
-    //上传的文件路径，可用于存入数据库的article_img字段
-    $filepath = "../../upload/article/article_img/".time().'_'.$filename;
-    $res = move_uploaded_file($file["tmp_name"],$filepath);
-    $href = substr($filepath,6);  //输出 upload/article/article_img/".time().'_'
+    if (!isset($_FILES['article_img'])) {
+        upload_json_response(array('errno' => 1, 'message' => '未选择上传文件！'));
+    }
 
-    if($res){
-        //前端需要即时反馈的返回值时 输出下列语句
-        echo json_encode(array(
-            'errno' => 0,  //返回值
+    $result = upload_save_image($_FILES['article_img'], 'article/article_img');
+    if ($result) {
+        upload_json_response(array(
+            'errno' => 0,
             'message' => 'success',
             'data' => array(
-                'url' => $filepath,   //图片路径
-                'alt' => '插图',  //图片描述文字
-                'href' => 'https://lib.crayon.vip/'.$href, //图片链接
+                'url' => $result['filepath'],
+                'alt' => '插图',
+                'href' => $result['href'],
             )
-        ),JSON_UNESCAPED_UNICODE);
-    }else{
-        echo json_encode(array('code' => 403, 'message' => 'failure'),JSON_UNESCAPED_UNICODE);
+        ));
     }
+    upload_json_response(array('errno' => 1, 'message' => '文件类型不支持或上传失败！'));

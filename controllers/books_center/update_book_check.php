@@ -4,88 +4,96 @@
      */
     session_save_path('../../session/');
     session_start();
-    include '../../config/conn.php';
-    include "../../classes/check_rights.php";
+    require_once __DIR__ . '/../../config/conn.php';
+    $db_connect = get_db_connect();
+    include __DIR__ . '/../../classes/check_rights.php';
+    include __DIR__ . '/../../classes/upload_helper.php';
 
-    // 添加时间和借阅状态默认
-    // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    $id = $_GET['id'];
-    $isbn = $_POST['ISBN'];  //ISBN
-	$name = $_POST['bookname']; //书名
-    $author = $_POST['author']; //作者
-    $publisher = $_POST['publisher']; //出版社
-	$price = $_POST['bookprice']; //定价
-	$number = $_POST['number']; //库存
-	$type = $_POST['booktype']; //图书类别
-    $place = $_POST['saveplace']; //保存书库
-	$mark = $_POST['mark']; //简介
-    // $file = $_POST['file'];  //获取上传的文件名
-    $update_time = date('Y-m-d H:i:s', time()); //更新时间
-    // $status = 0; //图书状态 0在库，1借出
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
+        echo json_encode(array('code' => 403, 'msg' => '您暂无权限操作！'),JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+    if (!isset($item['book_manager']) || $item['book_manager'] == 0) {
+        echo json_encode(array('code' => 403, 'msg' => '您暂无权限操作！'),JSON_UNESCAPED_UNICODE);
+        exit;
+    }
 
-    //上传的封面文件
-    $cover = $_FILES['book_cover'];
-    $filename = $cover["name"];   //封面文件名
-    //上传的文件路径，可用于存入数据库的book_cover字段
-    $filepath = "../../upload/bookCover/".time().'_'.$filename;
-    $href = 'https://lib.crayon.vip/'.substr($filepath,6);  //把图片地址存为远程路径
-    //同时删除对应的图书封面和图书源文件
-    $sql_file = "select book_cover,book_source from book_list where book_id='$id'";
+    $has_new_cover = isset($_FILES['book_cover']) && $_FILES['book_cover']['error'] !== UPLOAD_ERR_NO_FILE;
+
+    // Layui 异步上传封面（仅传文件，不含表单字段）
+    if ($has_new_cover && !isset($_POST['update'])) {
+        $upload_result = upload_save_image($_FILES['book_cover'], 'bookCover');
+        if (!$upload_result) {
+            echo json_encode(array('code' => 403, 'msg' => '封面上传失败！'),JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+        echo json_encode(array(
+            'code' => 0,
+            'msg' => 'success',
+            'data' => array('url' => $upload_result['filepath'])
+        ),JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    if (!isset($_POST['update'])) {
+        exit;
+    }
+
+    $id = $_GET['id'] ?? '';
+    $isbn = $_POST['ISBN'] ?? '';
+    $name = $_POST['bookname'] ?? '';
+    $author = $_POST['author'] ?? '';
+    $publisher = $_POST['publisher'] ?? '';
+    $price = $_POST['price'] ?? $_POST['bookprice'] ?? 0;
+    $number = $_POST['number'] ?? 0;
+    $type = $_POST['booktype'] ?? '';
+    $place = $_POST['saveplace'] ?? '';
+    $mark = $_POST['mark'] ?? '';
+    $update_time = date('Y-m-d H:i:s', time());
+
+    $coverPath = '';
+    $sql_file = "select book_cover from book_list where book_id='$id'";
     $res_file = mysqli_query($db_connect,$sql_file);
-    while($row = mysqli_fetch_array($res_file)){
-        if($row['book_cover'] == ''){
-            $coverPath = $row['book_cover']; //封面路径
-            break;
-        }
-    }
-    while($row = mysqli_fetch_array($res_file)){
-        if($row['book_source'] == ''){
-            $sourcePath = $row['book_source']; //源文件路径
-            break;
+    if ($row = mysqli_fetch_array($res_file)) {
+        if ($row['book_cover'] != '') {
+            $coverPath = $row['book_cover'];
         }
     }
 
-    if($item['book_manager'] == 0){
-        echo json_encode(array('code' => 403, 'msg' => '您暂无权限操作！'),JSON_UNESCAPED_UNICODE); //无权限
-    }else {
-        //执行sql更新语句
+    $href = '';
+    if ($has_new_cover) {
+        $upload_result = upload_save_image($_FILES['book_cover'], 'bookCover');
+        if (!$upload_result) {
+            echo "<script>alert('封面上传失败，请检查文件格式！');history.back();</script>";
+            exit;
+        }
+        $href = $upload_result['href'];
+    }
+
+    if ($has_new_cover) {
         $sql1 = "update book_list set ISBN='$isbn',book_name='$name',author='$author',publisher='$publisher',price='$price',number='$number',book_type='$type',save_position='$place',mark='$mark',update_date='$update_time',book_cover='$href' where book_id='$id'";
-        //当封面文件没有重新上传时不做更新$filePath
-        $sql2 = "update book_list set ISBN='$isbn',book_name='$name',author='$author',publisher='$publisher',price='$price',number='$number',book_type='$type',save_position='$place',mark='$mark',update_date='$update_time' where book_id='$id'";
-        // echo mysqli_error($db_connect);
-        if (isset($_POST['update'])) {
-            if ($filename != '') {
-                $result = mysqli_query($db_connect, $sql1);
-                //$row = mysqli_affected_rows($result); //影响行数
-                //重定向页面
-                if ($result) {
-                    //上传封面文件
-                    $res = move_uploaded_file($cover["tmp_name"], $filepath);
-                    if ($res) {
-                        if ($coverPath != '') {
-                            unlink($coverPath); //删除源封面
-                        }
-                        // echo 'success';
-                        //前端需要即时反馈的返回值时 输出下列语句
-                        // json_encode(array('code' => 0, 'msg' => 'success', 'data' => $filepath),JSON_UNESCAPED_UNICODE);
-                    }
-                    echo "<script>alert('更新图书信息成功！');parent.location.href = '../../administrator/books_center/book_list';</script>";
-                } else {
-                    echo "<script>alert('更新失败！请检查内容是否合法！');history.back();</script>";
-                }
-            } else {
-                $result2 = mysqli_query($db_connect, $sql2);
-                //重定向页面
-                if ($result2) {
-                    echo "<script>alert('更新图书信息成功！');parent.location.href = '../../administrator/books_center/book_list';</script>";
-                } else {
-                    echo "<script>alert('更新失败！请检查内容是否合法！');history.back();</script>";
+        $result = mysqli_query($db_connect, $sql1);
+        if ($result) {
+            if ($coverPath != '' && strpos($coverPath, 'upload/bookCover/') !== false) {
+                $old_cover_file = '../../' . ltrim(parse_url($coverPath, PHP_URL_PATH), '/');
+                if (is_file($old_cover_file)) {
+                    unlink($old_cover_file);
                 }
             }
+            echo "<script>alert('更新图书信息成功！');parent.location.href = '../../administrator/books_center/book_list';</script>";
+        } else {
+            echo "<script>alert('更新失败！请检查内容是否合法！');history.back();</script>";
+        }
+    } else {
+        $sql2 = "update book_list set ISBN='$isbn',book_name='$name',author='$author',publisher='$publisher',price='$price',number='$number',book_type='$type',save_position='$place',mark='$mark',update_date='$update_time' where book_id='$id'";
+        $result2 = mysqli_query($db_connect, $sql2);
+        if ($result2) {
+            echo "<script>alert('更新图书信息成功！');parent.location.href = '../../administrator/books_center/book_list';</script>";
+        } else {
+            echo "<script>alert('更新失败！请检查内容是否合法！');history.back();</script>";
         }
     }
 
-    mysqli_close($db_connect); //关闭数据库资源
-
+    mysqli_close($db_connect);

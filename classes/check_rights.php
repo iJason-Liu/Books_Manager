@@ -2,76 +2,85 @@
     /*
      * 权限判断
      */
-    // session_save_path('../session/');
-    session_start();
+    require_once __DIR__ . '/session_helper.php';
+    session_safe_start();
 
-    $db_connect = mysqli_connect('localhost', 'root', 'root') or die('数据库服务连接失败！');
-    mysqli_select_db($db_connect, 'library');
-    mysqli_query($db_connect,"SET NAMES 'UTF8'");
+    if (!isset($db_connect)) {
+        include dirname(__DIR__) . '/config/conn.php';
+        $db_connect = get_db_connect();
+    }
 
     $url = basename($_SERVER['REQUEST_URI']);  //当前访问的文件路径
-    $user_id = $_SESSION['user_id']; //用户id
-    $rights_sql = "select * from rights where id='$user_id'";
-    $rights_res = mysqli_query($db_connect, $rights_sql);
-    $item = mysqli_fetch_array($rights_res);
-    // die();
+    $url = strtok($url, '?');
+    $user_id = session_value('user_id');
+    $item = array();
+    if ($user_id !== '') {
+        $rights_sql = "select * from rights where id='$user_id'";
+        $rights_res = mysqli_query($db_connect, $rights_sql);
+        if ($rights_res) {
+            $rights_row = mysqli_fetch_array($rights_res);
+            if (is_array($rights_row)) {
+                $item = $rights_row;
+            }
+        }
+    }
 
     if ($url == 'worker_list'){
-        if ($item['lib_worker'] == 0) {
+        if (!isset($item['lib_worker']) || $item['lib_worker'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'reader_list') {
-        if ($item['reader_list'] == 0) {
+        if (!isset($item['reader_list']) || $item['reader_list'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'reader_kind') {
-        if ($item['reader_kind'] == 0) {
+        if (!isset($item['reader_kind']) || $item['reader_kind'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'book_kind') {
-        if ($item['book_kind'] == 0) {
+        if (!isset($item['book_kind']) || $item['book_kind'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'borrowBook') {
-        if ($item['borrowBook'] == 0) {
+        if (!isset($item['borrowBook']) || $item['borrowBook'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'record_search') {
-        if ($item['record_search'] == 0) {
+        if (!isset($item['record_search']) || $item['record_search'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'comment_center') {
-        if ($item['comment_center'] == 0) {
+        if (!isset($item['comment_center']) || $item['comment_center'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'news_notice') {
-        if ($item['news_notice'] == 0) {
+        if (!isset($item['news_notice']) || $item['news_notice'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'feedBack') {
-        if ($item['feedBack'] == 0) {
+        if (!isset($item['feedBack']) || $item['feedBack'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }
 
     if ($url == 'rights_center') {
-        if ($item['rights_center'] == 0) {
+        if (!isset($item['rights_center']) || $item['rights_center'] == 0) {
             echo "<script>alert('sorry，您暂无权限访问！');history.back();</script>";
         }
     }

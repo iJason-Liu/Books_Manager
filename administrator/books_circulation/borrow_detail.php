@@ -2,16 +2,14 @@
     /*
      * 借阅图书关联的读者详情显示页面
      */
-    session_save_path('../../session/');
-    session_start();
-    include '../../config/conn.php';
-    if ($_SESSION['is_login'] != 2) {
+    require_once __DIR__ . '/_init.php';
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
 
-    $card_id = $_GET['card_id'];  //借阅卡号
+    $card_id = $_GET['card_id'] ?? '';
     //查询匹配的数据表，判断是哪一个表在用查出的数据显示内容
     $stu_sql = "select * from student where cardNo='$card_id'";
     $stu = mysqli_num_rows(mysqli_query($db_connect, $stu_sql));
@@ -35,8 +33,6 @@
     }else if($other == 1){
         $result = mysqli_query($db_connect,$other_sql);
     }
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 <!DOCTYPE html>
 <html>

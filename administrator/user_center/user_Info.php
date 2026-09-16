@@ -6,7 +6,7 @@
     session_start();
     include '../../config/conn.php';
     include '../../oauth/session_time.php';
-    if ($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }else if ($_SESSION['usertype'] === '超级管理员') {
         echo "<script>alert('此模块暂未开放！');history.back();</script>";
@@ -28,8 +28,6 @@
         $check_sql = "select * from other_user where id='$id'";
     }
     $result = mysqli_query($db_connect,$check_sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 
 <!DOCTYPE html>

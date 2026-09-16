@@ -8,7 +8,7 @@
     include "../oauth/session_time.php";
 
     //获取全局变量用户名参数
-    $user = $_SESSION['user'];
+    $user = $_SESSION['user'] ?? '';
 
     //执行sql语句的查询语句
     $sql1 = "select book_name from book_list order by borrow_num desc limit 10";

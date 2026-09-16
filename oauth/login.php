@@ -5,7 +5,7 @@
     include '../config/conn.php';
     // 设置文档类型：，utf-8支持中文文档
     header("Content-Type:text/html;charset=utf-8");
-    $username = $_GET['username'];
+    $username = $_GET['username'] ?? '';
     // echo $username;
 
     //输出URL中无后缀的路径

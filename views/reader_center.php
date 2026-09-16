@@ -7,7 +7,7 @@
     include '../oauth/session_time.php';
 
     //获取全局变量-用户名参数
-    $user = $_SESSION['user'];
+    $user = $_SESSION['user'] ?? '';
 
 ?>
 

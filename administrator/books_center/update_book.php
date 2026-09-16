@@ -5,7 +5,7 @@
     session_save_path('../../session/');
     session_start();
     include '../../config/conn.php';
-    if ($_SESSION['is_login'] != 2) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] != 2) {
         echo "<script>alert('sorry，您似乎还没有登录！');location.href='../../oauth/login'</script>";
     }
     // 设置文档类型：，utf-8支持中文文档
@@ -22,8 +22,6 @@
     // 查询图书书库
     $stack_sql="select * from book_stack";
     $result_stack = mysqli_query($db_connect,$stack_sql);
-
-    mysqli_close($db_connect); //关闭数据库资源
 ?>
 <!DOCTYPE html>
 <html>
